@@ -1,0 +1,59 @@
+{
+  "name": "meteor-application-template-react-production",
+  "version": "1.0.3",
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    }
+  },
+  "private": true,
+  "dependencies": {
+    "@babel/runtime": "^7.14.8",
+    "classnames": "^2.3.1",
+    "core-js": "^3.16.0",
+    "faker": "^5.5.3",
+    "fast-check": "^2.17.0",
+    "graphql": "^15.5.1",
+    "lodash": "^4.17.21",
+    "meteor-node-stubs": "^1.1.0",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.3",
+    "simpl-schema": "^1.12.0",
+    "sweetalert": "^2.1.2",
+    "uniforms": "^3.5.2",
+    "uniforms-bridge-simple-schema-2": "^3.5.2",
+    "uniforms-semantic": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-meteor": "^7.3.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-utils": "^3.0.0",
+    "moment": "^2.29.1",
+    "puppeteer": "^10.1.0",
+    "replace-in-file": "^6.2.0",
+    "testcafe": "^1.15.1"
+  },
+  "scripts": {
+    "start": "meteor --no-release-check --exclude-archs web.browser.legacy,web.cordova --settings ../config/settings.development.json",
+    "lint": "eslint --quiet --fix --ext .jsx --ext .js ./imports",
+    "test-unit": "cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --exclude-archs web.browser.legacy,web.cordova --no-release-check --once --driver-package meteortesting:mocha --port 3100",
+    "test-integration": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --full-app --once --driver-package meteortesting:mocha --port 3100",
+    "test-acceptance-development": "testcafe chrome tests/*.testcafe.js",
+    "test-acceptance": "meteor reset && testcafe chrome:headless tests/*.testcafe.js -q --app \"meteor npm run start\"",
+    "test-all": "meteor reset && meteor npm run lint && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance",
+    "unimported": "npx unimported"
+  }
+}

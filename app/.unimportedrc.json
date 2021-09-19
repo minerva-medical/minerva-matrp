@@ -1,0 +1,20 @@
+{
+  "ignoreUnresolved": [],
+  "ignoreUnimported": [
+    "imports/api/base/BaseUtilities.js",
+    "imports/api/stuff/StuffCollection.methods.app-test.js",
+    "imports/build-version.js",
+    "imports/test-utilities/test-utilities.js"
+  ],
+  "ignoreUnused": [
+    "@babel/runtime",
+    "classnames",
+    "core-js",
+    "faker",
+    "fast-check",
+    "graphql",
+    "meteor-node-stubs",
+    "react-router",
+    "uniforms"
+  ]
+}
