@@ -1,0 +1,140 @@
+{
+  "brands": [{
+    "brand": "Brand A"
+  },{
+    "brand": "Brand B"
+  },{
+    "brand": "Brand C"
+  },{
+    "brand": "Brand D"
+  },{
+    "brand": "Brand E"
+  },{
+    "brand": "Brand F"
+  },{
+    "brand": "Brand G"
+  },{
+    "brand": "Brand H"
+  },{
+    "brand": "Brand I"
+  }],
+
+  "drugTypes": [{
+    "drugType": "Allergy & Cold Medicines"
+  },{
+    "drugType": "Analgesics/Antiinflammatory"
+  },{
+    "drugType": "Antihypertensives"
+  },{
+    "drugType": "Antimicrobials"
+  },{
+    "drugType": "Cardiac/Cholesterol"
+  },{
+    "drugType": "Dermatologic Preparations"
+  },{
+    "drugType": "Diabetes Meds"
+  },{
+    "drugType": "Ear and Eye Preparations"
+  },{
+    "drugType": "Emergency Kit"
+  },{
+    "drugType": "GI Meds"
+  },{
+    "drugType": "GYN Meds"
+  },{
+    "drugType": "Pulmonary"
+  },{
+    "drugType": "Smoking Cessation"
+  },{
+    "drugType": "Vitamins and Supplements"
+  }],
+
+  "drugs": [{
+    "drug": "Drug A"
+  },{
+    "drug": "Drug B"
+  },{
+    "drug": "Drug C"
+  },{
+    "drug": "Drug D"
+  },{
+    "drug": "Drug E"
+  },{
+    "drug": "Drug F"
+  },{
+    "drug": "Drug G"
+  },{
+    "drug": "Drug H"
+  },{
+    "drug": "Drug I"
+  }],
+
+  "locations": [{
+    "location": "Case 1"
+  },{
+    "location": "Case 2"
+  },{
+    "location": "Case 3"
+  },{
+    "location": "Case 4"
+  },{
+    "location": "Case 5"
+  },{
+    "location": "Case 6"
+  },{
+    "location": "Case 7"
+  },{
+    "location": "Case 8"
+  },{
+    "location": "Case 9"
+  }],
+
+  "lotIds": [{
+    "brand": "Brand A",
+    "lotId": "111A"
+  },{
+    "brand": "Brand B",
+    "lotId": "222B"
+  },{
+    "brand": "Brand C",
+    "lotId": "333C"
+  },{
+    "brand": "Brand D",
+    "lotId": "444D"
+  },{
+    "brand": "Brand E",
+    "lotId": "555E"
+  },{
+    "brand": "Brand F",
+    "lotId": "666F"
+  },{
+    "brand": "Brand G",
+    "lotId": "777G"
+  },{
+    "brand": "Brand H",
+    "lotId": "888H"
+  },{
+    "brand": "Brand I",
+    "lotId": "999I"
+  }],
+
+  "sites": [{
+    "site": "JOC"
+  },{
+    "site": "POST"
+  },{
+    "site": "Haleiwa"
+  },{
+    "site": "Kaka'ako"
+  },{
+    "site": "St. Augustines"
+  },{
+    "site": "Kalaeloa"
+  },{
+    "site": "Waianae"
+  },{
+    "site": "Waimanalo"
+  },{
+    "site": "First United Methodist"
+  }]
+}
