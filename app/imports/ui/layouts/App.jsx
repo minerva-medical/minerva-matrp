@@ -22,25 +22,32 @@ import { ROLE } from '../../api/role/Role';
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
   render() {
+    const LoggedInRoutes = () => (
+      <div>
+        <NavBar/>
+        <Switch>
+          <Route path="/signin" component={Signin}/>
+          <ProtectedRoute path="/list" component={ListStuff}/>
+          <ProtectedRoute path="/add" component={AddStuff}/>
+          <ProtectedRoute path="/about" component={About}/>
+          <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+          <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+          <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+          <Route component={NotFound}/>
+        </Switch>
+        <Footer/>
+      </div>
+    );
+
     return (
       <Router>
-        <div>
-          <NavBar/>
-          <Switch>
-            <Route exact path="/" component={Landing}/>
-            <Route path="/signin" component={Signin}/>
-            <Route path="/signup" component={Signup}/>
-            <Route path="/signout" component={Signout}/>
-            <ProtectedRoute path="/list" component={ListStuff}/>
-            <ProtectedRoute path="/add" component={AddStuff}/>
-            <ProtectedRoute path="/about" component={About}/>
-            <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-            <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
-            <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-            <Route component={NotFound}/>
-          </Switch>
-          <Footer/>
-        </div>
+        <Switch>
+          <Route exact path="/" component={Landing}/>
+          <Route path="/signup" component={Signup}/>
+          <ProtectedRoute path="/signout" component={Signout}/>
+          <Route component={LoggedInRoutes}/>
+          <Route component={NotFound}/>
+        </Switch>
       </Router>
     );
   }

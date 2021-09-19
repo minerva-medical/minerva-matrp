@@ -3,7 +3,7 @@
 @import url("inventory.css");
 
 .signOutPage{
-  // background-image: url('../images/logout.png');
+  background-image: url('../images/logout.png');
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -16,7 +16,7 @@
 }
 
 .landingPage{
- // background-image: url('../images/logout.png');
+  background-image: url('../images/logout.png');
   /* Full height */
   min-height: 500px;
 
