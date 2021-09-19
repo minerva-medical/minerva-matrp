@@ -1,0 +1,13 @@
+#add-form .ui.header{
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+#add-form .buttons-div {
+  border-top: 1px solid black;
+}
+
+#add-form .ui.form .unit-select .selection.dropdown {
+  width: 5rem;
+  min-width: 5rem;
+}

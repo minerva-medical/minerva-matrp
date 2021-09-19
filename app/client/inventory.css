@@ -1,0 +1,13 @@
+#inventory-status .ui.header{
+  border-bottom: 1px solid black;
+  padding-bottom: 1em;
+}
+
+#inventory-status .buttons-div {
+  border-top: 1px solid black;
+}
+
+#inventory-status .ui.form .unit-select .selection.dropdown {
+  width: 5rem;
+  min-width: 5rem;
+}

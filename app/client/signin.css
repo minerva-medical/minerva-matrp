@@ -1,0 +1,56 @@
+#signin-div {
+  background-color: #c2d9b2;
+  padding: 100px 0;
+}
+
+#signin-div h1 {
+  color: white;
+  font-size: 5rem;
+}
+
+#signin-div h2 {
+  color: white;
+  margin-bottom: 2rem;
+}
+
+#signin-div .stethoscope.icon {
+  color: white;
+  font-size: 5rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#signin-div .ui.form {
+  background-color: white;
+  border-radius: 20px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem 2rem 3rem 2rem;
+  box-shadow: 10px 10px #5b825a;
+  position: relative;
+}
+
+#signin-div .ui.form input {
+  background-color: #dde0e8;
+}
+
+#signin-div .ui.form .ui.button {
+  position: absolute;
+  bottom: -20px;
+  right: -10%;
+  border-radius: 500rem;
+  background-color: white;
+  border: 1px solid gray;
+  color: black;
+  padding: 1.2em 3.6em;
+}
+
+@media only screen and (max-width: 700px) {
+  #signin-div .seven.wide.column {
+    display: none;
+  }
+
+  #signin-div .nine.wide.column {
+    width: 100% !important;
+  }
+}

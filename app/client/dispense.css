@@ -1,0 +1,16 @@
+#dispense-form .ui.form {
+  border-top: 1px solid black;
+}
+
+#dispense-form .buttons-div {
+  border-top: 1px solid black;
+}
+
+#dispense-form .ui.form .unit-select .selection.dropdown {
+  width: 5rem;
+  min-width: 5rem;
+}
+
+#inventory-status {
+  margin-top: 2em;
+}

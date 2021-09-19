@@ -2,6 +2,12 @@ import { Meteor } from 'meteor/meteor';
 import { Stuffs } from '../stuff/StuffCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { UserProfiles } from '../user/UserProfileCollection';
+import { Drugs } from '../drug/DrugCollection';
+import { DrugTypes } from '../drugType/DrugTypeCollection';
+import { Brands } from '../brand/BrandCollection';
+import { LotIds } from '../lotId/LotIdCollection';
+import { Locations } from '../location/LocationCollection';
+import { Sites } from '../site/SiteCollection';
 
 class MATRPClass {
   collections;
@@ -16,6 +22,12 @@ class MATRPClass {
       AdminProfiles,
       Stuffs,
       UserProfiles,
+      Drugs,
+      DrugTypes,
+      Brands,
+      LotIds,
+      Locations,
+      Sites,
     ];
     /*
      * A list of collection class instances in the order required for them to be sequentially loaded from a file.
@@ -24,6 +36,12 @@ class MATRPClass {
       AdminProfiles,
       UserProfiles,
       Stuffs,
+      Drugs,
+      DrugTypes,
+      Brands,
+      LotIds,
+      Locations,
+      Sites,
     ];
 
     /*

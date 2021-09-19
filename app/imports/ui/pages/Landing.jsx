@@ -1,21 +1,26 @@
 import React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Header, Divider, Button } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
-  <Grid id={PAGE_IDS.LANDING} verticalAlign='middle' textAlign='center' container>
+  <div className="landing-center">
+    <Grid id={PAGE_IDS.LANDING} verticalAlign='middle' textAlign='center' container centered>
+      <Header className="landing-text" as="h1">MINERVA MEDICAL</Header>
+    </Grid>
+    <Divider section hidden/>
+    <Grid columns={2} verticalAlign="top" textAlign="center" container>
+      <Grid.Column>
+        <Button size="massive" as={NavLink} activeClassName="" exact to="/signup" key='signup' inverted
+          style={{ font: 'Lato' }}>REGISTER</Button>
+      </Grid.Column>
+      <Grid.Column>
+        <Button size="massive" as={NavLink} activeClassName="" exact to="/signin" key='signin' inverted
+          style={{ font: 'Lato' }}>LOGIN</Button>
+      </Grid.Column>
+    </Grid>
+  </div>
 
-    <Grid.Column width={4}>
-      <Image size='small' circular src="/images/meteor-logo.png" />
-    </Grid.Column>
-
-    <Grid.Column width={8}>
-      <h1>Welcome to this template</h1>
-      <p>Now get to work and modify this app!</p>
-    </Grid.Column>
-
-  </Grid>
 );
-
 export default Landing;
