@@ -7,7 +7,7 @@ const About = () => (
   <Grid id={PAGE_IDS.ABOUT_US} verticalAlign='middle' textAlign='center' container centered>
     <Grid.Column width={12}>
       <Header as="h2" textAlign="center">
-        <p>About Us</p>
+        About Us
       </Header>
       <p>Minerva Medical is a project for ICS 414 at UH Manoa, the project page can be seen
         <a href="https://minerva-medical.github.io" target='_blank' rel='noreferrer'> here </a>

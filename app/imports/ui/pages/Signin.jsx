@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Container, Form, Grid, Header, Message, Icon } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
@@ -27,7 +27,7 @@ const Signin = ({ location }) => {
       setPassword(value);
       break;
     default:
-      // do nothing.
+        // do nothing.
     }
   };
 
@@ -44,21 +44,27 @@ const Signin = ({ location }) => {
   };
 
   // Render the signin form.
-  const { from } = location.state || { from: { pathname: '/' } };
+  const { from } = location.state || { from: { pathname: '/list' } };
   // if correct authentication, redirect to page instead of login screen
   if (redirectToReferer) {
-    return <Redirect to={from} />;
+    return <Redirect to={from}/>;
   }
   // Otherwise return the Login form.
   return (
-    <Container id={PAGE_IDS.SIGN_IN}>
-      <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
-        <Grid.Column>
-          <Header as="h2" textAlign="center">
-            Login to your account
-          </Header>
-          <Form onSubmit={submit}>
-            <Segment stacked>
+    <div id='signin-div'>
+      <Container id={PAGE_IDS.SIGN_IN}>
+        <Grid textAlign="center" centered columns={2}>
+          <Grid.Column width={7}>
+            <Icon name='stethoscope' size='huge' style={{ visibility: 'hidden' }}/>
+            <Header as="h1" textAlign="center">
+                MINERVA
+            </Header>
+          </Grid.Column>
+          <Grid.Column width={9}>
+            <Header as="h2" textAlign="center">
+                  NICE TO SEE YOU AGAIN, LOGIN AND GET STARTED!
+            </Header>
+            <Form onSubmit={submit}>
               <Form.Input
                 label="Email"
                 id={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
@@ -79,24 +85,21 @@ const Signin = ({ location }) => {
                 type="password"
                 onChange={handleChange}
               />
-              <Form.Button id={COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} content="Submit" />
-            </Segment>
-          </Form>
-          <Message>
-            <Link to="/signup">Click here to Register</Link>
-          </Message>
-          {error === '' ? (
-            ''
-          ) : (
-            <Message
-              error
-              header="Login was not successful"
-              content={error}
-            />
-          )}
-        </Grid.Column>
-      </Grid>
-    </Container>
+              <Form.Button id={COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} content="Login"/>
+            </Form>
+            {error === '' ? (
+              ''
+            ) : (
+              <Message
+                error
+                header="Login was not successful"
+                content={error}
+              />
+            )}
+          </Grid.Column>
+        </Grid>
+      </Container>
+    </div>
   );
 };
 
