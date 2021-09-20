@@ -18,6 +18,7 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
+import Dispense from '../pages/Dispense';
 import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/signup" component={Signup}/>
           <Route path="/signout" component={Signout}/>
           <ProtectedRoute path="/about" component={About}/>
+          <ProtectedRoute path="/dispense" component={Dispense}/>
           <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
           <ProtectedRoute path="/list" component={ListStuff}/>
           <ProtectedRoute path="/add" component={AddStuff}/>

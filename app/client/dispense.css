@@ -1,16 +1,56 @@
+#dispense-form {
+  padding: 1em 3em;
+}
+
+#dispense-form h2 {
+  border-bottom: 1px solid black;
+}
+
 #dispense-form .ui.form {
-  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding-bottom: 1em;
+}
+
+#dispense-form .sub.header {
+  padding-top: 0.5em;
+}
+
+#dispense-form label {
+  font-size: 1em;
+}
+
+#dispense-form .date-input input {
+  height: 2.71428571em;
 }
 
 #dispense-form .buttons-div {
-  border-top: 1px solid black;
+  padding: 1em;
 }
 
-#dispense-form .ui.form .unit-select .selection.dropdown {
-  width: 5rem;
-  min-width: 5rem;
+#dispense-form .clear-button {
+  min-width: 120px;
+  border-radius: 500rem;
+  padding: 1em 1.5em;
+  background-color: rgb(29, 62, 102);
+  color: white;
 }
 
-#inventory-status {
-  margin-top: 2em;
+#dispense-form .submit-button {
+  min-width: 120px;
+  border-radius: 500rem;
+  padding: 1em 1.5em;
+  background-color: #C1D9B1;
+  color: rgb(29, 62, 102);
+}
+
+#dispense-form input, .ui.search.selection.dropdown, .ui.basic.label, textarea {
+  background-color: #dde0e8 !important;
+}
+
+#dispense-form ::placeholder {
+  color: grey;
+}
+
+#dispense-form .ui.dropdown:not(.button) > .default.text, .ui.default.dropdown:not(.button) > .text {
+  color: grey
 }

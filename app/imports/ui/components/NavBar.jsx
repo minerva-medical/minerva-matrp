@@ -16,28 +16,54 @@ const NavBar = ({ currentUser }) => {
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
         <Header inverted as='h1'>Minerva</Header>
       </Menu.Item>,
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact to="/about" key='list'>About Us</Menu.Item>
-      {currentUser ? (
-        [<Menu.Item id={COMPONENT_IDS.NAVBAR_ADD_INVENTORY} as={NavLink} activeClassName="active" exact to="/add" key='add'>Add to Inventory<Icon name='plus'/></Menu.Item>,
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE} as={NavLink} activeClassName="active" exact to="/list" key='list'>Dispense Inventory</Menu.Item>,
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/list" key='list'>Inventory Status</Menu.Item>,
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active" exact to="/dispenseLog" key='dispenseLog'>Dispense Log</Menu.Item>]
-      ) : ''}
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact to="/about" key='list'>
+        About Us
+      </Menu.Item>
+      {
+        currentUser ? (
+          [
+            <Menu.Item id={COMPONENT_IDS.NAVBAR_ADD_INVENTORY} as={NavLink} activeClassName="active" exact to="/add"
+              key='add'>
+              Add to Inventory
+              <Icon name='plus'/>
+            </Menu.Item>,
+            <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE} as={NavLink} activeClassName="active" exact to="/dispense"
+              key='dispense'>
+              Dispense Inventory
+            </Menu.Item>,
+            <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/list"
+              key='list'>
+              Inventory Status
+            </Menu.Item>,
+            <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active" exact
+              to="/dispenseLog" key='dispenseLog'>
+              Dispense Log
+            </Menu.Item>,
+          ]
+        ) : ''
+      }
       <Menu.Item position="right">
-        {currentUser === '' ? (
-          <Dropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} text="Login" pointing="top right" icon={'user'}>
-            <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} icon="user" text="Sign In" as={NavLink} exact to="/signin" />
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP} icon="add user" text="Sign Up" as={NavLink} exact to="/signup" />
-            </Dropdown.Menu>
-          </Dropdown>
-        ) : (
-          <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right" icon={'user'}>
-            <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
-            </Dropdown.Menu>
-          </Dropdown>
-        )}
+        {
+          currentUser === '' ?
+            (
+              <Dropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} text="Login" pointing="top right" icon={'user'}>
+                <Dropdown.Menu>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} icon="user" text="Sign In"
+                    as={NavLink} exact to="/signin" />
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP} icon="add user" text="Sign Up"
+                    as={NavLink} exact to="/signup" />
+                </Dropdown.Menu>
+              </Dropdown>
+            ) :
+            (
+              <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right" icon={'user'}>
+                <Dropdown.Menu>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Sign Out" as={NavLink} exact
+                    to="/signout" />
+                </Dropdown.Menu>
+              </Dropdown>
+            )
+        }
       </Menu.Item>
     </Menu>
   );

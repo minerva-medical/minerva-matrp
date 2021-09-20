@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Container, Loader, Table, Segment, Divider, Dropdown, Pagination, Grid } from 'semantic-ui-react';
+import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** Renders the Page for Dispensing Inventory. */
