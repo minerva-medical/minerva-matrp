@@ -21,7 +21,7 @@ const NavBar = ({ currentUser }) => {
         [<Menu.Item id={COMPONENT_IDS.NAVBAR_ADD_INVENTORY} as={NavLink} activeClassName="active" exact to="/add" key='add'>Add to Inventory<Icon name='plus'/></Menu.Item>,
           <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE} as={NavLink} activeClassName="active" exact to="/list" key='list'>Dispense Inventory</Menu.Item>,
           <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/list" key='list'>Inventory Status</Menu.Item>,
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active" exact to="/list" key='list'>Dispense Log</Menu.Item>]
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active" exact to="/dispenseLog" key='dispenseLog'>Dispense Log</Menu.Item>]
       ) : ''}
       <Menu.Item position="right">
         {currentUser === '' ? (
