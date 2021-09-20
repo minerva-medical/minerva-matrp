@@ -136,5 +136,107 @@
     "site": "Waimanalo"
   },{
     "site": "First United Methodist"
-  }]
+  }],
+
+  "medications": [
+    {
+      "drug": "Drug A",
+      "drugType": "Allergy & Cold Medicines",
+      "brand": "Brand A",
+      "lotId": "111A",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": true,
+      "location": "Case 1",
+      "purchased": false
+    },
+    {
+      "drug": "Drug B",
+      "drugType": "Analgesics/Antiinflammatory",
+      "brand": "Brand B",
+      "lotId": "222B",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": false,
+      "location": "Case 2",
+      "purchased": true
+    },
+    {
+      "drug": "Drug C",
+      "drugType": "Antihypertensives",
+      "brand": "Brand C",
+      "lotId": "333C",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": true,
+      "location": "Case 3",
+      "purchased": false
+    },
+    {
+      "drug": "Drug D",
+      "drugType": "Antimicrobials",
+      "brand": "Brand D",
+      "lotId": "444D",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": false,
+      "location": "Case 4",
+      "purchased": true
+    },
+    {
+      "drug": "Drug E",
+      "drugType": "Cardiac/Cholesterol",
+      "brand": "Brand E",
+      "lotId": "555E",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": true,
+      "location": "Case 5",
+      "purchased": false
+    },
+    {
+      "drug": "Drug F",
+      "drugType": "Dermatologic Preparations",
+      "brand": "Brand F",
+      "lotId": "666F",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": false,
+      "location": "Case 6",
+      "purchased": true
+    },
+    {
+      "drug": "Drug G",
+      "drugType": "Diabetes Meds",
+      "brand": "Brand G",
+      "lotId": "777G",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": true,
+      "location": "Case 7",
+      "purchased": false
+    },
+    {
+      "drug": "Drug H",
+      "drugType": "Ear and Eye Preparations",
+      "brand": "Brand H",
+      "lotId": "888H",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": false,
+      "location": "Case 8",
+      "purchased": true
+    },
+    {
+      "drug": "Drug I",
+      "drugType": "Emergency Kit",
+      "brand": "Brand I",
+      "lotId": "999I",
+      "expire": "2021-10-10",
+      "quantity": 60,
+      "isTabs": true,
+      "location": "Case 9",
+      "purchased": false
+    }
+  ]
 }

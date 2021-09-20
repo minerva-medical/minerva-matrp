@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Stuffs } from '../../api/stuff/StuffCollection';
+import { Medications } from '../../api/medication/MedicationCollection';
 import { Brands } from '../../api/brand/BrandCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Drugs } from '../../api/drug/DrugCollection';
@@ -20,6 +21,13 @@ if (Stuffs.count() === 0) {
     console.log('Creating default data.');
     Meteor.settings.defaultData.map(data => addData(data));
   }
+}
+
+if (Meteor.settings.loadAssetsFile && Medications.count() === 0) {
+  const assetsFileName = 'data.json';
+  console.log(`Loading data from private/${assetsFileName}`);
+  const jsonData = JSON.parse(Assets.getText(assetsFileName));
+  jsonData.medications.map(medication => Medications.define(medication));
 }
 
 if (Meteor.settings.loadAssetsFile && Brands.count() === 0) {

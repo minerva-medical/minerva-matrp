@@ -8,6 +8,7 @@ import { Brands } from '../brand/BrandCollection';
 import { LotIds } from '../lotId/LotIdCollection';
 import { Locations } from '../location/LocationCollection';
 import { Sites } from '../site/SiteCollection';
+import { Medications } from '../medication/MedicationCollection';
 
 class MATRPClass {
   collections;
@@ -28,6 +29,7 @@ class MATRPClass {
       LotIds,
       Locations,
       Sites,
+      Medications,
     ];
     /*
      * A list of collection class instances in the order required for them to be sequentially loaded from a file.
@@ -42,6 +44,7 @@ class MATRPClass {
       LotIds,
       Locations,
       Sites,
+      Medications,
     ];
 
     /*
