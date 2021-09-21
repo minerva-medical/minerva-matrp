@@ -19,8 +19,15 @@
   font-size: 1em;
 }
 
-#dispense-form .date-input input {
+#dispense-form input[type="date"] {
   height: 2.71428571em;
+}
+
+#dispense-form .x-icon {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  cursor: pointer;
 }
 
 #dispense-form .buttons-div {
@@ -53,4 +60,18 @@
 
 #dispense-form .ui.dropdown:not(.button) > .default.text, .ui.default.dropdown:not(.button) > .text {
   color: grey
+}
+
+#dispense-form .ui.basic.label.label {
+  width: 50px;
+}
+
+#dispense-form .ui.form .field {
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 767px) {
+  #dispense-form .filler-column {
+    display: none;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Input } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Input, Icon } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -91,11 +91,11 @@ const DispenseMedication = (props) => {
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input type="date" label='Date Dispensed' name='dateDispensed' className='date-input'
+                <Form.Input type="date" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
-              <Grid.Column />
-              <Grid.Column />
+              <Grid.Column className='filler-column' />
+              <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
@@ -128,8 +128,10 @@ const DispenseMedication = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
+                {/* expiration date may be null */}
                 <Form.Input type='date' label='Expiration Date' className='date-input'
                   name='expire' onChange={handleChange} value={fields.expire}/>
+                <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
@@ -137,7 +139,7 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Field>
-                  <label>Quantity</label>
+                  <label>Quantity (tabs/mL)</label>
                   <Input
                     label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
                     type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
