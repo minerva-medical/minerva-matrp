@@ -23,35 +23,38 @@ const getOptions = (arr, name) => {
 /** On submit, insert the data. */
 const submit = data => {
   // TODO: handle submit
-  // swal('Success', 'Item added successfully', 'success');
   swal('Success', JSON.stringify(data), 'success');
 };
 
 // TODO: simplify
 const validateForm = data => {
+  const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
-  if (!data.dispensedTo) {
-    errorMsg += 'Dispensed To cannot be empty.\n';
+  // the required String fields
+  const requiredFields = ['dateDispensed', 'dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
+
+  // check required fields
+  requiredFields.forEach(field => {
+    if (!submitData[field]) {
+      errorMsg += `${field} cannot be empty.\n`;
+    }
+  });
+
+  // check new site; submit either site or newSite
+  if (submitData.site === 'OTHER') {
+    if (!submitData.newSite) {
+      errorMsg += 'newSite cannot be empty.\n';
+    } else {
+      delete submitData.site;
+    }
+  } else {
+    delete submitData.newSite;
   }
-  if (!data.site) {
-    errorMsg += 'Site cannot be empty.\n';
-  }
-  if (!data.drug) {
-    errorMsg += 'Drug Name cannot be empty.\n';
-  }
-  if (!data.lotId) {
-    errorMsg += 'Lot Number cannot be empty.\n';
-  }
-  if (!data.brand) {
-    errorMsg += 'Brand cannot be empty.\n';
-  }
-  if (!data.quantity) {
-    errorMsg += 'Quantity cannot be empty.\n';
-  }
+
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    submit(data);
+    submit(submitData);
   }
 };
 
@@ -63,6 +66,7 @@ const DispenseMedication = (props) => {
     dateDispensed: new Date().toLocaleDateString('fr-CA'),
     drug: '',
     quantity: '',
+    unit: '', // unit will autofill on selection of drug
     brand: '',
     lotId: '',
     expire: '',
