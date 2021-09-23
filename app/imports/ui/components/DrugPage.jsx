@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Grid, Portal, Button, Segment, Header } from 'semantic-ui-react';
+import { Grid, Portal, Button, Segment, Header, Container, GridColumn, Item, ItemGroup, List, ListItem, ItemMeta,
+  ItemContent, ItemExtra, ItemDescription } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -9,8 +10,24 @@ const Drug = () => {
   const [state, setState] = useState({ open: false });
   const handleClose = () => setState({ open: false });
   const handleOpen = () => setState({ open: true });
-
   const { open } = state;
+
+  const drugBox = {
+    backgroundColor: 'white',
+    borderRadius: '15px',
+    padding: '20px',
+    paddingLeft: '50px',
+    paddingRight: '50px',
+    margin: '10px 135px 10px 135px',
+  };
+  const notes = {
+    backgroundColor: '#DCDED1',
+    borderRadius: '15px',
+    padding: '20px',
+    marginTop: '15px',
+    marginLeft: '10px',
+    marginRight: '-40px',
+  };
   return (
     <Grid columns={2}>
       <Grid.Column>
@@ -24,15 +41,59 @@ const Drug = () => {
         <Portal onClose={handleClose} open={open}>
           <Segment
             style={{
-              left: '40%',
+              left: '10%',
               position: 'fixed',
-              top: '50%',
+              top: '15%',
               zIndex: 1000,
             }}
           >
-            <Header>This is a controlled portal</Header>
-            <p>Portals have tons of great callback functions to hook into.</p>
-            <p>To close, simply click the close button or click away</p>
+            <Container>
+              <Header as="h2" textAlign="center">Drug Page</Header>
+              <Segment style={drugBox} size='medium'>
+                <Grid container divided columns='equal' stackable textAlign='justified'>
+                  <GridColumn>
+                    <ItemGroup relaxed>
+                      <Item>
+                        <ItemContent>
+                          <Header as='h2'> Aspirin 81 mg</Header>
+                          <ItemMeta>Nonsteroidal anti-inflammatory drug (NSAID)</ItemMeta>
+                          <ItemDescription>
+                            <List size='large'>
+                              <ListItem>Brand: Bayer</ListItem>
+                              <ListItem>Lot Number: 123456</ListItem>
+                              <ListItem>Expiration Date: 09/16/2021</ListItem>
+                              <ListItem>Quantity: 30 tabs</ListItem>
+                              <ListItem>Supply: 300</ListItem>
+                              <ListItem>Storage Location: Case 4</ListItem>
+                              <ListItem>Received: Purchased</ListItem> <br/>
+                            </List>
+                          </ItemDescription>
+                          <ItemExtra>
+                            <Button size='medium'>Edit</Button>
+                          </ItemExtra>
+                        </ItemContent>
+                      </Item>
+                    </ItemGroup>
+                  </GridColumn>
+                  <GridColumn>
+                    <Segment style={notes}>
+                      <Container fluid>
+                        <ItemGroup>
+                          <Item>
+                            <ItemContent>
+                              <Header as='h3'>Notes</Header>
+                              <ItemDescription>To be prescribed to patients that are at risk for myocardial infarction or
+                                stroke. Prescribed as take 1 tab daily.
+                              </ItemDescription>
+                            </ItemContent>
+                          </Item>
+                        </ItemGroup>
+                      </Container>
+                    </Segment>
+                  </GridColumn>
+                </Grid>
+              </Segment>
+            </Container>
 
             <Button
               content='Close Portal'
