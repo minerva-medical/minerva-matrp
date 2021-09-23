@@ -61,7 +61,7 @@ const DispenseLog = () => (
         defaultValue={'10'}
       />
             Total count: {'200'}
-      <Table celled selectable sortable>
+      <Table celled selectable sortable >
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell
