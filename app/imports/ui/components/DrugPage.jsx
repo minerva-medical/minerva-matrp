@@ -23,7 +23,7 @@ const Drug = () => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>Show Modal</Button>}
+      trigger={<Button size='mini' circular icon='info' color='linkedin'/>}
       size='large'
       dimmer='blurring'
       id={COMPONENT_IDS.DRUG_PAGE}
@@ -61,11 +61,15 @@ const Drug = () => {
                       <ItemContent>
                         <Header as='h3'>Notes</Header>
                         <ItemDescription>To be prescribed to patients that are at risk for myocardial infarction or
-                              stroke. Prescribed as take 1 tab daily. Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                          dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            stroke. Prescribed as take 1 tab daily. Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                            irure
+                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            Excepteur
+                            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum.
                         </ItemDescription>
                       </ItemContent>
                     </Item>
@@ -78,7 +82,7 @@ const Drug = () => {
       </Modal.Content>
       <Modal.Actions>
         <Button color='black' onClick={() => setOpen(false)}>
-              Close
+            Close
         </Button>
         <Button
           content="Edit"
@@ -97,11 +101,16 @@ const Drug = () => {
 
 // Require a document to be passed to this component.
 Drug.propTypes = {
-  stuff: PropTypes.shape({
-    name: PropTypes.string,
+  Drug: PropTypes.shape({
+    drug: PropTypes.string,
+    drugType: PropTypes.string,
+    brand: PropTypes.string,
+    lotId: PropTypes.string,
+    expire: PropTypes.string, // date string "YYYY-MM-DD"
     quantity: PropTypes.number,
-    condition: PropTypes.string,
-    _id: PropTypes.string,
+    isTabs: PropTypes.bool,
+    location: PropTypes.string,
+    purchased: PropTypes.bool,
   }).isRequired,
 };
 

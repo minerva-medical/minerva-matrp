@@ -27,33 +27,39 @@ import { ROLE } from '../../api/role/Role';
 const App = () => {
   const currentUser = useTracker(() => Meteor.userId(), []);
 
+  const withNav = () => (
+    <div>
+      {
+        currentUser &&
+          <NavBar/>
+      }
+      <Switch>
+        <ProtectedRoute path="/about" component={Test}/>
+        <ProtectedRoute path="/dispense" component={Dispense}/>
+        <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
+        <ProtectedRoute path="/list" component={ListStuff}/>
+        <ProtectedRoute path="/add" component={AddStuff}/>
+        <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+        <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+        <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+        <Route component={NotFound}/>
+      </Switch>
+      {
+        currentUser &&
+          <Footer/>
+      }
+    </div>
+  );
   return (
     <Router>
-      <div>
-        {
-          currentUser &&
-          <NavBar/>
-        }
-        <Switch>
-          <Route exact path="/" component={Landing}/>
-          <Route path="/signin" component={Signin}/>
-          <Route path="/signup" component={Signup}/>
-          <Route path="/signout" component={Signout}/>
-          <ProtectedRoute path="/about" component={Test}/>
-          <ProtectedRoute path="/dispense" component={Dispense}/>
-          <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
-          <ProtectedRoute path="/list" component={ListStuff}/>
-          <ProtectedRoute path="/add" component={AddStuff}/>
-          <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-          <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
-          <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-          <Route component={NotFound}/>
-        </Switch>
-        {
-          currentUser &&
-          <Footer/>
-        }
-      </div>
+      <Switch>
+        <Route exact path="/" component={Landing}/>
+        <Route path="/signin" component={Signin}/>
+        <Route path="/signup" component={Signup}/>
+        <Route path="/signout" component={Signout}/>
+        <Route component={withNav}/>
+        <Route component={NotFound}/>
+      </Switch>
     </Router>
   );
 };
