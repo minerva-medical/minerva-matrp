@@ -1,10 +1,11 @@
 export const COMPONENT_IDS = {
   LIST_STUFF_EDIT: 'list-stuff-edit',
-  NAVBAR_ADD_INVENTORY: 'navbar-add-stuff',
-  NAVBAR_STATUS: 'navbar-list-stuff',
-  NAVBAR_DISPENSE: 'navbar-list-stuff',
-  NAVBAR_DISPENSE_LOG: 'navbar-list-stuff',
-  NAVBAR_ABOUT_US: 'navbar-list-stuff',
+  NAVBAR_ADD_INVENTORY: 'navbar-add-inventory',
+  NAVBAR_ADD_STUFF: 'navbar-add-stuff',
+  NAVBAR_STATUS: 'navbar-status',
+  NAVBAR_DISPENSE: 'navbar-dispense',
+  NAVBAR_DISPENSE_LOG: 'navbar-dispense-log',
+  NAVBAR_ABOUT_US: 'navbar-about-us',
   NAVBAR_LIST_STUFF_ADMIN: 'navbar-list-stuff-admin',
   NAVBAR_CURRENT_USER: 'navbar-current-user',
   NAVBAR_LANDING_PAGE: 'navbar-landing-page',
@@ -20,4 +21,6 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_EMAIL: 'sign-up-form-email',
   SIGN_UP_FORM_PASSWORD: 'sign-up-form-password',
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
+  LANDING_TO_SIGN_IN: 'landing-to-sign-in',
+  LANDING_TO_REGISTER: 'landing-to-register',
 };

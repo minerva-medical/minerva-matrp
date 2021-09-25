@@ -4,8 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Menu, Dropdown, Header, Icon } from 'semantic-ui-react';
-// import { Roles } from 'meteor/alanning:roles';
-// import { ROLE } from '../../api/role/Role';
+import { Roles } from 'meteor/alanning:roles';
+import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
@@ -42,6 +42,14 @@ const NavBar = ({ currentUser }) => {
           ]
         ) : ''
       }
+      {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
+        [<Menu.Item id={COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN} as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>,
+          <Dropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} item text="Manage" key="manage-dropdown">
+            <Dropdown.Menu>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} exact to="/manage-database" content="Database" />
+            </Dropdown.Menu>
+          </Dropdown>]
+      ) : ''}
       <Menu.Item position="right">
         {
           currentUser === '' ?
