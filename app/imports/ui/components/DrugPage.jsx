@@ -16,7 +16,7 @@ const Drug = () => {
     borderRadius: '15px',
     marginTop: '15px',
     marginLeft: '10px',
-    marginRight: '100px',
+    marginRight: '110px',
   };
   return (
     <Modal

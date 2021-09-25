@@ -53,8 +53,8 @@ const App = () => {
   return (
     <Router>
       <Switch>
+        <Route exact path="/signin" component={Signin}/>
         <Route exact path="/" component={Landing}/>
-        <Route path="/signin" component={Signin}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/signout" component={Signout}/>
         <Route component={withNav}/>
