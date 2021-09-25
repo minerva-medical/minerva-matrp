@@ -24,17 +24,18 @@ const reason = [
   /** Render the form. */
 const DispenseLog = () => (
   <Container id={PAGE_IDS.DISPENSE_LOG}>
-    <Header as="h2">
-      <Header.Content>
-              History Dispense Log
-        <Header.Subheader>
-          <i>Below is a history log of dispensed inventories.</i>
-        </Header.Subheader>
-      </Header.Content>
-    </Header>
     <Segment>
-      <Grid>
-        <Grid.Row columns={5}>
+      <Header as="h2">
+        <Header.Content>
+          History Dispense Log
+          <Header.Subheader>
+            <i>Below is a history log of dispensed inventories.</i>
+          </Header.Subheader>
+        </Header.Content>
+      </Header>
+      <Divider/>
+      <Grid divided columns="equal">
+        <Grid.Row textAlign='center'>
           <Grid.Column>
                   Sort By: {' '}
             <Dropdown
@@ -51,19 +52,21 @@ const DispenseLog = () => (
               defaultValue={'All'}
             />
           </Grid.Column>
+          <Grid.Column>
+            Records per page:{' '}
+            <Dropdown
+              inline={true}
+              options={limitOptions}
+              defaultValue={'10'}
+            />
+            Total count: {'200'}
+          </Grid.Column>
         </Grid.Row>
       </Grid>
       <Divider/>
-            Records per page:{' '}
-      <Dropdown
-        inline={true}
-        options={limitOptions}
-        defaultValue={'10'}
-      />
-            Total count: {'200'}
-      <Table celled selectable sortable >
+      <Table celled selectable sortable compact>
         <Table.Header>
-          <Table.Row>
+          <Table.Row inverted color="blue">
             <Table.HeaderCell
               width={1}
             >
