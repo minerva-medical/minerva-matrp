@@ -1,7 +1,3 @@
-@import url("signin.css");
-@import url("dispense.css");
-@import url("inventory.css");
-
 .signOutPage{
   background-image: url('../images/logout.png');
   background-size: cover;
