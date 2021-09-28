@@ -15,7 +15,8 @@ class MedicationCollection extends BaseCollection {
   constructor() {
     super('Medications', new SimpleSchema({
       drug: String,
-      drugType: String,
+      drugType: Array,
+      'drugType.$': String,
       brand: String,
       lotId: String,
       expire: String, // date string "YYYY-MM-DD"
@@ -24,6 +25,7 @@ class MedicationCollection extends BaseCollection {
       isTabs: Boolean,
       location: String,
       purchased: Boolean,
+      note: String,
     }));
   }
 
@@ -35,9 +37,9 @@ class MedicationCollection extends BaseCollection {
    * @param condition the condition of the item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased }) {
+  define({ drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased, note }) {
     const docID = this._collection.insert({
-      drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased,
+      drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased, note,
     });
     return docID;
   }
@@ -49,29 +51,38 @@ class MedicationCollection extends BaseCollection {
    * @param quantity the new quantity (optional).
    * @param condition the new condition (optional).
    */
-  update(docID, { brand, lotId, expire, quantity, location, purchased }) {
+  update(docID, { drugType, brand, lotId, expire, minQuantity, quantity, location, purchased, note }) {
     const updateData = {};
 
     /**
      * adds String data if not falsy (in this case: empty, null, or undefined)
      * @param data
      */
-    function addData(data) {
+    function addString(data) {
       if (data) {
         updateData[data] = data;
       }
     }
-    addData(brand);
-    addData(lotId);
-    addData(expire);
     // if (quantity) { NOTE: 0 is falsy so we need to check if the quantity is a number.
-    if (_.isNumber(quantity)) {
-      updateData.quantity = quantity;
+    function addNumber(data) {
+      if (_.isNumber(data)) {
+        updateData[data] = data;
+      }
     }
-    addData(location);
+
+    if (drugType.every(elem => elem)) { // check if every drug type is a String
+      updateData[drugType] = drugType;
+    }
+    addString(brand);
+    addString(lotId);
+    addString(expire);
+    addNumber(quantity);
+    addNumber(minQuantity);
+    addString(location);
     if (_.isBoolean(purchased)) {
       updateData.purchased = purchased;
     }
+    addString(note);
     this._collection.update(docID, { $set: updateData });
   }
 
