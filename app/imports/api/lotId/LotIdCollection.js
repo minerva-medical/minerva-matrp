@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-// import { check } from 'meteor/check';
+import { check } from 'meteor/check';
 // import { _ } from 'meteor/underscore';
 // import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
@@ -38,12 +38,10 @@ class LotIdCollection extends BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  removeIt({ brand, lotId }) {
-    // TODO
-    // const doc = this.findDoc(name);
-    // check(doc, Object);
-    // this._collection.remove(doc._id);
-    this._collection.remove({ brand, lotId });
+  removeIt({ brand, lotId }) { // could just be selector depending on how it's called
+    const doc = this.findDoc({ brand, lotId });
+    check(doc, Object);
+    this._collection.remove(doc._id);
     return true;
   }
 

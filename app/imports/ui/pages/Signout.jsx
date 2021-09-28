@@ -18,7 +18,7 @@ const Signout = () => {
             <Button as={NavLink} activeClassName="" exact to="/" key='landing' color="black" size='huge'>
               HOME
             </Button>
-            <Button as={NavLink} activeClassName="" exact to="/signin" key='signin' color="white" size='huge'
+            <Button as={NavLink} activeClassName="" exact to="/signin" key='signin' color="olive" size='huge'
               basic inverted>LOGIN</Button>
           </Button.Group>
         </Container>
