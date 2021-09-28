@@ -1,5 +1,6 @@
 export const COMPONENT_IDS = {
   LIST_STUFF_EDIT: 'list-stuff-edit',
+  DRUG_EDIT: 'drug-edit',
   DRUG_PAGE: 'list-stuff-edit',
   NAVBAR_ADD_INVENTORY: 'navbar-add-stuff',
   NAVBAR_STATUS: 'navbar-list-stuff',

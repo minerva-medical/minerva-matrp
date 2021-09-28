@@ -9,7 +9,7 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const Drug = () => {
+const Drug = (drug) => {
   const [open, setOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
@@ -36,17 +36,17 @@ const Drug = () => {
               <ItemGroup relaxed>
                 <Item>
                   <ItemContent>
-                    <Header as='h2'> Aspirin 81 mg</Header>
-                    <ItemMeta>Nonsteroidal anti-inflammatory drug (NSAID)</ItemMeta>
+                    <Header as='h2'>{drug.name}</Header>
+                    <ItemMeta>{drug.drugType}</ItemMeta>
                     <ItemDescription>
                       <List size='large'>
-                        <ListItem>Brand: Bayer</ListItem>
-                        <ListItem>Lot Number: 123456</ListItem>
-                        <ListItem>Expiration Date: 09/16/2021</ListItem>
-                        <ListItem>Quantity: 30 tabs</ListItem>
-                        <ListItem>Supply: 300</ListItem>
-                        <ListItem>Storage Location: Case 4</ListItem>
-                        <ListItem>Received: Purchased</ListItem> <br/>
+                        <ListItem>brand: {drug.brand}</ListItem>
+                        <ListItem>Lot Number: {drug.lotId}</ListItem>
+                        <ListItem>Expiration Date: {drug.expire}</ListItem>
+                        <ListItem>Quantity: {drug.quantity}</ListItem>
+                        <ListItem>tabs or mL: {drug.isTabs}</ListItem>
+                        <ListItem>Storage Location: {drug.location}</ListItem>
+                        <ListItem>Received: {drug.purchased}</ListItem> <br/>
                       </List>
                     </ItemDescription>
                   </ItemContent>
@@ -85,12 +85,13 @@ const Drug = () => {
             Close
         </Button>
         <Button
+          className={COMPONENT_IDS.DRUG_EDIT}
           content="Edit"
           labelPosition='right'
           icon='edit'
           onClick={() => setOpen(false)}
           color='linkedin'
-          as={Link} to='/add'
+          as={Link} to={`/edit/${drug._id}`}
         />
       </Modal.Actions>
     </Modal>
@@ -101,7 +102,7 @@ const Drug = () => {
 
 // Require a document to be passed to this component.
 Drug.propTypes = {
-  Drug: PropTypes.shape({
+  drug: PropTypes.shape({
     drug: PropTypes.string,
     drugType: PropTypes.string,
     brand: PropTypes.string,
