@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+/*overlay test*/
+
 .signOutPage{
   background-image: url('../images/logout.png');
   background-size: cover;
@@ -43,9 +46,6 @@
   padding-top: 45% !important;
   width: 100% !important;
 }
-
-/*overlay test*/
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
   box-sizing: border-box;
