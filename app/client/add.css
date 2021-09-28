@@ -1,13 +1,77 @@
-#add-form .ui.header{
+#add-form {
+  padding: 1em 3em;
+}
+
+#add-form h2 {
   border-bottom: 1px solid black;
-  padding-bottom: 10px;
+}
+
+#add-form .ui.form {
+  border-bottom: 1px solid black;
+  padding-bottom: 1em;
+}
+
+#add-form .sub.header {
+  padding-top: 0.5em;
+}
+
+#add-form label {
+  font-size: 1em;
+}
+
+#add-form input[type="date"] {
+  height: 2.71428571em;
+}
+
+#add-form .x-icon {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  cursor: pointer;
 }
 
 #add-form .buttons-div {
-  border-top: 1px solid black;
+  padding: 1em;
 }
 
-#add-form .ui.form .unit-select .selection.dropdown {
-  width: 5rem;
-  min-width: 5rem;
+#add-form .clear-button {
+  min-width: 120px;
+  border-radius: 500rem;
+  padding: 1em 1.5em;
+  background-color: rgb(29, 62, 102);
+  color: white;
+}
+
+#add-form .submit-button {
+  min-width: 120px;
+  border-radius: 500rem;
+  padding: 1em 1.5em;
+  background-color: #C1D9B1;
+  color: rgb(29, 62, 102);
+}
+
+#add-form input, .ui.selection.dropdown, .ui.search.selection.dropdown, .ui.basic.label, textarea {
+  background-color: #dde0e8 !important;
+}
+
+#add-form ::placeholder {
+  color: grey;
+}
+
+#add-form .ui.dropdown:not(.button) > .default.text, .ui.default.dropdown:not(.button) > .text {
+  color: grey
+}
+
+#add-form .ui.basic.label.label {
+  width: 50px;
+}
+
+#add-form .ui.form .field {
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 767px) {
+  #add-form .filler-column {
+    display: none;
+  }
 }
