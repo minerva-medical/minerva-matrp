@@ -33,25 +33,25 @@ const App = () => {
       {
         currentUser &&
           <NavBar/>
-        }
-        <Switch>
-          <Route exact path="/" component={Landing}/>
-          <Route path="/signin" component={Signin}/>
-          <Route path="/signup" component={Signup}/>
-          <Route path="/signout" component={Signout}/>
-          <ProtectedRoute path="/about" component={About}/>
-          <ProtectedRoute path="/dispense" component={Dispense}/>
-          <ProtectedRoute path="/status" component={Status}/>
-          <ProtectedRoute path="/add" component={AddInventory}/>
-          <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
-          <ProtectedRoute path="/list" component={ListStuff}/>
-          <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-          <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
-          <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-          <Route component={NotFound}/>
-        </Switch>
-        {
-          currentUser &&
+      }
+      <Switch>
+        <Route exact path="/" component={Landing}/>
+        <Route path="/signin" component={Signin}/>
+        <Route path="/signup" component={Signup}/>
+        <Route path="/signout" component={Signout}/>
+        <ProtectedRoute path="/about" component={About}/>
+        <ProtectedRoute path="/dispense" component={Dispense}/>
+        <ProtectedRoute path="/status" component={Status}/>
+        <ProtectedRoute path="/add" component={AddInventory}/>
+        <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
+        <ProtectedRoute path="/list" component={ListStuff}/>
+        <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+        <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+        <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+        <Route component={NotFound}/>
+      </Switch>
+      {
+        currentUser &&
           <Footer/>
       }
     </div>
