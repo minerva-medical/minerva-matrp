@@ -8,7 +8,7 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-// import About from '../pages/About';
+import About from '../pages/About';
 import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddInventory from '../pages/AddInventory';
@@ -20,7 +20,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Dispense from '../pages/Dispense';
 import Status from '../pages/Status';
-import Test from '../pages/test';
+// import Test from '../pages/test';
 import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 
@@ -28,11 +28,10 @@ import { ROLE } from '../../api/role/Role';
 const App = () => {
   const currentUser = useTracker(() => Meteor.userId(), []);
 
-  return (
-    <Router>
-      <div>
-        {
-          currentUser &&
+  const withNav = () => (
+    <div>
+      {
+        currentUser &&
           <NavBar/>
         }
         <Switch>
@@ -40,7 +39,7 @@ const App = () => {
           <Route path="/signin" component={Signin}/>
           <Route path="/signup" component={Signup}/>
           <Route path="/signout" component={Signout}/>
-          <ProtectedRoute path="/about" component={Test}/>
+          <ProtectedRoute path="/about" component={About}/>
           <ProtectedRoute path="/dispense" component={Dispense}/>
           <ProtectedRoute path="/status" component={Status}/>
           <ProtectedRoute path="/add" component={AddInventory}/>
@@ -54,8 +53,19 @@ const App = () => {
         {
           currentUser &&
           <Footer/>
-        }
-      </div>
+      }
+    </div>
+  );
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/signin" component={Signin}/>
+        <Route exact path="/" component={Landing}/>
+        <Route path="/signup" component={Signup}/>
+        <Route path="/signout" component={Signout}/>
+        <Route component={withNav}/>
+        <Route component={NotFound}/>
+      </Switch>
     </Router>
   );
 };

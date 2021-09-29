@@ -1,5 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url("signin.css");
+@import url("dispense.css");
+@import url("inventory.css");
 /*overlay test*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body{
+background-color: #C1D9B1 !important;
+}
 
 .signOutPage{
   background-image: url('../images/logout.png');
