@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Input, Icon } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -9,6 +9,7 @@ import { Sites } from '../../api/site/SiteCollection';
 import { Drugs } from '../../api/drug/DrugCollection';
 import { LotIds } from '../../api/lotId/LotIdCollection';
 import { Brands } from '../../api/brand/BrandCollection';
+import { Locations } from '../../api/location/LocationCollection';
 
 /** convert array to dropdown options */
 const getOptions = (arr, name) => {
@@ -31,7 +32,7 @@ const validateForm = data => {
   const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dateDispensed', 'dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
+  const requiredFields = ['dateAdded', 'site', 'drug', 'lotId', 'brand', 'quantity'];
 
   // check required fields
   requiredFields.forEach(field => {
@@ -59,35 +60,41 @@ const validateForm = data => {
 };
 
 /** Renders the Page for Dispensing Inventory. */
-const DispenseMedication = (props) => {
+const AddMedication = (props) => {
   const [fields, setFields] = useState({
     site: '',
     newSite: '',
-    dateDispensed: new Date().toLocaleDateString('fr-CA'),
+    dateAdded: new Date().toLocaleDateString('fr-CA'),
     drug: '',
     quantity: '',
-    isTabs: true,
+    unit: '', // unit will autofill on selection of drug
     brand: '',
     lotId: '',
     expire: '',
-    dispensedTo: '',
     dispensedFrom: '',
+    donorName: '',
+    location: '',
     note: '',
+    pd: '',
   });
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
   };
 
+  const pd = [
+    { key: '0', text: 'Purchased', value: 'Purchased' },
+    { key: '1', text: 'Donated', value: 'Donated' },
+  ];
+
   if (props.ready) {
     return (
-      <Tab.Pane id='dispense-form'>
+      <Tab.Pane id='add-form'>
         <Header as="h2">
           <Header.Content>
-            Dispense from Inventory Form
+              Add Medication to Inventory Form
             <Header.Subheader>
-              <i>Please input the following information to dispense from the inventory,
-              to the best of your abilities.</i>
+              <i>Please input all relative fields to add a medication to the inventory</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
@@ -95,7 +102,7 @@ const DispenseMedication = (props) => {
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input type="date" label='Date Dispensed' name='dateDispensed'
+                <Form.Input type="date" label='Date Added' name='dateAdded'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
@@ -103,15 +110,14 @@ const DispenseMedication = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || props.currentUser.username}/>
+                <Form.Select label='Purchased/Donated' name='pd' options={pd}
+                  onChange={handleChange} value={fields.pd}/>
+                {
+                  fields.pd === 'Donated' &&
+                    <Form.Input placeholder="Input Donor Name Here"
+                      name='donorName' onChange={handleChange}/>
+                }
               </Grid.Column>
-              <Grid.Column>
-                <Form.Input label='Dispensed To' placeholder="Patient's First Name, Last Name"
-                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites, 'site')}
                   placeholder="POST, Kaka’ako, etc."
@@ -121,6 +127,8 @@ const DispenseMedication = (props) => {
                   <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}/>
                 }
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
                   name='drug' onChange={handleChange} value={fields.drug}/>
@@ -129,28 +137,29 @@ const DispenseMedication = (props) => {
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
                   name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
+              <Grid.Column>
+                <Form.Select clearable search label='Location' options={getOptions(props.locations, 'location')}
+                  name='location' onChange={handleChange} value={fields.location}/>
+              </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 {/* expiration date may be null */}
-                <Form.Field>
-                  <label>Expiration Date</label>
-                  <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
-                  <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
-                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
-                </Form.Field>
+                <Form.Input type='date' label='Expiration Date' className='date-input'
+                  name='expire' onChange={handleChange} value={fields.expire}/>
+                <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Group>
-                  <Form.Input label='Quantity (tabs/mL)' type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} />
-                  <Form.Select name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
-                </Form.Group>
+                <Form.Field>
+                  <label>Quantity (tabs/mL)</label>
+                  <Input
+                    label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
+                    type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
+                </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -171,11 +180,12 @@ const DispenseMedication = (props) => {
 };
 
 /** Require an array of Stuff documents in the props. */
-DispenseMedication.propTypes = {
+AddMedication.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   drugs: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
   brands: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
@@ -185,13 +195,15 @@ export default withTracker(() => {
   const siteSub = Sites.subscribeSite();
   const drugSub = Drugs.subscribeDrug();
   const lotIdSub = LotIds.subscribeLotId();
+  const locationSub = Locations.subscribeLocation();
   const brandSub = Brands.subscribeBrand();
   return {
     currentUser: Meteor.user(),
     sites: Sites.find({}).fetch(),
     drugs: Drugs.find({}).fetch(),
     lotIds: LotIds.find({}).fetch(),
+    locations: Locations.find({}).fetch(),
     brands: Brands.find({}).fetch(),
-    ready: siteSub.ready() && drugSub.ready() && lotIdSub.ready() && brandSub.ready(),
+    ready: siteSub.ready() && drugSub.ready() && lotIdSub.ready() && brandSub.ready() && locationSub.ready(),
   };
-})(DispenseMedication);
+})(AddMedication);

@@ -11,7 +11,7 @@ import Landing from '../pages/Landing';
 import About from '../pages/About';
 import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
-import AddStuff from '../pages/AddStuff';
+import AddInventory from '../pages/AddInventory';
 import DispenseLog from '../pages/DispenseLog';
 import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
@@ -19,6 +19,7 @@ import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Dispense from '../pages/Dispense';
+import Status from '../pages/Status';
 // import Test from '../pages/test';
 import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
@@ -32,20 +33,25 @@ const App = () => {
       {
         currentUser &&
           <NavBar/>
-      }
-      <Switch>
-        <ProtectedRoute path="/about" component={About}/>
-        <ProtectedRoute path="/dispense" component={Dispense}/>
-        <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
-        <ProtectedRoute path="/list" component={ListStuff}/>
-        <ProtectedRoute path="/add" component={AddStuff}/>
-        <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-        <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
-        <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-        <Route component={NotFound}/>
-      </Switch>
-      {
-        currentUser &&
+        }
+        <Switch>
+          <Route exact path="/" component={Landing}/>
+          <Route path="/signin" component={Signin}/>
+          <Route path="/signup" component={Signup}/>
+          <Route path="/signout" component={Signout}/>
+          <ProtectedRoute path="/about" component={About}/>
+          <ProtectedRoute path="/dispense" component={Dispense}/>
+          <ProtectedRoute path="/status" component={Status}/>
+          <ProtectedRoute path="/add" component={AddInventory}/>
+          <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
+          <ProtectedRoute path="/list" component={ListStuff}/>
+          <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+          <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+          <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+          <Route component={NotFound}/>
+        </Switch>
+        {
+          currentUser &&
           <Footer/>
       }
     </div>
