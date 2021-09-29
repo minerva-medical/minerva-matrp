@@ -28,16 +28,16 @@ import { ROLE } from '../../api/role/Role';
 const App = () => {
   const currentUser = useTracker(() => Meteor.userId(), []);
 
-  const withNav = () => (
-    <div>
+  return (
+    <Router>
       {
         currentUser &&
-          <NavBar/>
+        <NavBar/>
       }
       <Switch>
-        <Route exact path="/" component={Landing}/>
-        <Route path="/signin" component={Signin}/>
-        <Route path="/signup" component={Signup}/>
+        <UnprotectedRoute exact path="/" component={Landing}/>
+        <UnprotectedRoute path="/signin" component={Signin}/>
+        <UnprotectedRoute path="/signup" component={Signup}/>
         <Route path="/signout" component={Signout}/>
         <ProtectedRoute path="/about" component={About}/>
         <ProtectedRoute path="/dispense" component={Dispense}/>
@@ -52,23 +52,29 @@ const App = () => {
       </Switch>
       {
         currentUser &&
-          <Footer/>
+        <Footer/>
       }
-    </div>
-  );
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/signin" component={Signin}/>
-        <Route exact path="/" component={Landing}/>
-        <Route path="/signup" component={Signup}/>
-        <Route path="/signout" component={Signout}/>
-        <Route component={withNav}/>
-        <Route component={NotFound}/>
-      </Switch>
     </Router>
   );
 };
+
+/**
+ * UnprotectedRoute (see React Router v4 sample)
+ * Reroute logged in user to /about
+ * @param {any} { component: Component, ...rest }
+ */
+const UnprotectedRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => {
+      const isLogged = Meteor.userId() !== null;
+      return (!isLogged) ?
+        (<Component {...props} />) :
+        (<Redirect to={{ pathname: '/about', state: { from: props.location } }}/>
+        );
+    }}
+  />
+);
 
 /**
  * ProtectedRoute (see React Router v4 sample)
@@ -106,6 +112,12 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
     }}
   />
 );
+
+// Require a component and location to be passed to each UnprotectedRoute.
+UnprotectedRoute.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  location: PropTypes.object,
+};
 
 // Require a component and location to be passed to each ProtectedRoute.
 ProtectedRoute.propTypes = {
