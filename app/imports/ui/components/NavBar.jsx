@@ -16,9 +16,6 @@ const NavBar = ({ currentUser }) => {
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/about">
         <Header inverted as='h1'>Minerva</Header>
       </Menu.Item>,
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact to="/about" key='list'>
-        About Us
-      </Menu.Item>
       {
         currentUser ? (
           [
@@ -43,6 +40,9 @@ const NavBar = ({ currentUser }) => {
         ) : ''
       }
       <Menu.Item position="right">
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact to="/about" key='list'>
+          About Us
+        </Menu.Item>
         {
           currentUser === '' ?
             (
