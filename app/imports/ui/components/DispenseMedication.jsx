@@ -104,7 +104,7 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || props.currentUser.username}/>
+                  value={fields.dispensedFrom || props.currentUser.username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient's First Name, Last Name"

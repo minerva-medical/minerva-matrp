@@ -44,7 +44,7 @@ const Signin = ({ location }) => {
   };
 
   // Render the signin form.
-  const { from } = location.state || { from: { pathname: '/list' } };
+  const { from } = location.state || { from: { pathname: '/add' } };
   // if correct authentication, redirect to page instead of login screen
   if (redirectToReferer) {
     return <Redirect to={from}/>;
