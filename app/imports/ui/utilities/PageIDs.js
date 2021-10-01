@@ -11,4 +11,5 @@ export const PAGE_IDS = {
   SIGN_IN: 'sigin-in',
   SIGN_OUT: 'sign-out',
   SIGN_UP: 'sign-up',
+  MED_STATUS: 'med-status',
 };
