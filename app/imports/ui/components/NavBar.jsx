@@ -31,7 +31,7 @@ const NavBar = ({ currentUser }) => {
               key='dispense'>
               Dispense Inventory
             </Menu.Item>,
-            <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/list"
+            <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/status"
               key='list'>
               Inventory Status
             </Menu.Item>,

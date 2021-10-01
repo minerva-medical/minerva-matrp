@@ -19,6 +19,7 @@ import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Dispense from '../pages/Dispense';
+import Status from '../pages/Status';
 import Test from '../pages/test';
 import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
@@ -42,6 +43,7 @@ const App = () => {
           <ProtectedRoute path="/about" component={Test}/>
           <ProtectedRoute path="/dispense" component={Dispense}/>
           <ProtectedRoute path="/add" component={AddInventory}/>
+          <ProtectedRoute path="/status" component={Status}/>
           <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
           <ProtectedRoute path="/list" component={ListStuff}/>
           <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
