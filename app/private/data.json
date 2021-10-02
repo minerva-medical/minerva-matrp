@@ -86,7 +86,21 @@
   },{
     "location": "Case 8"
   },{
-    "location": "Case 9"
+    "location": "Bottom Drawer"
+  },{
+    "location": "Drawer 2"
+  },{
+    "location": "Drawer 2-2"
+  },{
+    "location": "Drawer 2-3"
+  },{
+    "location": "Refrigerator"
+  },{
+    "location": "Refrigerator Closet"
+  },{
+    "location": "Freezer"
+  },{
+    "location": "Freezer-Derm"
   }],
 
   "lotIds": [{
@@ -185,7 +199,7 @@
       "lotId": "444D",
       "expire": "2021-10-10",
       "minQuantity": 30,
-      "quantity": 20,
+      "quantity": 5,
       "isTabs": false,
       "location": "Case 4",
       "purchased": true,
@@ -198,7 +212,7 @@
       "lotId": "555E",
       "expire": "2021-10-10",
       "minQuantity": 50,
-      "quantity": 40,
+      "quantity": 10,
       "isTabs": true,
       "location": "Case 5",
       "purchased": false,
@@ -211,7 +225,7 @@
       "lotId": "666F",
       "expire": "2021-10-10",
       "minQuantity": 70,
-      "quantity": 60,
+      "quantity": 20,
       "isTabs": false,
       "location": "Case 6",
       "purchased": true,
@@ -224,7 +238,7 @@
       "lotId": "777G",
       "expire": "2021-10-10",
       "minQuantity": 20,
-      "quantity": 20,
+      "quantity": 1,
       "isTabs": true,
       "location": "Case 7",
       "purchased": false,
@@ -252,7 +266,7 @@
       "minQuantity": 60,
       "quantity": 60,
       "isTabs": true,
-      "location": "Case 9",
+      "location": "Bottom Drawer",
       "purchased": false,
       "note": "test I"
     }

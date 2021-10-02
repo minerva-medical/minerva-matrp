@@ -6,12 +6,12 @@ const calculateStatus = (quantity, min) => {
   const status = {};
   let color = '';
   const percent = Math.floor((quantity / min) * 100);
-  if (percent >= 100) {
-    color = '#a7e8c8';
-  } else if (percent < 30) {
-    color = '#f8b6a8';
+  if (percent > 30) {
+    color = 'green';
+  } else if (percent > 5 && percent <= 30) {
+    color = 'yellow';
   } else {
-    color = '#fdffb4';
+    color = 'red';
   }
   status.color = color;
   status.percent = percent;
@@ -39,7 +39,7 @@ const MedStatusRow = ({ med }) => {
         }
       </Table.Cell>
       <Table.Cell>
-        <div style={ { backgroundColor: color, width: '40px' } }>{percent}%</div>
+        <Icon color={color} name='circle' fitted> {percent}%</Icon>
       </Table.Cell>
     </Table.Row>
   );
