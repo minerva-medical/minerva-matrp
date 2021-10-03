@@ -1,5 +1,9 @@
 #dispense-log {
   padding-top: 2em;
   padding-bottom: 2em;
+  position: center;
 }
 
+#dispense-log-grid{
+ text-align: left;
+}

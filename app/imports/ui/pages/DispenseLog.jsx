@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Icon, Form } from 'semantic-ui-react';
-import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** Renders the Page for Dispensing Inventory. */
 const limitOptions = [
@@ -32,119 +31,121 @@ const inventory = [
 
 /** Render the form. */
 const DispenseLog = () => (
-  <Container id='dispense-log'>
-    <Grid>
-      <Segment>
-        <Header as="h2">
-          <Header.Content>
+  <div>
+    <Container id='dispense-log'>
+      <Grid id='dispense-log-grid' centered>
+        <Segment>
+          <Header as="h2">
+            <Header.Content>
             History Dispense Log
-            <Header.Subheader>
-            Use the search filter to check for a specific drug or click on the table header to sort the column.
-            </Header.Subheader>
-          </Header.Content>
-        </Header>
-        <Divider/>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column>
-              <Form>
-                <Form.Field style={{ marginBottom: '1em' }}>
-                  <Form.Input floated={'right'}
-                    placeholder={'Filter by patient number...'}
-                    name={'filter'}
-                    label={'Filter'}
-                    icon={'search'}
-                  />
-                </Form.Field>
-              </Form>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <Divider/>
-        <Grid divided columns="equal">
-          <Grid.Row textAlign='center'>
-            <Grid.Column>
+              <Header.Subheader>
+                <i>Use the search filter to check for a specific drug or click on the table header to sort the column.</i>
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          <Divider/>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <Form>
+                  <Form.Field style={{ marginBottom: '1em' }}>
+                    <Form.Input floated={'right'}
+                      placeholder={'Filter by patient number...'}
+                      name={'filter'}
+                      label={'Filter'}
+                      icon={'search'}
+                    />
+                  </Form.Field>
+                </Form>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <Divider/>
+          <Grid divided columns="equal">
+            <Grid.Row textAlign='center'>
+              <Grid.Column>
               Sort By: {' '}
-              <Dropdown
-                inline={true}
-                options={sort}
-                defaultValue={'Most Recent'}
-              />
-            </Grid.Column>
-            <Grid.Column>
+                <Dropdown
+                  inline={true}
+                  options={sort}
+                  defaultValue={'Most Recent'}
+                />
+              </Grid.Column>
+              <Grid.Column>
               Dispense Type: {' '}
-              <Dropdown
-                inline={true}
-                options={reason}
-                defaultValue={'All'}
-              />
-            </Grid.Column>
-            <Grid.Column>
+                <Dropdown
+                  inline={true}
+                  options={reason}
+                  defaultValue={'All'}
+                />
+              </Grid.Column>
+              <Grid.Column>
             Inventory Type: {' '}
-              <Dropdown
-                inline={true}
-                options={inventory}
-                defaultValue={'All'}
-              />
-            </Grid.Column>
-            <Grid.Column>
+                <Dropdown
+                  inline={true}
+                  options={inventory}
+                  defaultValue={'All'}
+                />
+              </Grid.Column>
+              <Grid.Column>
               Records per page:{' '}
-              <Dropdown
-                inline={true}
-                options={limitOptions}
-                defaultValue={'10'}
-              />
+                <Dropdown
+                  inline={true}
+                  options={limitOptions}
+                  defaultValue={'10'}
+                />
               Total count: {'200'}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <Divider/>
-        <Table striped singleLine columns={10}>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Date & Time</Table.HeaderCell>
-              <Table.HeaderCell>Dispense Type</Table.HeaderCell>
-              <Table.HeaderCell>Patient Number</Table.HeaderCell>
-              <Table.HeaderCell>Type</Table.HeaderCell>
-              <Table.HeaderCell>Medication Name</Table.HeaderCell>
-              <Table.HeaderCell>LotID</Table.HeaderCell>
-              <Table.HeaderCell>Quantity</Table.HeaderCell>
-              <Table.HeaderCell>Dispensed by</Table.HeaderCell>
-              <Table.HeaderCell>Detailed Notes</Table.HeaderCell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>2021-09-13 (12:25:30)</Table.Cell>
-              <Table.Cell>Patient Use</Table.Cell>
-              <Table.Cell>123456</Table.Cell>
-              <Table.Cell>Analgesics/Anti-Inflammatory</Table.Cell>
-              <Table.Cell>Acetaminophen 500 mg Caps</Table.Cell>
-              <Table.Cell>76543A21</Table.Cell>
-              <Table.Cell>60 tabs</Table.Cell>
-              <Table.Cell>johndoe@hawaii.edu</Table.Cell>
-              <Table.Cell><Icon name="info circle"/>See details</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>2021-09-13 (12:25:30)</Table.Cell>
-              <Table.Cell>Patient Use</Table.Cell>
-              <Table.Cell>123456</Table.Cell>
-              <Table.Cell>Analgesics/Anti-Inflammatory</Table.Cell>
-              <Table.Cell>Acetaminophen 500 mg Caps</Table.Cell>
-              <Table.Cell>76543A21</Table.Cell>
-              <Table.Cell>60 tabs</Table.Cell>
-              <Table.Cell>johndoe@hawaii.edu</Table.Cell>
-              <Table.Cell><Icon name="info circle"/>See details</Table.Cell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Footer>
-            <Table.Row>
-              <Table.HeaderCell colSpan="10">
-                <Pagination totalPages={10} activePage={1}/>
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Footer>
-        </Table>
-      </Segment>
-    </Grid>
-  </Container>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <Divider/>
+          <Table striped singleLine columns={10}>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Date & Time</Table.HeaderCell>
+                <Table.HeaderCell>Dispense Type</Table.HeaderCell>
+                <Table.HeaderCell>Patient Number</Table.HeaderCell>
+                <Table.HeaderCell>Type</Table.HeaderCell>
+                <Table.HeaderCell>Medication Name</Table.HeaderCell>
+                <Table.HeaderCell>LotID</Table.HeaderCell>
+                <Table.HeaderCell>Quantity</Table.HeaderCell>
+                <Table.HeaderCell>Dispensed by</Table.HeaderCell>
+                <Table.HeaderCell>Detailed Notes</Table.HeaderCell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>2021-09-13 (12:25:30)</Table.Cell>
+                <Table.Cell>Patient Use</Table.Cell>
+                <Table.Cell>123456</Table.Cell>
+                <Table.Cell>Analgesics/Anti-Inflammatory</Table.Cell>
+                <Table.Cell>Acetaminophen 500 mg Caps</Table.Cell>
+                <Table.Cell>76543A21</Table.Cell>
+                <Table.Cell>60 tabs</Table.Cell>
+                <Table.Cell>johndoe@hawaii.edu</Table.Cell>
+                <Table.Cell><Icon name="info circle"/>See details</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>2021-09-13 (12:25:30)</Table.Cell>
+                <Table.Cell>Patient Use</Table.Cell>
+                <Table.Cell>123456</Table.Cell>
+                <Table.Cell>Analgesics/Anti-Inflammatory</Table.Cell>
+                <Table.Cell>Acetaminophen 500 mg Caps</Table.Cell>
+                <Table.Cell>76543A21</Table.Cell>
+                <Table.Cell>60 tabs</Table.Cell>
+                <Table.Cell>johndoe@hawaii.edu</Table.Cell>
+                <Table.Cell><Icon name="info circle"/>See details</Table.Cell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Footer>
+              <Table.Row>
+                <Table.HeaderCell colSpan="10">
+                  <Pagination totalPages={10} activePage={1}/>
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Footer>
+          </Table>
+        </Segment>
+      </Grid>
+    </Container>
+  </div>
 );
 export default DispenseLog;
