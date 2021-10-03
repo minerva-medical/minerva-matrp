@@ -18,7 +18,17 @@ const DispenseLogRow = ({ history }) => (
 );
 
 DispenseLogRow.propTypes = {
-  history: PropTypes.isRequired,
+  history: PropTypes.shape({
+    dateDispensed: PropTypes.string,
+    dispensedTo: PropTypes.string,
+    drugType: PropTypes.array,
+    drug: PropTypes.string,
+    brand: PropTypes.string,
+    lotId: PropTypes.string,
+    quantity: PropTypes.number,
+    isTabs: PropTypes.bool,
+    dispensedFrom: PropTypes.string,
+  }).isRequired,
 };
 
 export default DispenseLogRow;

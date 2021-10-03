@@ -32,11 +32,10 @@ class HistoricalCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Medication item.
+   * Defines a new Dispensed item.
    * @param name the name of the item.
    * @param quantity how many.
    * @param owner the owner of the item.
-   * @param condition the condition of the item.
    * @return {String} the docID of the new document.
    */
   define({ drug, drugType, brand, lotId, expire, quantity, isTabs, location, dateDispensed, dispensedFrom, dispensedTo, site, note }) {
@@ -59,7 +58,7 @@ class HistoricalCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the medication associated to an owner.
+   * It publishes the entire collection for admin and just the historical associated to an owner.
    */
   publish() {
     if (Meteor.isServer) {

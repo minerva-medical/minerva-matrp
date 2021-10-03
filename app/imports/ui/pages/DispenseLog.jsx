@@ -115,7 +115,7 @@ const DispenseLog = (props) => {
                 </Table.Header>
                 <Table.Body>
                   {
-                    props.historicals.map(history => <DispenseLogRow key={history._id} med={history} />)
+                    props.historicals.map(history => <DispenseLogRow key={history._id} history={history} />)
                   }
                 </Table.Body>
                 <Table.Footer>
@@ -150,7 +150,7 @@ export default withTracker(() => {
   // Determine if the subscription is ready
   const ready = historicalSub.ready() && drugTypeSub.ready() && locationSub.ready();
   // Get the Stuff documents and sort them by name.
-  const historicals = Historicals.find({}, { sort: { dateDispensed: 1 } }).fetch();
+  const historicals = Historicals.find({}).fetch();
   const drugTypes = DrugTypes.find({}).fetch();
   const locations = Locations.find({}).fetch();
   return {
