@@ -7,6 +7,7 @@ import { Drugs } from '../../api/drug/DrugCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { LotIds } from '../../api/lotId/LotIdCollection';
 import { Sites } from '../../api/site/SiteCollection';
+import { Historicals } from '../../api/historical/HistoricalCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
@@ -60,4 +61,9 @@ if (Meteor.settings.loadAssetsFile && LotIds.count() === 0) {
 if (Meteor.settings.loadAssetsFile && Sites.count() === 0) {
   console.log(`Loading data from private/${assetsFileName}`);
   jsonData.sites.map(site => Sites.define(site));
+}
+
+if (Meteor.settings.loadAssetsFile && Historicals.count() === 0) {
+  console.log(`Loading data from private/${assetsFileName}`);
+  jsonData.sites.map(site => Historicals.define(site));
 }
