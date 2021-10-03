@@ -14,9 +14,6 @@ export const historicalPublications = {
 class HistoricalCollection extends BaseCollection {
   constructor() {
     super('Historicals', new SimpleSchema({
-      dateDispensed: Date,
-      dispensedFrom: String,
-      dispensedTo: String,
       drug: String,
       drugType: Array,
       'drugType.$': String,
@@ -26,6 +23,9 @@ class HistoricalCollection extends BaseCollection {
       quantity: Number,
       isTabs: Boolean,
       location: String,
+      dateDispensed: Date,
+      dispensedFrom: String,
+      dispensedTo: String,
       site: String,
       note: String,
     }));
@@ -39,9 +39,8 @@ class HistoricalCollection extends BaseCollection {
    * @param condition the condition of the item.
    * @return {String} the docID of the new document.
    */
-  define({ dateDispensed, drug, drugType, brand, lotId, expire, quantity, isTabs, location, dispensedFrom, dispensedTo, site, note }) {
-    const docID = this._collection.insert({
-      dateDispensed, drug, drugType, brand, lotId, expire, quantity, isTabs, location, dispensedFrom, dispensedTo, site, note,
+  define({ drug, drugType, brand, lotId, expire, quantity, isTabs, location, dateDispensed, dispensedFrom, dispensedTo, site, note }) {
+    const docID = this._collection.insert({ drug, drugType, brand, lotId, expire, quantity, isTabs, location, dateDispensed, dispensedFrom, dispensedTo, site, note,
     });
     return docID;
   }

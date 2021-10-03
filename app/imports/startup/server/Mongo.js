@@ -65,5 +65,5 @@ if (Meteor.settings.loadAssetsFile && Sites.count() === 0) {
 
 if (Meteor.settings.loadAssetsFile && Historicals.count() === 0) {
   console.log(`Loading data from private/${assetsFileName}`);
-  jsonData.sites.map(site => Historicals.define(site));
+  jsonData.historicals.map(historical => Historicals.define(historical));
 }

@@ -270,5 +270,23 @@
       "purchased": false,
       "note": "test I"
     }
+  ],
+
+  "historicals": [
+    {
+      "drug": "Drug A",
+      "drugType": ["Allergy & Cold Medicines", "Analgesics/Antiinflammatory"],
+      "brand":  "Brand A",
+      "lotId": "111A",
+      "expire": "2021-10-10",
+      "quantity": 20,
+      "isTabs":  true,
+      "location": "Case 1",
+      "dateDispensed": "2021-09-27T12:00:00Z",
+      "dispensedFrom":  "johndoe@hawaii.edu",
+      "dispensedTo": "123456",
+      "site":  "Kaka'ako",
+      "note": "test A"
+  }
   ]
 }
