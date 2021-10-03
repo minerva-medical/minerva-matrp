@@ -1,11 +1,12 @@
 import React from 'react';
-import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Icon, Loader, Input } from 'semantic-ui-react';
+import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Input } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 // import { _ } from 'meteor/underscore';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Locations } from '../../api/location/LocationCollection';
+import DispenseLogRow from '../components/DispenseLogRow';
 
 /** Renders the Page for Dispensing Inventory. */
 const limitOptions = [
@@ -111,19 +112,12 @@ const DispenseLog = (props) => {
                     <Table.HeaderCell>Dispensed by</Table.HeaderCell>
                     <Table.HeaderCell>Detailed Notes</Table.HeaderCell>
                   </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>2021-09-13 (12:25:30)</Table.Cell>
-                    <Table.Cell>Patient Use</Table.Cell>
-                    <Table.Cell>123456</Table.Cell>
-                    <Table.Cell>Analgesics/Anti-Inflammatory</Table.Cell>
-                    <Table.Cell>Acetaminophen 500 mg Caps</Table.Cell>
-                    <Table.Cell>76543A21</Table.Cell>
-                    <Table.Cell>60 tabs</Table.Cell>
-                    <Table.Cell>johndoe@hawaii.edu</Table.Cell>
-                    <Table.Cell><Icon name="info circle"/>See details</Table.Cell>
-                    <Table.Cell><Icon name="info circle"/>See details</Table.Cell>
-                  </Table.Row>
                 </Table.Header>
+                <Table.Body>
+                  {
+                    props.historicals.map(history => <DispenseLogRow key={history._id} med={history} />)
+                  }
+                </Table.Body>
                 <Table.Footer>
                   <Table.Row>
                     <Table.HeaderCell colSpan="11">

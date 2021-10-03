@@ -63,7 +63,7 @@ const DispenseMedication = (props) => {
   const [fields, setFields] = useState({
     site: '',
     newSite: '',
-    dateDispensed: new Date().toLocaleDateString('fr-CA'),
+    dateDispensed: new Date().getTime(),
     drug: '',
     quantity: '',
     isTabs: true,
