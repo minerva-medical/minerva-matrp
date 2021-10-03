@@ -22,12 +22,12 @@ DispenseLogRow.propTypes = {
     dateDispensed: PropTypes.string,
     dispensedTo: PropTypes.string,
     drugType: PropTypes.array,
-    drug: PropTypes.string,
-    brand: PropTypes.string,
+    drug: PropTypes.array,
+    brand: PropTypes.array,
     lotId: PropTypes.string,
+    dispensedFrom: PropTypes.string,
     quantity: PropTypes.number,
     isTabs: PropTypes.bool,
-    dispensedFrom: PropTypes.string,
   }).isRequired,
 };
 
