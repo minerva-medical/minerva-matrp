@@ -1,5 +1,13 @@
 import { t } from 'testcafe';
-import { listStuffAdminPage, manageDatabasePage, signOutPage, aboutUsPage, dispensePage, dispenseLogPage } from './simple.page';
+import {
+  listStuffAdminPage,
+  manageDatabasePage,
+  signOutPage,
+  aboutUsPage,
+  dispensePage,
+  dispenseLogPage,
+  addInventoryPage, statusPage,
+} from './simple.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
 // import { signUpPage } from './signup.page';
@@ -44,7 +52,7 @@ test('Test that sign up and sign out work', async () => {
 });
 * */
 
-test('Test that user pages show up', async () => {
+test('Test that about us page displays', async () => {
   await landingPage.isDisplayed();
   await t.wait(5000);
   await landingPage.goToLogin();
@@ -53,8 +61,25 @@ test('Test that user pages show up', async () => {
   await navBar.gotoAboutUsPage();
   await aboutUsPage.isDisplayed();
   await t.wait(5000);
+  await navBar.logout();
+  await signOutPage.isDisplayed();
+  await t.wait(1000);
+});
+
+test('Test that the add inventory page, status log page, dispense page, and dispense history page display', async () => {
+  await landingPage.isDisplayed();
+  await t.wait(5000);
+  await landingPage.goToLogin();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoAddInventoryPage();
+  await addInventoryPage.isDisplayed();
+  await t.wait(5000);
   await navBar.gotoDispensePage();
   await dispensePage.isDisplayed();
+  await t.wait(5000);
+  await navBar.gotoStatusLogPage();
+  await statusPage.isDisplayed();
   await t.wait(5000);
   await navBar.gotoDispenseLogPage();
   await dispenseLogPage.isDisplayed();
@@ -68,7 +93,7 @@ test('Test that user pages show up', async () => {
   await t.wait(1000);
 });
 
-test('Test that admin pages show up', async () => {
+test('Test that admin pages display', async () => {
   await landingPage.isDisplayed();
   await landingPage.goToLogin();
   await signInPage.signin(adminCredentials.username, adminCredentials.password);
