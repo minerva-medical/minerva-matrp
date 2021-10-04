@@ -14,11 +14,11 @@ const Landing = () => (
       <Divider section hidden/>
       <Grid columns={2} verticalAlign="top" textAlign="center" container>
         <Grid.Column>
-          <Button size="massive" as={NavLink} activeClassName="" exact to="/signup" key='signup' inverted
+          <Button id={COMPONENT_IDS.LANDING_TO_REGISTER} size="massive" as={NavLink} activeClassName="" exact to="/signup" key='signup' inverted
             style={{ font: 'Lato' }}>REGISTER</Button>
         </Grid.Column>
         <Grid.Column>
-          <Button size="massive" as={NavLink} activeClassName="" exact to="/signin" key='signin' inverted
+          <Button id={COMPONENT_IDS.LANDING_TO_SIGN_IN} size="massive" as={NavLink} activeClassName="" exact to="/signin" key='signin' inverted
             style={{ font: 'Lato' }}>LOGIN</Button>
         </Grid.Column>
       </Grid>
