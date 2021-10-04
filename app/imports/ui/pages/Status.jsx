@@ -59,7 +59,7 @@ const medicationBrand = [
 
 /** Render the form. */
 const Status = () => (
-  <Container id={PAGE_IDS.STATUS_LOG} style={{ marginTop: '1em' }}>
+  <Container id={PAGE_IDS.STATUS} style={{ marginTop: '1em' }}>
     <Segment style={{ marginTop: '1em' }}>
       <Header as="h2">
         <Header.Content>
