@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Header, Divider, Button } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
