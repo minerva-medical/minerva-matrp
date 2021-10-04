@@ -13,12 +13,9 @@ const NavBar = ({ currentUser }) => {
   const menuStyle = { marginBottom: '30px', backgroundColor: '#1D3E66', backgroundSize: 'content' };
   return (
     <Menu style={menuStyle} attached="top" borderless inverted>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/about">
         <Header inverted as='h1'>Minerva</Header>
       </Menu.Item>,
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact to="/about" key='list'>
-        About Us
-      </Menu.Item>
       {
         currentUser ? (
           [
@@ -31,8 +28,8 @@ const NavBar = ({ currentUser }) => {
               key='dispense'>
               Dispense Inventory
             </Menu.Item>,
-            <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/list"
-              key='list'>
+            <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/status"
+              key='status'>
               Inventory Status
             </Menu.Item>,
             <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active" exact
@@ -51,6 +48,9 @@ const NavBar = ({ currentUser }) => {
           </Dropdown>]
       ) : ''}
       <Menu.Item position="right">
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact to="/about" key='list'>
+          About Us
+        </Menu.Item>
         {
           currentUser === '' ?
             (
