@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Tab } from 'semantic-ui-react';
 import AddMedication from '../components/AddMedication';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const medicationTab = () => <AddMedication />;
 const vaccinesTab = () => <Tab.Pane>Tab 2 Content</Tab.Pane>;
@@ -18,7 +19,7 @@ const panes = [
 ];
 
 const AddInventory = () => (
-  <Container>
+  <Container id={PAGE_IDS.ADD_INVENTORY}>
     <Tab panes={panes} />
   </Container>
 );

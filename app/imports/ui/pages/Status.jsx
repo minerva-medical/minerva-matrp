@@ -48,10 +48,10 @@ const Status = (props) => {
         <Segment>
           <Header as="h2">
             <Header.Content>
-              Inventory Status
+                Inventory Status
               <Header.Subheader>
                 <i>Use the search filter to check for a specific drug or
-                  click on the table header to sort the column.</i>
+                    click on the table header to sort the column.</i>
               </Header.Subheader>
             </Header.Content>
           </Header>
@@ -64,7 +64,7 @@ const Status = (props) => {
           <Grid divided columns="equal">
             <Grid.Row textAlign='center'>
               <Grid.Column>
-                Type of Medication: {' '}
+                  Type of Medication: {' '}
                 <Dropdown
                   inline={true}
                   options={getOptions(props.drugTypes, 'drugType')}
@@ -73,7 +73,7 @@ const Status = (props) => {
                 />
               </Grid.Column>
               <Grid.Column>
-                Medication Brand: {' '}
+                  Medication Brand: {' '}
                 <Dropdown
                   inline={true}
                   options={medicationBrand}
@@ -82,7 +82,7 @@ const Status = (props) => {
                 />
               </Grid.Column>
               <Grid.Column>
-                Medication Location: {' '}
+                  Medication Location: {' '}
                 <Dropdown
                   inline={true}
                   options={getOptions(props.locations, 'location')}
@@ -94,13 +94,13 @@ const Status = (props) => {
           </Grid>
           <Divider/>
           <div>
-            Records per page:{' '}
+              Records per page:{' '}
             <Dropdown
               inline={true}
               options={recordOptions}
               defaultValue={'10'}
             />
-            Total count: {'200'}
+              Total count: {'200'}
           </div>
           <Table>
             <Table.Header>
