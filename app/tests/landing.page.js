@@ -1,5 +1,6 @@
 import { Selector, t } from 'testcafe';
 import { PAGE_IDS } from '../imports/ui/utilities/PageIDs';
+import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 class LandingPage {
   constructor() {
@@ -14,6 +15,14 @@ class LandingPage {
     const waitTime = 15;
     console.log(`Waiting ${waitTime} seconds before running LandingPage.isDisplayed().`);
     await t.wait(waitTime * 1000).expect(this.pageSelector.exists).ok();
+  }
+
+  async goToLogin() {
+    await t.click(`#${COMPONENT_IDS.LANDING_TO_SIGN_IN}`);
+  }
+
+  async goToRegister() {
+    await t.click(`#${COMPONENT_IDS.LANDING_TO_REGISTER}`);
   }
 
 }

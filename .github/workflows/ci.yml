@@ -1,9 +1,9 @@
-name: ci-matrp
+name: minerva-matrp
 
 on:
   push:
     branches:
-      - master
+      - main
 
 defaults:
   run:
