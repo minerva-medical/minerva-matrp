@@ -15,7 +15,7 @@ const NavBar = ({ currentUser }) => {
     <Menu style={menuStyle} attached="top" borderless inverted>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/about">
         <Header inverted as='h1'>Minerva</Header>
-      </Menu.Item>,
+      </Menu.Item>
       {
         currentUser ? (
           [
