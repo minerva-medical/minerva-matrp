@@ -86,10 +86,6 @@ const AddMedication = (props) => {
     { key: '0', text: 'Purchased', value: 'Purchased' },
     { key: '1', text: 'Donated', value: 'Donated' },
   ];
-  const tabml = [
-    { key: '0', text: 'Tab', value: 'Tab' },
-    { key: '1', text: 'mL', value: 'mL' },
-  ];
 
   if (props.ready) {
     return (
@@ -166,7 +162,7 @@ const AddMedication = (props) => {
                 <Form.Field>
                   <label>Quantity (tabs/mL)</label>
                   <Input
-                    label={{basic: true, content: fields.quantity ? 'tabs': '' }} labelPosition='right'
+                    label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
                     type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
                 </Form.Field>
               </Grid.Column>
@@ -174,7 +170,7 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                placeholder="Please write any additional notes, special instructions, or information that
+                  placeholder="Please write any additional notes, special instructions, or information that
                 should be known here"/>
               </Grid.Column>
             </Grid.Row>

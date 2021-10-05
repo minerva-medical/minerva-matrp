@@ -159,7 +159,7 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                placeholder="Please write any additional notes, special instructions, or information that
+                  placeholder="Please write any additional notes, special instructions, or information that
                 should be known here"/>
               </Grid.Column>
             </Grid.Row>
