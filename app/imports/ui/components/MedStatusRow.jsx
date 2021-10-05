@@ -35,7 +35,7 @@ const MedStatusRow = ({ med }) => {
           med.purchased ?
             <Icon name='check' color='green'/>
             :
-            <Icon name='x' color='red'/>
+            <Icon name='check' color='grey'/>
         }
       </Table.Cell>
       <Table.Cell>

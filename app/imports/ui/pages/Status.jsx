@@ -12,7 +12,7 @@ import MedStatusRow from '../components/MedStatusRow';
 
 /** Renders the Page for Dispensing Inventory. */
 
-/** convert array to dropdown options */
+// convert array to dropdown options
 const getOptions = (arr, name) => {
   const options = _.pluck(arr, name).map(elem => ({ key: elem, text: elem, value: elem }));
   options.unshift({ key: '0', value: 'All', text: 'All' });
@@ -40,9 +40,9 @@ const medicationBrand = [
   { key: '9', value: 'Chloraseptic', text: 'Chloraseptic' },
 ];
 
-/** Render the form. */
-const Status = (props) => {
-  if (props.ready) {
+// Render the form.
+const Status = ({ ready, medications, drugTypes, locations }) => {
+  if (ready) {
     return (
       <Container id={PAGE_IDS.MED_STATUS}>
         <Segment>
@@ -66,8 +66,8 @@ const Status = (props) => {
               <Grid.Column>
                   Type of Medication: {' '}
                 <Dropdown
-                  inline={true}
-                  options={getOptions(props.drugTypes, 'drugType')}
+                  inline
+                  options={getOptions(drugTypes, 'drugType')}
                   search
                   defaultValue={'All'}
                 />
@@ -75,7 +75,7 @@ const Status = (props) => {
               <Grid.Column>
                   Medication Brand: {' '}
                 <Dropdown
-                  inline={true}
+                  inline
                   options={medicationBrand}
                   search
                   defaultValue={'All'}
@@ -84,8 +84,8 @@ const Status = (props) => {
               <Grid.Column>
                   Medication Location: {' '}
                 <Dropdown
-                  inline={true}
-                  options={getOptions(props.locations, 'location')}
+                  inline
+                  options={getOptions(locations, 'location')}
                   search
                   defaultValue={'All'}
                 />
@@ -119,7 +119,7 @@ const Status = (props) => {
 
             <Table.Body>
               {
-                props.medications.map(med => <MedStatusRow key={med._id} med={med} />)
+                medications.map(med => <MedStatusRow key={med._id} med={med} />)
               }
             </Table.Body>
 
