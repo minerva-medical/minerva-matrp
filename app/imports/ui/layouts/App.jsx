@@ -8,7 +8,7 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-// import About from '../pages/About';
+import About from '../pages/About';
 import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddInventory from '../pages/AddInventory';
@@ -20,7 +20,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Dispense from '../pages/Dispense';
 import Status from '../pages/Status';
-import Test from '../pages/test';
+// import Test from '../pages/test';
 import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 
@@ -30,35 +30,51 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        {
-          currentUser &&
-          <NavBar/>
-        }
-        <Switch>
-          <Route exact path="/" component={Landing}/>
-          <Route path="/signin" component={Signin}/>
-          <Route path="/signup" component={Signup}/>
-          <Route path="/signout" component={Signout}/>
-          <ProtectedRoute path="/about" component={Test}/>
-          <ProtectedRoute path="/dispense" component={Dispense}/>
-          <ProtectedRoute path="/add" component={AddInventory}/>
-          <ProtectedRoute path="/status" component={Status}/>
-          <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
-          <ProtectedRoute path="/list" component={ListStuff}/>
-          <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-          <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
-          <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-          <Route component={NotFound}/>
-        </Switch>
-        {
-          currentUser &&
-          <Footer/>
-        }
-      </div>
+      {
+        currentUser &&
+        <NavBar/>
+      }
+      <Switch>
+        <UnprotectedRoute exact path="/" component={Landing}/>
+        <UnprotectedRoute path="/signin" component={Signin}/>
+        <UnprotectedRoute path="/signup" component={Signup}/>
+        <Route path="/signout" component={Signout}/>
+        <ProtectedRoute path="/about" component={About}/>
+        <ProtectedRoute path="/dispense" component={Dispense}/>
+        <ProtectedRoute path="/status" component={Status}/>
+        <ProtectedRoute path="/add" component={AddInventory}/>
+        <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
+        <ProtectedRoute path="/list" component={ListStuff}/>
+        <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+        <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+        <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+        <Route component={NotFound}/>
+      </Switch>
+      {
+        currentUser &&
+        <Footer/>
+      }
     </Router>
   );
 };
+
+/**
+ * UnprotectedRoute (see React Router v4 sample)
+ * Reroute logged in user to /about
+ * @param {any} { component: Component, ...rest }
+ */
+const UnprotectedRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => {
+      const isLogged = Meteor.userId() !== null;
+      return (!isLogged) ?
+        (<Component {...props} />) :
+        (<Redirect to={{ pathname: '/about', state: { from: props.location } }}/>
+        );
+    }}
+  />
+);
 
 /**
  * ProtectedRoute (see React Router v4 sample)
@@ -96,6 +112,12 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
     }}
   />
 );
+
+// Require a component and location to be passed to each UnprotectedRoute.
+UnprotectedRoute.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  location: PropTypes.object,
+};
 
 // Require a component and location to be passed to each ProtectedRoute.
 ProtectedRoute.propTypes = {
