@@ -104,7 +104,7 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || props.currentUser.username}/>
+                  value={fields.dispensedFrom || props.currentUser.username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient's First Name, Last Name"
@@ -123,10 +123,12 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
+                  placeholder="Acetaminophen, Albuterol, etc."
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
+                  placeholder="01ABC..."
                   name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
             </Grid.Row>
@@ -142,6 +144,7 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
+                  placeholder="Moderna, Tylenol, etc."
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
@@ -155,7 +158,9 @@ const DispenseMedication = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}/>
+                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                placeholder="Please write any additional notes, special instructions, or information that
+                should be known here"/>
               </Grid.Column>
             </Grid.Row>
           </Grid>

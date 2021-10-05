@@ -86,6 +86,10 @@ const AddMedication = (props) => {
     { key: '0', text: 'Purchased', value: 'Purchased' },
     { key: '1', text: 'Donated', value: 'Donated' },
   ];
+  const tabml = [
+    { key: '0', text: 'Tab', value: 'Tab' },
+    { key: '1', text: 'mL', value: 'mL' },
+  ];
 
   if (props.ready) {
     return (
@@ -111,6 +115,7 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select label='Purchased/Donated' name='pd' options={pd}
+                  placeholder="Please specify whether medication was purchased or donated"
                   onChange={handleChange} value={fields.pd}/>
                 {
                   fields.pd === 'Donated' &&
@@ -131,14 +136,17 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
+                  placeholder="Acetaminophen, Albuterol, etc."
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
+                  placeholder="01ABC..."
                   name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Location' options={getOptions(props.locations, 'location')}
+                  placeholder="Where will the medication be stored?"
                   name='location' onChange={handleChange} value={fields.location}/>
               </Grid.Column>
             </Grid.Row>
@@ -151,20 +159,23 @@ const AddMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
+                  placeholder="Moderna, Tylenol, etc."
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Field>
                   <label>Quantity (tabs/mL)</label>
                   <Input
-                    label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
+                    label={{basic: true, content: fields.quantity ? 'tabs': '' }} labelPosition='right'
                     type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}/>
+                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                placeholder="Please write any additional notes, special instructions, or information that
+                should be known here"/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
