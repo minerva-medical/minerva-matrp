@@ -32,7 +32,7 @@ const validateForm = data => {
   const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dateAdded', 'site', 'drug', 'lotId', 'brand', 'quantity'];
+  const requiredFields = ['dateAdded', 'site', 'item', 'lotId', 'brand', 'quantity'];
 
   // check required fields
   requiredFields.forEach(field => {
