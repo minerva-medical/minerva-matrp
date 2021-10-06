@@ -9,6 +9,7 @@ import { LotIds } from '../lotId/LotIdCollection';
 import { Locations } from '../location/LocationCollection';
 import { Sites } from '../site/SiteCollection';
 import { Medications } from '../medication/MedicationCollection';
+import { Items } from '../item/ItemCollection';
 import { Historicals } from '../historical/HistoricalCollection';
 
 class MATRPClass {
@@ -31,6 +32,7 @@ class MATRPClass {
       Locations,
       Sites,
       Medications,
+      Items,
       Historicals,
     ];
     /*
@@ -47,6 +49,7 @@ class MATRPClass {
       Locations,
       Sites,
       Medications,
+      Items,
       Historicals,
     ];
 
