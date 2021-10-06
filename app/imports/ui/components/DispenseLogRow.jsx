@@ -1,6 +1,7 @@
 import React from 'react';
-import { Icon, Table } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import DispenseInfoPage from './DispenseInfoPage';
 
 const DispenseLogRow = ({ history }) => (
   <Table.Row>
@@ -11,11 +12,10 @@ const DispenseLogRow = ({ history }) => (
     <Table.Cell>{history.dispensedTo}</Table.Cell>
     <Table.Cell>{history.drugType.join(', ')}</Table.Cell>
     <Table.Cell>{history.drug}</Table.Cell>
-    <Table.Cell>{history.brand}</Table.Cell>
     <Table.Cell>{history.lotId}</Table.Cell>
     <Table.Cell>{history.quantity} {history.isTabs ? 'tabs' : 'mL'}</Table.Cell>
     <Table.Cell>{history.dispensedFrom}</Table.Cell>
-    <Table.Cell><Icon name="info circle"/>More Details</Table.Cell>
+    <Table.Cell textAlign='center'><DispenseInfoPage record={history}/></Table.Cell>
   </Table.Row>
 );
 

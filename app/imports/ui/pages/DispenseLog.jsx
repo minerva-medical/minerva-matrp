@@ -48,7 +48,7 @@ const DispenseLog = (props) => {
                 <Header.Content>
                   History Dispense Log
                   <Header.Subheader>
-                    <i>Use the search filter to check for a specific drug or click on the table header to sort the
+                    <i>Use the search filter to look for a specific Patient Number or click on the table header to sort the
                       column.</i>
                   </Header.Subheader>
                 </Header.Content>
@@ -106,11 +106,10 @@ const DispenseLog = (props) => {
                     <Table.HeaderCell>Patient Number</Table.HeaderCell>
                     <Table.HeaderCell>Type</Table.HeaderCell>
                     <Table.HeaderCell>Medication</Table.HeaderCell>
-                    <Table.HeaderCell>Brand</Table.HeaderCell>
                     <Table.HeaderCell>LotId</Table.HeaderCell>
                     <Table.HeaderCell>Quantity</Table.HeaderCell>
                     <Table.HeaderCell>Dispensed by</Table.HeaderCell>
-                    <Table.HeaderCell>Detailed Notes</Table.HeaderCell>
+                    <Table.HeaderCell>Information</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
