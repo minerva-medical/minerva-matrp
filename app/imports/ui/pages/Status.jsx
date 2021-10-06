@@ -114,6 +114,7 @@ const Status = (props) => {
                 <Table.HeaderCell>Expiration</Table.HeaderCell>
                 <Table.HeaderCell>Purchased</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
+                <Table.HeaderCell>Info</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -125,7 +126,7 @@ const Status = (props) => {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="9">
+                <Table.HeaderCell colSpan="10">
                   <Pagination totalPages={10} activePage={1}/>
                 </Table.HeaderCell>
               </Table.Row>

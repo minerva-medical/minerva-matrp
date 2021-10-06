@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Grid, Button, Segment, Header, Container, GridColumn, Item, ItemGroup, List, ListItem, ItemMeta,
-  ItemContent, ItemDescription, Modal,
+  ItemContent, ItemDescription, Modal, Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const Drug = (drug) => {
+const DrugPage = (drug) => {
   const [open, setOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
@@ -23,7 +23,7 @@ const Drug = (drug) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button size='mini' circular icon='info' color='linkedin'/>}
+      trigger={<Button size='mini' circular icon='info' color='linkedin' />}
       size='large'
       dimmer='blurring'
       id={COMPONENT_IDS.DRUG_PAGE}
@@ -36,17 +36,22 @@ const Drug = (drug) => {
               <ItemGroup relaxed>
                 <Item>
                   <ItemContent>
-                    <Header as='h2'>{drug.name}</Header>
+                    <Header as='h2'>{drug.drug}</Header>
                     <ItemMeta>{drug.drugType}</ItemMeta>
                     <ItemDescription>
                       <List size='large'>
                         <ListItem>brand: {drug.brand}</ListItem>
                         <ListItem>Lot Number: {drug.lotId}</ListItem>
                         <ListItem>Expiration Date: {drug.expire}</ListItem>
-                        <ListItem>Quantity: {drug.quantity}</ListItem>
-                        <ListItem>tabs or mL: {drug.isTabs}</ListItem>
+                        <ListItem>Quantity: {drug.quantity} {drug.minQuantity}</ListItem>
+                        <ListItem>tabs or mL: {drug.isTabs ? 'tabs' : 'mL'}</ListItem>
                         <ListItem>Storage Location: {drug.location}</ListItem>
-                        <ListItem>Received: {drug.purchased}</ListItem> <br/>
+                        <ListItem>Received:         {
+                          drug.purchased ?
+                            <Icon name='check' color='green'/>
+                            :
+                            <Icon name='x' color='red'/>
+                        }</ListItem> <br/>
                       </List>
                     </ItemDescription>
                   </ItemContent>
@@ -60,17 +65,7 @@ const Drug = (drug) => {
                     <Item>
                       <ItemContent>
                         <Header as='h3'>Notes</Header>
-                        <ItemDescription>To be prescribed to patients that are at risk for myocardial infarction or
-                            stroke. Prescribed as take 1 tab daily. Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                            veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur
-                            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                            laborum.
-                        </ItemDescription>
+                        <ItemDescription>{drug.note}</ItemDescription>
                       </ItemContent>
                     </Item>
                   </ItemGroup>
@@ -101,19 +96,9 @@ const Drug = (drug) => {
 };
 
 // Require a document to be passed to this component.
-Drug.propTypes = {
-  drug: PropTypes.shape({
-    drug: PropTypes.string,
-    drugType: PropTypes.string,
-    brand: PropTypes.string,
-    lotId: PropTypes.string,
-    expire: PropTypes.string, // date string "YYYY-MM-DD"
-    quantity: PropTypes.number,
-    isTabs: PropTypes.bool,
-    location: PropTypes.string,
-    purchased: PropTypes.bool,
-  }).isRequired,
+DrugPage.propTypes = {
+  drug: PropTypes.object.isRequired,
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
-export default withRouter(Drug);
+export default withRouter(DrugPage);

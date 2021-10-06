@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import DrugPage from '../components/DrugPage';
 
 const calculateStatus = (quantity, min) => {
   const status = {};
@@ -41,6 +42,7 @@ const MedStatusRow = ({ med }) => {
       <Table.Cell>
         <Icon color={color} name='circle' fitted> {percent}%</Icon>
       </Table.Cell>
+      <Table.Cell><DrugPage drug={med}/></Table.Cell>
     </Table.Row>
   );
 };
