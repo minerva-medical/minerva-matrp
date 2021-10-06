@@ -40,12 +40,12 @@ const DrugPage = (drug) => {
                     <ItemMeta>{drug.drugType}</ItemMeta>
                     <ItemDescription>
                       <List size='large'>
-                        <ListItem>brand: {drug.brand}</ListItem>
+                        <ListItem>Brand: {drug.brand}</ListItem>
                         <ListItem>Lot Number: {drug.lotId}</ListItem>
                         <ListItem>Expiration Date: {drug.expire}</ListItem>
-                        <ListItem>Quantity: {drug.quantity} {drug.minQuantity}</ListItem>
+                        <ListItem>Quantity: {drug.quantity}{drug.minQuantity}</ListItem>
                         <ListItem>tabs or mL: {drug.isTabs ? 'tabs' : 'mL'}</ListItem>
-                        <ListItem>Storage Location: {drug.location}</ListItem>
+                        <ListItem>Storage Location: </ListItem>
                         <ListItem>Received:         {
                           drug.purchased ?
                             <Icon name='check' color='green'/>
@@ -97,7 +97,7 @@ const DrugPage = (drug) => {
 
 // Require a document to be passed to this component.
 DrugPage.propTypes = {
-  drug: PropTypes.object.isRequired,
+  info: PropTypes.object.isRequired,
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
