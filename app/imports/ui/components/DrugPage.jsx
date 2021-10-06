@@ -1,15 +1,15 @@
 import React from 'react';
 import {
   Grid, Button, Segment, Header, Container, GridColumn, Item, ItemGroup, List, ListItem, ItemMeta,
-  ItemContent, ItemDescription, Modal,
+  ItemContent, ItemDescription, Modal, ListHeader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const Drug = (drug) => {
+const DrugPage = ({ info }) => {
   const [open, setOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
@@ -18,12 +18,20 @@ const Drug = (drug) => {
     marginLeft: '10px',
     marginRight: '110px',
   };
+
+  const font1 = {
+    fontSize: '16px',
+  };
+
+  const font2 = {
+    fontSize: '15px',
+  };
   return (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button size='mini' circular icon='info' color='linkedin'/>}
+      trigger={<Button size='mini' circular icon='info' color='linkedin' />}
       size='large'
       dimmer='blurring'
       id={COMPONENT_IDS.DRUG_PAGE}
@@ -36,17 +44,23 @@ const Drug = (drug) => {
               <ItemGroup relaxed>
                 <Item>
                   <ItemContent>
-                    <Header as='h2'>{drug.name}</Header>
-                    <ItemMeta>{drug.drugType}</ItemMeta>
+                    <Header as='h2'>{info.drug}</Header>
+                    <ItemMeta style={font2}>{info.drugType}</ItemMeta>
                     <ItemDescription>
                       <List size='large'>
-                        <ListItem>brand: {drug.brand}</ListItem>
-                        <ListItem>Lot Number: {drug.lotId}</ListItem>
-                        <ListItem>Expiration Date: {drug.expire}</ListItem>
-                        <ListItem>Quantity: {drug.quantity}</ListItem>
-                        <ListItem>tabs or mL: {drug.isTabs}</ListItem>
-                        <ListItem>Storage Location: {drug.location}</ListItem>
-                        <ListItem>Received: {drug.purchased}</ListItem> <br/>
+                        <ListItem><ListHeader>Brand</ListHeader> {info.brand}</ListItem>
+                        <ListItem><ListHeader>Lot Number</ListHeader>{info.lotId}</ListItem>
+                        <ListItem><ListHeader>Expiration Date</ListHeader>{info.expire}</ListItem>
+                        <ListItem><ListHeader>Minimum Quantity</ListHeader>{info.minQuantity}</ListItem>
+                        <ListItem><ListHeader>Quantity in Stock:</ListHeader>{info.quantity}</ListItem>
+                        <ListItem><ListHeader>tabs or mL</ListHeader>{info.isTabs ? 'tabs' : 'mL'}</ListItem>
+                        <ListItem><ListHeader>Storage Location:</ListHeader>{info.location}</ListItem>
+                        <ListItem><ListHeader>Purchased?</ListHeader>         {
+                          info.purchased ?
+                            'Item Purchased'
+                            :
+                            'Item not purchased'
+                        }</ListItem> <br/>
                       </List>
                     </ItemDescription>
                   </ItemContent>
@@ -60,17 +74,7 @@ const Drug = (drug) => {
                     <Item>
                       <ItemContent>
                         <Header as='h3'>Notes</Header>
-                        <ItemDescription>To be prescribed to patients that are at risk for myocardial infarction or
-                            stroke. Prescribed as take 1 tab daily. Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                            veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur
-                            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                            laborum.
-                        </ItemDescription>
+                        <ItemDescription style={font1}>{info.note}</ItemDescription>
                       </ItemContent>
                     </Item>
                   </ItemGroup>
@@ -91,7 +95,7 @@ const Drug = (drug) => {
           icon='edit'
           onClick={() => setOpen(false)}
           color='linkedin'
-          as={Link} to={`/edit/${drug._id}`}
+          // as={Link} to={`/edit/${info._id}`}
         />
       </Modal.Actions>
     </Modal>
@@ -101,19 +105,9 @@ const Drug = (drug) => {
 };
 
 // Require a document to be passed to this component.
-Drug.propTypes = {
-  drug: PropTypes.shape({
-    drug: PropTypes.string,
-    drugType: PropTypes.string,
-    brand: PropTypes.string,
-    lotId: PropTypes.string,
-    expire: PropTypes.string, // date string "YYYY-MM-DD"
-    quantity: PropTypes.number,
-    isTabs: PropTypes.bool,
-    location: PropTypes.string,
-    purchased: PropTypes.bool,
-  }).isRequired,
+DrugPage.propTypes = {
+  info: PropTypes.object.isRequired,
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
-export default withRouter(Drug);
+export default withRouter(DrugPage);

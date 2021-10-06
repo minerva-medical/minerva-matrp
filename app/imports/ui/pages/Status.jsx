@@ -114,6 +114,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
                 <Table.HeaderCell>Expiration</Table.HeaderCell>
                 <Table.HeaderCell>Purchased</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
+                <Table.HeaderCell>Information</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -125,7 +126,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="9">
+                <Table.HeaderCell colSpan="10">
                   <Pagination totalPages={10} activePage={1}/>
                 </Table.HeaderCell>
               </Table.Row>
