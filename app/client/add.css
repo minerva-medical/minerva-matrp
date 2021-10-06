@@ -23,10 +23,16 @@
   height: 2.71428571em;
 }
 
+#add-form .ui.form .field > .field {
+  margin-bottom: 0;
+}
+
 #add-form .x-icon {
   position: absolute;
-  top: 50%;
-  right: 15%;
+  bottom: 11px;
+  right: 28px;
+  background-color: #dde0e8;
+  font-size: 16px;
   cursor: pointer;
 }
 
@@ -50,7 +56,8 @@
   color: rgb(29, 62, 102);
 }
 
-#add-form input, .ui.selection.dropdown, .ui.search.selection.dropdown, .ui.basic.label, textarea {
+#add-form input, .ui.selection.dropdown, textarea {
+  font-family: Lato;
   background-color: #dde0e8 !important;
 }
 
@@ -62,16 +69,41 @@
   color: grey
 }
 
-#add-form .ui.basic.label.label {
-  width: 50px;
+#add-form .ui.form .fields {
+  align-items: flex-end;
+  margin-bottom: 0;
 }
 
-#add-form .ui.form .field {
-  margin-bottom: 0;
+#add-form .ui.form .fields .quantity {
+  flex: 3 1 0;
+  width: 0;
+}
+
+#add-form .ui.form .fields .unit {
+  flex: 1 3 0;
+  width: 0;
+}
+
+#add-form .ui.form .fields .unit > .dropdown {
+  min-width: unset;
+}
+
+/* the checkbox */
+#add-form .checkbox-column {
+  align-self: center;
+  font-weight: 700;
+}
+
+#add-form .location-column .field .ui.dropdown {
+  min-width: 0;
 }
 
 @media only screen and (max-width: 767px) {
   #add-form .filler-column {
     display: none;
+  }
+
+  #add-form .x-icon {
+    bottom: 25px;
   }
 }

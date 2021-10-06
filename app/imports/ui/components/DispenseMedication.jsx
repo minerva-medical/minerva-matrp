@@ -144,7 +144,7 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
-                  placeholder="Moderna, Tylenol, etc."
+                  placeholder="Advil, Tylenol, etc."
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
@@ -159,8 +159,7 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please write any additional notes, special instructions, or information that
-                should be known here"/>
+                  placeholder="Please write any additional notes, special instructions, or information that should be known here"/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
