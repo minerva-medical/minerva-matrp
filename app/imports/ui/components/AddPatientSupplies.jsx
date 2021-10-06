@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Input, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Input } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -103,7 +103,7 @@ const AddPatientSupplies = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input type="date" label='Date Added' name='dateAdded'
-                            onChange={handleChange} value={fields.dateDispensed}/>
+                  onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
               <Grid.Column className='filler-column' />
@@ -111,17 +111,17 @@ const AddPatientSupplies = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select label='Purchased/Donated' name='pd' options={pd}
-                             onChange={handleChange} value={fields.pd}/>
+                  onChange={handleChange} value={fields.pd}/>
                 {
                   fields.pd === 'Donated' &&
                   <Form.Input placeholder="Input Donor Name Here"
-                              name='donorName' onChange={handleChange}/>
+                    name='donorName' onChange={handleChange}/>
                 }
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites, 'site')}
-                             placeholder="POST, Kaka’ako, etc."
-                             name='site' onChange={handleChange} value={fields.site}/>
+                  placeholder="POST, Kaka’ako, etc."
+                  name='site' onChange={handleChange} value={fields.site}/>
                 {
                   fields.site === 'OTHER' &&
                   <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}/>
@@ -131,17 +131,17 @@ const AddPatientSupplies = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Item Name' options={getOptions(props.items, 'item')}
-                             name='item' onChange={handleChange} value={fields.item}/>
+                  name='item' onChange={handleChange} value={fields.item}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
-                             name='brand' onChange={handleChange} value={fields.brand}/>
+                  name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
-                             name='lotId' onChange={handleChange} value={fields.lotId}/>
+                  name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Field>
@@ -153,7 +153,7 @@ const AddPatientSupplies = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Location' options={getOptions(props.locations, 'location')}
-                             name='location' onChange={handleChange} value={fields.location}/>
+                  name='location' onChange={handleChange} value={fields.location}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
