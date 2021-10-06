@@ -19,11 +19,11 @@ class HistoricalCollection extends BaseCollection {
       'drugType.$': String,
       brand: String,
       lotId: String,
-      expire: Date, // date string "YYYY-MM-DD"
+      expire: String, // date string "YYYY-MM-DD"
       quantity: Number,
       isTabs: Boolean,
       location: String,
-      dateDispensed: Date,
+      dateDispensed: Date, // date-time string "YYYY-MM-DD"
       dispensedFrom: String,
       dispensedTo: String,
       site: String,

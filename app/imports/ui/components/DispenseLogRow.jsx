@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 const DispenseLogRow = ({ history }) => (
   <Table.Row>
-    <Table.Cell>{history.dateDispensed}</Table.Cell>
+    <Table.Cell>
+      <i>{history.dateDispensed.toLocaleDateString('en-US')}</i> — [{history.dateDispensed.toLocaleTimeString('en-US')}]
+    </Table.Cell>
     <Table.Cell>Patient Use</Table.Cell>
     <Table.Cell>{history.dispensedTo}</Table.Cell>
     <Table.Cell>{history.drugType.join(', ')}</Table.Cell>
@@ -19,7 +21,7 @@ const DispenseLogRow = ({ history }) => (
 
 DispenseLogRow.propTypes = {
   history: PropTypes.shape({
-    dateDispensed: PropTypes.string,
+    dateDispensed: PropTypes.date,
     dispensedTo: PropTypes.string,
     drugType: PropTypes.array,
     drug: PropTypes.string,
