@@ -48,8 +48,7 @@ const validateForm = data => {
 const DispenseMedication = (props) => {
   const [fields, setFields] = useState({
     site: '',
-    newSite: '',
-    dateDispensed: new Date().toLocaleDateString('fr-CA'),
+    dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
     isTabs: true,
@@ -86,7 +85,7 @@ const DispenseMedication = (props) => {
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input type="date" label='Date Dispensed' name='dateDispensed'
+                <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />

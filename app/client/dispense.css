@@ -19,7 +19,7 @@
   font-size: 1em;
 }
 
-#dispense-form input[type="date"] {
+#dispense-form input[type="date"], input[type="datetime-local"] {
   height: 2.71428571em;
 }
 
