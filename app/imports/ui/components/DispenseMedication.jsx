@@ -63,7 +63,7 @@ const DispenseMedication = (props) => {
   const [fields, setFields] = useState({
     site: '',
     newSite: '',
-    dateDispensed: new Date().getTime(),
+    dateDispensed: new Date().toLocaleDateString('fr-CA'),
     drug: '',
     quantity: '',
     isTabs: true,
@@ -84,10 +84,10 @@ const DispenseMedication = (props) => {
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
-            Dispense from Inventory Form
+              Dispense from Inventory Form
             <Header.Subheader>
               <i>Please input the following information to dispense from the inventory,
-              to the best of your abilities.</i>
+                  to the best of your abilities.</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
@@ -118,7 +118,7 @@ const DispenseMedication = (props) => {
                   name='site' onChange={handleChange} value={fields.site}/>
                 {
                   fields.site === 'OTHER' &&
-                  <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}/>
+                    <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}/>
                 }
               </Grid.Column>
               <Grid.Column>
