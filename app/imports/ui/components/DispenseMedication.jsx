@@ -14,9 +14,6 @@ import { Brands } from '../../api/brand/BrandCollection';
 const getOptions = (arr, name) => {
   let options = _.pluck(arr, name);
   options = options.map(elem => ({ key: elem, text: elem, value: elem }));
-  if (name === 'site') {
-    options.push({ key: 'OTHER', text: 'OTHER', value: 'OTHER' });
-  }
   return options;
 };
 
@@ -39,17 +36,6 @@ const validateForm = data => {
       errorMsg += `${field} cannot be empty.\n`;
     }
   });
-
-  // check new site; submit either site or newSite
-  if (submitData.site === 'OTHER') {
-    if (!submitData.newSite) {
-      errorMsg += 'newSite cannot be empty.\n';
-    } else {
-      delete submitData.site;
-    }
-  } else {
-    delete submitData.newSite;
-  }
 
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
@@ -77,6 +63,11 @@ const DispenseMedication = (props) => {
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
+  };
+
+  // handle dropdown search query
+  const handleSearch = (event, { name, searchQuery }) => {
+    setFields({ ...fields, [name]: searchQuery });
   };
 
   if (props.ready) {
@@ -114,12 +105,8 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites, 'site')}
-                  placeholder="POST, Kaka’ako, etc."
-                  name='site' onChange={handleChange} value={fields.site}/>
-                {
-                  fields.site === 'OTHER' &&
-                  <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}/>
-                }
+                  placeholder="POST, Kaka’ako, etc." name='site'
+                  onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
@@ -151,7 +138,7 @@ const DispenseMedication = (props) => {
                 <Form.Group>
                   <Form.Input label='Quantity (tabs/mL)' type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} />
-                  <Form.Select name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
+                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
                     options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
                 </Form.Group>
               </Grid.Column>

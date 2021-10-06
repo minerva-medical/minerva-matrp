@@ -84,18 +84,10 @@
   width: 0;
 }
 
-#add-form .ui.form .fields .unit > .dropdown {
-  min-width: unset;
-}
-
 /* the checkbox */
 #add-form .checkbox-column {
   align-self: center;
   font-weight: 700;
-}
-
-#add-form .location-column .field .ui.dropdown {
-  min-width: 0;
 }
 
 @media only screen and (max-width: 767px) {

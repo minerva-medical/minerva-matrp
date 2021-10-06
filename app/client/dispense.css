@@ -29,7 +29,7 @@
 
 #dispense-form .x-icon {
   position: absolute;
-  bottom: 16px;
+  bottom: 11px;
   right: 28px;
   background-color: #dde0e8;
   font-size: 16px;
@@ -81,10 +81,6 @@
 #dispense-form .ui.form .fields .unit {
   flex: 1 3 0;
   width: 0;
-}
-
-#dispense-form .ui.form .fields .unit > .dropdown {
-  min-width: unset;
 }
 
 @media only screen and (max-width: 767px) {

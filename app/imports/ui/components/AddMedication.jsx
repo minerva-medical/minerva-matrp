@@ -63,6 +63,11 @@ const AddMedication = (props) => {
     setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
 
+  // handle dropdown search query
+  const handleSearch = (event, { name, searchQuery }) => {
+    setFields({ ...fields, [name]: searchQuery });
+  };
+
   if (props.ready) {
     return (
       <Tab.Pane id='add-form'>
@@ -79,8 +84,8 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
-                  placeholder="Acetaminophen, Albuterol, etc."
-                  name='drug' onChange={handleChange} value={fields.drug}/>
+                  placeholder="Acetaminophen, Albuterol, etc." name='drug'
+                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
@@ -92,13 +97,13 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
-                  placeholder="Advil, Tylenol, etc."
-                  name='brand' onChange={handleChange} value={fields.brand}/>
+                  placeholder="Advil, Tylenol, etc." name='brand'
+                  onChange={handleChange} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
-                  placeholder="01ABC..."
-                  name='lotId' onChange={handleChange} value={fields.lotId}/>
+                  placeholder="01ABC..." name='lotId'
+                  onChange={handleChange} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
@@ -119,14 +124,14 @@ const AddMedication = (props) => {
                 <Form.Group>
                   <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} />
-                  <Form.Select name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
+                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
                     options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
                 </Form.Group>
               </Grid.Column>
-              <Grid.Column className='location-column'>
-                <Form.Select clearable search label='Location' options={getOptions(props.locations, 'location')}
-                  placeholder="Case 1, Case 2, etc."
-                  name='location' onChange={handleChange} value={fields.location}/>
+              <Grid.Column>
+                <Form.Select compact clearable search label='Location' options={getOptions(props.locations, 'location')}
+                  placeholder="Case 1, Case 2, etc." name='location'
+                  onChange={handleChange} value={fields.location} onSearchChange={handleSearch} searchQuery={fields.location}/>
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
                 <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated} />
