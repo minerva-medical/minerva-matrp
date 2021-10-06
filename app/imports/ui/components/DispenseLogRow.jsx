@@ -11,7 +11,7 @@ const DispenseLogRow = ({ history }) => (
     <Table.Cell>{history.drug}</Table.Cell>
     <Table.Cell>{history.brand}</Table.Cell>
     <Table.Cell>{history.lotId}</Table.Cell>
-    <Table.Cell>{history.quantity}{history.isTabs ? 'tabs' : 'mL'}</Table.Cell>
+    <Table.Cell>{history.quantity} {history.isTabs ? 'tabs' : 'mL'}</Table.Cell>
     <Table.Cell>{history.dispensedFrom}</Table.Cell>
     <Table.Cell><Icon name="info circle"/>More Details</Table.Cell>
   </Table.Row>
