@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Input, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -63,10 +63,10 @@ const DispenseMedication = (props) => {
   const [fields, setFields] = useState({
     site: '',
     newSite: '',
-    dateDispensed: new Date().toLocaleDateString('fr-CA'),
+    dateDispensed: new Date().getTime(),
     drug: '',
     quantity: '',
-    unit: '', // unit will autofill on selection of drug
+    isTabs: true,
     brand: '',
     lotId: '',
     expire: '',
@@ -104,7 +104,7 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || props.currentUser.username}/>
+                  value={fields.dispensedFrom || props.currentUser.username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient's First Name, Last Name"
@@ -123,36 +123,43 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
+                  placeholder="Acetaminophen, Albuterol, etc."
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
+                  placeholder="01ABC..."
                   name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 {/* expiration date may be null */}
-                <Form.Input type='date' label='Expiration Date' className='date-input'
-                  name='expire' onChange={handleChange} value={fields.expire}/>
-                <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}/>
+                <Form.Field>
+                  <label>Expiration Date</label>
+                  <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
+                  <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
+                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
+                </Form.Field>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
+                  placeholder="Advil, Tylenol, etc."
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Field>
-                  <label>Quantity (tabs/mL)</label>
-                  <Input
-                    label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
-                    type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
-                </Form.Field>
+                <Form.Group>
+                  <Form.Input label='Quantity (tabs/mL)' type='number' min={1} name='quantity' className='quantity'
+                    onChange={handleChange} value={fields.quantity} />
+                  <Form.Select name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
+                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                </Form.Group>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}/>
+                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                  placeholder="Please write any additional notes, special instructions, or information that should be known here"/>
               </Grid.Column>
             </Grid.Row>
           </Grid>

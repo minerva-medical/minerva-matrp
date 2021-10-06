@@ -50,6 +50,36 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_LIST_STUFF}`);
   }
 
+  /** Go to the About Us page. */
+  async gotoAboutUsPage() {
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ABOUT_US}`);
+  }
+
+  /** Go to the Add inventory page. */
+  async gotoAddInventoryPage() {
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_ADD_INVENTORY}`);
+  }
+
+  /** Go to the Dispense page. */
+  async gotoDispensePage() {
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_DISPENSE}`);
+  }
+
+  /** Go to the Add inventory page. */
+  async gotoStatusLogPage() {
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_STATUS}`);
+  }
+
+  /** Go to the Dispense Log page. */
+  async gotoDispenseLogPage() {
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_DISPENSE_LOG}`);
+  }
+
   /** Go to the list stuff admin page. */
   async gotoListStuffAdminPage() {
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();

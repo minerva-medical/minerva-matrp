@@ -1,89 +1,47 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-import { _ } from 'meteor/underscore';
+// import { _ } from 'meteor/underscore';
 // import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
-export const medicationPublications = {
-  medication: 'Medication',
-  medicationAdmin: 'MedicationAdmin',
+export const historicalPublications = {
+  historical: 'Historical;',
+  historicalAdmin: 'HistoricalAdmin',
 };
 
-class MedicationCollection extends BaseCollection {
+class HistoricalCollection extends BaseCollection {
   constructor() {
-    super('Medications', new SimpleSchema({
+    super('Historicals', new SimpleSchema({
       drug: String,
       drugType: Array,
       'drugType.$': String,
       brand: String,
       lotId: String,
       expire: String, // date string "YYYY-MM-DD"
-      minQuantity: Number,
       quantity: Number,
       isTabs: Boolean,
       location: String,
-      purchased: Boolean,
+      dateDispensed: Date, // date-time string "YYYY-MM-DD"
+      dispensedFrom: String,
+      dispensedTo: String,
+      site: String,
       note: String,
     }));
   }
 
   /**
-   * Defines a new Medication item.
+   * Defines a new Dispensed item.
    * @param name the name of the item.
    * @param quantity how many.
    * @param owner the owner of the item.
-   * @param condition the condition of the item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased, note }) {
-    const docID = this._collection.insert({
-      drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased, note,
+  define({ drug, drugType, brand, lotId, expire, quantity, isTabs, location, dateDispensed, dispensedFrom, dispensedTo, site, note }) {
+    const docID = this._collection.insert({ drug, drugType, brand, lotId, expire, quantity, isTabs, location, dateDispensed, dispensedFrom, dispensedTo, site, note,
     });
     return docID;
-  }
-
-  /**
-   * Updates the given document.
-   * @param docID the id of the document to update.
-   * @param name the new name (optional).
-   * @param quantity the new quantity (optional).
-   * @param condition the new condition (optional).
-   */
-  update(docID, { drugType, brand, lotId, expire, minQuantity, quantity, location, purchased, note }) {
-    const updateData = {};
-
-    /**
-     * adds String data if not falsy (in this case: empty, null, or undefined)
-     * @param data
-     */
-    function addString(data) {
-      if (data) {
-        updateData[data] = data;
-      }
-    }
-    // if (quantity) { NOTE: 0 is falsy so we need to check if the quantity is a number.
-    function addNumber(data) {
-      if (_.isNumber(data)) {
-        updateData[data] = data;
-      }
-    }
-
-    if (drugType.every(elem => elem)) { // check if every drug type is a String
-      updateData[drugType] = drugType;
-    }
-    addString(brand);
-    addString(lotId);
-    addString(expire);
-    addNumber(quantity);
-    addNumber(minQuantity);
-    addString(location);
-    if (_.isBoolean(purchased)) {
-      updateData.purchased = purchased;
-    }
-    addString(note);
-    this._collection.update(docID, { $set: updateData });
   }
 
   /**
@@ -100,14 +58,14 @@ class MedicationCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the medication associated to an owner.
+   * It publishes the entire collection for admin and just the historical associated to an owner.
    */
   publish() {
     if (Meteor.isServer) {
-      // get the MedicationCollection instance.
+      // get the HistoricalCollection instance.
       const instance = this;
       /** This subscription publishes only the documents associated with the logged in user */
-      Meteor.publish(medicationPublications.medication, function publish() {
+      Meteor.publish(historicalPublications.historical, function publish() {
         if (this.userId) {
           // const username = Meteor.users.findOne(this.userId).username;
           return instance._collection.find();
@@ -116,7 +74,7 @@ class MedicationCollection extends BaseCollection {
       });
 
       /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-      Meteor.publish(medicationPublications.medicationAdmin, function publish() {
+      Meteor.publish(historicalPublications.historicalAdmin, function publish() {
         if (this.userId) {
           return instance._collection.find();
         }
@@ -128,9 +86,9 @@ class MedicationCollection extends BaseCollection {
   /**
    * Subscription method for medication owned by the current user.
    */
-  subscribeMedication() {
+  subscribeHistorical() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(medicationPublications.medication);
+      return Meteor.subscribe(historicalPublications.historical);
     }
     return null;
   }
@@ -139,9 +97,9 @@ class MedicationCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeMedicationAdmin() {
+  subscribeHistoricalAdmin() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(medicationPublications.medicationAdmin);
+      return Meteor.subscribe(historicalPublications.historicalAdmin);
     }
     return null;
   }
@@ -160,4 +118,4 @@ class MedicationCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Medications = new MedicationCollection();
+export const Historicals = new HistoricalCollection();
