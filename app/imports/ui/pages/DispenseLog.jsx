@@ -1,6 +1,12 @@
 import React from 'react';
-import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid } from 'semantic-ui-react';
-import { PAGE_IDS } from '../utilities/PageIDs';
+import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Input } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
+// import { _ } from 'meteor/underscore';
+import { Historicals } from '../../api/historical/HistoricalCollection';
+import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
+import { Locations } from '../../api/location/LocationCollection';
+import DispenseLogRow from '../components/DispenseLogRow';
 
 /** Renders the Page for Dispensing Inventory. */
 const limitOptions = [
@@ -21,176 +27,136 @@ const reason = [
   { key: '2', value: 'Expired', text: 'Expired' },
   { key: '3', value: 'Broken/Contaminated', text: 'Broken/Contaminated' },
 ];
-  /** Render the form. */
-const DispenseLog = () => (
-  <Container id={PAGE_IDS.DISPENSE_LOG}>
-    <Segment>
-      <Header as="h2">
-        <Header.Content>
-          History Dispense Log
-          <Header.Subheader>
-            <i>Below is a history log of dispensed inventories.</i>
-          </Header.Subheader>
-        </Header.Content>
-      </Header>
-      <Divider/>
-      <Grid divided columns="equal">
-        <Grid.Row textAlign='center'>
-          <Grid.Column>
-                  Sort By: {' '}
-            <Dropdown
-              inline={true}
-              options={sort}
-              defaultValue={'Most Recent'}
-            />
-          </Grid.Column>
-          <Grid.Column>
-                  Reason for Dispense: {' '}
-            <Dropdown
-              inline={true}
-              options={reason}
-              defaultValue={'All'}
-            />
-          </Grid.Column>
-          <Grid.Column>
-            Records per page:{' '}
-            <Dropdown
-              inline={true}
-              options={limitOptions}
-              defaultValue={'10'}
-            />
-            Total count: {'200'}
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-      <Divider/>
-      <Table celled selectable sortable compact>
-        <Table.Header>
-          <Table.Row inverted color="blue">
-            <Table.HeaderCell
-              width={1}
-            >
-                    Date : Time
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={2}
-            >
-                    Reason for Dispense
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={3}
-            >
-                    Medicine
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={1}
-            >
-                    Brand
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={1}
-            >
-                    Quantity
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              width={3}
-            >
-                    Dispensed by
-            </Table.HeaderCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-13 (12:25:30)</Table.Cell>
-            <Table.Cell>Patient Use</Table.Cell>
-            <Table.Cell>Cold and Flu Syrup</Table.Cell>
-            <Table.Cell>NyQuil</Table.Cell>
-            <Table.Cell>355 mL</Table.Cell>
-            <Table.Cell>johndoe@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-13 (12:25:30)</Table.Cell>
-            <Table.Cell>Broken/Contaminated</Table.Cell>
-            <Table.Cell>Acetaminophen 160mg/5 ml Susp</Table.Cell>
-            <Table.Cell>Advil</Table.Cell>
-            <Table.Cell>2</Table.Cell>
-            <Table.Cell>johndoe@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-12 (08:30:04)</Table.Cell>
-            <Table.Cell>Patient Use</Table.Cell>
-            <Table.Cell>Acetaminophen Infant Drops</Table.Cell>
-            <Table.Cell>Tylenol</Table.Cell>
-            <Table.Cell>2.5 mL</Table.Cell>
-            <Table.Cell>doe@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-12 (07:45:20)</Table.Cell>
-            <Table.Cell>Expired</Table.Cell>
-            <Table.Cell>Cetirizine 10 mg tablets</Table.Cell>
-            <Table.Cell>Zyrtic</Table.Cell>
-            <Table.Cell>30</Table.Cell>
-            <Table.Cell>sueflay@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-11 (10:04:18)</Table.Cell>
-            <Table.Cell>Broken/Contaminated</Table.Cell>
-            <Table.Cell>Naproxen 500 mg tabs</Table.Cell>
-            <Table.Cell>Aleve</Table.Cell>
-            <Table.Cell>15</Table.Cell>
-            <Table.Cell>obijuan@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-10 (13:04:47)</Table.Cell>
-            <Table.Cell>Patient Use</Table.Cell>
-            <Table.Cell>Steroid Inhaler</Table.Cell>
-            <Table.Cell>Ventolin</Table.Cell>
-            <Table.Cell>1</Table.Cell>
-            <Table.Cell>maryjane@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-10 (10:15:22)</Table.Cell>
-            <Table.Cell>Patient Use</Table.Cell>
-            <Table.Cell>Ibuprofen 800 mg tabs</Table.Cell>
-            <Table.Cell>Advil</Table.Cell>
-            <Table.Cell>60</Table.Cell>
-            <Table.Cell>johndoe@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-10 (09:35:17)</Table.Cell>
-            <Table.Cell>Patient Use</Table.Cell>
-            <Table.Cell>Amoxicillin 250 mg Chewables</Table.Cell>
-            <Table.Cell>Amoxil</Table.Cell>
-            <Table.Cell>30</Table.Cell>
-            <Table.Cell>janedoe@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-10 (08:22:45)</Table.Cell>
-            <Table.Cell>Expired</Table.Cell>
-            <Table.Cell>Cold and Flu Syrup</Table.Cell>
-            <Table.Cell>NyQuil</Table.Cell>
-            <Table.Cell>355 mL</Table.Cell>
-            <Table.Cell>sueflay@hawaii.edu</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>2021-09-09 (10:15:25)</Table.Cell>
-            <Table.Cell>Expired</Table.Cell>
-            <Table.Cell>Penicillin VK 500 mg Tabs</Table.Cell>
-            <Table.Cell>Penicillin VK </Table.Cell>
-            <Table.Cell>30</Table.Cell>
-            <Table.Cell>obijuan@hawaii.edu</Table.Cell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan="8">
-              <Pagination
-                totalPages={10}
-                activePage={1}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
-      </Table>
-    </Segment>
-  </Container>
-);
-export default DispenseLog;
+
+const inventory = [
+  { key: '0', value: 'All', text: 'All' },
+  { key: '1', value: 'Medication', text: 'Medication' },
+  { key: '2', value: 'Vaccination', text: 'Vaccination' },
+  { key: '3', value: 'Patient Supplies', text: 'Patient Supplies' },
+  { key: '4', value: 'Lab Testing Supplies', text: 'Lab Testing Supplies' },
+];
+
+/** Render the form. */
+const DispenseLog = (props) => {
+  if (props.ready) {
+    return (
+      <div>
+        <Container id='dispense-log'>
+          <Grid id='dispense-log-grid' centered>
+            <Segment>
+              <Header as="h2">
+                <Header.Content>
+                  History Dispense Log
+                  <Header.Subheader>
+                    <i>Use the search filter to check for a specific drug or click on the table header to sort the
+                      column.</i>
+                  </Header.Subheader>
+                </Header.Content>
+              </Header>
+              <Divider/>
+              <Grid>
+                <Grid.Column width={4}>
+                  <Input placeholder='Filter by patient number...' icon='search'/>
+                </Grid.Column>
+              </Grid>
+              <Divider/>
+              <Grid divided columns="equal">
+                <Grid.Row textAlign='center'>
+                  <Grid.Column>
+                    Sort By: {' '}
+                    <Dropdown
+                      inline={true}
+                      options={sort}
+                      defaultValue={'Most Recent'}
+                    />
+                  </Grid.Column>
+                  <Grid.Column>
+                    Dispense Type: {' '}
+                    <Dropdown
+                      inline={true}
+                      options={reason}
+                      defaultValue={'All'}
+                    />
+                  </Grid.Column>
+                  <Grid.Column>
+                    Inventory Type: {' '}
+                    <Dropdown
+                      inline={true}
+                      options={inventory}
+                      defaultValue={'All'}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <Divider/>
+              <div>
+                Records per page:{' '}
+                <Dropdown
+                  inline={true}
+                  options={limitOptions}
+                  defaultValue={'10'}
+                />
+                Total count: {'200'}
+              </div>
+              <Table striped singleLine columns={11}>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Date & Time</Table.HeaderCell>
+                    <Table.HeaderCell>Dispense Type</Table.HeaderCell>
+                    <Table.HeaderCell>Patient Number</Table.HeaderCell>
+                    <Table.HeaderCell>Type</Table.HeaderCell>
+                    <Table.HeaderCell>Medication</Table.HeaderCell>
+                    <Table.HeaderCell>Brand</Table.HeaderCell>
+                    <Table.HeaderCell>LotId</Table.HeaderCell>
+                    <Table.HeaderCell>Quantity</Table.HeaderCell>
+                    <Table.HeaderCell>Dispensed by</Table.HeaderCell>
+                    <Table.HeaderCell>Detailed Notes</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {
+                    props.historicals.map(history => <DispenseLogRow key={history._id} history={history} />)
+                  }
+                </Table.Body>
+                <Table.Footer>
+                  <Table.Row>
+                    <Table.HeaderCell colSpan="11">
+                      <Pagination totalPages={10} activePage={1}/>
+                    </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Footer>
+              </Table>
+            </Segment>
+          </Grid>
+        </Container>
+      </div>
+    );
+  }
+  return (<Loader active>Getting data</Loader>);
+};
+
+DispenseLog.propTypes = {
+  historicals: PropTypes.array.isRequired,
+  drugTypes: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+// withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
+export default withTracker(() => {
+  const historicalSub = Historicals.subscribeHistorical();
+  const drugTypeSub = DrugTypes.subscribeDrugType();
+  const locationSub = Locations.subscribeLocation();
+  // Determine if the subscription is ready
+  const ready = historicalSub.ready() && drugTypeSub.ready() && locationSub.ready();
+  // Get the Stuff documents and sort them by name.
+  const historicals = Historicals.find({}).fetch();
+  const drugTypes = DrugTypes.find({}).fetch();
+  const locations = Locations.find({}).fetch();
+  return {
+    historicals,
+    drugTypes,
+    locations,
+    ready,
+  };
+})(DispenseLog);
