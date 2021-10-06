@@ -31,7 +31,7 @@ const MedStatusRow = ({ med }) => {
       <Table.Cell>{med.quantity}{med.isTabs ? 'tabs' : 'mL'}</Table.Cell>
       <Table.Cell>{med.location}</Table.Cell>
       <Table.Cell>{med.expire}</Table.Cell>
-      <Table.Cell>
+      <Table.Cell textAlign='center'>
         {
           med.purchased ?
             <Icon name='check' color='green'/>
@@ -42,7 +42,7 @@ const MedStatusRow = ({ med }) => {
       <Table.Cell>
         <Icon color={color} name='circle' fitted> {percent}%</Icon>
       </Table.Cell>
-      <Table.Cell><DrugPage info={med}/></Table.Cell>
+      <Table.Cell textAlign='center'><DrugPage info={med}/></Table.Cell>
     </Table.Row>
   );
 };

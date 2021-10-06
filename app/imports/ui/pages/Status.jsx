@@ -114,7 +114,7 @@ const Status = (props) => {
                 <Table.HeaderCell>Expiration</Table.HeaderCell>
                 <Table.HeaderCell>Purchased</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
-                <Table.HeaderCell>Info</Table.HeaderCell>
+                <Table.HeaderCell>Information</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
