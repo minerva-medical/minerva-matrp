@@ -43,6 +43,9 @@ const medicationBrand = [
 // Render the form.
 const Status = ({ ready, medications, drugTypes, locations }) => {
   if (ready) {
+    const gridAlign = {
+      textAlign: "center",
+    }
     return (
       <Container id={PAGE_IDS.MED_STATUS}>
         <Segment>
@@ -62,7 +65,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
           </Grid>
           <Divider/>
           <Grid divided columns="equal">
-            <Grid.Row textAlign='center'>
+            <Grid.Row style={gridAlign}>
               <Grid.Column>
                   Type of Medication: {' '}
                 <Dropdown
