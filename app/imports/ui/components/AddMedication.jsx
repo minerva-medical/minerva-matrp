@@ -118,12 +118,12 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity'
-                  onChange={handleChange} value={fields.minQuantity} />
+                  onChange={handleChange} value={fields.minQuantity} placeholder="Min. Inventory should have"/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
                   <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} />
+                    onChange={handleChange} value={fields.quantity} placeholder="Amount to be added"/>
                   <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
                     options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
                 </Form.Group>
