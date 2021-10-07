@@ -1,12 +1,15 @@
 import React from 'react';
 import { Container, Tab } from 'semantic-ui-react';
 import AddMedication from '../components/AddMedication';
+import AddVaccination from '../components/AddVaccination';
+import AddPatientSupplies from '../components/AddPatientSupplies';
+import AddLabTestSupplies from '../components/AddLabTestSupplies';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 const medicationTab = () => <AddMedication />;
-const vaccinesTab = () => <Tab.Pane>Tab 2 Content</Tab.Pane>;
-const patientSuppliesTab = () => <Tab.Pane>Tab 3 Content</Tab.Pane>;
-const testingSuppliesTab = () => <Tab.Pane>Tab 4 Content</Tab.Pane>;
+const vaccinesTab = () => <AddVaccination/>;
+const patientSuppliesTab = () => <AddPatientSupplies/>;
+const testingSuppliesTab = () => <AddLabTestSupplies/>;
 
 const panes = [
   { menuItem: 'Medication', render: medicationTab },
