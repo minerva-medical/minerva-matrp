@@ -40,7 +40,7 @@ const MedStatusRow = ({ med }) => {
         }
       </Table.Cell>
       <Table.Cell>
-        <Icon color={color} name='circle' fitted> {percent}%</Icon>
+        <Icon color={color} name='circle'> {percent}%</Icon>
       </Table.Cell>
       <Table.Cell textAlign='center'><DrugPage info={med}/></Table.Cell>
     </Table.Row>
