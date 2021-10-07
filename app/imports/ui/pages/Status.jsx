@@ -44,8 +44,8 @@ const medicationBrand = [
 const Status = ({ ready, medications, drugTypes, locations }) => {
   if (ready) {
     const gridAlign = {
-      textAlign: "center",
-    }
+      textAlign: 'center',
+    };
     return (
       <Container id={PAGE_IDS.MED_STATUS}>
         <Segment>
@@ -54,7 +54,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
                 Inventory Status
               <Header.Subheader>
                 <i>Use the search filter to check for a specific drug or
-                    click on the table header to sort the column.</i>
+                    use the dropdown filters.</i>
               </Header.Subheader>
             </Header.Content>
           </Header>
