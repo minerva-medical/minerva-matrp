@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -20,7 +20,10 @@ const getOptions = (arr, name) => {
 /** On submit, insert the data. */
 const submit = data => {
   // TODO: handle submit
-  swal('Success', JSON.stringify(data), 'success');
+  swal('Success', JSON.stringify(data), 'success', {
+    buttons: false,
+    timer: 3000,
+  });
 };
 
 const validateForm = data => {
@@ -59,6 +62,12 @@ const AddMedication = (props) => {
     note: '',
   });
 
+  const [drugTypes, setDrugTypes] = useState([]); // store drugTypes in state
+  // update drugTypes if props.drugTypes changes
+  useEffect(() => {
+    setDrugTypes(props.drugTypes);
+  }, [props.drugTypes]);
+
   const handleChange = (event, { name, value, checked }) => {
     setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
@@ -66,6 +75,14 @@ const AddMedication = (props) => {
   // handle dropdown search query
   const handleSearch = (event, { name, searchQuery }) => {
     setFields({ ...fields, [name]: searchQuery });
+  };
+
+  // add user inputted drug type if not already added
+  const addDrugType = (event, { value }) => {
+    const re = new RegExp(value, 'i');
+    if (!_.pluck(drugTypes, 'drugType').some(elem => re.test(elem))) {
+      setDrugTypes([...drugTypes, { drugType: value }]);
+    }
   };
 
   if (props.ready) {
@@ -89,8 +106,8 @@ const AddMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                  options={getOptions(props.drugTypes, 'drugType')} placeholder="Allergy & Cold Medicines, etc."
-                  name='drugType' onChange={handleChange} value={fields.drugType}/>
+                  options={getOptions(drugTypes, 'drugType')} placeholder="Allergy & Cold Medicines, etc."
+                  name='drugType' onChange={handleChange} value={fields.drugType} allowAdditions onAddItem={addDrugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
             </Grid.Row>
