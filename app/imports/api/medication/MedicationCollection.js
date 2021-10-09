@@ -91,8 +91,8 @@ class MedicationCollection extends BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  removeIt({ brand, lotId }) { // could just be selector depending on how it's called
-    const doc = this.findDoc({ brand, lotId });
+  removeIt(lotId) {
+    const doc = this.findDoc(lotId);
     check(doc, Object);
     this._collection.remove(doc._id);
     return true;

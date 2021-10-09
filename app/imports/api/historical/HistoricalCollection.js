@@ -15,14 +15,11 @@ class HistoricalCollection extends BaseCollection {
   constructor() {
     super('Historicals', new SimpleSchema({
       drug: String,
-      drugType: Array,
-      'drugType.$': String,
       brand: String,
       lotId: String,
       expire: String, // date string "YYYY-MM-DD"
       quantity: Number,
       isTabs: Boolean,
-      location: String,
       dateDispensed: Date, // date-time string "YYYY-MM-DD"
       dispensedFrom: String,
       dispensedTo: String,
@@ -38,8 +35,9 @@ class HistoricalCollection extends BaseCollection {
    * @param owner the owner of the item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, drugType, brand, lotId, expire, quantity, isTabs, location, dateDispensed, dispensedFrom, dispensedTo, site, note }) {
-    const docID = this._collection.insert({ drug, drugType, brand, lotId, expire, quantity, isTabs, location, dateDispensed, dispensedFrom, dispensedTo, site, note,
+  define({ drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note }) {
+    const docID = this._collection.insert({
+      drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note,
     });
     return docID;
   }
@@ -49,8 +47,8 @@ class HistoricalCollection extends BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  removeIt({ brand, lotId }) { // could just be selector depending on how it's called
-    const doc = this.findDoc({ brand, lotId });
+  removeIt(lotId) { // could just be selector depending on how it's called
+    const doc = this.findDoc(lotId);
     check(doc, Object);
     this._collection.remove(doc._id);
     return true;

@@ -14,20 +14,17 @@ export const lotIdPublications = {
 class LotIdCollection extends BaseCollection {
   constructor() {
     super('LotIds', new SimpleSchema({
-      brand: String,
       lotId: String,
     }));
   }
 
   /**
    * Defines a new LotId item.
-   * @param brand
    * @param lotId
    * @return {String} the docID of the new document.
    */
-  define({ brand, lotId }) {
+  define({ lotId }) {
     const docID = this._collection.insert({
-      brand,
       lotId,
     });
     return docID;
@@ -38,8 +35,8 @@ class LotIdCollection extends BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  removeIt({ brand, lotId }) { // could just be selector depending on how it's called
-    const doc = this.findDoc({ brand, lotId });
+  removeIt(lotId) {
+    const doc = this.findDoc(lotId);
     check(doc, Object);
     this._collection.remove(doc._id);
     return true;
