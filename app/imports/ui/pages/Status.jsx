@@ -9,6 +9,7 @@ import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MedStatusRow from '../components/MedStatusRow';
+import DrugPage from '../components/DrugPage';
 
 /** Renders the Page for Dispensing Inventory. */
 
@@ -105,7 +106,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
             />
               Total count: {'200'}
           </div>
-          <Table>
+          <Table selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Medication</Table.HeaderCell>

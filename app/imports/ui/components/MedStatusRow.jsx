@@ -9,7 +9,8 @@ const calculateStatus = (quantity, min) => {
   const percent = Math.floor((quantity / min) * 100);
   if (percent > 30) {
     color = 'green';
-  } else if (percent > 5 && percent <= 30) {
+  } else
+  if (percent > 5 && percent <= 30) {
     color = 'yellow';
   } else {
     color = 'red';
