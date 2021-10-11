@@ -4,28 +4,53 @@ import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { Medications } from '../../api/medication/MedicationCollection';
 import { Drugs } from '../../api/drug/DrugCollection';
-import { LotIds } from '../../api/lotId/LotIdCollection';
 import { Brands } from '../../api/brand/BrandCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
+import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { distinct, arrayDistinct, merge } from '../utilities/Functions';
 
 /** convert array to dropdown options */
-const getOptions = (arr, name) => {
-  let options = _.pluck(arr, name);
-  options = options.map(elem => ({ key: elem, text: elem, value: elem }));
-  return options;
-};
+const getOptions = (arr) => (
+  arr.map(name => ({ key: name, text: name, value: name }))
+);
 
 /** On submit, insert the data. */
 const submit = data => {
-  // TODO: handle submit
-  swal('Success', JSON.stringify(data), 'success', {
-    buttons: false,
-    timer: 3000,
-  });
+  // console.log(data)
+  const { drug, minQuantity, quantity, brand, lotId, expire, location, donated, note } = data;
+  const collectionName = Medications.getCollectionName();
+  const exists = Medications.findOne({ lotId });
+  const empty = Medications.findOne({ drug, quantity: 0 });
+  if (exists) {
+    // if lotId exists (if medication exists):
+    const updateData = { id: exists._id, quantity, action: 'INC' };
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
+  } else if (empty) {
+    // else if drug exists w/ quantity 0:
+    const updateData = { id: empty._id, minQuantity, quantity, brand, lotId, expire, location, donated,
+      note, action: 'REFILL' };
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
+  } else {
+    // TODO: reset form
+    const definitionData = { ...data };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item added successfully', 'success'));
+  }
+  // swal('Success', JSON.stringify(data), 'success', {
+  //   buttons: false,
+  //   timer: 3000,
+  // });
 };
 
+// TODO: enforce lowercase
 const validateForm = data => {
   const submitData = { ...data };
   let errorMsg = '';
@@ -42,6 +67,8 @@ const validateForm = data => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
+    submitData.minQuantity = parseInt(data.minQuantity, 10);
+    submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData);
   }
 };
@@ -79,9 +106,9 @@ const AddMedication = (props) => {
 
   // add user inputted drug type if not already added
   const addDrugType = (event, { value }) => {
-    const re = new RegExp(value, 'i');
-    if (!_.pluck(drugTypes, 'drugType').some(elem => re.test(elem))) {
-      setDrugTypes([...drugTypes, { drugType: value }]);
+    // const re = new RegExp(value, 'i');
+    if (!drugTypes.includes(value.toLowerCase())) {
+      setDrugTypes([...drugTypes, value]);
     }
   };
 
@@ -100,25 +127,25 @@ const AddMedication = (props) => {
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
+                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
                   placeholder="Acetaminophen, Albuterol, etc." name='drug'
                   onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                  options={getOptions(drugTypes, 'drugType')} placeholder="Allergy & Cold Medicines, etc."
+                  options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines, etc."
                   name='drugType' onChange={handleChange} value={fields.drugType} allowAdditions onAddItem={addDrugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
+                <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
                   placeholder="Advil, Tylenol, etc." name='brand'
                   onChange={handleChange} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
+                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
                   placeholder="01ABC..." name='lotId'
                   onChange={handleChange} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
@@ -146,7 +173,7 @@ const AddMedication = (props) => {
                 </Form.Group>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select compact clearable search label='Location' options={getOptions(props.locations, 'location')}
+                <Form.Select compact clearable search label='Location' options={getOptions(props.locations)}
                   placeholder="Case 1, Case 2, etc." name='location'
                   onChange={handleChange} value={fields.location} onSearchChange={handleSearch} searchQuery={fields.location}/>
               </Grid.Column>
@@ -186,15 +213,15 @@ AddMedication.propTypes = {
 export default withTracker(() => {
   const drugSub = Drugs.subscribeDrug();
   const typeSub = DrugTypes.subscribeDrugType();
-  const lotIdSub = LotIds.subscribeLotId();
   const locationSub = Locations.subscribeLocation();
   const brandSub = Brands.subscribeBrand();
+  const medSub = Medications.subscribeMedication();
   return {
-    drugs: Drugs.find({}).fetch(),
-    drugTypes: DrugTypes.find({}).fetch(),
-    lotIds: LotIds.find({}).fetch(),
-    locations: Locations.find({}).fetch(),
-    brands: Brands.find({}).fetch(),
-    ready: drugSub.ready() && typeSub.ready() && lotIdSub.ready() && brandSub.ready() && locationSub.ready(),
+    drugs: distinct(Medications, 'drug'),
+    drugTypes: merge(arrayDistinct(Medications, 'drugType'), _.pluck(DrugTypes.find({}).fetch(), 'drugType')),
+    lotIds: distinct(Medications, 'lotId'),
+    locations: merge(distinct(Medications, 'location'), _.pluck(Locations.find({}).fetch(), 'location')),
+    brands: distinct(Medications, 'brand'),
+    ready: drugSub.ready() && typeSub.ready() && brandSub.ready() && locationSub.ready() && medSub.ready(),
   };
 })(AddMedication);

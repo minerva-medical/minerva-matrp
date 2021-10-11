@@ -33,17 +33,20 @@ if (Meteor.settings.loadAssetsFile) {
   jsonData.medications.map(medication => Medications.define(medication));
 }
 
-if (Meteor.settings.loadAssetsFile && Brands.count() === 0) {
+if (Meteor.settings.loadAssetsFile) {
+  Brands._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
   jsonData.brands.map(brand => Brands.define(brand));
 }
 
-if (Meteor.settings.loadAssetsFile && DrugTypes.count() === 0) {
+if (Meteor.settings.loadAssetsFile) {
+  DrugTypes._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
   jsonData.drugTypes.map(drugType => DrugTypes.define(drugType));
 }
 
-if (Meteor.settings.loadAssetsFile && Drugs.count() === 0) {
+if (Meteor.settings.loadAssetsFile) {
+  Drugs._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
   jsonData.drugs.map(drug => Drugs.define(drug));
 }
@@ -60,7 +63,8 @@ if (Meteor.settings.loadAssetsFile) {
   jsonData.lotIds.map(lotId => LotIds.define(lotId));
 }
 
-if (Meteor.settings.loadAssetsFile && Sites.count() === 0) {
+if (Meteor.settings.loadAssetsFile) {
+  Sites._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
   jsonData.sites.map(site => Sites.define(site));
 }
