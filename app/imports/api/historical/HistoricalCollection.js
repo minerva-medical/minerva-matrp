@@ -17,14 +17,20 @@ class HistoricalCollection extends BaseCollection {
       drug: String,
       brand: String,
       lotId: String,
-      expire: String, // date string "YYYY-MM-DD"
+      expire: {
+        type: String,
+        optional: true,
+      }, // date string "YYYY-MM-DD"
       quantity: Number,
       isTabs: Boolean,
-      dateDispensed: Date, // date-time string "YYYY-MM-DD"
+      dateDispensed: Date,
       dispensedFrom: String,
       dispensedTo: String,
       site: String,
-      note: String,
+      note: {
+        type: String,
+        optional: true,
+      },
     }));
   }
 
@@ -47,7 +53,7 @@ class HistoricalCollection extends BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  removeIt(lotId) { // could just be selector depending on how it's called
+  removeIt(lotId) {
     const doc = this.findDoc(lotId);
     check(doc, Object);
     this._collection.remove(doc._id);

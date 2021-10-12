@@ -19,7 +19,10 @@ class MedicationCollection extends BaseCollection {
       'drugType.$': String,
       brand: String,
       lotId: String,
-      expire: String, // date string "YYYY-MM-DD"
+      expire: {
+        type: String,
+        optional: true,
+      }, // date string "YYYY-MM-DD"
       minQuantity: Number,
       quantity: Number,
       isTabs: Boolean,
@@ -54,6 +57,8 @@ class MedicationCollection extends BaseCollection {
    */
   update(docID, data) {
     const updateData = {};
+    const resetData = { minQuantity: 0, quantity: 0, brand: 'null', lotId: 'null', expire: 'null', location: 'null',
+      donated: false, note: 'null' }; // TODO: cleaner logic
 
     function addString(name) {
       if (data[name]) {
@@ -88,6 +93,9 @@ class MedicationCollection extends BaseCollection {
       addString('note');
       console.log(docID, updateData);
       this._collection.update(docID, { $set: updateData });
+      break;
+    case 'RESET':
+      this._collection.update(docID, { $set: resetData });
       break;
     default:
       console.log('no action');

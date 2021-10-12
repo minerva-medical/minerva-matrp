@@ -1,30 +1,29 @@
 import { _ } from 'meteor/underscore';
 
 /**
- * Finds the distinct values for a specified field across a collection and returns the results in an array.
- * @param collection
+ * Finds the distinct values for a specified field across one or two collections and returns the results in an array.
  * @param field
+ * @param collection1
+ * @param collection2 (optional)
  */
-export function distinct(collection, field) {
+export function distinct(field, collection1, collection2) {
+  const array1 = _.pluck(
+    collection1.find({}, { sort: { [field]: 1 }, fields: { [field]: 1 } }).fetch(),
+    field,
+  );
+  const array2 = collection2 ?
+    _.pluck(
+      collection2.find({}, { sort: { [field]: 1 } }).fetch(),
+      field,
+    ) : [];
+
   return _.uniq(
-    collection.find({}, { sort: { [field]: 1 }, fields: { [field]: 1 } }).fetch()
-      .map(x => x[field]),
+    field === 'drugType' ? array1.concat(array2).flat().sort() : array1.concat(array2).sort(),
     true,
   );
 }
 
-/**
- * uses flatMap instead of map
- */
-export function arrayDistinct(collection, field) {
-  return _.uniq(
-    collection.find({}, { sort: { [field]: 1 }, fields: { [field]: 1 } }).fetch()
-      .flatMap(x => x[field]),
-    true,
-  );
-}
-
-// TODO: better time complexity? sort?
-export function merge(array1, array2) {
-  return [...new Set([...array1, ...array2])];
+/** convert array to dropdown options */
+export function getOptions(arr) {
+  return arr.map(name => ({ key: name, text: name, value: name }));
 }

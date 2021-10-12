@@ -153,7 +153,7 @@
       "lotId": "111A",
       "expire": "2021-10-10",
       "minQuantity": 10,
-      "quantity": 0,
+      "quantity": 20,
       "isTabs": true,
       "location": "case 1",
       "donated": false,

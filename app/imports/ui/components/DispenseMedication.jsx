@@ -4,23 +4,41 @@ import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { _ } from 'meteor/underscore';
 import { Sites } from '../../api/site/SiteCollection';
 import { Drugs } from '../../api/drug/DrugCollection';
-import { LotIds } from '../../api/lotId/LotIdCollection';
 import { Brands } from '../../api/brand/BrandCollection';
-
-/** convert array to dropdown options */
-const getOptions = (arr, name) => {
-  let options = _.pluck(arr, name);
-  options = options.map(elem => ({ key: elem, text: elem, value: elem }));
-  return options;
-};
+import { Medications } from '../../api/medication/MedicationCollection';
+import { Historicals } from '../../api/historical/HistoricalCollection';
+import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { distinct, getOptions } from '../utilities/Functions';
 
 /** On submit, insert the data. */
 const submit = data => {
-  // TODO: handle submit
-  swal('Success', JSON.stringify(data), 'success');
+  const { lotId, quantity, drug } = data;
+  const collectionName = Medications.getCollectionName();
+  const histCollection = Historicals.getCollectionName();
+  const medication = Medications.findOne({ lotId });
+  const { _id } = medication;
+  if (quantity < medication.quantity) {
+    const updateData = { id: _id, quantity: -quantity, action: 'INC' };
+    const definitionData = { ...data };
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
+    // TODO: chain promises
+    defineMethod.callPromise({ collectionName: histCollection, definitionData });
+  } else if (quantity > medication.quantity) {
+    swal('Error', `${drug} only has ${medication.quantity} remaining.`, 'error');
+  } else {
+    const updateData = { id: _id, action: 'RESET' };
+    const definitionData = { ...data };
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
+    // TODO: chain promises
+    defineMethod.callPromise({ collectionName: histCollection, definitionData });
+  }
+  // swal('Success', JSON.stringify(data), 'success');
 };
 
 // TODO: simplify
@@ -40,6 +58,7 @@ const validateForm = data => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
+    submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData);
   }
 };
@@ -103,17 +122,17 @@ const DispenseMedication = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(props.sites, 'site')}
+                <Form.Select clearable search label='Site' options={getOptions(props.sites)}
                   placeholder="POST, Kaka’ako, etc." name='site'
                   onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
+                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
                   placeholder="Acetaminophen, Albuterol, etc."
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
+                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
                   placeholder="01ABC..."
                   name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
@@ -129,7 +148,7 @@ const DispenseMedication = (props) => {
                 </Form.Field>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
+                <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
                   placeholder="Advil, Tylenol, etc."
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
@@ -172,16 +191,17 @@ DispenseMedication.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
+  const medSub = Medications.subscribeMedication();
+  const historySub = Historicals.subscribeHistorical();
   const siteSub = Sites.subscribeSite();
   const drugSub = Drugs.subscribeDrug();
-  const lotIdSub = LotIds.subscribeLotId();
   const brandSub = Brands.subscribeBrand();
   return {
     currentUser: Meteor.user(),
-    sites: Sites.find({}).fetch(),
-    drugs: Drugs.find({}).fetch(),
-    lotIds: LotIds.find({}).fetch(),
-    brands: Brands.find({}).fetch(),
-    ready: siteSub.ready() && drugSub.ready() && lotIdSub.ready() && brandSub.ready(),
+    sites: distinct('site', Historicals, Sites), // TODO: get from Sites Collection only
+    drugs: distinct('drug', Medications, Drugs),
+    lotIds: distinct('lotId', Medications),
+    brands: distinct('brand', Medications, Brands),
+    ready: siteSub.ready() && drugSub.ready() && brandSub.ready() && historySub.ready() && medSub.ready(),
   };
 })(DispenseMedication);

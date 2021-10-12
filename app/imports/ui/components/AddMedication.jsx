@@ -3,19 +3,13 @@ import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react
 import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { _ } from 'meteor/underscore';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Drugs } from '../../api/drug/DrugCollection';
 import { Brands } from '../../api/brand/BrandCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, arrayDistinct, merge } from '../utilities/Functions';
-
-/** convert array to dropdown options */
-const getOptions = (arr) => (
-  arr.map(name => ({ key: name, text: name, value: name }))
-);
+import { distinct, getOptions } from '../utilities/Functions';
 
 /** On submit, insert the data. */
 const submit = data => {
@@ -217,11 +211,11 @@ export default withTracker(() => {
   const brandSub = Brands.subscribeBrand();
   const medSub = Medications.subscribeMedication();
   return {
-    drugs: distinct(Medications, 'drug'),
-    drugTypes: merge(arrayDistinct(Medications, 'drugType'), _.pluck(DrugTypes.find({}).fetch(), 'drugType')),
-    lotIds: distinct(Medications, 'lotId'),
-    locations: merge(distinct(Medications, 'location'), _.pluck(Locations.find({}).fetch(), 'location')),
-    brands: distinct(Medications, 'brand'),
+    drugs: distinct('drug', Medications, Drugs),
+    drugTypes: distinct('drugType', Medications, DrugTypes),
+    lotIds: distinct('lotId', Medications),
+    locations: distinct('location', Medications, Locations),
+    brands: distinct('brand', Medications, Brands),
     ready: drugSub.ready() && typeSub.ready() && brandSub.ready() && locationSub.ready() && medSub.ready(),
   };
 })(AddMedication);
