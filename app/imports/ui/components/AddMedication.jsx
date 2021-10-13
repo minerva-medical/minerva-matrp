@@ -11,47 +11,50 @@ import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions } from '../utilities/Functions';
 
-/** On submit, insert the data. */
+// TODO: reset the form on success
+/** handles submit for add medication. */
 const submit = data => {
-  // console.log(data)
   const { drug, minQuantity, quantity, brand, lotId, expire, location, donated, note } = data;
   const collectionName = Medications.getCollectionName();
-  const exists = Medications.findOne({ lotId });
-  const empty = Medications.findOne({ drug, quantity: 0 });
+  const exists = Medications.findOne({ lotId }); // returns the existing medication or undefined
+  const empty = Medications.findOne({ drug, quantity: 0 }); // returns the empty medication or undefined
+
   if (exists) {
-    // if lotId exists (if medication exists):
-    const updateData = { id: exists._id, quantity, action: 'INC' };
+    // if the medication w/ lotId exists:
+    const updateData = { id: exists._id, quantity, action: 'INC' }; // increment the quantity
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Item updated successfully', 'success'));
+      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
+        buttons: false, timer: 3000,
+      }));
   } else if (empty) {
-    // else if drug exists w/ quantity 0:
+    // else if the medication w/ drug_name exists and its quantity is 0:
     const updateData = { id: empty._id, minQuantity, quantity, brand, lotId, expire, location, donated,
-      note, action: 'REFILL' };
+      note, action: 'REFILL' }; // set the following
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Item updated successfully', 'success'));
+      .then(() => swal('Success', `${drug} added successfully`, 'success', {
+        buttons: false, timer: 3000,
+      }));
   } else {
-    // TODO: reset form
+    // else insert the new medication
     const definitionData = { ...data };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Item added successfully', 'success'));
+      .then(() => swal('Success', `${drug} added successfully`, 'success', {
+        buttons: false, timer: 3000,
+      }));
   }
-  // swal('Success', JSON.stringify(data), 'success', {
-  //   buttons: false,
-  //   timer: 3000,
-  // });
 };
 
-// TODO: enforce lowercase
+/** validates the add medication form */
 const validateForm = data => {
   const submitData = { ...data };
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['drug', 'drugType', 'brand', 'lotId', 'expire', 'minQuantity', 'quantity', 'location'];
+  const requiredFields = ['drug', 'drugType', 'brand', 'lotId', 'minQuantity', 'quantity', 'location'];
 
-  // check required fields
+  // if the field is empty, append error message
   requiredFields.forEach(field => {
     if (!submitData[field] || !submitData[field].length) {
       errorMsg += `${field} cannot be empty.\n`;
@@ -61,13 +64,21 @@ const validateForm = data => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
+    // transform some String fields to lowercase
+    requiredFields.forEach(field => {
+      if (field === 'drugType') {
+        submitData.drugType = data.drugType.map(type => type.toLowerCase());
+      } else if (field !== 'lotId') {
+        submitData[field] = data[field].toLowerCase();
+      }
+    });
     submitData.minQuantity = parseInt(data.minQuantity, 10);
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData);
   }
 };
 
-/** Renders the Page for Dispensing Inventory. */
+/** Renders the Page for Add Medication. */
 const AddMedication = (props) => {
   const [fields, setFields] = useState({
     drug: '',
@@ -106,6 +117,9 @@ const AddMedication = (props) => {
     }
   };
 
+  const clearForm = () => setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
+    brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
+
   if (props.ready) {
     return (
       <Tab.Pane id='add-form'>
@@ -122,12 +136,12 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
-                  placeholder="Acetaminophen, Albuterol, etc." name='drug'
+                  placeholder="benzonatate capsules" name='drug'
                   onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                  options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines, etc."
+                  options={getOptions(drugTypes)} placeholder="allergy & cold medicines"
                   name='drugType' onChange={handleChange} value={fields.drugType} allowAdditions onAddItem={addDrugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
@@ -135,12 +149,12 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
-                  placeholder="Advil, Tylenol, etc." name='brand'
+                  placeholder="zonatuss" name='brand'
                   onChange={handleChange} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
-                  placeholder="01ABC..." name='lotId'
+                  placeholder="Z9Z99" name='lotId'
                   onChange={handleChange} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
@@ -156,19 +170,19 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity'
-                  onChange={handleChange} value={fields.minQuantity} placeholder="Min. Inventory should have"/>
+                  onChange={handleChange} value={fields.minQuantity} placeholder="100"/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
                   <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder="Amount to be added"/>
+                    onChange={handleChange} value={fields.quantity} placeholder="200"/>
                   <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
                     options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
                 </Form.Group>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select compact clearable search label='Location' options={getOptions(props.locations)}
-                  placeholder="Case 1, Case 2, etc." name='location'
+                  placeholder="case 2" name='location'
                   onChange={handleChange} value={fields.location} onSearchChange={handleSearch} searchQuery={fields.location}/>
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
@@ -178,13 +192,13 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please write any additional notes, special instructions, or information that should be known here"/>
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button'>Clear Fields</Button>
+          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
           <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
         </div>
       </Tab.Pane>
@@ -193,7 +207,7 @@ const AddMedication = (props) => {
   return (<Loader active>Getting data</Loader>);
 };
 
-/** Require an array of Stuff documents in the props. */
+/** Require an array of Drugs, DrugTypes, LotIds, Locations, and Brands in the props. */
 AddMedication.propTypes = {
   drugs: PropTypes.array.isRequired,
   drugTypes: PropTypes.array.isRequired,
@@ -211,6 +225,7 @@ export default withTracker(() => {
   const brandSub = Brands.subscribeBrand();
   const medSub = Medications.subscribeMedication();
   return {
+    // TODO: exclude 'N/A'
     drugs: distinct('drug', Medications, Drugs),
     drugTypes: distinct('drugType', Medications, DrugTypes),
     lotIds: distinct('lotId', Medications),

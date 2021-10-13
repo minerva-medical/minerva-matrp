@@ -12,41 +12,48 @@ import { Historicals } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions } from '../utilities/Functions';
 
-/** On submit, insert the data. */
+/** handle submit for Dispense Medication. */
 const submit = data => {
   const { lotId, quantity, drug } = data;
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
-  const medication = Medications.findOne({ lotId });
-  const { _id } = medication;
+  const medication = Medications.findOne({ lotId }); // find the existing medication
+  const { _id, isTabs } = medication;
+
   if (quantity < medication.quantity) {
-    const updateData = { id: _id, quantity: -quantity, action: 'INC' };
+    // if dispense quantity < medication quantity:
+    const updateData = { id: _id, quantity: -quantity, action: 'INC' }; // decrement the quantity
     const definitionData = { ...data };
-    updateMethod.callPromise({ collectionName, updateData })
+    const promises = [updateMethod.callPromise({ collectionName, updateData }),
+      defineMethod.callPromise({ collectionName: histCollection, definitionData })];
+    Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Item updated successfully', 'success'));
-    // TODO: chain promises
-    defineMethod.callPromise({ collectionName: histCollection, definitionData });
+      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
+        buttons: false, timer: 3000,
+      }));
   } else if (quantity > medication.quantity) {
-    swal('Error', `${drug} only has ${medication.quantity} remaining.`, 'error');
+    // else if dispense quantity > medication quantity:
+    swal('Error', `${drug} only has ${medication.quantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
   } else {
-    const updateData = { id: _id, action: 'RESET' };
+    // else if dispense quantity = medication quantity:
+    const updateData = { id: _id, action: 'RESET' }; // set quantity to 0 and reset relevant fields
     const definitionData = { ...data };
-    updateMethod.callPromise({ collectionName, updateData })
+    const promises = [updateMethod.callPromise({ collectionName, updateData }),
+      defineMethod.callPromise({ collectionName: histCollection, definitionData })];
+    Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Item updated successfully', 'success'));
-    // TODO: chain promises
-    defineMethod.callPromise({ collectionName: histCollection, definitionData });
+      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
+        buttons: false, timer: 3000,
+      }));
   }
-  // swal('Success', JSON.stringify(data), 'success');
 };
 
-// TODO: simplify
+/** validates the dispense medication form */
 const validateForm = data => {
   const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dateDispensed', 'dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
+  const requiredFields = ['dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
 
   // check required fields
   requiredFields.forEach(field => {
@@ -58,12 +65,13 @@ const validateForm = data => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
+    submitData.site = data.site.toLowerCase(); // transform site field to lowercase
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData);
   }
 };
 
-/** Renders the Page for Dispensing Inventory. */
+/** Renders the Page for Dispensing Medication. */
 const DispenseMedication = (props) => {
   const [fields, setFields] = useState({
     site: '',
@@ -87,6 +95,9 @@ const DispenseMedication = (props) => {
   const handleSearch = (event, { name, searchQuery }) => {
     setFields({ ...fields, [name]: searchQuery });
   };
+
+  const clearForm = () => setFields({ site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '',
+    expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
 
   if (props.ready) {
     return (
@@ -123,17 +134,17 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites)}
-                  placeholder="POST, Kaka’ako, etc." name='site'
+                  placeholder="kaka’ako" name='site'
                   onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
-                  placeholder="Acetaminophen, Albuterol, etc."
+                  placeholder="benzonatate capsules"
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
-                  placeholder="01ABC..."
+                  placeholder="Z9Z99"
                   name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
             </Grid.Row>
@@ -149,13 +160,13 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
-                  placeholder="Advil, Tylenol, etc."
+                  placeholder="zonatuss"
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
                   <Form.Input label='Quantity (tabs/mL)' type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} />
+                    onChange={handleChange} value={fields.quantity} placeholder='30'/>
                   <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
                     options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
                 </Form.Group>
@@ -164,13 +175,13 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please write any additional notes, special instructions, or information that should be known here"/>
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button'>Clear Fields</Button>
+          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
           <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
         </div>
       </Tab.Pane>
@@ -179,7 +190,7 @@ const DispenseMedication = (props) => {
   return (<Loader active>Getting data</Loader>);
 };
 
-/** Require an array of Stuff documents in the props. */
+/** Require an array of Sites, Drugs, LotIds, and Brands in the props. */
 DispenseMedication.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
@@ -197,6 +208,7 @@ export default withTracker(() => {
   const drugSub = Drugs.subscribeDrug();
   const brandSub = Brands.subscribeBrand();
   return {
+    // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
     sites: distinct('site', Historicals, Sites), // TODO: get from Sites Collection only
     drugs: distinct('drug', Medications, Drugs),

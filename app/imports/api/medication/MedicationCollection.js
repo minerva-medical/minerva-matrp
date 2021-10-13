@@ -37,10 +37,6 @@ class MedicationCollection extends BaseCollection {
 
   /**
    * Defines a new Medication item.
-   * @param name the name of the item.
-   * @param quantity how many.
-   * @param owner the owner of the item.
-   * @param condition the condition of the item.
    * @return {String} the docID of the new document.
    */
   define({ drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note }) {
@@ -57,9 +53,10 @@ class MedicationCollection extends BaseCollection {
    */
   update(docID, data) {
     const updateData = {};
-    const resetData = { minQuantity: 0, quantity: 0, brand: 'null', lotId: 'null', expire: 'null', location: 'null',
-      donated: false, note: 'null' }; // TODO: cleaner logic
+    const resetData = { minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A', location: 'N/A',
+      donated: false, note: 'N/A' }; // TODO: cleaner logic?
 
+    // TODO: import from file
     function addString(name) {
       if (data[name]) {
         updateData[name] = data[name];
@@ -79,7 +76,6 @@ class MedicationCollection extends BaseCollection {
     switch (data.action) {
     case 'INC':
       addNumber('quantity');
-      console.log(docID, updateData);
       this._collection.update(docID, { $inc: updateData });
       break;
     case 'REFILL':
@@ -91,19 +87,26 @@ class MedicationCollection extends BaseCollection {
       addString('location');
       addBoolean('donated');
       addString('note');
-      console.log(docID, updateData);
       this._collection.update(docID, { $set: updateData });
       break;
     case 'RESET':
       this._collection.update(docID, { $set: resetData });
       break;
     default:
-      console.log('no action');
+      addString('drug');
+      if (data.drugType.every(elem => elem)) { // check if every drug type is a String
+        updateData.drugType = data.drugType;
+      }
+      addString('brand');
+      addString('lotId');
+      addString('expire');
+      addNumber('minQuantity');
+      addNumber('quantity');
+      addBoolean('isTabs');
+      addString('location');
+      addBoolean('donated');
+      addString('note');
     }
-
-    // if (drugType.every(elem => elem)) { // check if every drug type is a String
-    //   updateData[drugType] = drugType;
-    // }
   }
 
   /**
@@ -120,13 +123,12 @@ class MedicationCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the medication associated to an owner.
+   * It publishes the entire collection for admin and to users.
    */
   publish() {
     if (Meteor.isServer) {
       // get the MedicationCollection instance.
       const instance = this;
-      /** This subscription publishes only the documents associated with the logged in user */
       Meteor.publish(medicationPublications.medication, function publish() {
         if (this.userId) {
           // const username = Meteor.users.findOne(this.userId).username;
@@ -135,7 +137,6 @@ class MedicationCollection extends BaseCollection {
         return this.ready();
       });
 
-      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
       Meteor.publish(medicationPublications.medicationAdmin, function publish() {
         if (this.userId) {
           return instance._collection.find();
@@ -146,7 +147,7 @@ class MedicationCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for medication owned by the current user.
+   * Subscription method for users.
    */
   subscribeMedication() {
     if (Meteor.isClient) {
