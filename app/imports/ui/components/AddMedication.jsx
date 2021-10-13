@@ -65,13 +65,13 @@ const validateForm = data => {
     swal('Error', `${errorMsg}`, 'error');
   } else {
     // transform some String fields to lowercase
-    requiredFields.forEach(field => {
-      if (field === 'drugType') {
-        submitData.drugType = data.drugType.map(type => type.toLowerCase());
-      } else if (field !== 'lotId') {
-        submitData[field] = data[field].toLowerCase();
-      }
-    });
+    // requiredFields.forEach(field => {
+    //   if (field === 'drugType') {
+    //     submitData.drugType = data.drugType.map(type => type.toLowerCase());
+    //   } else if (field !== 'lotId') {
+    //     submitData[field] = data[field].toLowerCase();
+    //   }
+    // });
     submitData.minQuantity = parseInt(data.minQuantity, 10);
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData);
@@ -112,7 +112,7 @@ const AddMedication = (props) => {
   // add user inputted drug type if not already added
   const addDrugType = (event, { value }) => {
     // const re = new RegExp(value, 'i');
-    if (!drugTypes.includes(value.toLowerCase())) {
+    if (!drugTypes.map(type => type.toLowerCase()).includes(value.toLowerCase())) {
       setDrugTypes([...drugTypes, value]);
     }
   };
@@ -136,12 +136,12 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
-                  placeholder="benzonatate capsules" name='drug'
+                  placeholder="Benzonatate Capsules" name='drug'
                   onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                  options={getOptions(drugTypes)} placeholder="allergy & cold medicines"
+                  options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
                   name='drugType' onChange={handleChange} value={fields.drugType} allowAdditions onAddItem={addDrugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
@@ -149,7 +149,7 @@ const AddMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
-                  placeholder="zonatuss" name='brand'
+                  placeholder="Zonatuss" name='brand'
                   onChange={handleChange} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
@@ -182,7 +182,7 @@ const AddMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select compact clearable search label='Location' options={getOptions(props.locations)}
-                  placeholder="case 2" name='location'
+                  placeholder="Case 2" name='location'
                   onChange={handleChange} value={fields.location} onSearchChange={handleSearch} searchQuery={fields.location}/>
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
@@ -227,9 +227,9 @@ export default withTracker(() => {
   return {
     // TODO: exclude 'N/A'
     drugs: distinct('drug', Medications, Drugs),
-    drugTypes: distinct('drugType', Medications, DrugTypes),
+    drugTypes: distinct('drugType', DrugTypes),
     lotIds: distinct('lotId', Medications),
-    locations: distinct('location', Medications, Locations),
+    locations: distinct('location', Locations),
     brands: distinct('brand', Medications, Brands),
     ready: drugSub.ready() && typeSub.ready() && brandSub.ready() && locationSub.ready() && medSub.ready(),
   };

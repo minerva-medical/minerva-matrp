@@ -1,108 +1,108 @@
 {
   "brands": [{
-    "brand": "brand a"
+    "brand": "Brand A"
   },{
-    "brand": "brand b"
+    "brand": "Brand B"
   },{
-    "brand": "brand c"
+    "brand": "Brand C"
   },{
-    "brand": "brand d"
+    "brand": "Brand D"
   },{
-    "brand": "brand e"
+    "brand": "Brand E"
   },{
-    "brand": "brand f"
+    "brand": "Brand F"
   },{
-    "brand": "brand g"
+    "brand": "Brand G"
   },{
-    "brand": "brand h"
+    "brand": "Brand H"
   },{
-    "brand": "brand i"
+    "brand": "Brand I"
   }],
 
   "drugTypes": [{
-    "drugType": "allergy & cold medicines"
+    "drugType": "Allergy & Cold Medicines"
   },{
-    "drugType": "analgesics/antiinflammatory"
+    "drugType": "Analgesics / Antiinflammatory"
   },{
-    "drugType": "antihypertensives"
+    "drugType": "Antihypertensives"
   },{
-    "drugType": "antimicrobials"
+    "drugType": "Antimicrobials"
   },{
-    "drugType": "cardiac/cholesterol"
+    "drugType": "Cardiac / Cholesterol"
   },{
-    "drugType": "dermatologic preparations"
+    "drugType": "Dermatologic Preparations"
   },{
-    "drugType": "diabetes meds"
+    "drugType": "Diabetes Medicines"
   },{
-    "drugType": "ear and eye preparations"
+    "drugType": "Ear & Eye Preparations"
   },{
-    "drugType": "emergency kit"
+    "drugType": "Emergency Kit"
   },{
-    "drugType": "gi meds"
+    "drugType": "Gastrointestinal Medicines"
   },{
-    "drugType": "gyn meds"
+    "drugType": "Gynecological Medicines"
   },{
-    "drugType": "pulmonary"
+    "drugType": "Pulmonary"
   },{
-    "drugType": "smoking cessation"
+    "drugType": "Smoking Cessation"
   },{
-    "drugType": "vitamins and supplements"
+    "drugType": "Vitamins & Supplements"
   }],
 
   "drugs": [{
-    "drug": "drug a"
+    "drug": "Drug A"
   },{
-    "drug": "drug b"
+    "drug": "Drug B"
   },{
-    "drug": "drug c"
+    "drug": "Drug C"
   },{
-    "drug": "drug d"
+    "drug": "Drug D"
   },{
-    "drug": "drug e"
+    "drug": "Drug E"
   },{
-    "drug": "drug f"
+    "drug": "Drug F"
   },{
-    "drug": "drug g"
+    "drug": "Drug G"
   },{
-    "drug": "drug h"
+    "drug": "Drug H"
   },{
-    "drug": "drug i"
+    "drug": "Drug I"
   }],
 
   "locations": [{
-    "location": "case 1"
+    "location": "Case 1"
   },{
-    "location": "case 2"
+    "location": "Case 2"
   },{
-    "location": "case 3"
+    "location": "Case 3"
   },{
-    "location": "case 4"
+    "location": "Case 4"
   },{
-    "location": "case 5"
+    "location": "Case 5"
   },{
-    "location": "case 6"
+    "location": "Case 6"
   },{
-    "location": "case 7"
+    "location": "Case 7"
   },{
-    "location": "case 8"
+    "location": "Case 8"
   },{
-    "location": "bottom drawer"
+    "location": "Bottom Drawer"
   },{
-    "location": "drawer 2"
+    "location": "Drawer 2"
   },{
-    "location": "drawer 2-2"
+    "location": "Drawer 2-2"
   },{
-    "location": "drawer 2-3"
+    "location": "Drawer 2-3"
   },{
-    "location": "refrigerator"
+    "location": "Refrigerator"
   },{
-    "location": "refrigerator closet"
+    "location": "Refrigerator Closet"
   },{
-    "location": "freezer"
+    "location": "Freezer"
   },{
-    "location": "freezer-derm"
+    "location": "Freezer-Derm"
   },{
-    "location": "emergency kit"
+    "location": "Emergency Kit"
   }],
 
   "lotIds": [{
@@ -126,140 +126,140 @@
   }],
 
   "sites": [{
-    "site": "joc"
+    "site": "JOC"
   },{
-    "site": "post"
+    "site": "POST"
   },{
-    "site": "haleiwa"
+    "site": "Haleiwa"
   },{
-    "site": "kaka'ako"
+    "site": "Kaka'ako"
   },{
-    "site": "st. augustines"
+    "site": "St. Augustines"
   },{
-    "site": "kalaeloa"
+    "site": "Kalaeloa"
   },{
-    "site": "waianae"
+    "site": "Waianae"
   },{
-    "site": "waimanalo"
+    "site": "Waimanalo"
   },{
-    "site": "first united methodist"
+    "site": "First United Methodist"
   }],
 
   "medications": [
     {
-      "drug": "drug a",
-      "drugType": ["allergy & cold medicines", "analgesics/antiinflammatory"],
-      "brand": "brand a",
+      "drug": "Drug A",
+      "drugType": ["Allergy & Cold Medicines", "Analgesics / Antiinflammatory"],
+      "brand": "Brand A",
       "lotId": "111A",
       "expire": "2021-10-10",
       "minQuantity": 10,
       "quantity": 20,
       "isTabs": true,
-      "location": "case 1",
+      "location": "Case 1",
       "donated": false,
       "note": "test a"
     },
     {
-      "drug": "drug b",
-      "drugType": ["analgesics/antiinflammatory"],
-      "brand": "brand b",
+      "drug": "Drug B",
+      "drugType": ["Analgesics / Antiinflammatory"],
+      "brand": "Brand B",
       "lotId": "222B",
       "expire": "2021-10-10",
       "minQuantity": 30,
       "quantity": 40,
       "isTabs": false,
-      "location": "case 2",
+      "location": "Case 2",
       "donated": true,
       "note": "test b"
     },
     {
-      "drug": "drug c",
-      "drugType": ["antihypertensives"],
-      "brand": "brand c",
+      "drug": "Drug C",
+      "drugType": ["Antihypertensives"],
+      "brand": "Brand C",
       "lotId": "333C",
       "expire": "2021-10-10",
       "minQuantity": 50,
       "quantity": 60,
       "isTabs": true,
-      "location": "case 3",
+      "location": "Case 3",
       "donated": false,
       "note": "test c"
     },
     {
-      "drug": "drug d",
-      "drugType": ["antimicrobials"],
-      "brand": "brand d",
+      "drug": "Drug D",
+      "drugType": ["Antimicrobials"],
+      "brand": "Brand B",
       "lotId": "444D",
       "expire": "2021-10-10",
       "minQuantity": 30,
       "quantity": 5,
       "isTabs": false,
-      "location": "case 4",
+      "location": "Case 4",
       "donated": true,
       "note": "test d"
     },
     {
-      "drug": "drug e",
-      "drugType": ["cardiac/cholesterol"],
-      "brand": "brand e",
+      "drug": "Drug E",
+      "drugType": ["Cardiac / Cholesterol"],
+      "brand": "Brand E",
       "lotId": "555E",
       "expire": "2021-10-10",
       "minQuantity": 50,
       "quantity": 10,
       "isTabs": true,
-      "location": "case 5",
+      "location": "Case 5",
       "donated": false,
       "note": "test e"
     },
     {
-      "drug": "drug f",
-      "drugType": ["dermatologic preparations"],
-      "brand": "brand f",
+      "drug": "Drug F",
+      "drugType": ["Dermatologic Preparations"],
+      "brand": "Brand F",
       "lotId": "666F",
       "expire": "2021-10-10",
       "minQuantity": 70,
       "quantity": 20,
       "isTabs": false,
-      "location": "case 6",
+      "location": "Case 6",
       "donated": true,
       "note": "test f"
     },
     {
-      "drug": "drug g",
-      "drugType": ["diabetes meds"],
-      "brand": "brand g",
+      "drug": "Drug G",
+      "drugType": ["Diabetes Medicines"],
+      "brand": "Brand G",
       "lotId": "777G",
       "expire": "2021-10-10",
       "minQuantity": 20,
       "quantity": 1,
       "isTabs": true,
-      "location": "case 7",
+      "location": "Case 7",
       "donated": false,
       "note": "test g"
     },
     {
-      "drug": "drug h",
-      "drugType": ["ear and eye preparations"],
-      "brand": "brand h",
+      "drug": "Drug H",
+      "drugType": ["Ear & Eye Preparations"],
+      "brand": "Brand H",
       "lotId": "888H",
       "expire": "2021-10-10",
       "minQuantity": 40,
       "quantity": 40,
       "isTabs": false,
-      "location": "case 8",
+      "location": "Case 8",
       "donated": true,
       "note": "test h"
     },
     {
-      "drug": "drug i",
-      "drugType": ["emergency kit"],
-      "brand": "brand i",
+      "drug": "Drug I",
+      "drugType": ["Emergency Kit"],
+      "brand": "Brand I",
       "lotId": "999I",
       "expire": "2021-10-10",
       "minQuantity": 60,
       "quantity": 60,
       "isTabs": true,
-      "location": "bottom drawer",
+      "location": "Bottom Drawer",
       "donated": false,
       "note": "test i"
     }
@@ -267,8 +267,8 @@
 
   "historicals": [
     {
-      "drug": "drug a",
-      "brand":  "brand a",
+      "drug": "Drug A",
+      "brand":  "Brand A",
       "lotId": "111A",
       "expire": "2021-10-10",
       "quantity": 20,
@@ -276,12 +276,12 @@
       "dateDispensed": "2021-10-05T24:00Z",
       "dispensedFrom":  "janedoe@hawaii.edu",
       "dispensedTo": "111111",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test a"
   },
     {
-      "drug": "drug b",
-      "brand": "brand b",
+      "drug": "Drug B",
+      "brand": "Brand B",
       "lotId": "222B",
       "expire": "2021-10-10",
       "quantity": 40,
@@ -289,12 +289,12 @@
       "dateDispensed": "2021-10-05T23:00Z",
       "dispensedFrom":  "johndoe@hawaii.edu",
       "dispensedTo": "222222",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test b"
     },
     {
-      "drug": "drug c",
-      "brand": "brand c",
+      "drug": "Drug C",
+      "brand": "Brand C",
       "lotId": "333C",
       "expire": "2021-10-10",
       "quantity": 30,
@@ -302,12 +302,12 @@
       "dateDispensed": "2021-10-05T22:00Z",
       "dispensedFrom":  "sueflay@hawaii.edu",
       "dispensedTo": "333333",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test c"
     },
     {
-      "drug": "drug d",
-      "brand": "brand d",
+      "drug": "Drug D",
+      "brand": "Brand D",
       "lotId": "444D",
       "expire": "2021-10-10",
       "quantity": 5,
@@ -315,12 +315,12 @@
       "dateDispensed": "2021-10-05T21:00Z",
       "dispensedFrom":  "amandamin@hawaii.edu",
       "dispensedTo": "444444",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test d"
     },
     {
-      "drug": "drug e",
-      "brand": "brand e",
+      "drug": "Drug E",
+      "brand": "Brand E",
       "lotId": "555E",
       "expire": "2021-10-10",
       "quantity": 10,
@@ -328,12 +328,12 @@
       "dateDispensed": "2021-10-05T20:00Z",
       "dispensedFrom":  "johndoe@hawaii.edu",
       "dispensedTo": "555555",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test e"
     },
     {
-      "drug": "drug f",
-      "brand": "brand f",
+      "drug": "Drug F",
+      "brand": "Brand F",
       "lotId": "666F",
       "expire": "2021-10-10",
       "quantity": 20,
@@ -341,12 +341,12 @@
       "dateDispensed": "2021-10-05T19:00Z",
       "dispensedFrom":  "sueflay@hawaii.edu",
       "dispensedTo": "666666",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test f"
     },
     {
-      "drug": "drug g",
-      "brand": "brand g",
+      "drug": "Drug G",
+      "brand": "Brand G",
       "lotId": "777G",
       "expire": "2021-10-10",
       "quantity": 1,
@@ -354,12 +354,12 @@
       "dateDispensed": "2021-10-05T18:00Z",
       "dispensedFrom":  "janedoe@hawaii.edu",
       "dispensedTo": "777777",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test g"
     },
     {
-      "drug": "drug h",
-      "brand": "brand h",
+      "drug": "Drug H",
+      "brand": "Brand H",
       "lotId": "888H",
       "expire": "2021-10-10",
       "quantity": 40,
@@ -367,12 +367,12 @@
       "dateDispensed": "2021-10-05T17:00Z",
       "dispensedFrom":  "sueflay@hawaii.edu",
       "dispensedTo": "888888",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test h"
     },
     {
-      "drug": "drug i",
-      "brand": "brand i",
+      "drug": "Drug I",
+      "brand": "Brand I",
       "lotId": "999I",
       "expire": "2021-10-10",
       "quantity": 60,
@@ -380,7 +380,7 @@
       "dateDispensed": "2021-10-05T16:00Z",
       "dispensedFrom":  "amandamin@hawaii.edu",
       "dispensedTo": "999999",
-      "site":  "kaka'ako",
+      "site":  "Kaka'ako",
       "note": "test i"
     }
   ]

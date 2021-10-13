@@ -65,7 +65,7 @@ const validateForm = data => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    submitData.site = data.site.toLowerCase(); // transform site field to lowercase
+    // submitData.site = data.site.toLowerCase(); // transform site field to lowercase
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData);
   }
@@ -134,12 +134,12 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites)}
-                  placeholder="kaka’ako" name='site'
+                  placeholder="Kaka’ako" name='site'
                   onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
-                  placeholder="benzonatate capsules"
+                  placeholder="Benzonatate Capsules"
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
@@ -160,7 +160,7 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
-                  placeholder="zonatuss"
+                  placeholder="Zonatuss"
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
@@ -210,7 +210,7 @@ export default withTracker(() => {
   return {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
-    sites: distinct('site', Historicals, Sites), // TODO: get from Sites Collection only
+    sites: distinct('site', Sites),
     drugs: distinct('drug', Medications, Drugs),
     lotIds: distinct('lotId', Medications),
     brands: distinct('brand', Medications, Brands),
