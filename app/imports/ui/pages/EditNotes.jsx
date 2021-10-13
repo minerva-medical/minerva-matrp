@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Header, Segment } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { AutoForm, ErrorsField, HiddenField, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, HiddenField, SubmitField, LongTextField, TextField, NumField } from 'uniforms-semantic';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -26,24 +26,37 @@ const EditNotes = ({ doc, ready }) => {
     console.log(updateData);
   };
 
+  const style = {
+    borderRadius: '50px',
+    width: '800px',
+    marginLeft: '160px',
+  };
+
+  const button = {
+    borderRadius: '30px',
+    marginLeft: '0px',
+    width: '80px',
+    color: 'linkedin',
+  };
   return (ready) ? (
     <Grid id={PAGE_IDS.EDIT_STUFF} container centered>
       <Grid.Column>
-        <Header as="h2" textAlign="center">Edit Stuff</Header>
-        <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
+        <Header as="h2" textAlign="center">Edit Notes</Header>
+
+        <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc} style={style}>
           <Segment>
-            <HiddenField name='drug' />
-            <HiddenField name='drugType' />
-            <HiddenField name='brand' />
-            <HiddenField name='lotId' />
-            <HiddenField name='expire' />
-            <HiddenField name='minQuantity' decimal={false} />
-            <HiddenField name='quantity' decimal={false} />
+            <TextField name='drug' readOnly/>
+            <TextField name='drugType' readOnly/>
+            <TextField name='brand' readOnly/>
+            <TextField name='lotId' readOnly/>
+            <TextField name='expire' readOnly/>
+            <NumField name='minQuantity' decimal={false} readOnly/>
+            <NumField name='quantity' decimal={false} readOnly/>
             <HiddenField name='isTabs'/>
-            <HiddenField name='location' />
-            <HiddenField name='purchased'/>
-            <TextField name='note' />
-            <SubmitField value='Submit' />
+            <TextField name='location' readOnly/>
+            <HiddenField name='purchased'readOnly/>
+            <LongTextField name='note' style={{ color: 'lightblue' }}/>
+            <SubmitField value='Submit' style={button}/>
             <ErrorsField />
           </Segment>
         </AutoForm>
