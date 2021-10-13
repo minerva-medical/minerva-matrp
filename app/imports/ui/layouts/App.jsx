@@ -13,14 +13,13 @@ import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddInventory from '../pages/AddInventory';
 import DispenseLog from '../pages/DispenseLog';
-import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Dispense from '../pages/Dispense';
 import Status from '../pages/Status';
-// import Test from '../pages/test';
+import EditNotes from '../pages/EditNotes';
 import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 
@@ -45,7 +44,7 @@ const App = () => {
         <ProtectedRoute path="/add" component={AddInventory}/>
         <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
         <ProtectedRoute path="/list" component={ListStuff}/>
-        <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+        <ProtectedRoute path="/edit/:_id" component={EditNotes}/>
         <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
         <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
         <Route component={NotFound}/>
