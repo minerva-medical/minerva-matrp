@@ -9,7 +9,6 @@ import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MedStatusRow from '../components/MedStatusRow';
-import DrugPage from '../components/DrugPage';
 
 /** Renders the Page for Dispensing Inventory. */
 

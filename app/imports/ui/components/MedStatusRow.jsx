@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Table } from 'semantic-ui-react';
+import { Icon, Table, TableRow } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DrugPage from '../components/DrugPage';
 
@@ -20,11 +20,15 @@ const calculateStatus = (quantity, min) => {
   return status;
 };
 
+const handleModal = (info) => (
+  <DrugPage info={info}/>
+);
+
 const MedStatusRow = ({ med }) => {
   const { color, percent } = calculateStatus(med.quantity, med.minQuantity);
 
   return (
-    <Table.Row>
+    <TableRow onClick={(e) => { handleModal(med, e); }}>
       <Table.Cell>{med.drug}</Table.Cell>
       <Table.Cell>{med.drugType.join(', ')}</Table.Cell>
       <Table.Cell>{med.brand}</Table.Cell>
@@ -44,7 +48,7 @@ const MedStatusRow = ({ med }) => {
         <Icon color={color} name='circle'> {percent}%</Icon>
       </Table.Cell>
       <Table.Cell textAlign='center'><DrugPage info={med}/></Table.Cell>
-    </Table.Row>
+    </TableRow>
   );
 };
 

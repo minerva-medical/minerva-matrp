@@ -6,11 +6,11 @@ import {
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 const DrugPage = ({ info }) => {
   const [open, setOpen] = React.useState(false);
+
   const notes = {
     backgroundColor: '#CCE8F5',
     borderRadius: '15px',
@@ -30,8 +30,8 @@ const DrugPage = ({ info }) => {
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
-      open={open}
       trigger={<Button size='mini' circular icon='info' color='linkedin' />}
+      open={open}
       size='large'
       dimmer='blurring'
       id={COMPONENT_IDS.DRUG_PAGE}
