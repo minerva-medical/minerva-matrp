@@ -33,7 +33,7 @@ const MedStatusRow = ({ med }) => {
       <Table.Cell>{med.expire}</Table.Cell>
       <Table.Cell textAlign='center'>
         {
-          med.purchased ?
+          med.donated ?
             <Icon name='check' color='green'/>
             :
             <Icon name='check' color='grey'/>
@@ -57,7 +57,7 @@ MedStatusRow.propTypes = {
     location: PropTypes.string,
     lotId: PropTypes.string,
     minQuantity: PropTypes.number,
-    purchased: PropTypes.bool,
+    donated: PropTypes.bool,
     quantity: PropTypes.number,
   }).isRequired,
 };

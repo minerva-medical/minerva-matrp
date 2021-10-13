@@ -3,18 +3,18 @@ import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid,
   Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { _ } from 'meteor/underscore';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MedStatusRow from '../components/MedStatusRow';
+import { distinct } from '../utilities/Functions';
 
 /** Renders the Page for Dispensing Inventory. */
 
 // convert array to dropdown options
-const getOptions = (arr, name) => {
-  const options = _.pluck(arr, name).map(elem => ({ key: elem, text: elem, value: elem }));
+const getOptions = (arr) => {
+  const options = arr.map(elem => ({ key: elem, text: elem, value: elem }));
   options.unshift({ key: '0', value: 'All', text: 'All' });
   return options;
 };
@@ -70,7 +70,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
                   Type of Medication: {' '}
                 <Dropdown
                   inline
-                  options={getOptions(drugTypes, 'drugType')}
+                  options={getOptions(drugTypes)}
                   search
                   defaultValue={'All'}
                 />
@@ -88,7 +88,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
                   Medication Location: {' '}
                 <Dropdown
                   inline
-                  options={getOptions(locations, 'location')}
+                  options={getOptions(locations)}
                   search
                   defaultValue={'All'}
                 />
@@ -115,7 +115,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
                 <Table.HeaderCell>Quantity</Table.HeaderCell>
                 <Table.HeaderCell>Location</Table.HeaderCell>
                 <Table.HeaderCell>Expiration</Table.HeaderCell>
-                <Table.HeaderCell>Purchased</Table.HeaderCell>
+                <Table.HeaderCell>Donated</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
                 <Table.HeaderCell>Information</Table.HeaderCell>
               </Table.Row>
@@ -156,10 +156,10 @@ export default withTracker(() => {
   const locationSub = Locations.subscribeLocation();
   // Determine if the subscription is ready
   const ready = medSub.ready() && drugTypeSub.ready() && locationSub.ready();
-  // Get the Stuff documents and sort them by name.
+  // Get the Medication documents and sort them by name.
   const medications = Medications.find({}, { sort: { drug: 1 } }).fetch();
-  const drugTypes = DrugTypes.find({}).fetch();
-  const locations = Locations.find({}).fetch();
+  const drugTypes = distinct('drugType', Medications, DrugTypes);
+  const locations = distinct('location', Medications, Locations);
   return {
     medications,
     drugTypes,

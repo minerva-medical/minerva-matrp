@@ -3,10 +3,11 @@ import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid,
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 // import { _ } from 'meteor/underscore';
+import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
-import { Locations } from '../../api/location/LocationCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
+import { distinct } from '../utilities/Functions';
 
 /** Renders the Page for Dispensing Inventory. */
 const limitOptions = [
@@ -104,7 +105,6 @@ const DispenseLog = (props) => {
                     <Table.HeaderCell>Date & Time</Table.HeaderCell>
                     <Table.HeaderCell>Dispense Type</Table.HeaderCell>
                     <Table.HeaderCell>Patient Number</Table.HeaderCell>
-                    <Table.HeaderCell>Type</Table.HeaderCell>
                     <Table.HeaderCell>Medication</Table.HeaderCell>
                     <Table.HeaderCell>LotId</Table.HeaderCell>
                     <Table.HeaderCell>Quantity</Table.HeaderCell>
@@ -137,25 +137,22 @@ const DispenseLog = (props) => {
 DispenseLog.propTypes = {
   historicals: PropTypes.array.isRequired,
   drugTypes: PropTypes.array.isRequired,
-  locations: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
+  const medSub = Medications.subscribeMedication();
   const historicalSub = Historicals.subscribeHistorical();
   const drugTypeSub = DrugTypes.subscribeDrugType();
-  const locationSub = Locations.subscribeLocation();
   // Determine if the subscription is ready
-  const ready = historicalSub.ready() && drugTypeSub.ready() && locationSub.ready();
+  const ready = historicalSub.ready() && drugTypeSub.ready() && medSub.ready();
   // Get the Stuff documents and sort them by name.
   const historicals = Historicals.find({}).fetch();
-  const drugTypes = DrugTypes.find({}).fetch();
-  const locations = Locations.find({}).fetch();
+  const drugTypes = distinct('drugType', Medications, DrugTypes);
   return {
     historicals,
     drugTypes,
-    locations,
     ready,
   };
 })(DispenseLog);

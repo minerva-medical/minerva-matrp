@@ -10,7 +10,6 @@ const DispenseLogRow = ({ history }) => (
     </Table.Cell>
     <Table.Cell>Patient Use</Table.Cell>
     <Table.Cell>{history.dispensedTo}</Table.Cell>
-    <Table.Cell>{history.drugType.join(', ')}</Table.Cell>
     <Table.Cell>{history.drug}</Table.Cell>
     <Table.Cell>{history.lotId}</Table.Cell>
     <Table.Cell>{history.quantity} {history.isTabs ? 'tabs' : 'mL'}</Table.Cell>
@@ -23,13 +22,15 @@ DispenseLogRow.propTypes = {
   history: PropTypes.shape({
     dateDispensed: PropTypes.date,
     dispensedTo: PropTypes.string,
-    drugType: PropTypes.array,
     drug: PropTypes.string,
     brand: PropTypes.string,
     lotId: PropTypes.string,
     dispensedFrom: PropTypes.string,
     quantity: PropTypes.number,
     isTabs: PropTypes.bool,
+    note: PropTypes.string,
+    expire: PropTypes.string,
+    site: PropTypes.string,
   }).isRequired,
 };
 

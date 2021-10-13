@@ -55,11 +55,11 @@ const DrugPage = ({ info }) => {
                         <ListItem><ListHeader>Quantity in Stock:</ListHeader>{info.quantity}</ListItem>
                         <ListItem><ListHeader>tabs or mL</ListHeader>{info.isTabs ? 'tabs' : 'mL'}</ListItem>
                         <ListItem><ListHeader>Storage Location:</ListHeader>{info.location}</ListItem>
-                        <ListItem><ListHeader>Purchased?</ListHeader>         {
-                          info.purchased ?
-                            'Item Purchased'
+                        <ListItem><ListHeader>Donated?</ListHeader>         {
+                          info.donated ?
+                            'Item donated'
                             :
-                            'Item not purchased'
+                            'Item not donated'
                         }</ListItem> <br/>
                       </List>
                     </ItemDescription>

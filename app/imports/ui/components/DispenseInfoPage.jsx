@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Grid, Button, Segment, Header, Container, GridColumn, Item, ItemGroup, List, ListItem, ItemMeta,
+  Grid, Button, Segment, Header, Container, GridColumn, Item, ItemGroup, List, ListItem,
   ItemContent, ItemDescription, Modal, ListHeader, Divider,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -23,9 +23,6 @@ const DispenseInfoPage = ({ record }) => {
     fontSize: '16px',
   };
 
-  const font2 = {
-    fontSize: '15px',
-  };
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -45,14 +42,13 @@ const DispenseInfoPage = ({ record }) => {
                 <Item>
                   <ItemContent>
                     <Header as='h2'>{record.drug}</Header>
-                    <ItemMeta style={font2}>{record.drugType}</ItemMeta>
                     <Divider/>
                     <ItemDescription>
                       <List size='large'>
                         <ListItem><ListHeader>Brand</ListHeader> {record.brand}</ListItem>
                         <ListItem><ListHeader>Lot Number</ListHeader>{record.lotId}</ListItem>
                         <ListItem><ListHeader>Expiration Date</ListHeader>{record.expire}</ListItem>
-                        <ListItem><ListHeader>Storage Location:</ListHeader>{record.location}</ListItem>
+                        <ListItem><ListHeader>Dispense Location:</ListHeader>{record.site}</ListItem>
                         <Divider/>
                         <ListItem>
                           <ListHeader>Quantity Dispensed</ListHeader>{record.quantity} {record.isTabs ? 'tabs' : 'mL'}
