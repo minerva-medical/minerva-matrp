@@ -19,11 +19,23 @@ const EditNotes = ({ doc, ready }) => {
   const submit = (data) => {
     const { drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note, _id } = data;
     const collectionName = Medications.getCollectionName();
-    const updateData = { id: _id, drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note };
+    const updateData = {
+      id: _id,
+      drug,
+      drugType,
+      brand,
+      lotId,
+      expire,
+      minQuantity,
+      quantity,
+      isTabs,
+      location,
+      donated,
+      note,
+    };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
-    console.log(updateData);
   };
 
   const style = {
@@ -54,7 +66,7 @@ const EditNotes = ({ doc, ready }) => {
             <NumField name='quantity' decimal={false} readOnly/>
             <HiddenField name='isTabs'/>
             <TextField name='location' readOnly/>
-            <HiddenField name='donated'readOnly/>
+            <HiddenField name='donated' readOnly/>
             <LongTextField name='note' style={{ color: 'lightblue' }}/>
             <SubmitField value='Submit' style={button}/>
             <ErrorsField />
