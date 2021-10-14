@@ -17,9 +17,9 @@ const EditNotes = ({ doc, ready }) => {
 
   // On successful submit, insert the data.
   const submit = (data) => {
-    const { drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased, note, _id } = data;
+    const { drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note, _id } = data;
     const collectionName = Medications.getCollectionName();
-    const updateData = { id: _id, drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, purchased, note };
+    const updateData = { id: _id, drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
@@ -54,7 +54,7 @@ const EditNotes = ({ doc, ready }) => {
             <NumField name='quantity' decimal={false} readOnly/>
             <HiddenField name='isTabs'/>
             <TextField name='location' readOnly/>
-            <HiddenField name='purchased'readOnly/>
+            <HiddenField name='donated'readOnly/>
             <LongTextField name='note' style={{ color: 'lightblue' }}/>
             <SubmitField value='Submit' style={button}/>
             <ErrorsField />
