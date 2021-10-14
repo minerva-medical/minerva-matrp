@@ -106,6 +106,7 @@ class MedicationCollection extends BaseCollection {
       addString('location');
       addBoolean('donated');
       addString('note');
+      this._collection.update(docID, { $set: updateData });
     }
   }
 
