@@ -9,6 +9,7 @@ import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MedStatusRow from '../components/MedStatusRow';
 import { distinct } from '../utilities/Functions';
+import { Brands } from '../../api/brand/BrandCollection';
 
 /** Renders the Page for Dispensing Inventory. */
 
@@ -26,22 +27,8 @@ const recordOptions = [
   { key: '3', value: '100', text: '100' },
 ];
 
-// TODO: do we need a brand filter?
-const medicationBrand = [
-  { key: '0', value: 'All', text: 'All' },
-  { key: '1', value: 'Tylenol', text: 'Tylenol' },
-  { key: '2', value: 'Fluticasone', text: 'Fluticasone' },
-  { key: '3', value: 'Advair', text: 'Advair' },
-  { key: '4', value: 'Dex4', text: 'Dex4' },
-  { key: '5', value: 'Janumet XR', text: 'Janumet XR' },
-  { key: '6', value: 'Glyxambi', text: 'Glyxambi' },
-  { key: '7', value: 'Advil', text: 'Advil' },
-  { key: '8', value: 'Emergency Kit', text: 'Emergency Kit' },
-  { key: '9', value: 'Chloraseptic', text: 'Chloraseptic' },
-];
-
 // Render the form.
-const Status = ({ ready, medications, drugTypes, locations }) => {
+const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   if (ready) {
     const gridAlign = {
       textAlign: 'center',
@@ -79,7 +66,7 @@ const Status = ({ ready, medications, drugTypes, locations }) => {
                   Medication Brand: {' '}
                 <Dropdown
                   inline
-                  options={medicationBrand}
+                  options={getOptions(brands)}
                   search
                   defaultValue={'All'}
                 />
@@ -146,6 +133,7 @@ Status.propTypes = {
   medications: PropTypes.array.isRequired,
   drugTypes: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
+  brands: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -154,16 +142,19 @@ export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
   const drugTypeSub = DrugTypes.subscribeDrugType();
   const locationSub = Locations.subscribeLocation();
+  const brandSub = Brands.subscribeBrand();
   // Determine if the subscription is ready
-  const ready = medSub.ready() && drugTypeSub.ready() && locationSub.ready();
+  const ready = medSub.ready() && drugTypeSub.ready() && locationSub.ready() && brandSub.ready();
   // Get the Medication documents and sort them by name.
   const medications = Medications.find({}, { sort: { drug: 1 } }).fetch();
   const drugTypes = distinct('drugType', Medications, DrugTypes);
   const locations = distinct('location', Medications, Locations);
+  const brands = distinct('brand', Medications, Brands);
   return {
     medications,
     drugTypes,
     locations,
+    brands,
     ready,
   };
 })(Status);
