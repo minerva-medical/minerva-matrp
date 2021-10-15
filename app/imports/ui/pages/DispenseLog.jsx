@@ -2,7 +2,6 @@ import React from 'react';
 import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Input } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-// import { _ } from 'meteor/underscore';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
