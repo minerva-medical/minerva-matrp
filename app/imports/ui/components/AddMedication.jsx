@@ -64,14 +64,6 @@ const validateForm = data => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    // transform some String fields to lowercase
-    // requiredFields.forEach(field => {
-    //   if (field === 'drugType') {
-    //     submitData.drugType = data.drugType.map(type => type.toLowerCase());
-    //   } else if (field !== 'lotId') {
-    //     submitData[field] = data[field].toLowerCase();
-    //   }
-    // });
     submitData.minQuantity = parseInt(data.minQuantity, 10);
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData);
@@ -111,7 +103,6 @@ const AddMedication = (props) => {
 
   // add user inputted drug type if not already added
   const addDrugType = (event, { value }) => {
-    // const re = new RegExp(value, 'i');
     if (!drugTypes.map(type => type.toLowerCase()).includes(value.toLowerCase())) {
       setDrugTypes([...drugTypes, value]);
     }

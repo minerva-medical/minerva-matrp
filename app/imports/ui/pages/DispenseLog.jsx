@@ -2,12 +2,8 @@ import React from 'react';
 import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Input } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-// import { _ } from 'meteor/underscore';
-import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
-import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
-import { distinct } from '../utilities/Functions';
 
 /** Renders the Page for Dispensing Inventory. */
 const limitOptions = [
@@ -38,8 +34,8 @@ const inventory = [
 ];
 
 /** Render the form. */
-const DispenseLog = (props) => {
-  if (props.ready) {
+const DispenseLog = ({ ready, historicals }) => {
+  if (ready) {
     return (
       <div>
         <Container id='dispense-log'>
@@ -90,15 +86,13 @@ const DispenseLog = (props) => {
                 </Grid.Row>
               </Grid>
               <Divider/>
-              <div>
                 Records per page:{' '}
-                <Dropdown
-                  inline={true}
-                  options={limitOptions}
-                  defaultValue={'10'}
-                />
+              <Dropdown
+                inline={true}
+                options={limitOptions}
+                defaultValue={'10'}
+              />
                 Total count: {'200'}
-              </div>
               <Table striped singleLine columns={11}>
                 <Table.Header>
                   <Table.Row>
@@ -114,7 +108,7 @@ const DispenseLog = (props) => {
                 </Table.Header>
                 <Table.Body>
                   {
-                    props.historicals.map(history => <DispenseLogRow key={history._id} history={history} />)
+                    historicals.map(history => <DispenseLogRow key={history._id} history={history} />)
                   }
                 </Table.Body>
                 <Table.Footer>
@@ -136,23 +130,18 @@ const DispenseLog = (props) => {
 
 DispenseLog.propTypes = {
   historicals: PropTypes.array.isRequired,
-  drugTypes: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
-  const medSub = Medications.subscribeMedication();
   const historicalSub = Historicals.subscribeHistorical();
-  const drugTypeSub = DrugTypes.subscribeDrugType();
   // Determine if the subscription is ready
-  const ready = historicalSub.ready() && drugTypeSub.ready() && medSub.ready();
-  // Get the Stuff documents and sort them by name.
+  const ready = historicalSub.ready();
+  // Get the Historical documents and sort them by name.
   const historicals = Historicals.find({}).fetch();
-  const drugTypes = distinct('drugType', Medications, DrugTypes);
   return {
     historicals,
-    drugTypes,
     ready,
   };
 })(DispenseLog);
