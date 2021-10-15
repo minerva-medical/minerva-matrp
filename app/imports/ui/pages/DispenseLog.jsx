@@ -146,7 +146,7 @@ export default withTracker(() => {
   const drugTypeSub = DrugTypes.subscribeDrugType();
   // Determine if the subscription is ready
   const ready = historicalSub.ready() && drugTypeSub.ready() && medSub.ready();
-  // Get the Stuff documents and sort them by name.
+  // Get the Historical documents.
   const historicals = Historicals.find({}).fetch();
   const drugTypes = distinct('drugType', Medications, DrugTypes);
   return {
