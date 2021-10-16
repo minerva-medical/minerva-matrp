@@ -24,7 +24,7 @@ const DispenseInfoPage = ({ record, ready }) => {
   const submit = (data) => {
     const { drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note, _id } = data;
     const collectionName = Historicals.getCollectionName();
-    const updateData = { record: _id, drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note };
+    const updateData = { id: _id, drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
