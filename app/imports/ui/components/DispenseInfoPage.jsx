@@ -97,7 +97,7 @@ const DispenseInfoPage = ({ record }) => {
       <Modal
         onClose={() => setSecondOpen(false)}
         open={secondOpen}
-        size='small'
+        size='large'
       >
         <Modal.Header>Notes</Modal.Header>
         <Modal.Content>
