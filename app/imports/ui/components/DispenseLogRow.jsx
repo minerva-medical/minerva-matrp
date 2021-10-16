@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popup, Table } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DispenseInfoPage from './DispenseInfoPage';
 

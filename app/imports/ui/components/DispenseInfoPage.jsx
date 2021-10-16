@@ -1,17 +1,35 @@
 import React from 'react';
 import {
   Grid, Button, Segment, Header, Container, GridColumn, Item, ItemGroup, List, ListItem,
-  ItemContent, ItemDescription, Modal, ListHeader, Divider,
+  ItemContent, ItemDescription, Modal, ListHeader, Divider, Loader,
 } from 'semantic-ui-react';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withTracker } from 'meteor/react-meteor-data';
+import { AutoForm, ErrorsField, HiddenField, LongTextField, SubmitField, TextField } from 'uniforms-semantic';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Historicals } from '../../api/historical/HistoricalCollection';
+import { updateMethod } from '../../api/base/BaseCollection.methods';
 
-/** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const DispenseInfoPage = ({ record }) => {
+/** Renders a single row in the History Dispense Log table. See pages/DispenseLog.jsx. */
+
+const bridge = new SimpleSchema2Bridge(Historicals._schema);
+
+const DispenseInfoPage = ({ record, ready }) => {
   const [open, setOpen] = React.useState(false);
   const [secondOpen, setSecondOpen] = React.useState(false);
+  // On successful submit, insert the data.
+
+  const submit = (data) => {
+    const { drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note, _id } = data;
+    const collectionName = Historicals.getCollectionName();
+    const updateData = { record: _id, drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note };
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
+    console.log(updateData);
+  };
 
   const notes = {
     backgroundColor: '#CCE8F5',
@@ -25,14 +43,13 @@ const DispenseInfoPage = ({ record }) => {
     fontSize: '16px',
   };
 
-  return (
+  return (ready) ? (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
       trigger={<Button size='mini' circular icon='info' color='linkedin'/>}
       size='large'
-      dimmer='blurring'
       id={COMPONENT_IDS.DRUG_PAGE}
     >
       <Modal.Header>Dispense Log Information</Modal.Header>
@@ -91,45 +108,56 @@ const DispenseInfoPage = ({ record }) => {
           icon='edit'
           onClick={() => setSecondOpen(true)}
           color='linkedin'
-          // as={Link} to={`/edit/${info._id}`}
+          size='small'
         />
       </Modal.Actions>
       <Modal
         onClose={() => setSecondOpen(false)}
         open={secondOpen}
-        size='large'
       >
-        <Modal.Header>Notes</Modal.Header>
+        <Modal.Header>Edit Notes</Modal.Header>
         <Modal.Content>
-          <p>That is everything!</p>
+          <AutoForm schema={bridge} onSubmit={data => submit(data)} model={record}>
+            <TextField name='drug' />
+            <HiddenField name='brand' />
+            <HiddenField name='lotId' />
+            <HiddenField name='expire' />
+            <HiddenField name='quantity' decimal={false} hidden/>
+            <HiddenField name='isTabs'/>
+            <HiddenField name='dateDispensed'/>
+            <TextField name='dispensedFrom' readOnly/>
+            <HiddenField name='dispensedTo'/>
+            <HiddenField name='site'/>
+            <LongTextField name='note' style={{ color: 'lightblue' }}/>
+            <ErrorsField />
+            <SubmitField value='Submit'/>
+          </AutoForm>
         </Modal.Content>
         <Modal.Actions>
           <Button
-            icon='cancel'
-            content='Cancel'
-            color = 'red'
-            floated = 'left'
-            inverted
-            onClick={() => setSecondOpen(false)}
-          />
-          <Button
-            icon='check'
-            content='Save Changes'
-            color = 'green'
-            inverted
+            content='Close'
+            color = 'black'
+            floated = 'right'
             onClick={() => setSecondOpen(false)}
           />
         </Modal.Actions>
       </Modal>
     </Modal>
-  );
-
+  ) : <Loader active>Getting data</Loader>;
 };
 
 // Require a document to be passed to this component.
 DispenseInfoPage.propTypes = {
   record: PropTypes.object.isRequired,
+  ready: PropTypes.bool.isRequired,
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
-export default withRouter(DispenseInfoPage);
+export default withTracker(() => {
+  const subscription = Historicals.subscribeHistorical();
+  const ready = subscription.ready();
+  return {
+    ready,
+  };
+
+})(DispenseInfoPage);
