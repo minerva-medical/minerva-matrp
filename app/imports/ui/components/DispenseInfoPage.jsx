@@ -11,6 +11,8 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 const DispenseInfoPage = ({ record }) => {
   const [open, setOpen] = React.useState(false);
+  const [secondOpen, setSecondOpen] = React.useState(false);
+
   const notes = {
     backgroundColor: '#CCE8F5',
     borderRadius: '15px',
@@ -81,21 +83,45 @@ const DispenseInfoPage = ({ record }) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => setOpen(false)}>
-            Close
-        </Button>
+        <Button color='black' floated= 'left' onClick={() => setOpen(false)}>Close</Button>
         <Button
           className={COMPONENT_IDS.DRUG_EDIT}
           content="Edit"
           labelPosition='right'
           icon='edit'
-          onClick={() => setOpen(false)}
+          onClick={() => setSecondOpen(true)}
           color='linkedin'
           // as={Link} to={`/edit/${info._id}`}
         />
       </Modal.Actions>
+      <Modal
+        onClose={() => setSecondOpen(false)}
+        open={secondOpen}
+        size='small'
+      >
+        <Modal.Header>Notes</Modal.Header>
+        <Modal.Content>
+          <p>That is everything!</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            icon='cancel'
+            content='Cancel'
+            color = 'red'
+            floated = 'left'
+            inverted
+            onClick={() => setSecondOpen(false)}
+          />
+          <Button
+            icon='check'
+            content='Save Changes'
+            color = 'green'
+            inverted
+            onClick={() => setSecondOpen(false)}
+          />
+        </Modal.Actions>
+      </Modal>
     </Modal>
-
   );
 
 };

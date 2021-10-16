@@ -99,7 +99,7 @@ const DispenseLog = (props) => {
                 />
                 Total count: {'200'}
               </div>
-              <Table striped singleLine columns={11}>
+              <Table unstackable striped singleLine columns={11}>
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>Date & Time</Table.HeaderCell>

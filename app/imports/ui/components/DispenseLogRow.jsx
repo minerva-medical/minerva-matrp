@@ -1,12 +1,12 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Popup, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DispenseInfoPage from './DispenseInfoPage';
 
 const DispenseLogRow = ({ history }) => (
   <Table.Row>
     <Table.Cell>
-      <i>{history.dateDispensed.toLocaleDateString('en-US')}</i> — [{history.dateDispensed.toLocaleTimeString('en-US')}]
+      {history.dateDispensed.toLocaleDateString('en-US')} {history.dateDispensed.toLocaleTimeString('en-US')}
     </Table.Cell>
     <Table.Cell>Patient Use</Table.Cell>
     <Table.Cell>{history.dispensedTo}</Table.Cell>
