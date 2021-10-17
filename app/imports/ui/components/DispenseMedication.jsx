@@ -22,7 +22,7 @@ const submit = data => {
 
   if (quantity < medication.quantity) {
     // if dispense quantity < medication quantity:
-    const updateData = { id: _id, quantity: -quantity, action: 'INC' }; // decrement the quantity
+    const updateData = { id: _id, quantity: medication.quantity - quantity }; // decrement the quantity
     const definitionData = { ...data };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
@@ -36,7 +36,8 @@ const submit = data => {
     swal('Error', `${drug} only has ${medication.quantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
   } else {
     // else if dispense quantity = medication quantity:
-    const updateData = { id: _id, action: 'RESET' }; // set quantity to 0 and reset relevant fields
+    const updateData = { id: _id, minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
+      location: 'N/A', donated: false, note: 'N/A' }; // set quantity to 0 and reset relevant fields
     const definitionData = { ...data };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];

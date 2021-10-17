@@ -21,7 +21,7 @@ const submit = data => {
 
   if (exists) {
     // if the medication w/ lotId exists:
-    const updateData = { id: exists._id, quantity, action: 'INC' }; // increment the quantity
+    const updateData = { id: exists._id, quantity: exists.quantity + quantity }; // increment the quantity
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', `${drug} updated successfully`, 'success', {
@@ -30,7 +30,7 @@ const submit = data => {
   } else if (empty) {
     // else if the medication w/ drug_name exists and its quantity is 0:
     const updateData = { id: empty._id, minQuantity, quantity, brand, lotId, expire, location, donated,
-      note, action: 'REFILL' }; // set the following
+      note }; // set the following
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', `${drug} added successfully`, 'success', {
