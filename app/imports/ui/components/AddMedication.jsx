@@ -11,9 +11,8 @@ import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions } from '../utilities/Functions';
 
-// TODO: reset the form on success
 /** handles submit for add medication. */
-const submit = data => {
+const submit = (data, callback) => {
   const { drug, minQuantity, quantity, brand, lotId, expire, location, donated, note } = data;
   const collectionName = Medications.getCollectionName();
   const exists = Medications.findOne({ lotId }); // returns the existing medication or undefined
@@ -24,31 +23,34 @@ const submit = data => {
     const updateData = { id: exists._id, quantity: exists.quantity + quantity }; // increment the quantity
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
-        buttons: false, timer: 3000,
-      }));
+      .then(() => {
+        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
   } else if (empty) {
     // else if the medication w/ drug_name exists and its quantity is 0:
     const updateData = { id: empty._id, minQuantity, quantity, brand, lotId, expire, location, donated,
       note }; // set the following
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `${drug} added successfully`, 'success', {
-        buttons: false, timer: 3000,
-      }));
+      .then(() => {
+        swal('Success', `${drug} added successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
   } else {
     // else insert the new medication
     const definitionData = { ...data };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `${drug} added successfully`, 'success', {
-        buttons: false, timer: 3000,
-      }));
+      .then(() => {
+        swal('Success', `${drug} added successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
   }
 };
 
 /** validates the add medication form */
-const validateForm = data => {
+const validateForm = (data, callback) => {
   const submitData = { ...data };
   let errorMsg = '';
   // the required String fields
@@ -56,7 +58,7 @@ const validateForm = data => {
 
   // if the field is empty, append error message
   requiredFields.forEach(field => {
-    if (!submitData[field] || !submitData[field].length) {
+    if (!submitData[field] || (field === 'drugType' && !submitData.drugType.length)) {
       errorMsg += `${field} cannot be empty.\n`;
     }
   });
@@ -74,7 +76,7 @@ const validateForm = data => {
     // });
     submitData.minQuantity = parseInt(data.minQuantity, 10);
     submitData.quantity = parseInt(data.quantity, 10);
-    submit(submitData);
+    submit(submitData, callback);
   }
 };
 
@@ -223,7 +225,7 @@ const AddMedication = (props) => {
         </Form>
         <div className='buttons-div'>
           <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>
     );

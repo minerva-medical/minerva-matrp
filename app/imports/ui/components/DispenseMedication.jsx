@@ -13,7 +13,7 @@ import { defineMethod, updateMethod } from '../../api/base/BaseCollection.method
 import { distinct, getOptions } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
-const submit = data => {
+const submit = (data, callback) => {
   const { lotId, quantity, drug } = data;
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
@@ -28,9 +28,10 @@ const submit = data => {
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
-        buttons: false, timer: 3000,
-      }));
+      .then(() => {
+        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
   } else if (quantity > medication.quantity) {
     // else if dispense quantity > medication quantity:
     swal('Error', `${drug} only has ${medication.quantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
@@ -43,14 +44,15 @@ const submit = data => {
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
-        buttons: false, timer: 3000,
-      }));
+      .then(() => {
+        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
   }
 };
 
 /** validates the dispense medication form */
-const validateForm = data => {
+const validateForm = (data, callback) => {
   const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
   // the required String fields
@@ -68,7 +70,7 @@ const validateForm = data => {
   } else {
     // submitData.site = data.site.toLowerCase(); // transform site field to lowercase
     submitData.quantity = parseInt(data.quantity, 10);
-    submit(submitData);
+    submit(submitData, callback);
   }
 };
 
@@ -195,7 +197,7 @@ const DispenseMedication = (props) => {
         </Form>
         <div className='buttons-div'>
           <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>
     );
