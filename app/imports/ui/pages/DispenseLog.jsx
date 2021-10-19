@@ -148,7 +148,7 @@ export default withTracker(() => {
   const ready = historicalSub.ready() && drugTypeSub.ready() && medSub.ready();
   // Get the Historical documents.
   const historicals = Historicals.find({}).fetch();
-  const drugTypes = distinct('drugType', Medications, DrugTypes);
+  const drugTypes = distinct('drugType', DrugTypes);
   return {
     historicals,
     drugTypes,

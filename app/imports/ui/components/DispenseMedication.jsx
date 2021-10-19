@@ -13,7 +13,7 @@ import { defineMethod, updateMethod } from '../../api/base/BaseCollection.method
 import { distinct, getOptions } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
-const submit = data => {
+const submit = (data, callback) => {
   const { lotId, quantity, drug } = data;
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
@@ -28,9 +28,10 @@ const submit = data => {
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
-        buttons: false, timer: 3000,
-      }));
+      .then(() => {
+        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
   } else if (quantity > medication.quantity) {
     // else if dispense quantity > medication quantity:
     swal('Error', `${drug} only has ${medication.quantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
@@ -43,14 +44,15 @@ const submit = data => {
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', `${drug} updated successfully`, 'success', {
-        buttons: false, timer: 3000,
-      }));
+      .then(() => {
+        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
   }
 };
 
 /** validates the dispense medication form */
-const validateForm = data => {
+const validateForm = (data, callback) => {
   const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
   // the required String fields
@@ -68,7 +70,7 @@ const validateForm = data => {
   } else {
     // submitData.site = data.site.toLowerCase(); // transform site field to lowercase
     submitData.quantity = parseInt(data.quantity, 10);
-    submit(submitData);
+    submit(submitData, callback);
   }
 };
 
@@ -95,6 +97,18 @@ const DispenseMedication = (props) => {
   // handle dropdown search query
   const handleSearch = (event, { name, searchQuery }) => {
     setFields({ ...fields, [name]: searchQuery });
+  };
+
+  // autofill form on lotId select
+  const onLotIdSelect = (event, { value }) => {
+    const medication = Medications.findOne({ lotId: value });
+    if (medication) {
+      const { drug, expire, brand, quantity, isTabs } = medication;
+      const autoFields = { ...fields, lotId: value, drug, expire, brand, quantity, isTabs };
+      setFields(autoFields);
+    } else {
+      setFields({ ...fields, lotId: value });
+    }
   };
 
   const clearForm = () => setFields({ site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '',
@@ -139,14 +153,14 @@ const DispenseMedication = (props) => {
                   onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
+                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
+                  placeholder="Z9Z99"
+                  name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
+              </Grid.Column>
+              <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
                   placeholder="Benzonatate Capsules"
                   name='drug' onChange={handleChange} value={fields.drug}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
-                  placeholder="Z9Z99"
-                  name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -183,7 +197,7 @@ const DispenseMedication = (props) => {
         </Form>
         <div className='buttons-div'>
           <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>
     );
@@ -212,9 +226,9 @@ export default withTracker(() => {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
-    drugs: distinct('drug', Medications, Drugs),
+    drugs: distinct('drug', Medications),
     lotIds: distinct('lotId', Medications),
-    brands: distinct('brand', Medications, Brands),
+    brands: distinct('brand', Medications),
     ready: siteSub.ready() && drugSub.ready() && brandSub.ready() && historySub.ready() && medSub.ready(),
   };
 })(DispenseMedication);

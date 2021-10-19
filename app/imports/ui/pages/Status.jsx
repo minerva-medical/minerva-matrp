@@ -163,9 +163,9 @@ export default withTracker(() => {
   const ready = medSub.ready() && drugTypeSub.ready() && locationSub.ready() && brandSub.ready();
   // Get the Medication documents and sort them by name.
   const medications = Medications.find({}, { sort: { drug: 1 } }).fetch();
-  const drugTypes = distinct('drugType', Medications, DrugTypes);
-  const locations = distinct('location', Medications, Locations);
-  const brands = distinct('brand', Medications, Brands);
+  const drugTypes = distinct('drugType', DrugTypes);
+  const locations = distinct('location', Locations);
+  const brands = distinct('brand', Medications);
   return {
     medications,
     drugTypes,
