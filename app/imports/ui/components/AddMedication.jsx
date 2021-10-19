@@ -117,6 +117,30 @@ const AddMedication = (props) => {
     }
   };
 
+  // autofill form on drug select
+  const onDrugSelect = (event, { value }) => {
+    const medication = Medications.findOne({ drug: value });
+    if (medication) {
+      const { drugType, isTabs } = medication;
+      setFields({ ...fields, drug: value, drugType, isTabs });
+    } else {
+      setFields({ ...fields, drug: value });
+    }
+  };
+
+  // autofill form on lotId select
+  const onLotIdSelect = (event, { value }) => {
+    const medication = Medications.findOne({ lotId: value });
+    if (medication) {
+      const { drug, drugType, expire, brand, minQuantity, isTabs, location, donated, note } = medication;
+      const autoFields = { ...fields, lotId: value, drug, drugType, expire, brand, minQuantity, isTabs, location,
+        donated, note };
+      setFields(autoFields);
+    } else {
+      setFields({ ...fields, lotId: value });
+    }
+  };
+
   const clearForm = () => setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
     brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
 
@@ -137,7 +161,7 @@ const AddMedication = (props) => {
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
                   placeholder="Benzonatate Capsules" name='drug'
-                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
+                  onChange={onDrugSelect} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
@@ -148,14 +172,14 @@ const AddMedication = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
+                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
+                  placeholder="Z9Z99" name='lotId'
+                  onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
+              </Grid.Column>
+              <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
                   placeholder="Zonatuss" name='brand'
                   onChange={handleChange} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
-                  placeholder="Z9Z99" name='lotId'
-                  onChange={handleChange} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
@@ -226,11 +250,11 @@ export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
   return {
     // TODO: exclude 'N/A'
-    drugs: distinct('drug', Medications, Drugs),
+    drugs: distinct('drug', Medications),
     drugTypes: distinct('drugType', DrugTypes),
     lotIds: distinct('lotId', Medications),
     locations: distinct('location', Locations),
-    brands: distinct('brand', Medications, Brands),
+    brands: distinct('brand', Medications),
     ready: drugSub.ready() && typeSub.ready() && brandSub.ready() && locationSub.ready() && medSub.ready(),
   };
 })(AddMedication);

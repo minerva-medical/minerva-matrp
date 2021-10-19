@@ -97,6 +97,18 @@ const DispenseMedication = (props) => {
     setFields({ ...fields, [name]: searchQuery });
   };
 
+  // autofill form on lotId select
+  const onLotIdSelect = (event, { value }) => {
+    const medication = Medications.findOne({ lotId: value });
+    if (medication) {
+      const { drug, expire, brand, quantity, isTabs } = medication;
+      const autoFields = { ...fields, lotId: value, drug, expire, brand, quantity, isTabs };
+      setFields(autoFields);
+    } else {
+      setFields({ ...fields, lotId: value });
+    }
+  };
+
   const clearForm = () => setFields({ site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '',
     expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
 
@@ -139,14 +151,14 @@ const DispenseMedication = (props) => {
                   onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
+                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
+                  placeholder="Z9Z99"
+                  name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
+              </Grid.Column>
+              <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
                   placeholder="Benzonatate Capsules"
                   name='drug' onChange={handleChange} value={fields.drug}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
-                  placeholder="Z9Z99"
-                  name='lotId' onChange={handleChange} value={fields.lotId}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -212,9 +224,9 @@ export default withTracker(() => {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
-    drugs: distinct('drug', Medications, Drugs),
+    drugs: distinct('drug', Medications),
     lotIds: distinct('lotId', Medications),
-    brands: distinct('brand', Medications, Brands),
+    brands: distinct('brand', Medications),
     ready: siteSub.ready() && drugSub.ready() && brandSub.ready() && historySub.ready() && medSub.ready(),
   };
 })(DispenseMedication);
