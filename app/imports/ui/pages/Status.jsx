@@ -98,7 +98,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
               options={recordOptions}
               defaultValue={'10'}
             />
-              Total count: {'200'}
+              Total count: {medications.length}
           </div>
           <Table>
             <Table.Header>
