@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Input,
   Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -29,6 +29,12 @@ const recordOptions = [
 
 // Render the form.
 const Status = ({ ready, medications, drugTypes, locations, brands }) => {
+  const [searchMedications, setSearchMedications] = useState('');
+
+  const handleSearch = (event) => {
+    setSearchMedications(event.target.value);
+  };
+
   if (ready) {
     const gridAlign = {
       textAlign: 'center',
@@ -47,7 +53,9 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
           </Header>
           <Grid>
             <Grid.Column width={4}>
-              <Input placeholder='Filter by drug name...' icon='search'/>
+              <Input placeholder='Filter by drug name...' icon='search'
+                onChange={handleSearch}
+              />
             </Grid.Column>
           </Grid>
           <Divider/>
@@ -110,7 +118,15 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
 
             <Table.Body>
               {
-                medications.map(med => <MedStatusRow key={med._id} med={med} />)
+                medications.filter((val) => {
+                  if (searchMedications === '') {
+                    return val;
+                  }
+                  if (val.drug.toLowerCase().includes(searchMedications.toLowerCase())) {
+                    return val;
+                  }
+                  return 0;
+                }).map(med => <MedStatusRow key={med._id} med={med} />)
               }
             </Table.Body>
 
