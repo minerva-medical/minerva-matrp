@@ -20,7 +20,7 @@ const NavBar = ({ currentUser }) => {
         currentUser ? (
           [
             <Menu.Item id={COMPONENT_IDS.NAVBAR_ADD_INVENTORY} as={NavLink} activeClassName="active" exact to="/add"
-              key='add'>
+              key='add'  position="right">
               Add to Inventory
               <Icon name='plus'/>
             </Menu.Item>,
