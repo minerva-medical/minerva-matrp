@@ -27,14 +27,17 @@ const NavBar = ({ currentUser }) => {
             <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE} as={NavLink} activeClassName="active" exact to="/dispense"
               key='dispense'>
               Dispense Inventory
+              <Icon name='pills'/>
             </Menu.Item>,
             <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact to="/status"
               key='status'>
               Inventory Status
+              <Icon name='archive'/>
             </Menu.Item>,
             <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active" exact
               to="/dispenseLog" key='dispenseLog'>
               Dispense Log
+              <Icon name='book'/>
             </Menu.Item>,
           ]
         ) : ''
@@ -54,7 +57,7 @@ const NavBar = ({ currentUser }) => {
         {
           currentUser === '' ?
             (
-              <Dropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} text="Login" pointing="top right" icon={'user'}>
+              <Dropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} text="Login" pointing="top right" icon={'user md'}>
                 <Dropdown.Menu>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} icon="user" text="Sign In"
                     as={NavLink} exact to="/signin" />

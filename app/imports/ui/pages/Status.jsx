@@ -160,6 +160,8 @@ export default withTracker(() => {
   const medications = Medications.find({}, { sort: { drug: 1 } }).fetch();
   const drugTypes = distinct('drugType', Medications, DrugTypes);
   const locations = distinct('location', Medications, Locations);
+
+
   return {
     medications,
     drugTypes,
