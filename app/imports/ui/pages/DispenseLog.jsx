@@ -37,8 +37,8 @@ const inventory = [
 ];
 
 /** Render the form. */
-const DispenseLog = (props) => {
-  if (props.ready) {
+const DispenseLog = ({ historicals, ready }) => {
+  if (ready) {
     return (
       <div>
         <Container id='dispense-log'>
@@ -113,7 +113,7 @@ const DispenseLog = (props) => {
                 </Table.Header>
                 <Table.Body>
                   {
-                    props.historicals.map(history => <DispenseLogRow key={history._id} history={history} />)
+                    historicals.map(history => <DispenseLogRow key={history._id} history={history} />)
                   }
                 </Table.Body>
                 <Table.Footer>
