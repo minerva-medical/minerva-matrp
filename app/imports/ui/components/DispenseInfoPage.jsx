@@ -6,7 +6,7 @@ import {
 import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
-import { AutoForm, ErrorsField, HiddenField, LongTextField, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, HiddenField, LongTextField, SubmitField } from 'uniforms-semantic';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Historicals } from '../../api/historical/HistoricalCollection';
@@ -27,7 +27,7 @@ const DispenseInfoPage = ({ record, ready }) => {
     const updateData = { id: _id, drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Item updated successfully', 'success'));
+      .then(() => swal('Success', 'Dispense Log Notes updated successfully', 'success'));
     console.log(updateData);
   };
 
@@ -50,13 +50,12 @@ const DispenseInfoPage = ({ record, ready }) => {
       open={open}
       trigger={<Button size='mini' circular icon='info' color='linkedin'/>}
       size='large'
-      id={COMPONENT_IDS.DRUG_PAGE}
     >
       <Modal.Header>Dispense Log Information</Modal.Header>
       <Modal.Content image>
         <Modal.Description>
           <Grid container divided columns='equal' stackable textAlign='justified'>
-            <GridColumn width={6}>
+            <Grid.Column width={6}>
               <ItemGroup relaxed>
                 <Item>
                   <ItemContent>
@@ -69,9 +68,7 @@ const DispenseInfoPage = ({ record, ready }) => {
                         <ListItem><ListHeader>Expiration Date</ListHeader>{record.expire}</ListItem>
                         <ListItem><ListHeader>Dispense Location:</ListHeader>{record.site}</ListItem>
                         <Divider/>
-                        <ListItem>
-                          <ListHeader>Quantity Dispensed</ListHeader>{record.quantity} {record.isTabs ? 'tabs' : 'mL'}
-                        </ListItem>
+                        <ListItem><ListHeader>Quantity Dispensed</ListHeader>{record.quantity} {record.isTabs ? 'tabs' : 'mL'}</ListItem>
                         <ListItem><ListHeader>Patient Number</ListHeader>{record.dispensedTo}</ListItem>
                         <ListItem><ListHeader>Date Dispensed</ListHeader>{record.dateDispensed.toLocaleString()}</ListItem>
                         <ListItem><ListHeader>Dispensed By</ListHeader>{record.dispensedFrom}</ListItem>
@@ -81,18 +78,16 @@ const DispenseInfoPage = ({ record, ready }) => {
                   </ItemContent>
                 </Item>
               </ItemGroup>
-            </GridColumn>
+            </Grid.Column>
             <GridColumn>
               <Segment style={notes}>
                 <Container fluid>
-                  <ItemGroup>
-                    <Item>
-                      <ItemContent>
-                        <Header as='h3'>Notes</Header>
-                        <ItemDescription style={font1}>{record.note}</ItemDescription>
-                      </ItemContent>
-                    </Item>
-                  </ItemGroup>
+                  <Item>
+                    <ItemContent>
+                      <Header as='h3'>Notes</Header>
+                      <ItemDescription style={font1}>{record.note}</ItemDescription>
+                    </ItemContent>
+                  </Item>
                 </Container>
               </Segment>
             </GridColumn>
@@ -111,36 +106,35 @@ const DispenseInfoPage = ({ record, ready }) => {
           size='small'
         />
       </Modal.Actions>
-      <Modal
-        onClose={() => setSecondOpen(false)}
-        open={secondOpen}
-      >
-        <Modal.Header>Edit Notes</Modal.Header>
-        <Modal.Content>
-          <AutoForm schema={bridge} onSubmit={data => submit(data)} model={record}>
-            <TextField name='drug' />
-            <HiddenField name='brand' />
-            <HiddenField name='lotId' />
-            <HiddenField name='expire' />
-            <HiddenField name='quantity' decimal={false} hidden/>
-            <HiddenField name='isTabs'/>
-            <HiddenField name='dateDispensed'/>
-            <TextField name='dispensedFrom' readOnly/>
-            <HiddenField name='dispensedTo'/>
-            <HiddenField name='site'/>
-            <LongTextField name='note' style={{ color: 'lightblue' }}/>
-            <ErrorsField />
-            <SubmitField value='Submit'/>
-          </AutoForm>
-        </Modal.Content>
-        <Modal.Actions>
+      <Modal onClose={() => setSecondOpen(false)} open={secondOpen}>
+        <Modal.Header>Edit Notes
           <Button
             content='Close'
             color = 'black'
             floated = 'right'
+            size='small'
             onClick={() => setSecondOpen(false)}
           />
-        </Modal.Actions>
+        </Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <AutoForm schema={bridge} onSubmit={data => submit(data)} model={record}>
+              <HiddenField name='drug'/>
+              <HiddenField name='brand' />
+              <HiddenField name='lotId' />
+              <HiddenField name='expire' />
+              <HiddenField name='quantity' decimal={false}/>
+              <HiddenField name='isTabs'/>
+              <HiddenField name='dateDispensed'/>
+              <HiddenField name='dispensedFrom'/>
+              <HiddenField name='dispensedTo'/>
+              <HiddenField name='site'/>
+              <LongTextField name='note' style={{ color: 'lightblue' }}/>
+              <SubmitField value = "Submit" color='linkedin'/>
+              <ErrorsField />
+            </AutoForm>
+          </Modal.Description>
+        </Modal.Content>
       </Modal>
     </Modal>
   ) : <Loader active>Getting data</Loader>;
