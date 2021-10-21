@@ -1,3 +1,27 @@
+@media  screen and (min-width: 320px) {
+  #signOutPage h1{
+    font-size: 2rem;
+  }
+}
+
+@media  screen and (min-width: 375px) {
+  #signOutPage h1{
+    font-size: 2rem;
+  }
+}
+
+@media  screen and (min-width: 768px) {
+  .signOutGrid{
+    font-size: 2rem !important;
+  }
+}
+
+@media  screen and (min-width: 1024px) {
+  #signOutPage h1{
+    font-size: 5rem !important;
+  }
+}
+
 #signOutPage {
   background-image: url('../images/logout.png');
   background-repeat: no-repeat;
@@ -10,6 +34,9 @@
   justify-content: center;
   height: 100vh;
   margin: 0;
+  font-size: 6rem;
+  color: white;
+  text-shadow: 1px 1px 2px #738169;
 }
 
 #color-overlay {
@@ -17,20 +44,18 @@
   background: linear-gradient(0deg, rgba(115,129,105,1) 0%, rgba(158,177,145,1) 7%, rgba(196,218,180,1) 31%, rgba(194,217,178,1) 42%, rgba(200,221,185,1) 100%);
 }
 
-#signOutPage h1{
-  text-align: right;
+#signOutPage h1 {
+  font-size: 5rem;
   color: white;
   text-shadow: 1px 1px 2px #738169;
-}
-#signOutPage h2{
-  text-align: left;
-  color: white;
-  font-size: 1.2em;
-  text-shadow: 1px 1px 2px #738169;
+  margin: 0;
+  width: 100% !important;
 }
 
-#signOutPage h3 {
-  font-size: 9.5em;
+#signOutPage h2 {
+  font-size: 1.5rem;
   color: white;
   text-shadow: 1px 1px 2px #738169;
+  font-style: italic;
 }
+

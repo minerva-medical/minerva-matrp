@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Button, Container, Header, Icon } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
@@ -9,18 +9,20 @@ const Signout = () => {
   Meteor.logout();
   return (
     <div id='signOutPage'>
-      <Container text id={PAGE_IDS.SIGN_OUT}>
-        <Header as='h2' content='You have successfully signed out!'/>
-        <Header as="h3" textAlign="center">MINERVA</Header>
-        <Header as='h1' content='Come Back Soon!'/>
-        <Button.Group>
-          <Button as={NavLink} activeClassName="" exact to="/" key='landing' color="black" size='huge'>
-            <Icon name='home'/> HOME
-          </Button>
-          <Button as={NavLink} activeClassName="" exact to="/signin" key='signin' size='huge'
-            inverted colored>LOGIN</Button>
-        </Button.Group>
-      </Container>
+      <Grid className='signOutGrid' id={PAGE_IDS.SIGN_OUT} verticalAlign='top' textAlign='center' container>
+        <Header as="h1">MINERVA MEDICAL</Header>
+        <Header as="h2">You have successfully signed out. Come Back Soon!</Header>
+        <Divider section hidden/>
+        <Grid.Row computer={5} tablet={7} mobile={9} centered>
+          <Button.Group>
+            <Button as={NavLink} activeClassName="" exact to="/" key='landing' color="black" size='huge'>
+              <Icon name='home'/> HOME
+            </Button>
+            <Button as={NavLink} activeClassName="" exact to="/signin" key='signin' size='huge'
+              inverted colored>LOGIN</Button>
+          </Button.Group>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 };
