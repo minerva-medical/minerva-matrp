@@ -1,6 +1,10 @@
 #signOutPage {
   background-image: url('../images/logout.png');
-  background-repeat: repeat-y;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
