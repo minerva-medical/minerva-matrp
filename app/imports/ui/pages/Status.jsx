@@ -30,6 +30,7 @@ const recordOptions = [
 // Render the form.
 const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   const [searchMedications, setSearchMedications] = useState('');
+  const [pageNo, setPageNo] = useState(1);
 
   const handleSearch = (event) => {
     setSearchMedications(event.target.value);
@@ -126,14 +127,20 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                     return val;
                   }
                   return 0;
-                }).map(med => <MedStatusRow key={med._id} med={med} />)
+                }).map((med, index) => {
+                  // define range
+                  if (index >= (pageNo - 1) * 50 && index < pageNo * 50) {
+                    return <MedStatusRow key={med._id} med={med} />;
+                  }
+                })
               }
             </Table.Body>
 
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="10">
-                  <Pagination totalPages={10} activePage={1}/>
+                  <Pagination totalPages={Math.ceil(medications.length / 50)} activePage={pageNo}
+                    onPageChange={(event, data) => setPageNo(data.activePage)}/>
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
