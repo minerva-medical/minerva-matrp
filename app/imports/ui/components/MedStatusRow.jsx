@@ -33,10 +33,8 @@ const MedStatusRow = ({ med }) => {
       <Table.Cell>{med.expire}</Table.Cell>
       <Table.Cell textAlign='center'>
         {
-          med.donated ?
-            <Icon name='check' color='green'/>
-            :
-            <Icon name='check' color='grey'/>
+          med.donated &&
+          <Icon name='check' color='green'/>
         }
       </Table.Cell>
       <Table.Cell>

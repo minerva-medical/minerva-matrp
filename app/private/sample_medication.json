@@ -1,0 +1,3017 @@
+[
+  {
+    "drug": "Benzonatate Capsules",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand G",
+    "lotId": "yvlm7y",
+    "expire": "2024-02-21",
+    "minQuantity": 110,
+    "quantity": 130,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Benzonatate Capsules."
+  },
+  {
+    "drug": "Cetirizine Soln",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand L",
+    "lotId": "cJtsZJ",
+    "expire": "2024-07-16",
+    "minQuantity": 180,
+    "quantity": 281,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Cetirizine Soln."
+  },
+  {
+    "drug": "Cold and Flu Syrup",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand M",
+    "lotId": "6Q22HT",
+    "expire": "2025-08-23",
+    "minQuantity": 100,
+    "quantity": 28,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Cold and Flu Syrup."
+  },
+  {
+    "drug": "Diphenhydramine 25 mg tabs",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand Y",
+    "lotId": "5DTbmq",
+    "expire": "2022-08-04",
+    "minQuantity": 60,
+    "quantity": 73,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Diphenhydramine 25 mg tabs."
+  },
+  {
+    "drug": "Diphenhydramine Soln",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand W",
+    "lotId": "cQyte5",
+    "expire": "2024-10-11",
+    "minQuantity": 150,
+    "quantity": 230,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Diphenhydramine Soln."
+  },
+  {
+    "drug": "Steroid Nasal Spray",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 1",
+    "brand": "Brand I",
+    "lotId": "PCUGgc",
+    "expire": "2022-11-21",
+    "minQuantity": 40,
+    "quantity": 80,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Steroid Nasal Spray."
+  },
+  {
+    "drug": "Cetirizine Hydrochloride 5mg tablets",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand J",
+    "lotId": "FngRl9",
+    "expire": "2023-08-22",
+    "minQuantity": 180,
+    "quantity": 282,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Cetirizine Hydrochloride 5mg tablets."
+  },
+  {
+    "drug": "Cetirizine 10 mg tablets",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand K",
+    "lotId": "AcDacQ",
+    "expire": "2024-08-24",
+    "minQuantity": 110,
+    "quantity": 102,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Cetirizine 10 mg tablets."
+  },
+  {
+    "drug": "Meclizine 12.5 mg",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand X",
+    "lotId": "hu79qv",
+    "expire": "2023-09-21",
+    "minQuantity": 20,
+    "quantity": 31,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Meclizine 12.5 mg."
+  },
+  {
+    "drug": "Meclizine 25 mg chew tabs",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand X",
+    "lotId": "oZiTT1",
+    "expire": "2024-10-14",
+    "minQuantity": 130,
+    "quantity": 217,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Meclizine 25 mg chew tabs."
+  },
+  {
+    "drug": "Montelukast 10mg",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand V",
+    "lotId": "BXtIzk",
+    "expire": "2022-11-22",
+    "minQuantity": 170,
+    "quantity": 250,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Montelukast 10mg."
+  },
+  {
+    "drug": "Nasal Saline",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 1/Drawer 2",
+    "brand": "Brand W",
+    "lotId": "2a2KQp",
+    "expire": "2024-11-14",
+    "minQuantity": 110,
+    "quantity": 166,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Nasal Saline."
+  },
+  {
+    "drug": "NetiPot",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Refrigerator Closet",
+    "brand": "Brand X",
+    "lotId": "giQB3l",
+    "expire": "2024-02-18",
+    "minQuantity": 50,
+    "quantity": 78,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for NetiPot."
+  },
+  {
+    "drug": "Oxymetazoline (or Phenylephrine) Nasal Spray",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 1",
+    "brand": "Brand M",
+    "lotId": "k6nn9g",
+    "expire": "2022-05-19",
+    "minQuantity": 180,
+    "quantity": 187,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Oxymetazoline (or Phenylephrine) Nasal Spray."
+  },
+  {
+    "drug": "Pseudoephedrine 30 mg Tabs",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand G",
+    "lotId": "ZXw7Of",
+    "expire": "2025-04-30",
+    "minQuantity": 50,
+    "quantity": 92,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Pseudoephedrine 30 mg Tabs."
+  },
+  {
+    "drug": "Tussin DM Cough Syrup",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand P",
+    "lotId": "xlBulp",
+    "expire": "2023-03-23",
+    "minQuantity": 50,
+    "quantity": 84,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Tussin DM Cough Syrup."
+  },
+  {
+    "drug": "Guaifenesin 400 mg tabs",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand B",
+    "lotId": "mFpg0c",
+    "expire": "2023-10-30",
+    "minQuantity": 20,
+    "quantity": 40,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Guaifenesin 400 mg tabs."
+  },
+  {
+    "drug": "Guaifenesin syrup",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand L",
+    "lotId": "88ADQI",
+    "expire": "2023-03-09",
+    "minQuantity": 190,
+    "quantity": 302,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Guaifenesin syrup."
+  },
+  {
+    "drug": "Delsym cough syrup (Dextromethorphan Polistirex)",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 2",
+    "brand": "Brand M",
+    "lotId": "K7BR26",
+    "expire": "2022-02-15",
+    "minQuantity": 90,
+    "quantity": 118,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Delsym cough syrup (Dextromethorphan Polistirex)."
+  },
+  {
+    "drug": "Cough Drops",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 6",
+    "brand": "Brand T",
+    "lotId": "O9sR7O",
+    "expire": "2024-02-20",
+    "minQuantity": 70,
+    "quantity": 90,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Cough Drops."
+  },
+  {
+    "drug": "Patient digital themometer",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand Y",
+    "lotId": "GMhtRa",
+    "expire": "2025-02-23",
+    "minQuantity": 10,
+    "quantity": 16,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Patient digital themometer."
+  },
+  {
+    "drug": "Thermometer probe covers",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand G",
+    "lotId": "7DV8Xz",
+    "expire": "2024-01-19",
+    "minQuantity": 90,
+    "quantity": 75,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Thermometer probe covers."
+  },
+  {
+    "drug": "Sore Throat Spray",
+    "drugType": [
+      "Allergy & Cold Medicines"
+    ],
+    "location": "Case 6",
+    "brand": "Brand V",
+    "lotId": "3IHzWc",
+    "expire": "2023-01-17",
+    "minQuantity": 60,
+    "quantity": 48,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Sore Throat Spray."
+  },
+  {
+    "drug": "Acetaminophen 160mg/5 ml Susp",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand U",
+    "lotId": "dcOT5P",
+    "expire": "2024-03-09",
+    "minQuantity": 160,
+    "quantity": 168,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Acetaminophen 160mg/5 ml Susp."
+  },
+  {
+    "drug": "Acetaminophen 500 mg Caps",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand A",
+    "lotId": "Y4169k",
+    "expire": "2023-08-15",
+    "minQuantity": 100,
+    "quantity": 102,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Acetaminophen 500 mg Caps."
+  },
+  {
+    "drug": "Acetaminophen 80 mg chewable tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand S",
+    "lotId": "Y8jqxr",
+    "expire": "2024-02-05",
+    "minQuantity": 180,
+    "quantity": 42,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Acetaminophen 80 mg chewable tabs."
+  },
+  {
+    "drug": "Acetaminophen Infant Drops",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand V",
+    "lotId": "f0Nx1f",
+    "expire": "2025-03-27",
+    "minQuantity": 10,
+    "quantity": 12,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Acetaminophen Infant Drops."
+  },
+  {
+    "drug": "Allopurinol 100 mg tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand H",
+    "lotId": "UGGzI1",
+    "expire": "2025-04-26",
+    "minQuantity": 50,
+    "quantity": 71,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Allopurinol 100 mg tabs."
+  },
+  {
+    "drug": "Allopurinol 300 mg tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand B",
+    "lotId": "hL4X2T",
+    "expire": "2024-09-12",
+    "minQuantity": 170,
+    "quantity": 129,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Allopurinol 300 mg tabs."
+  },
+  {
+    "drug": "Aspirin 81 mg",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand A",
+    "lotId": "rLhxLq",
+    "expire": "2023-08-12",
+    "minQuantity": 30,
+    "quantity": 30,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Aspirin 81 mg."
+  },
+  {
+    "drug": "Aspirin 325 mg",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand T",
+    "lotId": "Vmspwj",
+    "expire": "2024-04-30",
+    "minQuantity": 50,
+    "quantity": 33,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Aspirin 325 mg."
+  },
+  {
+    "drug": "Cyclobenzaprine 10 mg",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand F",
+    "lotId": "vHnTdc",
+    "expire": "2025-01-30",
+    "minQuantity": 110,
+    "quantity": 108,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Cyclobenzaprine 10 mg."
+  },
+  {
+    "drug": "Gabapentin 300 mg",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand U",
+    "lotId": "1R22w1",
+    "expire": "2023-10-21",
+    "minQuantity": 70,
+    "quantity": 84,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Gabapentin 300 mg."
+  },
+  {
+    "drug": "Gabapentin 100 mg",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand H",
+    "lotId": "mpVfjC",
+    "expire": "2024-12-31",
+    "minQuantity": 160,
+    "quantity": 224,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Gabapentin 100 mg."
+  },
+  {
+    "drug": "Ibuprofen 200 mg tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand L",
+    "lotId": "nC8zjm",
+    "expire": "2023-08-07",
+    "minQuantity": 80,
+    "quantity": 90,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ibuprofen 200 mg tabs."
+  },
+  {
+    "drug": "Ibuprofen 800 mg tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand L",
+    "lotId": "HxymAm",
+    "expire": "2022-11-11",
+    "minQuantity": 190,
+    "quantity": 241,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ibuprofen 800 mg tabs."
+  },
+  {
+    "drug": "Ibuprofen suspension 50 mg per 1.25 mL infant",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand I",
+    "lotId": "BCsKfu",
+    "expire": "2022-01-31",
+    "minQuantity": 90,
+    "quantity": 149,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ibuprofen suspension 50 mg per 1.25 mL infant."
+  },
+  {
+    "drug": "Ibuprofen Suspension 100 mg per 5 mL childrens",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand V",
+    "lotId": "vP1hLe",
+    "expire": "2024-10-15",
+    "minQuantity": 110,
+    "quantity": 113,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Ibuprofen Suspension 100 mg per 5 mL childrens."
+  },
+  {
+    "drug": "Indomethacin 25 mg caps",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand O",
+    "lotId": "QKbgDa",
+    "expire": "2022-07-18",
+    "minQuantity": 40,
+    "quantity": 49,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Indomethacin 25 mg caps."
+  },
+  {
+    "drug": "Indomethacin 50 mg caps",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand Y",
+    "lotId": "kbL77p",
+    "expire": "2024-01-28",
+    "minQuantity": 20,
+    "quantity": 29,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Indomethacin 50 mg caps."
+  },
+  {
+    "drug": "Kenalog 40mg/ml Injectable",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand Y",
+    "lotId": "YQ3uLc",
+    "expire": "2024-06-26",
+    "minQuantity": 130,
+    "quantity": 179,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Kenalog 40mg/ml Injectable."
+  },
+  {
+    "drug": "Lidocaine Oral Topical Solution",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand Y",
+    "lotId": "KRsFbg",
+    "expire": "2022-03-13",
+    "minQuantity": 120,
+    "quantity": 49,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Lidocaine Oral Topical Solution."
+  },
+  {
+    "drug": "Lidocaine with Epi, injectable",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Bottom Drawer",
+    "brand": "Brand I",
+    "lotId": "2rnprB",
+    "expire": "2022-09-16",
+    "minQuantity": 70,
+    "quantity": 131,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Lidocaine with Epi, injectable."
+  },
+  {
+    "drug": "Lidocaine w/o Epi, injectable",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Bottom Drawer",
+    "brand": "Brand Y",
+    "lotId": "jaxdHD",
+    "expire": "2023-06-06",
+    "minQuantity": 180,
+    "quantity": 292,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Lidocaine w/o Epi, injectable."
+  },
+  {
+    "drug": "Medrol Dose Pack (Methylprednisolone 4 mg)",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand Q",
+    "lotId": "ax3UjV",
+    "expire": "2024-01-01",
+    "minQuantity": 200,
+    "quantity": 102,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Medrol Dose Pack (Methylprednisolone 4 mg)."
+  },
+  {
+    "drug": "Methylprednisolone Soln",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand N",
+    "lotId": "FzP8YB",
+    "expire": "2024-07-24",
+    "minQuantity": 80,
+    "quantity": 82,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Methylprednisolone Soln."
+  },
+  {
+    "drug": "Naproxen 500 mg tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand V",
+    "lotId": "n3YdHG",
+    "expire": "2025-09-18",
+    "minQuantity": 200,
+    "quantity": 176,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Naproxen 500 mg tabs."
+  },
+  {
+    "drug": "Phenazopyridine Tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand P",
+    "lotId": "XITOO2",
+    "expire": "2022-07-04",
+    "minQuantity": 120,
+    "quantity": 98,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Phenazopyridine Tabs."
+  },
+  {
+    "drug": "Prednisone 20 mg tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand D",
+    "lotId": "4iSMFK",
+    "expire": "2024-08-13",
+    "minQuantity": 110,
+    "quantity": 211,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Prednisone 20 mg tabs."
+  },
+  {
+    "drug": "Tramadol 50 mg Tabs",
+    "drugType": [
+      "Analgesics / Antiinflammatory"
+    ],
+    "location": "Case 4",
+    "brand": "Brand F",
+    "lotId": "X0Dg0h",
+    "expire": "2021-12-12",
+    "minQuantity": 10,
+    "quantity": 6,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Tramadol 50 mg Tabs."
+  },
+  {
+    "drug": "Amlodipine 5 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand I",
+    "lotId": "XmZVcg",
+    "expire": "2024-09-27",
+    "minQuantity": 80,
+    "quantity": 63,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Amlodipine 5 mg."
+  },
+  {
+    "drug": "Amlodipine 10 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand D",
+    "lotId": "P6HZeC",
+    "expire": "2024-04-16",
+    "minQuantity": 30,
+    "quantity": 19,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Amlodipine 10 mg."
+  },
+  {
+    "drug": "Amlodipine 5mg/ Atorvastatin 20 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand V",
+    "lotId": "ly3doE",
+    "expire": "2025-01-21",
+    "minQuantity": 70,
+    "quantity": 106,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Amlodipine 5mg/ Atorvastatin 20 mg."
+  },
+  {
+    "drug": "Chlorthalidone or Hydrochlorothiazide 25 mg tabs",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand F",
+    "lotId": "3Ukngv",
+    "expire": "2024-05-02",
+    "minQuantity": 70,
+    "quantity": 105,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Chlorthalidone or Hydrochlorothiazide 25 mg tabs."
+  },
+  {
+    "drug": "Furosemide 20 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand A",
+    "lotId": "ihmQjt",
+    "expire": "2023-11-20",
+    "minQuantity": 10,
+    "quantity": 10,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Furosemide 20 mg."
+  },
+  {
+    "drug": "Lisinopril 10 mg tab",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand Q",
+    "lotId": "6nOMdS",
+    "expire": "2024-10-10",
+    "minQuantity": 40,
+    "quantity": 62,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Lisinopril 10 mg tab."
+  },
+  {
+    "drug": "Lisinopril 20 mg tab",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand S",
+    "lotId": "26Dc5z",
+    "expire": "2022-03-15",
+    "minQuantity": 110,
+    "quantity": 58,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Lisinopril 20 mg tab."
+  },
+  {
+    "drug": "Lisinopril 5 mg tab",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand I",
+    "lotId": "TRIm0K",
+    "expire": "2025-03-12",
+    "minQuantity": 100,
+    "quantity": 106,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Lisinopril 5 mg tab."
+  },
+  {
+    "drug": "Losartan 25 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand X",
+    "lotId": "0EqhD6",
+    "expire": "2024-10-05",
+    "minQuantity": 130,
+    "quantity": 64,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Losartan 25 mg."
+  },
+  {
+    "drug": "Losartan potassium 50mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand E",
+    "lotId": "MSFSty",
+    "expire": "2023-05-06",
+    "minQuantity": 30,
+    "quantity": 60,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Losartan potassium 50mg."
+  },
+  {
+    "drug": "Metoprolol 25 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand U",
+    "lotId": "C6PXiO",
+    "expire": "2022-04-26",
+    "minQuantity": 50,
+    "quantity": 86,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Metoprolol 25 mg."
+  },
+  {
+    "drug": "Metoprolol 50 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand M",
+    "lotId": "X95r3d",
+    "expire": "2024-06-23",
+    "minQuantity": 40,
+    "quantity": 63,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Metoprolol 50 mg."
+  },
+  {
+    "drug": "Nebivolol 5 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand Y",
+    "lotId": "F7dkMt",
+    "expire": "2023-05-01",
+    "minQuantity": 80,
+    "quantity": 24,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Nebivolol 5 mg."
+  },
+  {
+    "drug": "Nebivolol 10 mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand O",
+    "lotId": "TDQn4t",
+    "expire": "2022-08-28",
+    "minQuantity": 20,
+    "quantity": 18,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Nebivolol 10 mg."
+  },
+  {
+    "drug": "Lisinopril and Hydrochlorothiazide tabs 10mg/12.5mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand A",
+    "lotId": "hg2Eue",
+    "expire": "2024-09-04",
+    "minQuantity": 160,
+    "quantity": 16,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Lisinopril and Hydrochlorothiazide tabs 10mg/12.5mg."
+  },
+  {
+    "drug": "Lisinopril and Hydrochlorothiazide tabs 20mg/12.5mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand D",
+    "lotId": "B1G8l8",
+    "expire": "2023-02-18",
+    "minQuantity": 130,
+    "quantity": 108,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Lisinopril and Hydrochlorothiazide tabs 20mg/12.5mg."
+  },
+  {
+    "drug": "Azilsartan 80mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand A",
+    "lotId": "HB5BGD",
+    "expire": "2025-07-29",
+    "minQuantity": 50,
+    "quantity": 91,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Azilsartan 80mg."
+  },
+  {
+    "drug": "Azilsartan/chlorthalidone 40mg/12.5mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand V",
+    "lotId": "od4K4i",
+    "expire": "2025-04-19",
+    "minQuantity": 180,
+    "quantity": 311,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Azilsartan/chlorthalidone 40mg/12.5mg."
+  },
+  {
+    "drug": "Azilsartan/chlorthalidone 40mg/25mg",
+    "drugType": [
+      "Antihypertensives"
+    ],
+    "location": "Case 7",
+    "brand": "Brand N",
+    "lotId": "CuvL5k",
+    "expire": "2025-02-13",
+    "minQuantity": 180,
+    "quantity": 170,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Azilsartan/chlorthalidone 40mg/25mg."
+  },
+  {
+    "drug": "Amoxicillin 250 mg Chewables",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand C",
+    "lotId": "aEK49f",
+    "expire": "2024-08-12",
+    "minQuantity": 100,
+    "quantity": 163,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Amoxicillin 250 mg Chewables."
+  },
+  {
+    "drug": "Amoxicillin 125 mg/5ml Susp",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand G",
+    "lotId": "mvC8Zh",
+    "expire": "2023-02-10",
+    "minQuantity": 70,
+    "quantity": 114,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Amoxicillin 125 mg/5ml Susp."
+  },
+  {
+    "drug": "Amoxicillin 250 mg/5ml Susp",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand W",
+    "lotId": "JT8mIc",
+    "expire": "2024-06-04",
+    "minQuantity": 100,
+    "quantity": 172,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Amoxicillin 250 mg/5ml Susp."
+  },
+  {
+    "drug": "Amoxicillin 400 mg/5ml Susp",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand A",
+    "lotId": "woFfYa",
+    "expire": "2023-07-15",
+    "minQuantity": 140,
+    "quantity": 68,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Amoxicillin 400 mg/5ml Susp."
+  },
+  {
+    "drug": "Amoxicillin 500 mg Capsules",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand W",
+    "lotId": "tAu2MS",
+    "expire": "2022-05-17",
+    "minQuantity": 70,
+    "quantity": 61,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Amoxicillin 500 mg Capsules."
+  },
+  {
+    "drug": "Amoxicillin 875 mg Tab",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand B",
+    "lotId": "HUvaUY",
+    "expire": "2023-12-29",
+    "minQuantity": 30,
+    "quantity": 44,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Amoxicillin 875 mg Tab."
+  },
+  {
+    "drug": "Amoxicillin/Clavulanate 875/125 Tabs",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand A",
+    "lotId": "V2cx37",
+    "expire": "2022-04-13",
+    "minQuantity": 60,
+    "quantity": 7,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Amoxicillin/Clavulanate 875/125 Tabs."
+  },
+  {
+    "drug": "Amox/Clavulanate 200/28.5/5 Susp",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand K",
+    "lotId": "ocLg6x",
+    "expire": "2023-01-05",
+    "minQuantity": 180,
+    "quantity": 272,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Amox/Clavulanate 200/28.5/5 Susp."
+  },
+  {
+    "drug": "Amox/Clavulanate 400/57/5 ml Susp",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand F",
+    "lotId": "n5REPd",
+    "expire": "2024-09-19",
+    "minQuantity": 10,
+    "quantity": 4,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Amox/Clavulanate 400/57/5 ml Susp."
+  },
+  {
+    "drug": "Azithromycin 250 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand Z",
+    "lotId": "Fa6V6D",
+    "expire": "2025-07-17",
+    "minQuantity": 80,
+    "quantity": 5,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Azithromycin 250 mg."
+  },
+  {
+    "drug": "Azithromycin 200/5cc Solution",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand I",
+    "lotId": "EAr6Ew",
+    "expire": "2025-09-03",
+    "minQuantity": 70,
+    "quantity": 77,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Azithromycin 200/5cc Solution."
+  },
+  {
+    "drug": "Ceftriaxone 500 mg Injection",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand Q",
+    "lotId": "AC4RaL",
+    "expire": "2024-09-19",
+    "minQuantity": 80,
+    "quantity": 95,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ceftriaxone 500 mg Injection."
+  },
+  {
+    "drug": "Cephalexin 500 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand B",
+    "lotId": "0sPpYL",
+    "expire": "2024-11-28",
+    "minQuantity": 200,
+    "quantity": 26,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Cephalexin 500 mg."
+  },
+  {
+    "drug": "Ciprofloxacin 500 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand E",
+    "lotId": "OVh1w1",
+    "expire": "2023-01-24",
+    "minQuantity": 120,
+    "quantity": 202,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ciprofloxacin 500 mg."
+  },
+  {
+    "drug": "Clindamycin 300 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand N",
+    "lotId": "5qBr5A",
+    "expire": "2022-01-08",
+    "minQuantity": 180,
+    "quantity": 33,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Clindamycin 300 mg."
+  },
+  {
+    "drug": "Fluconazole 150 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand R",
+    "lotId": "FzYZSp",
+    "expire": "2024-04-22",
+    "minQuantity": 20,
+    "quantity": 6,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Fluconazole 150 mg."
+  },
+  {
+    "drug": "Doxycycline/Minocycline 100 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand F",
+    "lotId": "4PTJLR",
+    "expire": "2023-02-02",
+    "minQuantity": 70,
+    "quantity": 21,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Doxycycline/Minocycline 100 mg."
+  },
+  {
+    "drug": "Isoniazid 300 mg tabs",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand P",
+    "lotId": "RZo5vW",
+    "expire": "2023-06-02",
+    "minQuantity": 40,
+    "quantity": 74,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Isoniazid 300 mg tabs."
+  },
+  {
+    "drug": "Ketoconazole 200 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand O",
+    "lotId": "nxL5CI",
+    "expire": "2024-09-26",
+    "minQuantity": 50,
+    "quantity": 34,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ketoconazole 200 mg."
+  },
+  {
+    "drug": "Metronidazole 500 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand D",
+    "lotId": "7r4Bkm",
+    "expire": "2023-04-08",
+    "minQuantity": 200,
+    "quantity": 76,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Metronidazole 500 mg."
+  },
+  {
+    "drug": "Penicillin VK 250mg/5ml Soln",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand I",
+    "lotId": "C219N8",
+    "expire": "2023-09-20",
+    "minQuantity": 40,
+    "quantity": 62,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Penicillin VK 250mg/5ml Soln."
+  },
+  {
+    "drug": "Penicillin VK 500 mg Tabs",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand U",
+    "lotId": "jUw9CI",
+    "expire": "2023-04-30",
+    "minQuantity": 110,
+    "quantity": 118,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Penicillin VK 500 mg Tabs."
+  },
+  {
+    "drug": "Terbinafine 250 mg Tabs",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand N",
+    "lotId": "3Hj8Iw",
+    "expire": "2023-05-25",
+    "minQuantity": 80,
+    "quantity": 135,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Terbinafine 250 mg Tabs."
+  },
+  {
+    "drug": "Trimethoprim/Sulfamethoxazole 40/200 Susp",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand U",
+    "lotId": "qblijk",
+    "expire": "2023-04-14",
+    "minQuantity": 70,
+    "quantity": 138,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Trimethoprim/Sulfamethoxazole 40/200 Susp."
+  },
+  {
+    "drug": "Trimethroprim/Sulfamethoxazole (DS) 160/800",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand X",
+    "lotId": "6BxFv9",
+    "expire": "2022-09-12",
+    "minQuantity": 70,
+    "quantity": 69,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Trimethroprim/Sulfamethoxazole (DS) 160/800."
+  },
+  {
+    "drug": "Tamiflu 75 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand L",
+    "lotId": "tgOj8p",
+    "expire": "2022-12-18",
+    "minQuantity": 20,
+    "quantity": 27,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Tamiflu 75 mg."
+  },
+  {
+    "drug": "Valtrex 500 mg",
+    "drugType": [
+      "Antimicrobials"
+    ],
+    "location": "Freezer",
+    "brand": "Brand Y",
+    "lotId": "1hZYlz",
+    "expire": "2024-12-04",
+    "minQuantity": 90,
+    "quantity": 167,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Valtrex 500 mg."
+  },
+  {
+    "drug": "Lovastatin 20 mg",
+    "drugType": [
+      "Cardiac / Cholesterol"
+    ],
+    "location": "Case 7",
+    "brand": "Brand S",
+    "lotId": "NvdtZ8",
+    "expire": "2024-03-20",
+    "minQuantity": 60,
+    "quantity": 77,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Lovastatin 20 mg."
+  },
+  {
+    "drug": "Simvastatin 10 mg",
+    "drugType": [
+      "Cardiac / Cholesterol"
+    ],
+    "location": "Case 7",
+    "brand": "Brand P",
+    "lotId": "5rQPXE",
+    "expire": "2023-01-02",
+    "minQuantity": 50,
+    "quantity": 56,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Simvastatin 10 mg."
+  },
+  {
+    "drug": "Simvastatin 20 mg",
+    "drugType": [
+      "Cardiac / Cholesterol"
+    ],
+    "location": "Case 7",
+    "brand": "Brand C",
+    "lotId": "8k0kyk",
+    "expire": "2022-01-09",
+    "minQuantity": 40,
+    "quantity": 52,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Simvastatin 20 mg."
+  },
+  {
+    "drug": "Simvastatin 40 mg",
+    "drugType": [
+      "Cardiac / Cholesterol"
+    ],
+    "location": "Case 7",
+    "brand": "Brand U",
+    "lotId": "fXQace",
+    "expire": "2021-11-26",
+    "minQuantity": 60,
+    "quantity": 38,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Simvastatin 40 mg."
+  },
+  {
+    "drug": "Nitroglycerin 0.4 mg tabs",
+    "drugType": [
+      "Cardiac / Cholesterol"
+    ],
+    "location": "Case 7",
+    "brand": "Brand X",
+    "lotId": "FBTXTe",
+    "expire": "2023-08-13",
+    "minQuantity": 40,
+    "quantity": 52,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Nitroglycerin 0.4 mg tabs."
+  },
+  {
+    "drug": "Bacitracin Ointment 15 gm tube",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand F",
+    "lotId": "3Dusjg",
+    "expire": "2023-05-25",
+    "minQuantity": 110,
+    "quantity": 192,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Bacitracin Ointment 15 gm tube."
+  },
+  {
+    "drug": "Bacitracin Ointment packets",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand B",
+    "lotId": "9kRgdD",
+    "expire": "2023-10-10",
+    "minQuantity": 170,
+    "quantity": 227,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Bacitracin Ointment packets."
+  },
+  {
+    "drug": "Benzoyl Peroxide 10% Lotion",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand Q",
+    "lotId": "mqc3jM",
+    "expire": "2023-06-11",
+    "minQuantity": 20,
+    "quantity": 20,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Benzoyl Peroxide 10% Lotion."
+  },
+  {
+    "drug": "Benzoyl Peroxide 10% Wash",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand U",
+    "lotId": "IVyffA",
+    "expire": "2022-12-07",
+    "minQuantity": 10,
+    "quantity": 15,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Benzoyl Peroxide 10% Wash."
+  },
+  {
+    "drug": "Chapstick",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand C",
+    "lotId": "nagdy5",
+    "expire": "2024-10-06",
+    "minQuantity": 90,
+    "quantity": 76,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Chapstick."
+  },
+  {
+    "drug": "Clotrimazole 1% Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand R",
+    "lotId": "7TJE0l",
+    "expire": "2024-05-18",
+    "minQuantity": 200,
+    "quantity": 397,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Clotrimazole 1% Cream."
+  },
+  {
+    "drug": "Desitin/Diaper Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand N",
+    "lotId": "a7cQPI",
+    "expire": "2023-06-25",
+    "minQuantity": 140,
+    "quantity": 59,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Desitin/Diaper Cream."
+  },
+  {
+    "drug": "Hydrocotisone Cream 1%",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand W",
+    "lotId": "Wbjp1g",
+    "expire": "2024-10-13",
+    "minQuantity": 60,
+    "quantity": 27,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Hydrocotisone Cream 1%."
+  },
+  {
+    "drug": "Ketoconazole 2% cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand B",
+    "lotId": "PS5t0y",
+    "expire": "2023-09-19",
+    "minQuantity": 20,
+    "quantity": 6,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Ketoconazole 2% cream."
+  },
+  {
+    "drug": "Medicated Lip Ointment",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand T",
+    "lotId": "Znm7wy",
+    "expire": "2024-07-19",
+    "minQuantity": 60,
+    "quantity": 95,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Medicated Lip Ointment."
+  },
+  {
+    "drug": "Molefoam Padding",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand R",
+    "lotId": "boOPpH",
+    "expire": "2021-10-29",
+    "minQuantity": 180,
+    "quantity": 252,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Molefoam Padding."
+  },
+  {
+    "drug": "Mupirocin 2% Ointment",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand O",
+    "lotId": "WClrtZ",
+    "expire": "2022-07-24",
+    "minQuantity": 40,
+    "quantity": 6,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Mupirocin 2% Ointment."
+  },
+  {
+    "drug": "Nystatin Ointment",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand C",
+    "lotId": "7DOEgI",
+    "expire": "2022-05-18",
+    "minQuantity": 60,
+    "quantity": 30,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Nystatin Ointment."
+  },
+  {
+    "drug": "Orasol Gel 20%",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand I",
+    "lotId": "O7cvl6",
+    "expire": "2024-05-25",
+    "minQuantity": 40,
+    "quantity": 46,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Orasol Gel 20%."
+  },
+  {
+    "drug": "Pain Relief Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand S",
+    "lotId": "zM6Rvr",
+    "expire": "2025-08-31",
+    "minQuantity": 60,
+    "quantity": 105,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Pain Relief Cream."
+  },
+  {
+    "drug": "Permethrin 1% Shampoo",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Drawer 2-2",
+    "brand": "Brand D",
+    "lotId": "SwMlZP",
+    "expire": "2022-06-07",
+    "minQuantity": 30,
+    "quantity": 58,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Permethrin 1% Shampoo."
+  },
+  {
+    "drug": "Permethrin 5% Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand V",
+    "lotId": "JrnMSo",
+    "expire": "2023-02-02",
+    "minQuantity": 200,
+    "quantity": 318,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Permethrin 5% Cream."
+  },
+  {
+    "drug": "Proctosol-HC 2.5% Cream/Preparation-H",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand E",
+    "lotId": "CUF7Ix",
+    "expire": "2023-05-28",
+    "minQuantity": 90,
+    "quantity": 74,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Proctosol-HC 2.5% Cream/Preparation-H."
+  },
+  {
+    "drug": "Salicylic Acid Pads - Corn Remover",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand F",
+    "lotId": "OgPaxO",
+    "expire": "2022-03-09",
+    "minQuantity": 20,
+    "quantity": 14,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Salicylic Acid Pads - Corn Remover."
+  },
+  {
+    "drug": "Salicylic Acid Pads - Callus Remover",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand G",
+    "lotId": "10B1Qu",
+    "expire": "2023-09-17",
+    "minQuantity": 130,
+    "quantity": 63,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Salicylic Acid Pads - Callus Remover."
+  },
+  {
+    "drug": "Selenium Sulfide 2.5% Lotion",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand D",
+    "lotId": "61Z0a5",
+    "expire": "2025-03-22",
+    "minQuantity": 60,
+    "quantity": 4,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Selenium Sulfide 2.5% Lotion."
+  },
+  {
+    "drug": "Silver Sulfadiazine Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand I",
+    "lotId": "ncGdsp",
+    "expire": "2025-03-04",
+    "minQuantity": 120,
+    "quantity": 38,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Silver Sulfadiazine Cream."
+  },
+  {
+    "drug": "Sting  Kill",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand L",
+    "lotId": "4Qj9VJ",
+    "expire": "2024-02-20",
+    "minQuantity": 40,
+    "quantity": 41,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Sting  Kill."
+  },
+  {
+    "drug": "Tolnaftate Antifungal Powder",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand S",
+    "lotId": "lTZTtT",
+    "expire": "2023-03-19",
+    "minQuantity": 40,
+    "quantity": 67,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Tolnaftate Antifungal Powder."
+  },
+  {
+    "drug": "Tolnaftate 1% Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand A",
+    "lotId": "goOqW0",
+    "expire": "2022-08-08",
+    "minQuantity": 150,
+    "quantity": 44,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Tolnaftate 1% Cream."
+  },
+  {
+    "drug": "Triamcinolone 0.025% Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand A",
+    "lotId": "PUhZqu",
+    "expire": "2023-04-11",
+    "minQuantity": 200,
+    "quantity": 248,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Triamcinolone 0.025% Cream."
+  },
+  {
+    "drug": "Triamcinolone 0.1% Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand Q",
+    "lotId": "LXoekB",
+    "expire": "2023-11-13",
+    "minQuantity": 100,
+    "quantity": 49,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Triamcinolone 0.1% Cream."
+  },
+  {
+    "drug": "Betamethasone 0.05% Cream",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand Y",
+    "lotId": "wcogU0",
+    "expire": "2024-10-09",
+    "minQuantity": 10,
+    "quantity": 20,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Betamethasone 0.05% Cream."
+  },
+  {
+    "drug": "Unna Boot 3\"",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand F",
+    "lotId": "LnEtVt",
+    "expire": "2025-01-18",
+    "minQuantity": 70,
+    "quantity": 131,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Unna Boot 3\"."
+  },
+  {
+    "drug": "Unna Boot 4\"",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand Q",
+    "lotId": "Ztwp8E",
+    "expire": "2025-02-19",
+    "minQuantity": 110,
+    "quantity": 214,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Unna Boot 4\"."
+  },
+  {
+    "drug": "Urea Lotion",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand U",
+    "lotId": "JBzXJc",
+    "expire": "2024-05-20",
+    "minQuantity": 40,
+    "quantity": 2,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Urea Lotion."
+  },
+  {
+    "drug": "LacHydrin Lotion or Amlactin",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Drawer 2-3",
+    "brand": "Brand N",
+    "lotId": "hBS6h5",
+    "expire": "2025-01-07",
+    "minQuantity": 150,
+    "quantity": 114,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for LacHydrin Lotion or Amlactin."
+  },
+  {
+    "drug": "White Petrolatum USP",
+    "drugType": [
+      "Dermatologic Preparations"
+    ],
+    "location": "Freezer-Derm",
+    "brand": "Brand O",
+    "lotId": "pPqxIQ",
+    "expire": "2025-07-17",
+    "minQuantity": 70,
+    "quantity": 92,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for White Petrolatum USP."
+  },
+  {
+    "drug": "Glipizide 5 mg",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand E",
+    "lotId": "wT1e5z",
+    "expire": "2023-08-14",
+    "minQuantity": 40,
+    "quantity": 62,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Glipizide 5 mg."
+  },
+  {
+    "drug": "Glipizide 10 mg",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand Z",
+    "lotId": "EcT6pW",
+    "expire": "2023-01-30",
+    "minQuantity": 200,
+    "quantity": 127,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Glipizide 10 mg."
+  },
+  {
+    "drug": "Glucose Tablets",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand I",
+    "lotId": "lLHxZD",
+    "expire": "2024-09-19",
+    "minQuantity": 100,
+    "quantity": 179,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Glucose Tablets."
+  },
+  {
+    "drug": "Metformin ER 500 mg tabs",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand V",
+    "lotId": "EC0Ch2",
+    "expire": "2025-02-04",
+    "minQuantity": 120,
+    "quantity": 128,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Metformin ER 500 mg tabs."
+  },
+  {
+    "drug": "SGLT2 Inhibitors (Dapagliflozin 5 mg)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand C",
+    "lotId": "yLOhGj",
+    "expire": "2025-03-22",
+    "minQuantity": 130,
+    "quantity": 79,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for SGLT2 Inhibitors (Dapagliflozin 5 mg)."
+  },
+  {
+    "drug": "SGLT2 Inhibitors (Dapagliflozin 10 mg)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand N",
+    "lotId": "zU6yAu",
+    "expire": "2023-11-14",
+    "minQuantity": 190,
+    "quantity": 280,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for SGLT2 Inhibitors (Dapagliflozin 10 mg)."
+  },
+  {
+    "drug": "DPP-4 Inhibitors (Sitagliptin 100 mg)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand Y",
+    "lotId": "XIdahd",
+    "expire": "2022-05-07",
+    "minQuantity": 200,
+    "quantity": 211,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for DPP-4 Inhibitors (Sitagliptin 100 mg)."
+  },
+  {
+    "drug": "Sitagliptin/Metformin 50/500 (Janumet)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand G",
+    "lotId": "6jQekv",
+    "expire": "2022-04-20",
+    "minQuantity": 170,
+    "quantity": 29,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Sitagliptin/Metformin 50/500 (Janumet)."
+  },
+  {
+    "drug": "Sitagliptin/Metformin 100/1000 (Janumet)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand W",
+    "lotId": "0hTA4L",
+    "expire": "2023-10-24",
+    "minQuantity": 50,
+    "quantity": 36,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Sitagliptin/Metformin 100/1000 (Janumet)."
+  },
+  {
+    "drug": "SGLT2 Inhibitors/DPP4 Inhibitor (10mg/5mg)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand I",
+    "lotId": "uECcce",
+    "expire": "2024-12-16",
+    "minQuantity": 20,
+    "quantity": 19,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for SGLT2 Inhibitors/DPP4 Inhibitor (10mg/5mg)."
+  },
+  {
+    "drug": "SGLT2 Inhibitors/DPP4 Inhibitor (25mg/5mg)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand V",
+    "lotId": "VCoHW4",
+    "expire": "2025-06-22",
+    "minQuantity": 110,
+    "quantity": 71,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for SGLT2 Inhibitors/DPP4 Inhibitor (25mg/5mg)."
+  },
+  {
+    "drug": "Alogliptin/Metformin (12.5/500)",
+    "drugType": [
+      "Diabetes Medicines"
+    ],
+    "location": "Case 8",
+    "brand": "Brand I",
+    "lotId": "Xh1DIt",
+    "expire": "2024-09-21",
+    "minQuantity": 70,
+    "quantity": 10,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Alogliptin/Metformin (12.5/500)."
+  },
+  {
+    "drug": "Carbamide Peroxide 6.5%",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand M",
+    "lotId": "Mpna9A",
+    "expire": "2024-04-07",
+    "minQuantity": 110,
+    "quantity": 95,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Carbamide Peroxide 6.5%."
+  },
+  {
+    "drug": "Antipyrine & Benzocaine Otic",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand J",
+    "lotId": "THJygs",
+    "expire": "2025-04-26",
+    "minQuantity": 170,
+    "quantity": 309,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Antipyrine & Benzocaine Otic."
+  },
+  {
+    "drug": "Gentamycin, Cipro, or Ofloxacin Ophthalmic Soln",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand T",
+    "lotId": "tfjQya",
+    "expire": "2023-03-27",
+    "minQuantity": 170,
+    "quantity": 102,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Gentamycin, Cipro, or Ofloxacin Ophthalmic Soln."
+  },
+  {
+    "drug": "Artificial Tears",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand B",
+    "lotId": "aihjKC",
+    "expire": "2025-08-10",
+    "minQuantity": 80,
+    "quantity": 110,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Artificial Tears."
+  },
+  {
+    "drug": "Neomycin/Polymyxin/Hydrocortisone (Cortisporin) Otic",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand K",
+    "lotId": "RXGNHB",
+    "expire": "2021-12-11",
+    "minQuantity": 60,
+    "quantity": 20,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Neomycin/Polymyxin/Hydrocortisone (Cortisporin) Otic."
+  },
+  {
+    "drug": "Ear Plugs",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand R",
+    "lotId": "QOaMty",
+    "expire": "2023-09-06",
+    "minQuantity": 20,
+    "quantity": 25,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Ear Plugs."
+  },
+  {
+    "drug": "Napchon (Opticlear)",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand V",
+    "lotId": "J7Yvdf",
+    "expire": "2024-12-19",
+    "minQuantity": 60,
+    "quantity": 28,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Napchon (Opticlear)."
+  },
+  {
+    "drug": "Sulfacetamide or Polymyxin B Ophthalmic Soln",
+    "drugType": [
+      "Ear & Eye Preparations"
+    ],
+    "location": "Case 1",
+    "brand": "Brand B",
+    "lotId": "gqEdLn",
+    "expire": "2024-09-26",
+    "minQuantity": 50,
+    "quantity": 82,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Sulfacetamide or Polymyxin B Ophthalmic Soln."
+  },
+  {
+    "drug": "Ammonia Inhalant",
+    "drugType": [
+      "Emergency Kit"
+    ],
+    "location": "Emergency Kit",
+    "brand": "Brand I",
+    "lotId": "JsLbNv",
+    "expire": "2023-04-06",
+    "minQuantity": 130,
+    "quantity": 186,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ammonia Inhalant."
+  },
+  {
+    "drug": "Medicaine Sting/Bite Swab",
+    "drugType": [
+      "Emergency Kit"
+    ],
+    "location": "Emergency Kit",
+    "brand": "Brand B",
+    "lotId": "3GwZn6",
+    "expire": "2022-07-14",
+    "minQuantity": 50,
+    "quantity": 20,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Medicaine Sting/Bite Swab."
+  },
+  {
+    "drug": "Epipen",
+    "drugType": [
+      "Emergency Kit"
+    ],
+    "location": "Emergency Kit",
+    "brand": "Brand T",
+    "lotId": "BiX5Ey",
+    "expire": "2024-10-03",
+    "minQuantity": 50,
+    "quantity": 28,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Epipen."
+  },
+  {
+    "drug": "Epipen Jr.",
+    "drugType": [
+      "Emergency Kit"
+    ],
+    "location": "Emergency Kit",
+    "brand": "Brand Y",
+    "lotId": "gSSmi0",
+    "expire": "2024-08-26",
+    "minQuantity": 60,
+    "quantity": 29,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Epipen Jr.."
+  },
+  {
+    "drug": "Diphenhydramine 50 mg/mL",
+    "drugType": [
+      "Emergency Kit"
+    ],
+    "location": "Emergency Kit",
+    "brand": "Brand J",
+    "lotId": "0LtrSR",
+    "expire": "2021-11-17",
+    "minQuantity": 110,
+    "quantity": 193,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Diphenhydramine 50 mg/mL."
+  },
+  {
+    "drug": "Antacid",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand T",
+    "lotId": "0IGNQ9",
+    "expire": "2024-12-08",
+    "minQuantity": 100,
+    "quantity": 132,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Antacid."
+  },
+  {
+    "drug": "Bisacodyl Suppositories",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand R",
+    "lotId": "cPssCO",
+    "expire": "2022-02-27",
+    "minQuantity": 190,
+    "quantity": 202,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Bisacodyl Suppositories."
+  },
+  {
+    "drug": "Proton Pump Inhibitor",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand J",
+    "lotId": "Hwh6tm",
+    "expire": "2025-04-06",
+    "minQuantity": 200,
+    "quantity": 69,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Proton Pump Inhibitor."
+  },
+  {
+    "drug": "Lactulose Solution",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand K",
+    "lotId": "GevPZb",
+    "expire": "2025-08-09",
+    "minQuantity": 160,
+    "quantity": 260,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Lactulose Solution."
+  },
+  {
+    "drug": "Pepto-Bismol",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand M",
+    "lotId": "M9wcsu",
+    "expire": "2023-01-25",
+    "minQuantity": 10,
+    "quantity": 8,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Pepto-Bismol."
+  },
+  {
+    "drug": "Docusate Sodium 100 mg",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand F",
+    "lotId": "5y7rec",
+    "expire": "2022-07-02",
+    "minQuantity": 60,
+    "quantity": 78,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Docusate Sodium 100 mg."
+  },
+  {
+    "drug": "Promethazine 25 mg",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand I",
+    "lotId": "IuW52k",
+    "expire": "2021-12-22",
+    "minQuantity": 180,
+    "quantity": 207,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Promethazine 25 mg."
+  },
+  {
+    "drug": "Loperamide 2 mg",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand V",
+    "lotId": "wUzDsn",
+    "expire": "2022-09-30",
+    "minQuantity": 50,
+    "quantity": 25,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Loperamide 2 mg."
+  },
+  {
+    "drug": "Ranitidine (or other H2blocker)",
+    "drugType": [
+      "Gastrointestinal Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand S",
+    "lotId": "jNSeEL",
+    "expire": "2025-08-17",
+    "minQuantity": 30,
+    "quantity": 15,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Ranitidine (or other H2blocker)."
+  },
+  {
+    "drug": "Miconazole Applicator Set",
+    "drugType": [
+      "Gynecological Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand T",
+    "lotId": "wYMQkF",
+    "expire": "2025-01-06",
+    "minQuantity": 40,
+    "quantity": 4,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Miconazole Applicator Set."
+  },
+  {
+    "drug": "Reclipsen Tabs",
+    "drugType": [
+      "Gynecological Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand R",
+    "lotId": "qaO7Dz",
+    "expire": "2023-11-21",
+    "minQuantity": 50,
+    "quantity": 23,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Reclipsen Tabs."
+  },
+  {
+    "drug": "Apri Tabs",
+    "drugType": [
+      "Gynecological Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand A",
+    "lotId": "SJ8Wu0",
+    "expire": "2022-07-27",
+    "minQuantity": 100,
+    "quantity": 143,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Apri Tabs."
+  },
+  {
+    "drug": "Depo-Provera",
+    "drugType": [
+      "Gynecological Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand U",
+    "lotId": "aDozYx",
+    "expire": "2023-06-26",
+    "minQuantity": 130,
+    "quantity": 57,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Depo-Provera."
+  },
+  {
+    "drug": "Detrol LA (Tolterodin Tartate)",
+    "drugType": [
+      "Gynecological Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand V",
+    "lotId": "oYCbhQ",
+    "expire": "2024-06-07",
+    "minQuantity": 110,
+    "quantity": 72,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Detrol LA (Tolterodin Tartate)."
+  },
+  {
+    "drug": "Medroxyprogesterone 10 mg",
+    "drugType": [
+      "Gynecological Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand K",
+    "lotId": "c0Ljcq",
+    "expire": "2023-05-18",
+    "minQuantity": 30,
+    "quantity": 6,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Medroxyprogesterone 10 mg."
+  },
+  {
+    "drug": "PlanB",
+    "drugType": [
+      "Gynecological Medicines"
+    ],
+    "location": "Case 3",
+    "brand": "Brand M",
+    "lotId": "bN8tZz",
+    "expire": "2023-05-24",
+    "minQuantity": 70,
+    "quantity": 24,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for PlanB."
+  },
+  {
+    "drug": "Ipratropium Inhalation Soln.",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Refrigerator Closet",
+    "brand": "Brand X",
+    "lotId": "D2ggPe",
+    "expire": "2023-06-18",
+    "minQuantity": 170,
+    "quantity": 8,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Ipratropium Inhalation Soln.."
+  },
+  {
+    "drug": "Albuterol Inhalation Soln.",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Refrigerator Closet",
+    "brand": "Brand P",
+    "lotId": "0aiAaF",
+    "expire": "2023-08-18",
+    "minQuantity": 140,
+    "quantity": 1,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Albuterol Inhalation Soln.."
+  },
+  {
+    "drug": "Albuterol HFA (Proair/Ventolin)",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Case 1",
+    "brand": "Brand Q",
+    "lotId": "2FazZg",
+    "expire": "2023-02-21",
+    "minQuantity": 120,
+    "quantity": 221,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Albuterol HFA (Proair/Ventolin)."
+  },
+  {
+    "drug": "Steroid Inhaler",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Case 1",
+    "brand": "Brand L",
+    "lotId": "xewrUJ",
+    "expire": "2023-03-15",
+    "minQuantity": 190,
+    "quantity": 186,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Steroid Inhaler."
+  },
+  {
+    "drug": "Steroid/Long Acting Beta Agonist (Child)",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Case 1",
+    "brand": "Brand G",
+    "lotId": "nArckY",
+    "expire": "2024-08-02",
+    "minQuantity": 110,
+    "quantity": 135,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Steroid/Long Acting Beta Agonist (Child)."
+  },
+  {
+    "drug": "Steroid/Long Acting Beta Agonist (Adult)",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Case 1",
+    "brand": "Brand C",
+    "lotId": "Ql1zxC",
+    "expire": "2024-01-01",
+    "minQuantity": 190,
+    "quantity": 76,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Steroid/Long Acting Beta Agonist (Adult)."
+  },
+  {
+    "drug": "Tiotropium or Ipratropium",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Case 1",
+    "brand": "Brand M",
+    "lotId": "COK3Q7",
+    "expire": "2025-05-16",
+    "minQuantity": 170,
+    "quantity": 324,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Tiotropium or Ipratropium."
+  },
+  {
+    "drug": "Ipratropium/Albuterol",
+    "drugType": [
+      "Pulmonary"
+    ],
+    "location": "Case 1",
+    "brand": "Brand L",
+    "lotId": "tfVI3q",
+    "expire": "2022-05-14",
+    "minQuantity": 170,
+    "quantity": 339,
+    "isTabs": false,
+    "donated": true,
+    "note": "Example note for Ipratropium/Albuterol."
+  },
+  {
+    "drug": "Buproprion ER 150 mg",
+    "drugType": [
+      "Smoking Cessation"
+    ],
+    "location": "Case 5",
+    "brand": "Brand W",
+    "lotId": "CSnxbZ",
+    "expire": "2025-06-03",
+    "minQuantity": 40,
+    "quantity": 28,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Buproprion ER 150 mg."
+  },
+  {
+    "drug": "Nicotine Gum 2 mg",
+    "drugType": [
+      "Smoking Cessation"
+    ],
+    "location": "Case 5",
+    "brand": "Brand H",
+    "lotId": "hyKfgv",
+    "expire": "2024-07-28",
+    "minQuantity": 190,
+    "quantity": 344,
+    "isTabs": true,
+    "donated": true,
+    "note": "Example note for Nicotine Gum 2 mg."
+  },
+  {
+    "drug": "Nicotine Gum 4 mg",
+    "drugType": [
+      "Smoking Cessation"
+    ],
+    "location": "Case 5",
+    "brand": "Brand V",
+    "lotId": "Ny902J",
+    "expire": "2022-07-04",
+    "minQuantity": 200,
+    "quantity": 297,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Nicotine Gum 4 mg."
+  },
+  {
+    "drug": "Nicotine Patch 7 mg",
+    "drugType": [
+      "Smoking Cessation"
+    ],
+    "location": "Case 5",
+    "brand": "Brand T",
+    "lotId": "YD4HVN",
+    "expire": "2021-12-27",
+    "minQuantity": 170,
+    "quantity": 3,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Nicotine Patch 7 mg."
+  },
+  {
+    "drug": "Nicotine Patch 14 mg",
+    "drugType": [
+      "Smoking Cessation"
+    ],
+    "location": "Case 5",
+    "brand": "Brand V",
+    "lotId": "XksfM7",
+    "expire": "2022-02-25",
+    "minQuantity": 100,
+    "quantity": 5,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Nicotine Patch 14 mg."
+  },
+  {
+    "drug": "Nicotine Patch 21 mg",
+    "drugType": [
+      "Smoking Cessation"
+    ],
+    "location": "Case 5",
+    "brand": "Brand Q",
+    "lotId": "YzqGY8",
+    "expire": "2024-04-29",
+    "minQuantity": 30,
+    "quantity": 43,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Nicotine Patch 21 mg."
+  },
+  {
+    "drug": "Multivitamins - Adult",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand K",
+    "lotId": "5qkK6v",
+    "expire": "2025-03-13",
+    "minQuantity": 10,
+    "quantity": 8,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Multivitamins - Adult."
+  },
+  {
+    "drug": "Multivitamins - Adult Gummies",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Refrigerator",
+    "brand": "Brand T",
+    "lotId": "QyJIkT",
+    "expire": "2023-07-08",
+    "minQuantity": 50,
+    "quantity": 59,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Multivitamins - Adult Gummies."
+  },
+  {
+    "drug": "Multivitamins - Children's Gummies",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Refrigerator",
+    "brand": "Brand B",
+    "lotId": "P3vSF2",
+    "expire": "2025-10-01",
+    "minQuantity": 100,
+    "quantity": 64,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Multivitamins - Children's Gummies."
+  },
+  {
+    "drug": "Multivitamins - Kids Chewable",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand K",
+    "lotId": "KCEaPp",
+    "expire": "2023-04-04",
+    "minQuantity": 10,
+    "quantity": 16,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Multivitamins - Kids Chewable."
+  },
+  {
+    "drug": "Calcium Supplements",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Refrigerator",
+    "brand": "Brand F",
+    "lotId": "ptAIIo",
+    "expire": "2021-11-23",
+    "minQuantity": 100,
+    "quantity": 8,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Calcium Supplements."
+  },
+  {
+    "drug": "Prenatal Vitamins",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand N",
+    "lotId": "21f2GB",
+    "expire": "2022-03-05",
+    "minQuantity": 40,
+    "quantity": 42,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Prenatal Vitamins."
+  },
+  {
+    "drug": "Fiber Capsules",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand W",
+    "lotId": "TDHcD7",
+    "expire": "2025-06-25",
+    "minQuantity": 130,
+    "quantity": 39,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Fiber Capsules."
+  },
+  {
+    "drug": "Fluoride 0.25 mg drops",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand S",
+    "lotId": "atR4fD",
+    "expire": "2025-07-23",
+    "minQuantity": 20,
+    "quantity": 37,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Fluoride 0.25 mg drops."
+  },
+  {
+    "drug": "Fluoride .5 mg",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand X",
+    "lotId": "MGwOyO",
+    "expire": "2023-06-15",
+    "minQuantity": 90,
+    "quantity": 120,
+    "isTabs": true,
+    "donated": false,
+    "note": "Example note for Fluoride .5 mg."
+  },
+  {
+    "drug": "Fluoride 1 mg",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand B",
+    "lotId": "x3pz1I",
+    "expire": "2022-08-26",
+    "minQuantity": 110,
+    "quantity": 71,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Fluoride 1 mg."
+  },
+  {
+    "drug": "Iron 27 mg",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand T",
+    "lotId": "sVBM7U",
+    "expire": "2023-04-05",
+    "minQuantity": 110,
+    "quantity": 51,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Iron 27 mg."
+  },
+  {
+    "drug": "Melatonin 3 mg",
+    "drugType": [
+      "Vitamins & Supplements"
+    ],
+    "location": "Case 6",
+    "brand": "Brand K",
+    "lotId": "7zc0Pf",
+    "expire": "2024-11-06",
+    "minQuantity": 90,
+    "quantity": 118,
+    "isTabs": false,
+    "donated": false,
+    "note": "Example note for Melatonin 3 mg."
+  }
+]

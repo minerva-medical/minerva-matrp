@@ -18,6 +18,7 @@ function addData(data) {
 
 const assetsFileName = 'data.json';
 const jsonData = JSON.parse(Assets.getText(assetsFileName));
+const sampleMedication = JSON.parse(Assets.getText('sample_medication.json'));
 
 // Initialize the StuffsCollection if empty.
 if (Stuffs.count() === 0) {
@@ -27,10 +28,11 @@ if (Stuffs.count() === 0) {
   }
 }
 
-if (Meteor.settings.loadAssetsFile) {
+if (Meteor.settings.loadAssetsFile && Medications.count() !== 201) {
   Medications._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
-  jsonData.medications.map(medication => Medications.define(medication));
+  // jsonData.medications.map(medication => Medications.define(medication));
+  sampleMedication.map(medication => Medications.define(medication));
 }
 
 if (Meteor.settings.loadAssetsFile) {

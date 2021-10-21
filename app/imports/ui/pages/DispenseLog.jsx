@@ -2,7 +2,6 @@ import React from 'react';
 import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Input } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-// import { _ } from 'meteor/underscore';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
@@ -147,9 +146,9 @@ export default withTracker(() => {
   const drugTypeSub = DrugTypes.subscribeDrugType();
   // Determine if the subscription is ready
   const ready = historicalSub.ready() && drugTypeSub.ready() && medSub.ready();
-  // Get the Stuff documents and sort them by name.
+  // Get the Historical documents.
   const historicals = Historicals.find({}).fetch();
-  const drugTypes = distinct('drugType', Medications, DrugTypes);
+  const drugTypes = distinct('drugType', DrugTypes);
   return {
     historicals,
     drugTypes,

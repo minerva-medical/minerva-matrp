@@ -53,61 +53,39 @@ class MedicationCollection extends BaseCollection {
    */
   update(docID, data) {
     const updateData = {};
-    const resetData = { minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A', location: 'N/A',
-      donated: false, note: 'N/A' }; // TODO: cleaner logic?
 
-    // TODO: import from file
     function addString(name) {
-      if (data[name]) {
+      if (data[name]) { // if not undefined or empty String
         updateData[name] = data[name];
       }
     }
-    function addNumber(name) {
+    function addNumber(name) { // if not undefined
       if (_.isNumber(data[name])) {
         updateData[name] = data[name];
       }
     }
-    function addBoolean(name) {
+    function addBoolean(name) { // if not undefined
       if (_.isBoolean(data[name])) {
         updateData[name] = data[name];
       }
     }
 
-    switch (data.action) {
-    case 'INC':
-      addNumber('quantity');
-      this._collection.update(docID, { $inc: updateData });
-      break;
-    case 'REFILL':
-      addNumber('minQuantity');
-      addNumber('quantity');
-      addString('brand');
-      addString('lotId');
-      addString('expire');
-      addString('location');
-      addBoolean('donated');
-      addString('note');
-      this._collection.update(docID, { $set: updateData });
-      break;
-    case 'RESET':
-      this._collection.update(docID, { $set: resetData });
-      break;
-    default:
-      addString('drug');
-      if (data.drugType.every(elem => elem)) { // check if every drug type is a String
-        updateData.drugType = data.drugType;
-      }
-      addString('brand');
-      addString('lotId');
-      addString('expire');
-      addNumber('minQuantity');
-      addNumber('quantity');
-      addBoolean('isTabs');
-      addString('location');
-      addBoolean('donated');
-      addString('note');
-      this._collection.update(docID, { $set: updateData });
+    addString('drug');
+    // check if drugType is not undefined && every drug type is not undefined
+    if (data.drugType && data.drugType.every(elem => elem)) {
+      updateData.drugType = data.drugType;
     }
+    addString('brand');
+    addString('lotId');
+    addString('expire');
+    addNumber('minQuantity');
+    addNumber('quantity');
+    addBoolean('isTabs');
+    addString('location');
+    addBoolean('donated');
+    addString('note');
+
+    this._collection.update(docID, { $set: updateData });
   }
 
   /**
