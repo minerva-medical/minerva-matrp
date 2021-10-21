@@ -1,5 +1,18 @@
-import React from 'react';
-import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Input } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import {
+  Header,
+  Container,
+  Table,
+  Segment,
+  Divider,
+  Dropdown,
+  Pagination,
+  Grid,
+  Loader,
+  Icon,
+  Input,
+  Popup,
+} from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Medications } from '../../api/medication/MedicationCollection';
@@ -15,31 +28,32 @@ const getOptions = (arr) => {
 };
 
 /** Renders the Page for Dispensing Inventory. */
-const limitOptions = [
-  { key: '0', value: '10', text: '10' },
-  { key: '1', value: '25', text: '25' },
-  { key: '2', value: '50', text: '50' },
-  { key: '3', value: '100', text: '100' },
-];
-
-const sort = [
-  { key: '0', value: 'Most Recent', text: 'Most Recent' },
-  { key: '1', value: 'Oldest to Newest', text: 'Oldest to Newest' },
-];
-
-const reason = [
-  { key: '0', value: 'All', text: 'All' },
-  { key: '1', value: 'Patient Use', text: 'Patient Use' },
-  { key: '2', value: 'Expired', text: 'Expired' },
-  { key: '3', value: 'Broken/Contaminated', text: 'Broken/Contaminated' },
-];
-
-/** Render the form. */
 const DispenseLog = ({ ready, historicals, drugTypes }) => {
   if (ready) {
     const gridAlign = {
       textAlign: 'center',
     };
+    const [searchHistoricals, setSearchHistoricals] = useState('');
+
+    const handleSearch = (event) => {
+      setSearchHistoricals(event.target.value);
+    };
+    const limitOptions = [
+      { key: '0', value: '10', text: '10' },
+      { key: '1', value: '25', text: '25' },
+      { key: '2', value: '50', text: '50' },
+      { key: '3', value: '100', text: '100' },
+    ];
+    const sort = [
+      { key: '0', value: 'Most Recent', text: 'Most Recent' },
+      { key: '1', value: 'Oldest to Newest', text: 'Oldest to Newest' },
+    ];
+    const reason = [
+      { key: '0', value: 'All', text: 'All' },
+      { key: '1', value: 'Patient Use', text: 'Patient Use' },
+      { key: '2', value: 'Expired', text: 'Expired' },
+      { key: '3', value: 'Broken/Contaminated', text: 'Broken/Contaminated' },
+    ];
     return (
       <div>
         <Container id='dispense-log'>
@@ -56,7 +70,14 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
             <Divider/>
             <Grid>
               <Grid.Column width={4}>
-                <Input placeholder='Filter by patient number...' icon='search'/>
+                <Input placeholder='Filter by patient...' icon='search'
+                  onChange={handleSearch}
+                />
+                <Popup
+                  trigger={<Icon name='question circle' color="blue"/>}
+                  content='This allows you to filter the Dispense Log table by patient number, lotId, or drug name.'
+                  inverted
+                />
               </Grid.Column>
             </Grid>
             <Divider/>
@@ -112,7 +133,18 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
               </Table.Header>
               <Table.Body>
                 {
-                  historicals.map(history => <DispenseLogRow key={history._id} history={history} />)
+                  historicals.filter((val) => {
+                    if (searchHistoricals === '') {
+                      return val;
+                    }
+
+                    if (val.drug.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
+                          val.dispensedTo.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
+                          val.lotId.toLowerCase().includes(searchHistoricals.toLowerCase())) {
+                      return val;
+                    }
+                    return 0;
+                  }).map(history => <DispenseLogRow key={history._id} history={history} />)
                 }
               </Table.Body>
               <Table.Footer>

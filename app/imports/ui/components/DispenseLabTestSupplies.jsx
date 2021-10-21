@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -131,7 +131,7 @@ const DispenseLabTestSupplies = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
-                            onChange={handleChange} value={fields.dateDispensed}/>
+                  onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
               <Grid.Column className='filler-column' />
@@ -139,47 +139,47 @@ const DispenseLabTestSupplies = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                            value={fields.dispensedFrom || props.currentUser.username} readOnly/>
+                  value={fields.dispensedFrom || props.currentUser.username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number"
-                            name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
+                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
-                             placeholder="Zonatuss"
-                             name='brand' onChange={handleChange} value={fields.brand}/>
+                  placeholder="Zonatuss"
+                  name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lab Test Supply Name' options={getOptions(props.drugs)}
-                             placeholder="Covid-19 Test/Syringes"
-                             name='drug' onChange={handleChange} value={fields.drug}/>
+                  placeholder="Covid-19 Test/Syringes"
+                  name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites)}
-                             placeholder="Kaka’ako" name='site'
-                             onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
+                  placeholder="Kaka’ako" name='site'
+                  onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
-                             placeholder="Z9Z99"
-                             name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
+                  placeholder="Z9Z99"
+                  name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
                   <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
-                              onChange={handleChange} value={fields.quantity} placeholder='30'/>
+                    onChange={handleChange} value={fields.quantity} placeholder='30'/>
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                               placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
               </Grid.Column>
             </Grid.Row>
           </Grid>

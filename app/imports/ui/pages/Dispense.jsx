@@ -7,7 +7,7 @@ import DispenseLabTestSupplies from '../components/DispenseLabTestSupplies';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 const medicationTab = () => <DispenseMedication/>;
-const vaccinesTab = () => <DispenseVaccination/>
+const vaccinesTab = () => <DispenseVaccination/>;
 const patientSuppliesTab = () => <DispensePatientSupplies/>;
 const testingSuppliesTab = () => <DispenseLabTestSupplies/>;
 const reportTab = () => <Tab.Pane>Broken/Lost/Contaminated/Expired</Tab.Pane>;
