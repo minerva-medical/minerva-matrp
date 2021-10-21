@@ -81,7 +81,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Add Medication. */
-const AddMedication = (props) => {
+const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) => {
   const [fields, setFields] = useState({
     drug: '',
     drugType: [],
@@ -96,11 +96,11 @@ const AddMedication = (props) => {
     note: '',
   });
 
-  const [drugTypes, setDrugTypes] = useState([]); // store drugTypes in state
-  // update drugTypes if props.drugTypes changes
+  const [theDrugTypes, setDrugTypes] = useState([]); // store theDrugTypes in state
+  // update theDrugTypes if drugTypes changes
   useEffect(() => {
-    setDrugTypes(props.drugTypes);
-  }, [props.drugTypes]);
+    setDrugTypes(drugTypes);
+  }, [drugTypes]);
 
   const handleChange = (event, { name, value, checked }) => {
     setFields({ ...fields, [name]: value !== undefined ? value : checked });
@@ -114,8 +114,8 @@ const AddMedication = (props) => {
   // add user inputted drug type if not already added
   const addDrugType = (event, { value }) => {
     // const re = new RegExp(value, 'i');
-    if (!drugTypes.map(type => type.toLowerCase()).includes(value.toLowerCase())) {
-      setDrugTypes([...drugTypes, value]);
+    if (!theDrugTypes.map(type => type.toLowerCase()).includes(value.toLowerCase())) {
+      setDrugTypes([...theDrugTypes, value]);
     }
   };
 
@@ -146,7 +146,7 @@ const AddMedication = (props) => {
   const clearForm = () => setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
     brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
 
-  if (props.ready) {
+  if (ready) {
     return (
       <Tab.Pane id='add-form'>
         <Header as="h2">
@@ -161,25 +161,25 @@ const AddMedication = (props) => {
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
+                <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
                   placeholder="Benzonatate Capsules" name='drug'
                   onChange={onDrugSelect} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                  options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
+                  options={getOptions(theDrugTypes)} placeholder="Allergy & Cold Medicines"
                   name='drugType' onChange={handleChange} value={fields.drugType} allowAdditions onAddItem={addDrugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
+                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
                   placeholder="Z9Z99" name='lotId'
                   onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
+                <Form.Select clearable search label='Brand' options={getOptions(brands)}
                   placeholder="Zonatuss" name='brand'
                   onChange={handleChange} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
@@ -207,7 +207,7 @@ const AddMedication = (props) => {
                 </Form.Group>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select compact clearable search label='Location' options={getOptions(props.locations)}
+                <Form.Select compact clearable search label='Location' options={getOptions(locations)}
                   placeholder="Case 2" name='location'
                   onChange={handleChange} value={fields.location} onSearchChange={handleSearch} searchQuery={fields.location}/>
               </Grid.Column>
