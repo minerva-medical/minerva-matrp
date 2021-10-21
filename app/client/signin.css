@@ -64,11 +64,13 @@
 #signup-div h1 {
   color: white;
   font-size: 5rem;
+  text-shadow: 1px 2px black;
 }
 
 #signup-div h2 {
   color: white;
   margin-bottom: 2rem;
+  text-shadow: 1px 1px black;
 }
 
 #signup-div h3 {
@@ -116,10 +118,36 @@
 
 @media only screen and (max-width: 700px) {
   #signin-div .seven.wide.column {
-    display: none;
+    display: inline !important;
   }
 
   #signin-div .nine.wide.column {
     width: 100% !important;
   }
+}
+
+@media only screen and (max-width: 650px) {
+  #signup-div h1 {
+    display: inline !important;
+    margin-left: 10%;
+ }
+
+  #signup-div .nine.wide.column {
+    width: 100% !important;
+  }
+
+  #signup-div {
+    padding: 50px 0;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #signup-div h1 {
+    display: inline !important;
+    margin-left: 0;
+ }
+
+ #signup-div {
+  padding-top: 75px;
+ }
 }
