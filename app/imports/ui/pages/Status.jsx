@@ -11,8 +11,6 @@ import MedStatusRow from '../components/MedStatusRow';
 import { distinct } from '../utilities/Functions';
 import { Brands } from '../../api/brand/BrandCollection';
 
-/** Renders the Page for Dispensing Inventory. */
-
 // convert array to dropdown options
 const getOptions = (arr) => {
   const options = arr.map(elem => ({ key: elem, text: elem, value: elem }));
