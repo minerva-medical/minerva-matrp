@@ -5,19 +5,6 @@ body{
 background-color: #C1D9B1 !important;
 }
 
-.signOutPage{
-  background-image: url('../images/logout.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  font-weight: bold;
-  text-shadow: 2px 2px 2px darkolivegreen;
-}
-
 .landingPage{
   background-image: url('../images/logout.png');
   /* Full height */
