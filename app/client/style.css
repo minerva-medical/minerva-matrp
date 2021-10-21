@@ -43,7 +43,7 @@ background-color: #C1D9B1 !important;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(50vw - 20vh);
+  height: 100%;
   top: 0px !important;
   width: 100% !important;
   margin-bottom:0%;
@@ -98,15 +98,6 @@ p {
 span {
   font-size: 12px;
 }
-
-/*
-a {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	margin: 15px 0;
-}
-*/
 
 button-signup {
   border-radius: 20px;
