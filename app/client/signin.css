@@ -5,12 +5,14 @@
 
 #signin-div h1 {
   color: white;
+  text-shadow: 1px 2px black;
   font-size: 5rem;
 }
 
 #signin-div h2 {
   color: white;
   margin-bottom: 2rem;
+  text-shadow: 1px 1px black;
 }
 
 #signin-div h3 {
@@ -116,6 +118,7 @@
   padding: 1.2em 3.6em;
 }
 
+/* Sign in @media */
 @media only screen and (max-width: 700px) {
   #signin-div .seven.wide.column {
     display: inline !important;
@@ -126,6 +129,29 @@
   }
 }
 
+@media only screen and (max-width: 650px) {
+  #signin-div h1 {
+    display: inline !important;
+    margin-left: 10%;
+ }
+
+  #signin-div {
+    padding: 50px 0;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #signin-div h1 {
+    display: inline !important;
+    margin-left: 0;
+ }
+
+ #signin-div {
+  padding-top: 75px;
+ }
+}
+
+/* Signup @media */ 
 @media only screen and (max-width: 650px) {
   #signup-div h1 {
     display: inline !important;
