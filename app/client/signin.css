@@ -13,6 +13,17 @@
   margin-bottom: 2rem;
 }
 
+#signin-div h3 {
+  color: white;
+  padding: 2rem 2rem 3rem 2rem;
+  text-align: center;
+}
+
+#signin-div a {
+  color: deepskyblue;
+  text-decoration: underline;
+}
+
 #signin-div .stethoscope.icon {
   color: white;
   font-size: 5rem;

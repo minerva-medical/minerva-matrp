@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect, NavLink } from 'react-router-dom';
-import { Container, Form, Grid, Header, Message, Segment, Button, Icon } from 'semantic-ui-react';
+import { Redirect, NavLink } from 'react-router-dom';
+import { Container, Form, Grid, Header, Message, Icon } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -61,44 +61,43 @@ const Signup = ({ location }) => {
             <Header as="h2" textAlign="center">
               WELCOME TO MINERVA MEDICAL, REGISTER FOR AN ACCOUNT BELOW!
             </Header>
-              <Form onSubmit={submit}>
-                <Form.Input
-                  label="Email"
-                  id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
-                  icon="user"
-                  iconPosition="left"
-                  name="email"
-                  type="email"
-                  placeholder="E-mail address"
-                  onChange={handleChange}
-                />
-                <Form.Input
-                  label="Password"
-                  id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}
-                  icon="lock"
-                  iconPosition="left"
-                  name="password"
-                  placeholder="Password"
-                  type="password"
-                  onChange={handleChange}
-                />
-                <Form.Button id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} content="Submit"/>
-              </Form>
-            <br/><br/>
-            <h3>Aloha, Friend! Already have a registered account? <NavLink exact to="/signin" key="signin" id="signIn">LOG IN</NavLink></h3>
+            <Form onSubmit={submit}>
+              <Form.Input
+                label="Email"
+                id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
+                icon="user"
+                iconPosition="left"
+                name="email"
+                type="email"
+                placeholder="E-mail address"
+                onChange={handleChange}
+              />
+              <Form.Input
+                label="Password"
+                id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}
+                icon="lock"
+                iconPosition="left"
+                name="password"
+                placeholder="Password"
+                type="password"
+                onChange={handleChange}
+              />
+              <Form.Button id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} content="Submit"/>
+            </Form>
+            <h3>Already have a registered account? <NavLink exact to="/signin" key="signin" id="signIn">LOG IN</NavLink></h3>
             {error === '' ? (
-                ''
-              ) : (
-                <Message
-                  error
-                  header="Registration was not successful"
-                  content={error}
-                />
-              )}
-            </Grid.Column>
-          </Grid>
-        </Container>
-      </div>
+              ''
+            ) : (
+              <Message
+                error
+                header="Registration was not successful"
+                content={error}
+              />
+            )}
+          </Grid.Column>
+        </Grid>
+      </Container>
+    </div>
   );
 };
 
