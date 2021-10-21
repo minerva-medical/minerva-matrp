@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Button, Container, Header, Segment } from 'semantic-ui-react';
+import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
@@ -15,7 +15,7 @@ const Signout = () => {
         <Header as='h1' content='Come Back Soon!'/>
         <Button.Group>
           <Button as={NavLink} activeClassName="" exact to="/" key='landing' color="black" size='huge'>
-            HOME
+            <Icon name='home'/> HOME
           </Button>
           <Button as={NavLink} activeClassName="" exact to="/signin" key='signin' size='huge'
             inverted colored>LOGIN</Button>
