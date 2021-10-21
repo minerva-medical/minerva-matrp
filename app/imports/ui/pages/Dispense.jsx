@@ -2,12 +2,14 @@ import React from 'react';
 import { Container, Tab } from 'semantic-ui-react';
 import DispenseMedication from '../components/DispenseMedication';
 import DispenseVaccination from '../components/DispenseVaccination';
+import DispensePatientSupplies from '../components/DispensePatientSupplies';
+import DispenseLabTestSupplies from '../components/DispenseLabTestSupplies';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 const medicationTab = () => <DispenseMedication/>;
 const vaccinesTab = () => <DispenseVaccination/>
-const patientSuppliesTab = () => <Tab.Pane>Tab 3 Content</Tab.Pane>;
-const testingSuppliesTab = () => <Tab.Pane>Tab 4 Content</Tab.Pane>;
+const patientSuppliesTab = () => <DispensePatientSupplies/>;
+const testingSuppliesTab = () => <DispenseLabTestSupplies/>;
 const reportTab = () => <Tab.Pane>Broken/Lost/Contaminated/Expired</Tab.Pane>;
 
 const panes = [
