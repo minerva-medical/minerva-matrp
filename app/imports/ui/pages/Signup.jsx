@@ -50,8 +50,8 @@ const Signup = ({ location }) => {
   return (
     <div id='signup-div'>
       <Container id={PAGE_IDS.SIGN_UP}>
-        <Grid textAlign="center" centered columns={2}>
-          <Grid.Column width={7}>
+        <Grid textAlign="center" centered>
+          <Grid.Column computer={7} tablet={7} mobile={9}>
             <Icon name='stethoscope' size='huge' style={{ visibility: 'hidden' }}/>
             <Header as="h1" textAlign="center">
               MINERVA
