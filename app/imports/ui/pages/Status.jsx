@@ -122,7 +122,10 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   if (searchMedications === '') {
                     return val;
                   }
-                  if (val.drug.toLowerCase().includes(searchMedications.toLowerCase())) {
+
+                  if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
+                      val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
+                      val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
                     return val;
                   }
                   return 0;
