@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Message, Icon } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -54,7 +54,7 @@ const Signin = ({ location }) => {
     <div id='signin-div'>
       <Container id={PAGE_IDS.SIGN_IN}>
         <Grid textAlign="center" centered columns={2}>
-          <Grid.Column width={7}>
+          <Grid.Column computer={7} tablet={7} mobile={9}>
             <Icon name='stethoscope' size='huge' style={{ visibility: 'hidden' }}/>
             <Header as="h1" textAlign="center">
                 MINERVA
@@ -87,6 +87,7 @@ const Signin = ({ location }) => {
               />
               <Form.Button id={COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} content="Login"/>
             </Form>
+            <h3>Don&apos;t have an account? <NavLink exact to="/signup" key="signup" id="signUp">REGISTER</NavLink></h3>
             {error === '' ? (
               ''
             ) : (

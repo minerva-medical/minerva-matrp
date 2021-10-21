@@ -4,7 +4,7 @@ import {
   ItemContent, ItemDescription, Modal, ListHeader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
@@ -95,7 +95,7 @@ const DrugPage = ({ info }) => {
           icon='edit'
           onClick={() => setOpen(false)}
           color='linkedin'
-          // as={Link} to={`/edit/${info._id}`}
+          as={Link} to={`/edit/${info._id}`}
         />
       </Modal.Actions>
     </Modal>

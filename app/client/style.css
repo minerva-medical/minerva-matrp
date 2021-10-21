@@ -1,21 +1,36 @@
 /*overlay test*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-body{
-background-color: #C1D9B1 !important;
+@media  screen and (min-width: 320px) {
+ .landing-text {
+   font-size: 6rem;
+   margin-top: 100% !important;
+ } 
 }
 
-.signOutPage{
-  background-image: url('../images/logout.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  font-weight: bold;
-  text-shadow: 2px 2px 2px darkolivegreen;
+@media  screen and (min-width: 375px) {
+  .landing-text {
+    font-size: 6rem;
+    margin-top: 80% !important;
+  }
+}
+
+@media  screen and (min-width: 768px) {
+  .landing-text {
+    font-size: 6rem !important;
+    margin-top: 45% !important;
+  } 
+ }
+
+@media  screen and (min-width: 1024px) {
+  .landing-text {
+    font-size: 5em !important;
+    margin-top: 35% !important;
+  } 
+ }
+ 
+body{
+background-color: #C1D9B1 !important;
 }
 
 .landingPage{
@@ -28,7 +43,7 @@ background-color: #C1D9B1 !important;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(50vw - 20vh);
+  height: 100%;
   top: 0px !important;
   width: 100% !important;
   margin-bottom:0%;
@@ -43,12 +58,12 @@ background-color: #C1D9B1 !important;
 
 .landing-text{
   font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  font-size: 8rem !important;
+  font-size: 8rem;
   font-weight: bold;
   text-shadow: 2px 2px 2px darkolivegreen;
   color: white !important;
-  padding-top: 45% !important;
   width: 100% !important;
+
 }
 
 * {
@@ -83,15 +98,6 @@ p {
 span {
   font-size: 12px;
 }
-
-/*
-a {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	margin: 15px 0;
-}
-*/
 
 button-signup {
   border-radius: 20px;

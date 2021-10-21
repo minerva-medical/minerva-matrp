@@ -81,18 +81,7 @@ const DispenseInfoPage = ({ record }) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => setOpen(false)}>
-            Close
-        </Button>
-        <Button
-          className={COMPONENT_IDS.DRUG_EDIT}
-          content="Edit"
-          labelPosition='right'
-          icon='edit'
-          onClick={() => setOpen(false)}
-          color='linkedin'
-          // as={Link} to={`/edit/${info._id}`}
-        />
+        <Button color='black' onClick={() => setOpen(false)}> Close</Button>
       </Modal.Actions>
     </Modal>
 

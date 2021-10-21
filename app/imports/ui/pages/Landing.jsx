@@ -12,18 +12,18 @@ const Landing = () => (
         <Header className="landing-text" as="h1">MINERVA MEDICAL</Header>
       </Grid>
       <Divider section hidden/>
-      <Grid columns={2} verticalAlign="top" textAlign="center" container>
-        <Grid.Column>
+      <Grid verticalAlign="top" textAlign="center" container>
+        <Grid.Column computer={5} tablet={7} mobile={9}>
           <Button id={COMPONENT_IDS.LANDING_TO_REGISTER} size="massive" as={NavLink} activeClassName="" exact to="/signup" key='signup' inverted
             style={{ font: 'Lato' }}>REGISTER</Button>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column computer={5} tablet={7} mobile={9}>
           <Button id={COMPONENT_IDS.LANDING_TO_SIGN_IN} size="massive" as={NavLink} activeClassName="" exact to="/signin" key='signin' inverted
             style={{ font: 'Lato' }}>LOGIN</Button>
         </Grid.Column>
       </Grid>
     </div>
   </div>
-
 );
+
 export default Landing;
