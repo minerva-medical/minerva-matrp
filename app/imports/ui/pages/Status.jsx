@@ -11,8 +11,6 @@ import MedStatusRow from '../components/MedStatusRow';
 import { distinct } from '../utilities/Functions';
 import { Brands } from '../../api/brand/BrandCollection';
 
-/** Renders the Page for Dispensing Inventory. */
-
 // convert array to dropdown options
 const getOptions = (arr) => {
   const options = arr.map(elem => ({ key: elem, text: elem, value: elem }));
@@ -122,7 +120,10 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   if (searchMedications === '') {
                     return val;
                   }
-                  if (val.drug.toLowerCase().includes(searchMedications.toLowerCase())) {
+
+                  if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
+                      val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
+                      val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
                     return val;
                   }
                   return 0;
