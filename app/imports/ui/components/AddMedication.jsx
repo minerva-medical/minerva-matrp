@@ -13,7 +13,7 @@ import { distinct, getOptions } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
-  const { drug, minQuantity, quantity, brand, lotId, expire, location, donated, note } = data;
+  const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, note } = data;
   const collectionName = Medications.getCollectionName();
   const exists = Medications.findOne({ lotId }); // returns the existing medication or undefined
   const empty = Medications.findOne({ drug, quantity: 0 }); // returns the empty medication or undefined
@@ -29,7 +29,7 @@ const submit = (data, callback) => {
       });
   } else if (empty) {
     // else if the medication w/ drug_name exists and its quantity is 0:
-    const updateData = { id: empty._id, minQuantity, quantity, brand, lotId, expire, location, donated,
+    const updateData = { id: empty._id, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated,
       note }; // set the following
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -102,6 +102,11 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     setDrugTypes(drugTypes);
   }, [drugTypes]);
 
+  const [filteredDrugs, setFilteredDrugs] = useState([]);
+  useEffect(() => {
+    setFilteredDrugs(drugs);
+  }, [drugs]);
+
   const handleChange = (event, { name, value, checked }) => {
     setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
@@ -143,6 +148,15 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     }
   };
 
+  const onBrandSelect = (event, { value }) => {
+    setFields({ ...fields, brand: value });
+    // filter drug dropdown
+    const selector = value ? { brand: value } : {};
+    const filteredData = distinct('drug', Medications, selector);
+    // console.log(filteredData);
+    setFilteredDrugs(filteredData);
+  };
+
   const clearForm = () => setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
     brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
 
@@ -161,7 +175,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
+                <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
                   placeholder="Benzonatate Capsules" name='drug'
                   onChange={onDrugSelect} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
@@ -181,7 +195,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(brands)}
                   placeholder="Zonatuss" name='brand'
-                  onChange={handleChange} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
+                  onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}

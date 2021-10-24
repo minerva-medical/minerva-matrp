@@ -89,6 +89,7 @@ const DispenseMedication = (props) => {
     dispensedFrom: '',
     note: '',
   });
+  const [maxQuantity, setMaxQuantity] = useState(0);
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
@@ -104,10 +105,12 @@ const DispenseMedication = (props) => {
     const medication = Medications.findOne({ lotId: value });
     if (medication) {
       const { drug, expire, brand, quantity, isTabs } = medication;
-      const autoFields = { ...fields, lotId: value, drug, expire, brand, quantity, isTabs };
+      const autoFields = { ...fields, lotId: value, drug, expire, brand, isTabs };
       setFields(autoFields);
+      setMaxQuantity(quantity);
     } else {
       setFields({ ...fields, lotId: value });
+      setMaxQuantity(0);
     }
   };
 
@@ -180,7 +183,8 @@ const DispenseMedication = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
-                  <Form.Input label='Quantity (tabs/mL)' type='number' min={1} name='quantity' className='quantity'
+                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
+                    type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
                   <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
                     options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
