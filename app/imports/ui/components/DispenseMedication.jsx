@@ -75,7 +75,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Medication. */
-const DispenseMedication = (props) => {
+const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
@@ -117,7 +117,7 @@ const DispenseMedication = (props) => {
   const clearForm = () => setFields({ site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '',
     expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
 
-  if (props.ready) {
+  if (ready) {
     return (
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
@@ -142,7 +142,7 @@ const DispenseMedication = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || props.currentUser.username} readOnly/>
+                  value={fields.dispensedFrom || currentUser.username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number"
@@ -151,17 +151,17 @@ const DispenseMedication = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(props.sites)}
+                <Form.Select clearable search label='Site' options={getOptions(sites)}
                   placeholder="Kaka’ako" name='site'
                   onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
+                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
                   placeholder="Z9Z99"
                   name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
+                <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
                   placeholder="Benzonatate Capsules"
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
@@ -177,7 +177,7 @@ const DispenseMedication = (props) => {
                 </Form.Field>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
+                <Form.Select clearable search label='Brand' options={getOptions(brands)}
                   placeholder="Zonatuss"
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
