@@ -34,6 +34,7 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
       textAlign: 'center',
     };
     const [searchHistoricals, setSearchHistoricals] = useState('');
+    const [pageNo, setPageNo] = useState(1);
 
     const handleSearch = (event) => {
       setSearchHistoricals(event.target.value);
@@ -62,7 +63,8 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
               <Header.Content>
                   History Dispense Log
                 <Header.Subheader>
-                  <i>Use the search filter to look for a specific Patient Number or click on the table header to sort the
+                  <i>Use the search filter to look for a specific Patient Number or click on the table header to sort
+                      the
                       column.</i>
                 </Header.Subheader>
               </Header.Content>
@@ -111,13 +113,13 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
               </Grid.Row>
             </Grid>
             <Divider/>
-                Records per page:{' '}
+              Records per page:{' '}
             <Dropdown
               inline={true}
               options={limitOptions}
               defaultValue={'10'}
             />
-                Total count: {'200'}
+              Total count: {'200'}
             <Table striped singleLine columns={11}>
               <Table.Header>
                 <Table.Row>
@@ -144,13 +146,15 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
                       return val;
                     }
                     return 0;
-                  }).map(history => <DispenseLogRow key={history._id} history={history} />)
+                  }).slice((pageNo - 1) * 25, pageNo * 25).map(history => <DispenseLogRow key={history._id}
+                    history={history}/>)
                 }
               </Table.Body>
               <Table.Footer>
                 <Table.Row>
                   <Table.HeaderCell colSpan="11">
-                    <Pagination totalPages={10} activePage={1}/>
+                    <Pagination totalPages={Math.ceil(historicals.length / 25)}
+                      activePage={(event, data) => setPageNo(data.activePage)}/>
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Footer>
