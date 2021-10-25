@@ -98,7 +98,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
             <Dropdown
               inline={true}
               options={recordOptions}
-              defaultValue={recordOptions[0].value}
+              defaultValue={recordOptions[1].value}
               onChange={(event) => console.log(event)}
             />
               Total count: {medications.length}
