@@ -146,15 +146,15 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
                       return val;
                     }
                     return 0;
-                  }).slice((pageNo - 1) * 25, pageNo * 25).map(history => <DispenseLogRow key={history._id}
+                  }).slice((pageNo - 1) * 5, pageNo * 5).map(history => <DispenseLogRow key={history._id}
                     history={history}/>)
                 }
               </Table.Body>
               <Table.Footer>
                 <Table.Row>
                   <Table.HeaderCell colSpan="11">
-                    <Pagination totalPages={Math.ceil(historicals.length / 25)}
-                      activePage={(event, data) => setPageNo(data.activePage)}/>
+                    <Pagination totalPages={Math.ceil(historicals.length / 5)}
+                      activePage={pageNo} onPageChange={(event, data) => setPageNo(data.activePage)}/>
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Footer>
