@@ -133,7 +133,6 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   }
                   return 0;
                 }).slice((pageNo - 1) * 25, pageNo * 25).map(med => <MedStatusRow key={med._id} med={med}/>)
-
               }
             </Table.Body>
 
