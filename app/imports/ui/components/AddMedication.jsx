@@ -107,6 +107,11 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     setFilteredDrugs(drugs);
   }, [drugs]);
 
+  const [filteredBrands, setFilteredBrands] = useState([]);
+  useEffect(() => {
+    setFilteredBrands(brands);
+  }, [brands]);
+
   const handleChange = (event, { name, value, checked }) => {
     setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
@@ -133,6 +138,10 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     } else {
       setFields({ ...fields, drug: value });
     }
+
+    const selector = value ? { drug: value } : {};
+    const filteredData = distinct('brand', Medications, selector);
+    setFilteredBrands(filteredData);
   };
 
   // autofill form on lotId select
@@ -193,7 +202,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
                   onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(brands)}
+                <Form.Select clearable search label='Brand' options={getOptions(filteredBrands)}
                   placeholder="Zonatuss" name='brand'
                   onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
