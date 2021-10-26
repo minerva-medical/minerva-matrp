@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Input,
-  Loader } from 'semantic-ui-react';
+import {
+  Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Input,
+  Loader,
+} from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Medications } from '../../api/medication/MedicationCollection';
@@ -28,6 +30,7 @@ const recordOptions = [
 // Render the form.
 const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   const [searchMedications, setSearchMedications] = useState('');
+  const [pageNo, setPageNo] = useState(1);
 
   const handleSearch = (event) => {
     setSearchMedications(event.target.value);
@@ -37,6 +40,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
     const gridAlign = {
       textAlign: 'center',
     };
+
     return (
       <Container id={PAGE_IDS.MED_STATUS}>
         <Segment>
@@ -94,7 +98,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
             <Dropdown
               inline={true}
               options={recordOptions}
-              defaultValue={'10'}
+              defaultValue={recordOptions[1].value}
             />
               Total count: {medications.length}
           </div>
@@ -122,19 +126,20 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   }
 
                   if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
-                      val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
-                      val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
+                        val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
+                        val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
                     return val;
                   }
                   return 0;
-                }).map(med => <MedStatusRow key={med._id} med={med} />)
+                }).slice((pageNo - 1) * 25, pageNo * 25).map(med => <MedStatusRow key={med._id} med={med}/>)
               }
             </Table.Body>
 
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="10">
-                  <Pagination totalPages={10} activePage={1}/>
+                  <Pagination totalPages={Math.ceil(medications.length / 25)} activePage={pageNo}
+                    onPageChange={(event, data) => setPageNo(data.activePage)}/>
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
