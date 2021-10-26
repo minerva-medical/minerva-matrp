@@ -141,7 +141,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   options={getOptions(drugTypes)}
                   search
                   defaultValue={'All'}
-                  OnChange={handleMedicationFilter}
+                  onChange={handleMedicationFilter}
                 />
               </Grid.Column>
               <Grid.Column>
@@ -151,7 +151,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   options={getOptions(brands)}
                   search
                   defaultValue={'All'}
-                  OnChange={handleBrandFilter}
+                  onChange={handleBrandFilter}
                 />
               </Grid.Column>
               <Grid.Column>
@@ -161,7 +161,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   options={getOptions(locations)}
                   search
                   defaultValue={'All'}
-                  OnChange={handleLocationFilter}
+                  onChange={handleLocationFilter}
                 />
               </Grid.Column>
             </Grid.Row>
