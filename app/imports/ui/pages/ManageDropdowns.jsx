@@ -17,7 +17,7 @@ const panes = [
 
 const ManageDropdowns = () => (
   <Container id={PAGE_IDS.MANAGE_DROPDOWNS}>
-    <Tab panes={panes} />
+    <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
   </Container>
 );
 

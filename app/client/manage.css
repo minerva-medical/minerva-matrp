@@ -1,0 +1,4 @@
+#manage-drug-types .ui.list i {
+  float: right;
+  cursor: pointer;
+}
