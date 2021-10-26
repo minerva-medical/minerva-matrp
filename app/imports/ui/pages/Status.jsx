@@ -99,7 +99,6 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
               inline={true}
               options={recordOptions}
               defaultValue={recordOptions[1].value}
-              onChange={(event) => console.log(event)}
             />
               Total count: {medications.length}
           </div>
