@@ -39,6 +39,10 @@ const NavBar = ({ currentUser }) => {
               Dispense Log
               <Icon name='book'/>
             </Menu.Item>,
+            <Menu.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWNS} as={NavLink} activeClassName="active" exact
+              to="/manage-dropdowns" key='manage-dropdowns'>
+              Manage Dropdowns
+            </Menu.Item>,
           ]
         ) : ''
       }

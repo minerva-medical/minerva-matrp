@@ -6,6 +6,7 @@ export const COMPONENT_IDS = {
   NAVBAR_DISPENSE: 'navbar-dispense',
   NAVBAR_DISPENSE_LOG: 'navbar-dispense-log',
   NAVBAR_ABOUT_US: 'navbar-about-us',
+  NAVBAR_MANAGE_DROPDOWNS: 'navbar-manage-dropdowns',
   DRUG_EDIT: 'drug-edit',
   DRUG_PAGE: 'list-stuff-edit',
   NAVBAR_LIST_STUFF_ADMIN: 'navbar-list-stuff-admin',
@@ -25,4 +26,7 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
   LANDING_TO_SIGN_IN: 'landing-to-sign-in',
   LANDING_TO_REGISTER: 'landing-to-register',
+  MANAGE_DRUG_TYPES: 'manage-drug-types',
+  MANAGE_LOCATIONS: 'manage-locations',
+  MANAGE_SITES: 'manage-sites',
 };
