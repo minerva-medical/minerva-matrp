@@ -3,15 +3,19 @@ import { Header, Input, Button, List, Loader } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { _ } from 'meteor/underscore';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
+import { Medications } from '../../api/medication/MedicationCollection';
 import { defineMethod, removeItMethod } from '../../api/base/BaseCollection.methods';
 
-const insertOption = (option, callback) => {
-  // TODO: check for duplicates
+const insertOption = (option, drugTypes, callback) => {
+  const existing = _.pluck(drugTypes, 'drugType').map(drugType => drugType.toLowerCase());
   // validate option
   if (!option) {
     swal('Error', 'Drug Type cannot be empty.', 'error');
+  } else if (existing.includes(option.toLowerCase())) {
+    swal('Error', `${option} already exists!`, 'error');
   } else {
     const collectionName = DrugTypes.getCollectionName();
     const definitionData = { drugType: option };
@@ -25,12 +29,31 @@ const insertOption = (option, callback) => {
 };
 
 const deleteOption = (option, id) => {
-  // TODO: add confirm
-  const collectionName = DrugTypes.getCollectionName();
-  removeItMethod.callPromise({ collectionName, instance: id })
-    .catch(error => swal('Error', error.message, 'error'))
-    .then(() => {
-      swal('Success', `${option} deleted successfully`, 'success', { buttons: false, timer: 3000 });
+  swal({
+    title: 'Are you sure?',
+    text: `Do you really want to delete ${option}?`,
+    icon: 'warning',
+    buttons: [
+      'No, cancel it!',
+      'Yes, I am sure!',
+    ],
+    dangerMode: true,
+  })
+    .then((isConfirm) => {
+      if (isConfirm) {
+        const inUse = Medications.findOne({ drugType: option });
+        const collectionName = DrugTypes.getCollectionName();
+
+        if (inUse) {
+          swal('Error', `${option} is in use.`, 'error');
+        } else {
+          removeItMethod.callPromise({ collectionName, instance: id })
+            .catch(error => swal('Error', error.message, 'error'))
+            .then(() => {
+              swal('Success', `${option} deleted successfully`, 'success', { buttons: false, timer: 3000 });
+            });
+        }
+      }
     });
 };
 
@@ -46,7 +69,7 @@ const ManageDrugTypes = ({ drugTypes, ready }) => {
         <div>
           <Input onChange={(event, { value }) => setNewOption(value)} value={newOption}
             placeholder='Add new drug type...' />
-          <Button content='Add' onClick={() => insertOption(newOption, clearField)} />
+          <Button content='Add' onClick={() => insertOption(newOption, drugTypes, clearField)} />
         </div>
         <List divided relaxed>
           {
@@ -70,9 +93,10 @@ ManageDrugTypes.propTypes = {
 };
 
 export default withTracker(() => {
+  const medicationSub = Medications.subscribeMedication();
   const drugTypeSub = DrugTypes.subscribeDrugType();
   const drugTypes = DrugTypes.find({}, { sort: { drugType: 1 } }).fetch();
-  const ready = drugTypeSub.ready();
+  const ready = drugTypeSub.ready() && medicationSub.ready();
   return {
     drugTypes,
     ready,
