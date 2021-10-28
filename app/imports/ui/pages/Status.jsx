@@ -27,6 +27,13 @@ const recordOptions = [
   { key: '3', value: '100', text: '100' },
 ];
 
+const statusOptions = [
+  { key: '0', value: 'All', text: 'All' },
+  { key: '1', value: 'In Stock', text: 'In Stock' },
+  { key: '2', value: 'Low Stock', text: 'Low Stock' },
+  { key: '3', value: 'Out of Stock', text: 'Out of Stock' },
+];
+
 // Render the form.
 const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   const [searchMedications, setSearchMedications] = useState('');
@@ -162,6 +169,15 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   search
                   defaultValue={'All'}
                   onChange={handleLocationFilter}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                Inventory Status: {' '}
+                <Dropdown
+                  inline
+                  options={statusOptions}
+                  search
+                  defaultValue={'All'}
                 />
               </Grid.Column>
             </Grid.Row>
