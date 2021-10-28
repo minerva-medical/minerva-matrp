@@ -21,14 +21,8 @@ import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { distinct } from '../utilities/Functions';
 
-const getOptions = (arr) => {
-  const options = arr.map(elem => ({ key: elem, text: elem, value: elem }));
-  options.unshift({ key: '0', value: 'All', text: 'All' });
-  return options;
-};
-
-/** Renders the Page for Dispensing Inventory. */
-const DispenseLog = ({ ready, historicals, drugTypes }) => {
+/** Renders the Page for Dispensing History. */
+const DispenseLog = ({ ready, historicals }) => {
   if (ready) {
     const gridAlign = {
       textAlign: 'center',
@@ -39,6 +33,7 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
     const handleSearch = (event) => {
       setSearchHistoricals(event.target.value);
     };
+
     const limitOptions = [
       { key: '0', value: '10', text: '10' },
       { key: '1', value: '25', text: '25' },
@@ -77,7 +72,8 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
                 />
                 <Popup
                   trigger={<Icon name='question circle' color="blue"/>}
-                  content='This allows you to filter the Dispense Log table by patient number, lotId, or drug name.'
+                  content='This allows you to filter the Dispense Log table by Patient Number,
+                  LotId, or Drug Name.'
                   inverted
                 />
               </Grid.Column>
@@ -91,15 +87,6 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
                     inline={true}
                     options={sort}
                     defaultValue={'Most Recent'}
-                  />
-                </Grid.Column>
-                <Grid.Column>
-                    Medication Type: {' '}
-                  <Dropdown
-                    inline
-                    options={getOptions(drugTypes)}
-                    search
-                    defaultValue={'All'}
                   />
                 </Grid.Column>
                 <Grid.Column>
@@ -136,13 +123,14 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
               <Table.Body>
                 {
                   historicals.filter((val) => {
-                    if (searchHistoricals === '') {
+                    if (searchHistoricals === '' || searchHistoricals === 'All') {
                       return val;
                     }
 
                     if (val.drug.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
                           val.dispensedTo.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
-                          val.lotId.toLowerCase().includes(searchHistoricals.toLowerCase())) {
+                          val.lotId.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
+                        val.dispensedFrom.toLowerCase().includes(searchHistoricals.toLowerCase())) {
                       return val;
                     }
                     return 0;
