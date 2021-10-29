@@ -77,10 +77,9 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
           return 0;
         });
       }
-    } else if (brandFilter !== '') {
-      if (brandFilter === 'All') {
-        list = medications;
-      } else {
+    }
+    if (brandFilter !== '') {
+      if (brandFilter !== 'All') {
         list = medications.filter((val) => {
           if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
             return val;
@@ -88,10 +87,9 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
           return 0;
         });
       }
-    } else if (locationFilter !== '') {
-      if (locationFilter === 'All') {
-        list = medications;
-      } else {
+    }
+    if (locationFilter !== '') {
+      if (locationFilter !== 'All') {
         list = medications.filter((val) => {
           if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
             return val;
@@ -99,10 +97,9 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
           return 0;
         });
       }
-    } else if (statusFilter !== '') {
-      if (statusFilter === 'All') {
-        list = medications;
-      } else {
+    }
+    if (statusFilter !== '') {
+      if (statusFilter !== 'All') {
         list = medications.filter((val) => {
           const percent = Math.floor((val.quantity / val.minQuantity) * 100);
           if (statusFilter === 'In Stock') {
@@ -117,7 +114,9 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
           return 0;
         });
       }
-    } else if (searchMedications !== '') {
+    }
+
+    if (searchMedications !== '') {
       list = medications.filter((val) => {
         if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
@@ -127,9 +126,8 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
         }
         return 0;
       });
-    } else {
-      list = medications;
     }
+
   }
 
   if (ready) {
