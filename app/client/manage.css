@@ -2,3 +2,35 @@
   float: right;
   cursor: pointer;
 }
+
+#manage-drug-types h2 {
+  border-bottom: 1px solid black;
+  padding-bottom: 1rem;
+}
+
+#manage-drug-types .controls {
+  display: flex;
+}
+
+#manage-drug-types .ui.input {
+  padding-right: 3rem;
+  flex: 4 1 0;
+}
+
+#manage-drug-types .ui.button {
+  flex: 1 1 0;
+  background-color: rgb(29, 62, 102);
+  color: white;
+}
+
+#manage-drug-types .ui.input input {
+  background-color: #dde0e8;
+}
+
+#manage-drug-types .ui.input ::placeholder {
+  color: grey;
+}
+
+#manage-drug-types .ui.list {
+  margin-top: 2rem;
+}

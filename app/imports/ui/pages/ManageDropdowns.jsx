@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Tab } from 'semantic-ui-react';
+import { Container, Tab, Segment } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import ManageDrugTypes from '../components/ManageDrugTypes';
 import ManageLocations from '../components/ManageLocations';
@@ -17,7 +17,9 @@ const panes = [
 
 const ManageDropdowns = () => (
   <Container id={PAGE_IDS.MANAGE_DROPDOWNS}>
-    <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+    <Segment>
+      <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+    </Segment>
   </Container>
 );
 
