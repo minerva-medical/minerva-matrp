@@ -9,14 +9,20 @@ import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { defineMethod, removeItMethod } from '../../api/base/BaseCollection.methods';
 
+/**
+ * inserts the drug type option
+ */
 const insertOption = (option, drugTypes, callback) => {
   const existing = _.pluck(drugTypes, 'drugType').map(drugType => drugType.toLowerCase());
-  // validate option
+  // validation:
   if (!option) {
+    // if option is empty
     swal('Error', 'Drug Type cannot be empty.', 'error');
   } else if (existing.includes(option.toLowerCase())) {
+    // if option exists
     swal('Error', `${option} already exists!`, 'error');
   } else {
+    // else add option
     const collectionName = DrugTypes.getCollectionName();
     const definitionData = { drugType: option };
     defineMethod.callPromise({ collectionName, definitionData })
@@ -28,6 +34,9 @@ const insertOption = (option, drugTypes, callback) => {
   }
 };
 
+/**
+ * deletes the drug type option
+ */
 const deleteOption = (option, id) => {
   swal({
     title: 'Are you sure?',
@@ -40,10 +49,11 @@ const deleteOption = (option, id) => {
     dangerMode: true,
   })
     .then((isConfirm) => {
+      // if 'yes'
       if (isConfirm) {
         const inUse = Medications.findOne({ drugType: option });
         const collectionName = DrugTypes.getCollectionName();
-
+        // if an existing medication uses the drug type
         if (inUse) {
           swal('Error', `${option} is in use.`, 'error');
         } else {
