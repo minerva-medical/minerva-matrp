@@ -6,7 +6,7 @@ import AddPatientSupplies from '../components/AddPatientSupplies';
 import AddLabTestSupplies from '../components/AddLabTestSupplies';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
-const medicationTab = () => <AddMedication />;
+const medicationTab = () => <AddMedication/>;
 const vaccinesTab = () => <AddVaccination/>;
 const patientSuppliesTab = () => <AddPatientSupplies/>;
 const testingSuppliesTab = () => <AddLabTestSupplies/>;

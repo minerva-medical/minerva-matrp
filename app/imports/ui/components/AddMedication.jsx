@@ -10,6 +10,7 @@ import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions } from '../utilities/Functions';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
@@ -148,7 +149,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
 
   if (ready) {
     return (
-      <Tab.Pane id='add-form'>
+      <Tab.Pane id={COMPONENT_IDS.ADD_MEDICATION}>
         <Header as="h2">
           <Header.Content>
               Add to Inventory Form

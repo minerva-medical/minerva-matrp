@@ -25,4 +25,8 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
   LANDING_TO_SIGN_IN: 'landing-to-sign-in',
   LANDING_TO_REGISTER: 'landing-to-register',
+  ADD_MEDICATION: 'add-medication',
+  ADD_VACCINATION: 'add-vaccination',
+  ADD_PATIENT_SUPPLIES: 'add-patient-supplies',
+  ADD_LAB_SUPPLIES: 'add-lab-supplies',
 };

@@ -6,10 +6,11 @@ import {
   aboutUsPage,
   dispensePage,
   dispenseLogPage,
-  addInventoryPage, statusPage,
+  statusPage,
 } from './simple.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
+import { addInventoryPage } from './add.inventory.page';
 // import { signUpPage } from './signup.page';
 import { landingPage } from './landing.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
@@ -41,7 +42,7 @@ test('Test that sign in and sign out work', async () => {
   await t.wait(1000);
 });
 
-// commented out until sign up page works properly
+// commented out so that the same user is not created every time the test runs
 /**
 test('Test that sign up and sign out work', async () => {
   await navBar.gotoSignupPage();
@@ -50,7 +51,7 @@ test('Test that sign up and sign out work', async () => {
   await navBar.logout();
   await signOutPage.isDisplayed();
 });
-* */
+ * */
 
 test('Test that about us page displays', async () => {
   await landingPage.isDisplayed();
@@ -66,7 +67,7 @@ test('Test that about us page displays', async () => {
   await t.wait(1000);
 });
 
-test('Test that the add inventory page, status log page, dispense page, and dispense history page display', async () => {
+test('Test that the add inventory page works ', async () => {
   await landingPage.isDisplayed();
   await t.wait(5000);
   await landingPage.goToLogin();
@@ -75,6 +76,39 @@ test('Test that the add inventory page, status log page, dispense page, and disp
   await navBar.gotoAddInventoryPage();
   await addInventoryPage.isDisplayed();
   await t.wait(5000);
+
+});
+
+test('Test that the status log and dispense log pages work', async () => {
+  await landingPage.isDisplayed();
+  await t.wait(5000);
+  await landingPage.goToLogin();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
+  await navBar.gotoDispensePage();
+  await dispensePage.isDisplayed();
+  await t.wait(5000);
+  await navBar.gotoStatusLogPage();
+  await statusPage.isDisplayed();
+  await t.wait(5000);
+  await navBar.gotoDispenseLogPage();
+  await dispenseLogPage.isDisplayed();
+  await t.wait(5000);
+  // want to see if we can get to the editStuffPage
+  // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
+  // await t.click(editLinks.nth(0));
+  // await editStuffPage.isDisplayed();
+  await navBar.logout();
+  await signOutPage.isDisplayed();
+  await t.wait(1000);
+});
+
+test('Test that the dispense page works', async () => {
+  await landingPage.isDisplayed();
+  await t.wait(5000);
+  await landingPage.goToLogin();
+  await signInPage.signin(credentials.username, credentials.password);
+  await navBar.isLoggedIn(credentials.username);
   await navBar.gotoDispensePage();
   await dispensePage.isDisplayed();
   await t.wait(5000);
