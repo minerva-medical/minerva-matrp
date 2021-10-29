@@ -5,9 +5,10 @@ import AddVaccination from '../components/AddVaccination';
 import AddPatientSupplies from '../components/AddPatientSupplies';
 import AddLabTestSupplies from '../components/AddLabTestSupplies';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const medicationTab = () => <AddMedication/>;
-const vaccinesTab = () => <AddVaccination/>;
+const vaccinesTab = () => <AddVaccination />;
 const patientSuppliesTab = () => <AddPatientSupplies/>;
 const testingSuppliesTab = () => <AddLabTestSupplies/>;
 
@@ -20,7 +21,7 @@ const panes = [
 
 const AddInventory = () => (
   <Container id={PAGE_IDS.ADD_INVENTORY}>
-    <Tab panes={panes} />
+    <Tab panes={panes} id={COMPONENT_IDS.TABS}/>
   </Container>
 );
 

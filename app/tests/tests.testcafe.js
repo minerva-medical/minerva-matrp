@@ -4,9 +4,9 @@ import {
   manageDatabasePage,
   signOutPage,
   aboutUsPage,
-  dispensePage,
-  dispenseLogPage,
-  statusPage,
+  // dispensePage,
+  //  dispenseLogPage,
+  //  statusPage,
 } from './simple.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -20,6 +20,7 @@ import { landingPage } from './landing.page';
 /** Credentials for one of the sample users defined in settings.development.json. */
 const credentials = { username: 'john@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
+const testMedication = { name: 'test', type: 'antimicrobials', lot: '12345678', brand: 'Test1', min: '100', quantity: '500', location: 'closet', notes: 'testing add' };
 // const newCredentials = { username: 'jane@foo.com', password: 'changeme' };
 
 fixture('matrp localhost test with default db')
@@ -75,10 +76,13 @@ test('Test that the add inventory page works ', async () => {
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoAddInventoryPage();
   await addInventoryPage.isDisplayed();
-  await t.wait(5000);
+  await t.wait(3000);
+  await addInventoryPage.addMedication(testMedication.name, testMedication.type, testMedication.lot, testMedication.brand, testMedication.min, testMedication.quantity, testMedication.location, testMedication.notes);
+  await t.wait(3000);
 
 });
 
+/**
 test('Test that the status log and dispense log pages work', async () => {
   await landingPage.isDisplayed();
   await t.wait(5000);
@@ -126,7 +130,7 @@ test('Test that the dispense page works', async () => {
   await signOutPage.isDisplayed();
   await t.wait(1000);
 });
-
+* */
 test('Test that admin pages display', async () => {
   await landingPage.isDisplayed();
   await landingPage.goToLogin();
