@@ -1,36 +1,36 @@
-#manage-drug-types .ui.list i {
+.manage-tab .ui.list i {
   float: right;
   cursor: pointer;
 }
 
-#manage-drug-types h2 {
+.manage-tab h2 {
   border-bottom: 1px solid black;
   padding-bottom: 1rem;
 }
 
-#manage-drug-types .controls {
+.manage-tab .controls {
   display: flex;
 }
 
-#manage-drug-types .ui.input {
+.manage-tab .ui.input {
   padding-right: 3rem;
   flex: 4 1 0;
 }
 
-#manage-drug-types .ui.button {
+.manage-tab .ui.button {
   flex: 1 1 0;
   background-color: rgb(29, 62, 102);
   color: white;
 }
 
-#manage-drug-types .ui.input input {
+.manage-tab .ui.input input {
   background-color: #dde0e8;
 }
 
-#manage-drug-types .ui.input ::placeholder {
+.manage-tab .ui.input ::placeholder {
   color: grey;
 }
 
-#manage-drug-types .ui.list {
+.manage-tab .ui.list {
   margin-top: 2rem;
 }

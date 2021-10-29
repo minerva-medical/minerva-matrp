@@ -74,7 +74,7 @@ const ManageDrugTypes = ({ drugTypes, ready }) => {
 
   if (ready) {
     return (
-      <div id={COMPONENT_IDS.MANAGE_DRUG_TYPES}>
+      <div id={COMPONENT_IDS.MANAGE_DRUG_TYPES} className='manage-tab'>
         <Header as='h2'>Manage Drug Types</Header>
         <div className='controls'>
           <Input onChange={(event, { value }) => setNewOption(value)} value={newOption}
