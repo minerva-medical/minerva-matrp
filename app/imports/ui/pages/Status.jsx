@@ -31,7 +31,7 @@ const statusOptions = [
   { key: '0', value: 'All', text: 'All' },
   { key: '1', value: 'In Stock', text: 'In Stock' },
   { key: '2', value: 'Low Stock', text: 'Low Stock' },
-  { key: '3', value: 'Out of Stock', text: 'Out of Stock' },
+  { key: '3', value: 'Out of Stock', text: 'Out of stock' },
 ];
 
 // Render the form.
@@ -41,6 +41,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   const [medicationFilter, setMedicationFilter] = useState('');
   const [brandFilter, setBrandFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
 
   let list = medications;
 
@@ -58,6 +59,10 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
 
   const handleLocationFilter = (event, data) => {
     setLocationFilter(data.value);
+  };
+
+  const handleStatusFilter = (event, data) => {
+    setStatusFilter(data.value);
   };
 
   if (ready) {
@@ -90,6 +95,24 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
         list = medications.filter((val) => {
           if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
             return val;
+          }
+          return 0;
+        });
+      }
+    } else if (statusFilter !== '') {
+      if (statusFilter === 'All') {
+        list = medications;
+      } else {
+        list = medications.filter((val) => {
+          const percent = Math.floor((val.quantity / val.minQuantity) * 100);
+          if (statusFilter === 'In Stock') {
+            return percent > 30;
+          }
+          if (statusFilter === 'Low Stock') {
+            return (percent > 5 && percent < 30);
+          }
+          if (statusFilter === 'Out of Stock') {
+            return percent <= 5;
           }
           return 0;
         });
@@ -178,6 +201,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   options={statusOptions}
                   search
                   defaultValue={'All'}
+                  onChange={handleStatusFilter}
                 />
               </Grid.Column>
             </Grid.Row>
