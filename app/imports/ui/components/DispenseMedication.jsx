@@ -68,7 +68,6 @@ const validateForm = (data, callback) => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    // submitData.site = data.site.toLowerCase(); // transform site field to lowercase
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData, callback);
   }
@@ -93,11 +92,6 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
-  };
-
-  // handle dropdown search query
-  const handleSearch = (event, { name, searchQuery }) => {
-    setFields({ ...fields, [name]: searchQuery });
   };
 
   // autofill form on lotId select
@@ -153,7 +147,7 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(sites)}
                   placeholder="Kaka’ako" name='site'
-                  onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
+                  onChange={handleChange} value={fields.site}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}

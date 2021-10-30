@@ -75,7 +75,7 @@ const ManageLocations = ({ locations, ready }) => {
   if (ready) {
     return (
       <div id={COMPONENT_IDS.MANAGE_LOCATIONS} className='manage-tab'>
-        <Header as='h2'>Manage Locations</Header>
+        <Header as='h2'>{`Manage Locations (${locations.length})`}</Header>
         <div className='controls'>
           <Input onChange={(event, { value }) => setNewOption(value)} value={newOption}
             placeholder='Add new location...' />

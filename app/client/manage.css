@@ -1,3 +1,7 @@
+.manage-tab {
+  min-height: 500px;
+}
+
 .manage-tab .ui.list i {
   float: right;
   cursor: pointer;

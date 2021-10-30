@@ -75,7 +75,7 @@ const ManageDrugTypes = ({ drugTypes, ready }) => {
   if (ready) {
     return (
       <div id={COMPONENT_IDS.MANAGE_DRUG_TYPES} className='manage-tab'>
-        <Header as='h2'>Manage Drug Types</Header>
+        <Header as='h2'>{`Manage Drug Types (${drugTypes.length})`}</Header>
         <div className='controls'>
           <Input onChange={(event, { value }) => setNewOption(value)} value={newOption}
             placeholder='Add new drug type...' />
