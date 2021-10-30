@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Input,
-  Loader,
+  Loader, Icon, Popup,
 } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -27,14 +27,110 @@ const recordOptions = [
   { key: '3', value: '100', text: '100' },
 ];
 
+const statusOptions = [
+  { key: '0', value: 'All', text: 'All' },
+  { key: '1', value: 'In Stock', text: 'In Stock' },
+  { key: '2', value: 'Low Stock', text: 'Low Stock' },
+  { key: '3', value: 'Out of Stock', text: 'Out of stock' },
+];
+
 // Render the form.
 const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   const [searchMedications, setSearchMedications] = useState('');
   const [pageNo, setPageNo] = useState(1);
+  const [medicationFilter, setMedicationFilter] = useState('');
+  const [brandFilter, setBrandFilter] = useState('');
+  const [locationFilter, setLocationFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
 
-  const handleSearch = (event) => {
-    setSearchMedications(event.target.value);
+  let list = medications;
+
+  const handleSearch = (event, data) => {
+    setSearchMedications(data.value);
   };
+
+  const handleMedicationFilter = (event, data) => {
+    setMedicationFilter(data.value);
+  };
+
+  const handleBrandFilter = (event, data) => {
+    setBrandFilter(data.value);
+  };
+
+  const handleLocationFilter = (event, data) => {
+    setLocationFilter(data.value);
+  };
+
+  const handleStatusFilter = (event, data) => {
+    setStatusFilter(data.value);
+  };
+
+  if (ready) {
+    if (medicationFilter !== '') {
+      if (medicationFilter === 'All') {
+        list = medications;
+      } else {
+        list = medications.filter((val) => {
+          if (val.drugType.toLowerCase().includes(medicationFilter.toLowerCase())) {
+            return val;
+          }
+          return 0;
+        });
+      }
+    } else if (brandFilter !== '') {
+      if (brandFilter === 'All') {
+        list = medications;
+      } else {
+        list = medications.filter((val) => {
+          if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
+            return val;
+          }
+          return 0;
+        });
+      }
+    } else if (locationFilter !== '') {
+      if (locationFilter === 'All') {
+        list = medications;
+      } else {
+        list = medications.filter((val) => {
+          if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
+            return val;
+          }
+          return 0;
+        });
+      }
+    } else if (statusFilter !== '') {
+      if (statusFilter === 'All') {
+        list = medications;
+      } else {
+        list = medications.filter((val) => {
+          const percent = Math.floor((val.quantity / val.minQuantity) * 100);
+          if (statusFilter === 'In Stock') {
+            return percent > 30;
+          }
+          if (statusFilter === 'Low Stock') {
+            return (percent > 5 && percent < 30);
+          }
+          if (statusFilter === 'Out of Stock') {
+            return percent <= 5;
+          }
+          return 0;
+        });
+      }
+    } else if (searchMedications !== '') {
+      list = medications.filter((val) => {
+        if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
+            val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
+            val.expire.toLowerCase().includes(searchMedications.toLowerCase()) ||
+            val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
+          return val;
+        }
+        return 0;
+      });
+    } else {
+      list = medications;
+    }
+  }
 
   if (ready) {
     const gridAlign = {
@@ -58,6 +154,11 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
               <Input placeholder='Filter by drug name...' icon='search'
                 onChange={handleSearch}
               />
+              <Popup
+                trigger={<Icon name='question circle' color="blue"/>}
+                content='This allows you to filter the Inventory by medication, brand, LotID, and expiration.'
+                inverted
+              />
             </Grid.Column>
           </Grid>
           <Divider/>
@@ -70,6 +171,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   options={getOptions(drugTypes)}
                   search
                   defaultValue={'All'}
+                  onChange={handleMedicationFilter}
                 />
               </Grid.Column>
               <Grid.Column>
@@ -79,6 +181,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   options={getOptions(brands)}
                   search
                   defaultValue={'All'}
+                  onChange={handleBrandFilter}
                 />
               </Grid.Column>
               <Grid.Column>
@@ -88,6 +191,17 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
                   options={getOptions(locations)}
                   search
                   defaultValue={'All'}
+                  onChange={handleLocationFilter}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                Inventory Status: {' '}
+                <Dropdown
+                  inline
+                  options={statusOptions}
+                  search
+                  defaultValue={'All'}
+                  onChange={handleStatusFilter}
                 />
               </Grid.Column>
             </Grid.Row>
@@ -120,18 +234,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
 
             <Table.Body>
               {
-                medications.filter((val) => {
-                  if (searchMedications === '') {
-                    return val;
-                  }
-
-                  if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
-                        val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
-                        val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
-                    return val;
-                  }
-                  return 0;
-                }).slice((pageNo - 1) * 25, pageNo * 25).map(med => <MedStatusRow key={med._id} med={med}/>)
+                list.slice((pageNo - 1) * 25, pageNo * 25).map(med => <MedStatusRow key={med._id} med={med}/>)
               }
             </Table.Body>
 
