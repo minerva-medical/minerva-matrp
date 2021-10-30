@@ -28,10 +28,10 @@ const DispenseInfoPage = ({ record }) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button size='mini' circular icon='info' color='linkedin'/>}
+      trigger={<Button size='mini' circular icon='info' color='linkedin' id={COMPONENT_IDS.DISPENSE_INFO_BUTTON}/>}
       size='large'
       dimmer='blurring'
-      id={COMPONENT_IDS.DRUG_PAGE}
+      id={COMPONENT_IDS.DISPENSE_INFO}
     >
       <Modal.Header>Dispense Log Information</Modal.Header>
       <Modal.Content image>
@@ -81,7 +81,7 @@ const DispenseInfoPage = ({ record }) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => setOpen(false)}> Close</Button>
+        <Button color='black' onClick={() => setOpen(false)} id={COMPONENT_IDS.DISPENSE_INFO_BUTTON}> Close</Button>
       </Modal.Actions>
     </Modal>
 

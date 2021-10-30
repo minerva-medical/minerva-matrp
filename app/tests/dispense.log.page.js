@@ -14,12 +14,13 @@ class DispenseLogPage {
     // Note that this file imports t (the test controller) from the testcafe module. You don’t need to pass t to helper functions because TestCafe can resolve the current test context and provide the correct test controller instance.
     const waitTime = 15;
     console.log(`Waiting ${waitTime} seconds before running addInventoryPage.isDisplayed().`);
-    await t.wait(waitTime * 1200).expect(this.pageSelector.exists).ok();
+    await t.wait(waitTime * 500).expect(this.pageSelector.exists).ok();
   }
 
   async openModal() {
-    await t.click(`#${COMPONENT_IDS.DRUG_PAGE_BUTTON}`);
-    await t.click(`#${COMPONENT_IDS.DRUG_CLOSE}`);
+    await t.click(`#${COMPONENT_IDS.DISPENSE_INFO_BUTTON}`);
+    await t.wait(3000);
+    await t.click(`#${COMPONENT_IDS.DISPENSE_INFO__CLOSE}`);
     await t.wait(3000);
   }
 

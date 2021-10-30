@@ -14,7 +14,7 @@ class StatusPage {
     // Note that this file imports t (the test controller) from the testcafe module. You don’t need to pass t to helper functions because TestCafe can resolve the current test context and provide the correct test controller instance.
     const waitTime = 15;
     console.log(`Waiting ${waitTime} seconds before running statusPage.isDisplayed().`);
-    await t.wait(waitTime * 1000).expect(this.pageSelector.exists).ok();
+    await t.wait(waitTime * 500).expect(this.pageSelector.exists).ok();
   }
 
   async openModal() {
