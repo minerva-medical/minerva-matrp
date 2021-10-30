@@ -182,7 +182,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
           <Grid divided columns="equal">
             <Grid.Row style={gridAlign}>
               <Grid.Column>
-                  Type of Medication: {' '}
+                  Medication Type: {' '}
                 <Dropdown
                   inline
                   options={getOptions(drugTypes)}
