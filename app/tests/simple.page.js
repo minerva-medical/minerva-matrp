@@ -19,7 +19,7 @@ class SimplePage {
 export const aboutUsPage = new SimplePage(PAGE_IDS.ABOUT_US);
 export const dispenseLogPage = new SimplePage(PAGE_IDS.DISPENSE_LOG);
 export const dispensePage = new SimplePage(PAGE_IDS.DISPENSE);
-export const statusPage = new SimplePage(PAGE_IDS.MED_STATUS);
+// export const statusPage = new SimplePage(PAGE_IDS.MED_STATUS);
 export const listStuffAdminPage = new SimplePage(PAGE_IDS.LIST_STUFF_ADMIN);
 export const manageDatabasePage = new SimplePage(PAGE_IDS.MANAGE_DATABASE);
 export const signOutPage = new SimplePage(PAGE_IDS.SIGN_OUT);

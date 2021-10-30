@@ -20,6 +20,7 @@ import { Historicals } from '../../api/historical/HistoricalCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { distinct } from '../utilities/Functions';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const getOptions = (arr) => {
   const options = arr.map(elem => ({ key: elem, text: elem, value: elem }));
@@ -57,7 +58,7 @@ const DispenseLog = ({ ready, historicals, drugTypes }) => {
     ];
     return (
       <div>
-        <Container id='dispense-log'>
+        <Container id={PAGE_IDS.DISPENSE_LOG}>
           <Segment>
             <Header as="h2">
               <Header.Content>

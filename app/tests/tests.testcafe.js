@@ -10,9 +10,11 @@ import {
 } from './simple.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
-import { addInventoryPage } from './add.inventory.page';
+// import { addInventoryPage } from './add.inventory.page';
 // import { signUpPage } from './signup.page';
 import { landingPage } from './landing.page';
+import { statusPage } from './status.page';
+import { dispenseLogPage } from './dispense.log.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
@@ -20,7 +22,7 @@ import { landingPage } from './landing.page';
 /** Credentials for one of the sample users defined in settings.development.json. */
 const credentials = { username: 'john@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
-const testMedication = { name: 'test', type: 'antimicrobials', lot: '12345678', brand: 'Test1', min: '100', quantity: '500', location: 'closet', notes: 'testing add' };
+// const testMedication = { name: 'test', type: 'antimicrobials', lot: '12345678', brand: 'Test1', min: '100', quantity: '500', location: 'closet', notes: 'testing add' };
 // const newCredentials = { username: 'jane@foo.com', password: 'changeme' };
 
 fixture('matrp localhost test with default db')
@@ -67,7 +69,7 @@ test('Test that about us page displays', async () => {
   await signOutPage.isDisplayed();
   await t.wait(1000);
 });
-
+/**
 test('Test that the add inventory page works ', async () => {
   await landingPage.isDisplayed();
   await t.wait(5000);
@@ -81,19 +83,20 @@ test('Test that the add inventory page works ', async () => {
   await t.wait(3000);
 
 });
+* */
 
-/**
 test('Test that the status log and dispense log pages work', async () => {
   await landingPage.isDisplayed();
   await t.wait(5000);
   await landingPage.goToLogin();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
-  await navBar.gotoDispensePage();
-  await dispensePage.isDisplayed();
+  // await navBar.gotoDispensePage();
+  // await dispensePage.isDisplayed();
   await t.wait(5000);
   await navBar.gotoStatusLogPage();
   await statusPage.isDisplayed();
+  await statusPage.openModal();
   await t.wait(5000);
   await navBar.gotoDispenseLogPage();
   await dispenseLogPage.isDisplayed();
@@ -107,6 +110,7 @@ test('Test that the status log and dispense log pages work', async () => {
   await t.wait(1000);
 });
 
+/**
 test('Test that the dispense page works', async () => {
   await landingPage.isDisplayed();
   await t.wait(5000);
