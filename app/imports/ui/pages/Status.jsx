@@ -42,8 +42,10 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   const [brandFilter, setBrandFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [recordOptionsDropdown, setRecordOptionsDropdown] = useState('');
 
   let list = medications;
+  let listLength;
 
   const handleSearch = (event, data) => {
     setSearchMedications(data.value);
@@ -63,6 +65,10 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
 
   const handleStatusFilter = (event, data) => {
     setStatusFilter(data.value);
+  };
+
+  const handleRecordOptions = (event, data) => {
+    setRecordOptionsDropdown(data.value);
   };
 
   if (ready) {
@@ -121,11 +127,24 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
         if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.expire.toLowerCase().includes(searchMedications.toLowerCase()) ||
+            val.location.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
           return val;
         }
         return 0;
       });
+    }
+
+    if (recordOptionsDropdown === '10') {
+      listLength = 10;
+    } else if (recordOptionsDropdown === '25') {
+      listLength = 25;
+    } else if (recordOptionsDropdown === '50') {
+      listLength = 50;
+    } else if (recordOptionsDropdown === '100') {
+      listLength = 100;
+    } else {
+      listLength = 25;
     }
 
   }
@@ -154,7 +173,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
               />
               <Popup
                 trigger={<Icon name='question circle' color="blue"/>}
-                content='This allows you to filter the Inventory by medication, brand, LotID, and expiration.'
+                content='This allows you to filter the Inventory by medication, brand, LotID, location, and expiration.'
                 inverted
               />
             </Grid.Column>
@@ -211,6 +230,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
               inline={true}
               options={recordOptions}
               defaultValue={recordOptions[1].value}
+              onChange={handleRecordOptions}
             />
               Total count: {medications.length}
           </div>
@@ -232,14 +252,14 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
 
             <Table.Body>
               {
-                list.slice((pageNo - 1) * 25, pageNo * 25).map(med => <MedStatusRow key={med._id} med={med}/>)
+                list.slice((pageNo - 1) * listLength, pageNo * listLength).map(med => <MedStatusRow key={med._id} med={med}/>)
               }
             </Table.Body>
 
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="10">
-                  <Pagination totalPages={Math.ceil(medications.length / 25)} activePage={pageNo}
+                  <Pagination totalPages={Math.ceil(medications.length / listLength)} activePage={pageNo}
                     onPageChange={(event, data) => setPageNo(data.activePage)}/>
                 </Table.HeaderCell>
               </Table.Row>
