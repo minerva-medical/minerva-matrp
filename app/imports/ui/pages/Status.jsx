@@ -73,12 +73,12 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
 
   if (ready) {
     if (medicationFilter !== '') {
-      if (medicationFilter === 'All') {
-        list = medications;
-      } else {
+      if (medicationFilter !== 'All') {
         list = medications.filter((val) => {
-          if (val.drugType.toLowerCase().includes(medicationFilter.toLowerCase())) {
-            return val;
+          for (let i = 0; i < val.drugType.length; i++) {
+            if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
+              return val;
+            }
           }
           return 0;
         });
