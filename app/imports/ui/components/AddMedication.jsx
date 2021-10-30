@@ -107,21 +107,6 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     setFields({ ...fields, [name]: searchQuery });
   };
 
-  // autofill form on drug select
-  const onDrugSelect = (event, { value }) => {
-    const medication = Medications.findOne({ drug: value });
-    if (medication) {
-      const { drugType, isTabs } = medication;
-      setFields({ ...fields, drug: value, drugType, isTabs });
-    } else {
-      setFields({ ...fields, drug: value });
-    }
-
-    const selector = value ? { drug: value } : {};
-    const filteredData = distinct('brand', Medications, selector);
-    setFilteredBrands(filteredData);
-  };
-
   // autofill form on lotId select
   const onLotIdSelect = (event, { value }) => {
     const medication = Medications.findOne({ lotId: value });
@@ -164,7 +149,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
                   placeholder="Benzonatate Capsules" name='drug'
-                  onChange={onDrugSelect} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
+                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'

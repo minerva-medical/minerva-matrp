@@ -38,7 +38,7 @@ const submit = (data, callback) => {
   } else {
     // else if dispense quantity = medication quantity:
     const updateData = { id: _id, minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
-      location: 'N/A', donated: false, note: 'N/A' }; // set quantity to 0 and reset relevant fields
+      location: 'N/A', donated: false, note: 'N/A', drugType: ['N/A'], isTabs: true }; // reset all fields (exc. drug)
     const definitionData = { ...data };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
