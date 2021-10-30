@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-// import { check } from 'meteor/check';
+import { check } from 'meteor/check';
 // import { _ } from 'meteor/underscore';
 // import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
@@ -19,8 +19,8 @@ class LocationCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Location item.
-   * @param name the name of the item.
+   * Defines a new Location.
+   * @param location.
    * @return {String} the docID of the new document.
    */
   define({ location }) {
@@ -28,6 +28,18 @@ class LocationCollection extends BaseCollection {
       location,
     });
     return docID;
+  }
+
+  /**
+   * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
+   * @param { String | Object } name A document or docID in this collection.
+   * @returns true
+   */
+  removeIt(name) {
+    const doc = this.findDoc(name);
+    check(doc, Object);
+    this._collection.remove(doc._id);
+    return true;
   }
 
   /**

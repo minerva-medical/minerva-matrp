@@ -66,14 +66,6 @@ const validateForm = (data, callback) => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    // transform some String fields to lowercase
-    // requiredFields.forEach(field => {
-    //   if (field === 'drugType') {
-    //     submitData.drugType = data.drugType.map(type => type.toLowerCase());
-    //   } else if (field !== 'lotId') {
-    //     submitData[field] = data[field].toLowerCase();
-    //   }
-    // });
     submitData.minQuantity = parseInt(data.minQuantity, 10);
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData, callback);
@@ -96,12 +88,6 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     note: '',
   });
 
-  const [theDrugTypes, setDrugTypes] = useState([]); // store theDrugTypes in state
-  // update theDrugTypes if drugTypes changes
-  useEffect(() => {
-    setDrugTypes(drugTypes);
-  }, [drugTypes]);
-
   const [filteredDrugs, setFilteredDrugs] = useState([]);
   useEffect(() => {
     setFilteredDrugs(drugs);
@@ -119,29 +105,6 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
   // handle dropdown search query
   const handleSearch = (event, { name, searchQuery }) => {
     setFields({ ...fields, [name]: searchQuery });
-  };
-
-  // add user inputted drug type if not already added
-  const addDrugType = (event, { value }) => {
-    // const re = new RegExp(value, 'i');
-    if (!theDrugTypes.map(type => type.toLowerCase()).includes(value.toLowerCase())) {
-      setDrugTypes([...theDrugTypes, value]);
-    }
-  };
-
-  // autofill form on drug select
-  const onDrugSelect = (event, { value }) => {
-    const medication = Medications.findOne({ drug: value });
-    if (medication) {
-      const { drugType, isTabs } = medication;
-      setFields({ ...fields, drug: value, drugType, isTabs });
-    } else {
-      setFields({ ...fields, drug: value });
-    }
-
-    const selector = value ? { drug: value } : {};
-    const filteredData = distinct('brand', Medications, selector);
-    setFilteredBrands(filteredData);
   };
 
   // autofill form on lotId select
@@ -186,12 +149,12 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
                   placeholder="Benzonatate Capsules" name='drug'
-                  onChange={onDrugSelect} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
+                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                  options={getOptions(theDrugTypes)} placeholder="Allergy & Cold Medicines"
-                  name='drugType' onChange={handleChange} value={fields.drugType} allowAdditions onAddItem={addDrugType}/>
+                  options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
+                  name='drugType' onChange={handleChange} value={fields.drugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
             </Grid.Row>
@@ -232,7 +195,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               <Grid.Column>
                 <Form.Select compact clearable search label='Location' options={getOptions(locations)}
                   placeholder="Case 2" name='location'
-                  onChange={handleChange} value={fields.location} onSearchChange={handleSearch} searchQuery={fields.location}/>
+                  onChange={handleChange} value={fields.location}/>
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
                 <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated} />
