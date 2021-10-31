@@ -30,6 +30,7 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
   LANDING_TO_SIGN_IN: 'landing-to-sign-in',
   LANDING_TO_REGISTER: 'landing-to-register',
+  ADD_FORM: 'add-form',
   ADD_MEDICATION: 'add-medication',
   ADD_MEDICATION_DRUG_NAME: 'add-medication-drug-name',
   ADD_MEDICATION_DRUG_TYPE: 'add-medication-drug-type',

@@ -10,7 +10,7 @@ import {
 } from './simple.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
-// import { addInventoryPage } from './add.inventory.page';
+import { addInventoryPage } from './add.inventory.page';
 // import { signUpPage } from './signup.page';
 import { landingPage } from './landing.page';
 import { statusPage } from './status.page';
@@ -22,7 +22,7 @@ import { dispenseLogPage } from './dispense.log.page';
 /** Credentials for one of the sample users defined in settings.development.json. */
 const credentials = { username: 'john@foo.com', password: 'changeme' };
 const adminCredentials = { username: 'admin@foo.com', password: 'changeme' };
-// const testMedication = { name: 'test', type: 'antimicrobials', lot: '12345678', brand: 'Test1', min: '100', quantity: '500', location: 'closet', notes: 'testing add' };
+const testMedication = { lot: '0EqhD6', quantity: '200' };
 // const newCredentials = { username: 'jane@foo.com', password: 'changeme' };
 
 fixture('matrp localhost test with default db')
@@ -69,21 +69,20 @@ test('Test that about us page displays', async () => {
   await signOutPage.isDisplayed();
   await t.wait(1000);
 });
-/**
+
 test('Test that the add inventory page works ', async () => {
   await landingPage.isDisplayed();
-  await t.wait(5000);
+  await t.wait(3000);
   await landingPage.goToLogin();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoAddInventoryPage();
   await addInventoryPage.isDisplayed();
   await t.wait(3000);
-  await addInventoryPage.addMedication(testMedication.name, testMedication.type, testMedication.lot, testMedication.brand, testMedication.min, testMedication.quantity, testMedication.location, testMedication.notes);
-  await t.wait(3000);
+  await addInventoryPage.test();
+  await addInventoryPage.addMedication(testMedication.lot, testMedication.quantity);
 
 });
-* */
 
 test('Test that the status log and dispense log pages work', async () => {
   await landingPage.isDisplayed();

@@ -6,6 +6,8 @@ class AddInventoryPage {
   constructor() {
     this.pageId = `#${PAGE_IDS.ADD_INVENTORY}`;
     this.pageSelector = Selector(this.pageId);
+    this.lot = Selector(`#${COMPONENT_IDS.ADD_MEDICATION_LOT}`);
+    this.lotOption = this.lot.find('span');
   }
 
   /** Asserts that this page is currently displayed. */
@@ -17,34 +19,42 @@ class AddInventoryPage {
     await t.wait(waitTime * 100).expect(this.pageSelector.exists).ok();
   }
 
-  async addMedication(name, type, lot, brand, exp, min, quantity, location, notes) {
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_DRUG_NAME}`, name);
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_DRUG_TYPE}`, type);
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_LOT}`, lot);
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_BRAND}`, brand);
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_MIN_QUANTITY}`, min);
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_MIN_QUANTITY}`, quantity);
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_LOCATION}`, location);
-    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_NOTES}`, notes);
-    await t.click(`#${COMPONENT_IDS.ADD_MEDICATION_CLEAR}`);
+  async test() {
+    await t.click(`#${COMPONENT_IDS.TAB_ONE}`);
     await t.wait(3000);
+    await t.click(`#${COMPONENT_IDS.TAB_TWO}`);
+    await t.wait(3000);
+    await t.click(`#${COMPONENT_IDS.TAB_THREE}`);
+    await t.wait(3000);
+    await t.click(`#${COMPONENT_IDS.TAB_FOUR}`);
+    await t.wait(3000);
+  }
 
+  async addMedication(lot, quantity) {
+    await t.click(`#${COMPONENT_IDS.TAB_ONE}`);
+    await t.wait(2000);
+    await t.click(this.lot).click(this.lotOption.withText('0EqhD6'));
+    await t.wait(2000);
+    await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_QUANTITY}`, quantity);
+    await t.wait(2000);
+    await t.click(`#${COMPONENT_IDS.ADD_MEDICATION_CLEAR}`);
+    await t.wait(2000);
   }
 
   async addVaccine() {
-    await t.click(`#${COMPONENT_IDS.TABS}`);
-    await t.click(`#${COMPONENT_IDS.ADD_VACCINATION}`);
+    await t.click(`#${COMPONENT_IDS.TAB_TWO}`);
     await t.wait(3000);
   }
 
   async addPatientSupplies() {
-    await t.click(`#${COMPONENT_IDS.ADD_PATIENT_SUPPLIES}`);
+    await t.click(`#${COMPONENT_IDS.TAB_THREE}`);
     await t.wait(3000);
   }
 
   async addLabTestingSupplies() {
-    await t.click(`#${COMPONENT_IDS.ADD_LAB_SUPPLIES}`);
+    await t.click(`#${COMPONENT_IDS.TAB_FOUR}`);
     await t.wait(3000);
+
   }
 
 }

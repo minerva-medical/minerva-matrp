@@ -11,6 +11,7 @@ import { LotIds } from '../../api/lotId/LotIdCollection';
 import { Brands } from '../../api/brand/BrandCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** convert array to dropdown options */
 const getOptions = (arr, name) => {
@@ -90,7 +91,7 @@ const AddPatientSupplies = (props) => {
 
   if (props.ready) {
     return (
-      <Tab.Pane id={COMPONENT_IDS.ADD_PATIENT_SUPPLIES}>
+      <Tab.Pane id={COMPONENT_IDS.ADD_FORM}>
         <Header as="h2">
           <Header.Content>
             Add Patient Supplies to Inventory Form

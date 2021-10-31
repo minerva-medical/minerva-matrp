@@ -156,7 +156,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
 
   if (ready) {
     return (
-      <Tab.Pane id={COMPONENT_IDS.ADD_MEDICATION}>
+      <Tab.Pane id={COMPONENT_IDS.ADD_FORM}>
         <Header as="h2">
           <Header.Content>
               Add to Inventory Form

@@ -14,9 +14,9 @@ const testingSuppliesTab = () => <AddLabTestSupplies/>;
 
 const panes = [
   { menuItem: <Menu.Item key={COMPONENT_IDS.TAB_ONE} id={COMPONENT_IDS.TAB_ONE}>Medication</Menu.Item>, render: medicationTab },
-  { menuItem: 'Vaccination', render: vaccinesTab },
-  { menuItem: 'Patient Supplies', render: patientSuppliesTab },
-  { menuItem: 'Lab Testing Supplies', render: testingSuppliesTab },
+  { menuItem: <Menu.Item key={COMPONENT_IDS.TAB_TWO} id={COMPONENT_IDS.TAB_TWO}>Vaccination</Menu.Item>, render: vaccinesTab },
+  { menuItem: <Menu.Item key={COMPONENT_IDS.TAB_THREE} id={COMPONENT_IDS.TAB_THREE}>Patient Supplies</Menu.Item>, render: patientSuppliesTab },
+  { menuItem: <Menu.Item key={COMPONENT_IDS.TAB_FOUR} id={COMPONENT_IDS.TAB_FOUR}>Patient Supplies</Menu.Item>, render: testingSuppliesTab },
 ];
 
 const AddInventory = () => (
