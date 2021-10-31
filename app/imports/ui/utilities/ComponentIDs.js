@@ -46,4 +46,8 @@ export const COMPONENT_IDS = {
   ADD_PATIENT_SUPPLIES: 'add-patient-supplies',
   ADD_LAB_SUPPLIES: 'add-lab-supplies',
   TABS: 'tabs',
+  TAB_ONE: 'tab-one',
+  TAB_TWO: 'tab-two',
+  TAB_THREE: 'tab-three',
+  TAB_FOUR: 'tab-four',
 };
