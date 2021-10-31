@@ -79,8 +79,10 @@ test('Test that the add inventory page works ', async () => {
   await navBar.gotoAddInventoryPage();
   await addInventoryPage.isDisplayed();
   await t.wait(3000);
-  await addInventoryPage.test();
   await addInventoryPage.addMedication(testMedication.lot, testMedication.quantity);
+  await addInventoryPage.addVaccine();
+  await addInventoryPage.addPatientSupplies();
+  await addInventoryPage.addLabTestingSupplies();
 
 });
 

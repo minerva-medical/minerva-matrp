@@ -8,6 +8,11 @@ class AddInventoryPage {
     this.pageSelector = Selector(this.pageId);
     this.lot = Selector(`#${COMPONENT_IDS.ADD_MEDICATION_LOT}`);
     this.lotOption = this.lot.find('span');
+    this.dateAdded = Selector(`#${COMPONENT_IDS.ADD_VACCINATION_DATE_ADDED}`);
+    this.purchased = Selector(`#${COMPONENT_IDS.ADD_VACCINATION_PURCHASED}`);
+    this.wasPurchased = this.purchased.find('span');
+    this.site = Selector(`#${COMPONENT_IDS.ADD_VACCINATION_SITE}`);
+    this.chosenSite = this.site.find('span');
   }
 
   /** Asserts that this page is currently displayed. */
@@ -43,7 +48,14 @@ class AddInventoryPage {
 
   async addVaccine() {
     await t.click(`#${COMPONENT_IDS.TAB_TWO}`);
-    await t.wait(3000);
+    await t.wait(2000);
+    await t.typeText(this.dateAdded, '2022-12-23')
+      .expect(Selector(this.dateAdded).value).eql('2022-12-23');
+    await t.wait(2000);
+    await t.click(this.purchased()).click(this.wasPurchased().withText('Purchased'));
+    await t.wait(2000);
+    await t.click(this.site()).click(this.chosenSite().withText('JOC'));
+    await t.wait(2000);
   }
 
   async addPatientSupplies() {

@@ -11,7 +11,6 @@ import { LotIds } from '../../api/lotId/LotIdCollection';
 import { Brands } from '../../api/brand/BrandCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** convert array to dropdown options */
 const getOptions = (arr, name) => {
@@ -94,7 +93,7 @@ const AddVaccination = (props) => {
       <Tab.Pane id={COMPONENT_IDS.ADD_FORM}>
         <Header as="h2">
           <Header.Content>
-            Add Vaccination to Inventory Form
+              Add Vaccination to Inventory Form
             <Header.Subheader>
               <i>Please input all relative fields to add a vaccine to the inventory</i>
             </Header.Subheader>
@@ -105,43 +104,46 @@ const AddVaccination = (props) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input type="date" label='Date Added' name='dateAdded'
-                  onChange={handleChange} value={fields.dateDispensed}/>
+                  onChange={handleChange} value={fields.dateDispensed}
+                  id={COMPONENT_IDS.ADD_VACCINATION_DATE_ADDED}/>
               </Grid.Column>
-              <Grid.Column className='filler-column' />
-              <Grid.Column className='filler-column' />
+              <Grid.Column className='filler-column'/>
+              <Grid.Column className='filler-column'/>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select label='Purchased/Donated' name='pd' options={pd}
-                  onChange={handleChange} value={fields.pd}/>
+                  onChange={handleChange} value={fields.pd} id={COMPONENT_IDS.ADD_VACCINATION_PURCHASED}/>
                 {
                   fields.pd === 'Donated' &&
-                  <Form.Input placeholder="Input Donor Name Here"
-                    name='donorName' onChange={handleChange}/>
+                    <Form.Input placeholder="Input Donor Name Here"
+                      name='donorName' onChange={handleChange} id={COMPONENT_IDS.ADD_VACCINATION_DONATED}/>
                 }
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites, 'site')}
                   placeholder="POST, Kaka’ako, etc."
-                  name='site' onChange={handleChange} value={fields.site}/>
+                  name='site' onChange={handleChange} value={fields.site}
+                  id={COMPONENT_IDS.ADD_VACCINATION_SITE}/>
                 {
                   fields.site === 'OTHER' &&
-                  <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}/>
+                    <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}
+                      id={COMPONENT_IDS.ADD_VACCINATION_OTHER_SITE}/>
                 }
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
-                  name='drug' onChange={handleChange} value={fields.drug}/>
+                  name='drug' onChange={handleChange} value={fields.drug} id={COMPONENT_IDS.ADD_VACCINATION_DRUG_NAME}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
-                  name='lotId' onChange={handleChange} value={fields.lotId}/>
+                  name='lotId' onChange={handleChange} value={fields.lotId} id={COMPONENT_IDS.ADD_VACCINATION_LOT}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Location' options={getOptions(props.locations, 'location')}
-                  name='location' onChange={handleChange} value={fields.location}/>
+                  name='location' onChange={handleChange} value={fields.location} id={COMPONENT_IDS.ADD_VACCINATION_LOCATION}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -149,31 +151,33 @@ const AddVaccination = (props) => {
                 {/* expiration date may be null */}
                 <Form.Input type='date' label='Expiration Date' className='date-input'
                   name='expire' onChange={handleChange} value={fields.expire}/>
-                <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}/>
+                <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })} id={COMPONENT_IDS.ADD_VACCINATION_EXPIRATION}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
-                  name='brand' onChange={handleChange} value={fields.brand}/>
+                  name='brand' onChange={handleChange} value={fields.brand} id={COMPONENT_IDS.ADD_VACCINATION_BRAND}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Field>
                   <label>Quantity (tabs/mL)</label>
                   <Input
                     label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
-                    type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
+                    type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity' id={COMPONENT_IDS.ADD_VACCINATION_QUANTITY}/>
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}/>
+                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                  id={COMPONENT_IDS.ADD_VACCINATION_NOTES}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button'>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
+          <Button className='clear-button' id={COMPONENT_IDS.ADD_VACCINATION_CLEAR}>Clear Fields</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}
+            id={COMPONENT_IDS.ADD_VACCINATION_SUBMIT}>Submit</Button>
         </div>
       </Tab.Pane>
     );
