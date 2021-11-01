@@ -19,7 +19,7 @@ const panes = [
   { menuItem: <Menu.Item key={COMPONENT_IDS.DISPENSE_TAB_THREE} id={COMPONENT_IDS.DISPENSE_TAB_THREE}>Patient Supplies</Menu.Item>, render: patientSuppliesTab },
   { menuItem: <Menu.Item key={COMPONENT_IDS.DISPENSE_TAB_FOUR} id={COMPONENT_IDS.DISPENSE_TAB_FOUR}>Lab Testing Supplies</Menu.Item>, render: testingSuppliesTab },
   // TODO: better tab name
-  { menuItem: <Menu.Item key={COMPONENT_IDS.DISPENSE_TAB_FIVE} id={COMPONENT_IDS.DISPENSE_TAB_FIVE}>Medication</Menu.Item>, render: reportTab },
+  { menuItem: <Menu.Item key={COMPONENT_IDS.DISPENSE_TAB_FIVE} id={COMPONENT_IDS.DISPENSE_TAB_FIVE}>Reports</Menu.Item>, render: reportTab },
 ];
 
 const Dispense = () => (

@@ -15,6 +15,7 @@ import { addInventoryPage } from './add.inventory.page';
 import { landingPage } from './landing.page';
 import { statusPage } from './status.page';
 import { dispenseLogPage } from './dispense.log.page';
+import { dispensePage } from './dispense.page';
 // import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
@@ -88,20 +89,20 @@ test('Test that the add inventory page works ', async () => {
 
 test('Test that the status log and dispense log pages work', async () => {
   await landingPage.isDisplayed();
-  await t.wait(5000);
+  await t.wait(3000);
   await landingPage.goToLogin();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
   // await navBar.gotoDispensePage();
   // await dispensePage.isDisplayed();
-  await t.wait(5000);
+  await t.wait(3000);
   await navBar.gotoStatusLogPage();
   await statusPage.isDisplayed();
   await statusPage.openModal();
-  await t.wait(5000);
+  await t.wait(3000);
   await navBar.gotoDispenseLogPage();
   await dispenseLogPage.isDisplayed();
-  await t.wait(5000);
+  await t.wait(3000);
   // want to see if we can get to the editStuffPage
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
   // await t.click(editLinks.nth(0));
@@ -111,22 +112,21 @@ test('Test that the status log and dispense log pages work', async () => {
   await t.wait(1000);
 });
 
-/**
 test('Test that the dispense page works', async () => {
   await landingPage.isDisplayed();
-  await t.wait(5000);
+  await t.wait(3000);
   await landingPage.goToLogin();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
   await navBar.gotoDispensePage();
   await dispensePage.isDisplayed();
-  await t.wait(5000);
-  await navBar.gotoStatusLogPage();
-  await statusPage.isDisplayed();
-  await t.wait(5000);
-  await navBar.gotoDispenseLogPage();
-  await dispenseLogPage.isDisplayed();
-  await t.wait(5000);
+  await t.wait(3000);
+  await dispensePage.isDisplayed();
+  await dispensePage.dispenseMedication();
+  await dispensePage.dispenseVaccine();
+  await dispensePage.dispensePatientSupplies();
+  await dispensePage.dispenseLabTestingSupplies();
+  await dispensePage.dispenseReports();
   // want to see if we can get to the editStuffPage
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
   // await t.click(editLinks.nth(0));
@@ -135,7 +135,7 @@ test('Test that the dispense page works', async () => {
   await signOutPage.isDisplayed();
   await t.wait(1000);
 });
-* */
+
 test('Test that admin pages display', async () => {
   await landingPage.isDisplayed();
   await landingPage.goToLogin();
