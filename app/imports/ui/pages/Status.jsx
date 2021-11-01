@@ -258,7 +258,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="10">
-                  <Pagination totalPages={Math.ceil(medications.length / listLength)} activePage={pageNo}
+                  <Pagination totalPages={Math.ceil(list.length / listLength)} activePage={pageNo}
                     onPageChange={(event, data) => setPageNo(data.activePage)}/>
                 </Table.HeaderCell>
               </Table.Row>
