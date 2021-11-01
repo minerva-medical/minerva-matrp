@@ -70,5 +70,5 @@ export const COMPONENT_IDS = {
   DISPENSE_TAB_TWO: 'tab-two',
   DISPENSE_TAB_THREE: 'tab-three',
   DISPENSE_TAB_FOUR: 'tab-four',
-  DISPENSE_TAB_FIVE: 'tab-four',
+  DISPENSE_TAB_FIVE: 'tab-five',
 };
