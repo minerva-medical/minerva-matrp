@@ -4,8 +4,6 @@ import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { Drugs } from '../../api/drug/DrugCollection';
-import { Brands } from '../../api/brand/BrandCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
@@ -143,6 +141,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
             </Header.Subheader>
           </Header.Content>
         </Header>
+        {/* Semantic UI Form used for functionality */}
         <Form>
           <Grid columns='equal' stackable>
             <Grid.Row>
@@ -231,10 +230,8 @@ AddMedication.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  const drugSub = Drugs.subscribeDrug();
   const typeSub = DrugTypes.subscribeDrugType();
   const locationSub = Locations.subscribeLocation();
-  const brandSub = Brands.subscribeBrand();
   const medSub = Medications.subscribeMedication();
   return {
     // TODO: exclude 'N/A'
@@ -243,6 +240,6 @@ export default withTracker(() => {
     lotIds: distinct('lotId', Medications),
     locations: distinct('location', Locations),
     brands: distinct('brand', Medications),
-    ready: drugSub.ready() && typeSub.ready() && brandSub.ready() && locationSub.ready() && medSub.ready(),
+    ready: typeSub.ready() && locationSub.ready() && medSub.ready(),
   };
 })(AddMedication);

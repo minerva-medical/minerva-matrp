@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Icon, Item } from 'semantic-ui-react';
+import { Grid, Header, Icon } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** A simple static component to render some text for the landing page. */
@@ -19,19 +19,18 @@ const About = () => (
 
     <Grid.Column width={5}>
       <Header as="h4" icon textAlign="center">
-        <Item href="https://github.com/minerva-medical" >
+        <a href="https://github.com/minerva-medical" target='_blank' rel='noreferrer'>
           <Icon link name='github' circular/>
-          <a target='_blank' rel='noreferrer'>
-          Our GitHub Organization</a>
-        </Item>
+          <span style={{ color: '#1e70bf', fontSize: '15px' }}>Our GitHub Organization</span>
+        </a>
       </Header>
     </Grid.Column>
     <Grid.Column width={5}>
       <Header as="h4" icon textAlign="center">
-        <Item href="https://sites.google.com/view/hawaiihomeproject/about?authuser=0">
+        <a href="https://sites.google.com/view/hawaiihomeproject/about?authuser=0" target='_blank' rel='noreferrer'>
           <Icon link name='home' circular/>
-          <a target='_blank' rel='noreferrer'>The Hawaii H.O.M.E Project</a>
-        </Item>
+          <span style={{ color: '#1e70bf', fontSize: '15px' }}>The Hawaii H.O.M.E Project</span>
+        </a>
       </Header>
     </Grid.Column>
   </Grid>

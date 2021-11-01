@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Sites } from '../../api/site/SiteCollection';
 import { Items } from '../../api/item/ItemCollection';
-import { LotIds } from '../../api/lotId/LotIdCollection';
-import { Brands } from '../../api/brand/BrandCollection';
 import { Locations } from '../../api/location/LocationCollection';
 
 /** convert array to dropdown options */
@@ -188,16 +186,12 @@ AddPatientSupplies.propTypes = {
 export default withTracker(() => {
   const siteSub = Sites.subscribeSite();
   const itemSub = Items.subscribeItem();
-  const lotIdSub = LotIds.subscribeLotId();
   const locationSub = Locations.subscribeLocation();
-  const brandSub = Brands.subscribeBrand();
   return {
     currentUser: Meteor.user(),
     sites: Sites.find({}).fetch(),
     items: Items.find({}).fetch(),
-    lotIds: LotIds.find({}).fetch(),
     locations: Locations.find({}).fetch(),
-    brands: Brands.find({}).fetch(),
-    ready: siteSub.ready() && itemSub.ready() && lotIdSub.ready() && brandSub.ready() && locationSub.ready(),
+    ready: siteSub.ready() && itemSub.ready() && locationSub.ready(),
   };
 })(AddPatientSupplies);

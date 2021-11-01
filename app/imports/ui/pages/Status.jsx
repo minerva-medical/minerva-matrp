@@ -11,7 +11,6 @@ import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MedStatusRow from '../components/MedStatusRow';
 import { distinct } from '../utilities/Functions';
-import { Brands } from '../../api/brand/BrandCollection';
 
 // convert array to dropdown options
 const getOptions = (arr) => {
@@ -285,9 +284,8 @@ export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
   const drugTypeSub = DrugTypes.subscribeDrugType();
   const locationSub = Locations.subscribeLocation();
-  const brandSub = Brands.subscribeBrand();
   // Determine if the subscription is ready
-  const ready = medSub.ready() && drugTypeSub.ready() && locationSub.ready() && brandSub.ready();
+  const ready = medSub.ready() && drugTypeSub.ready() && locationSub.ready();
   // Get the Medication documents and sort them by name.
   const medications = Medications.find({}, { sort: { drug: 1 } }).fetch();
   const drugTypes = distinct('drugType', DrugTypes);

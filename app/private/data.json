@@ -1,24 +1,4 @@
 {
-  "brands": [{
-    "brand": "Brand A"
-  },{
-    "brand": "Brand B"
-  },{
-    "brand": "Brand C"
-  },{
-    "brand": "Brand D"
-  },{
-    "brand": "Brand E"
-  },{
-    "brand": "Brand F"
-  },{
-    "brand": "Brand G"
-  },{
-    "brand": "Brand H"
-  },{
-    "brand": "Brand I"
-  }],
-
   "drugTypes": [{
     "drugType": "Allergy & Cold Medicines"
   },{
@@ -47,26 +27,6 @@
     "drugType": "Smoking Cessation"
   },{
     "drugType": "Vitamins & Supplements"
-  }],
-
-  "drugs": [{
-    "drug": "Drug A"
-  },{
-    "drug": "Drug B"
-  },{
-    "drug": "Drug C"
-  },{
-    "drug": "Drug D"
-  },{
-    "drug": "Drug E"
-  },{
-    "drug": "Drug F"
-  },{
-    "drug": "Drug G"
-  },{
-    "drug": "Drug H"
-  },{
-    "drug": "Drug I"
   }],
 
   "locations": [{
@@ -103,26 +63,6 @@
     "location": "Freezer-Derm"
   },{
     "location": "Emergency Kit"
-  }],
-
-  "lotIds": [{
-    "lotId": "111A"
-  },{
-    "lotId": "222B"
-  },{
-    "lotId": "333C"
-  },{
-    "lotId": "444D"
-  },{
-    "lotId": "555E"
-  },{
-    "lotId": "666F"
-  },{
-    "lotId": "777G"
-  },{
-    "lotId": "888H"
-  },{
-    "lotId": "999I"
   }],
 
   "sites": [{
