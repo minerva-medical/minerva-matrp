@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Sites } from '../../api/site/SiteCollection';
 import { Locations } from '../../api/location/LocationCollection';
+import { Vaccinations } from '../../api/vaccination/VaccinationCollection';
+import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 
 /** convert array to dropdown options */
 const getOptions = (arr, name) => {
@@ -19,10 +21,43 @@ const getOptions = (arr, name) => {
 };
 
 /** On submit, insert the data. */
-const submit = data => {
-  // TODO: handle submit
-  swal('Success', JSON.stringify(data), 'success');
+const submit = (data, callback) => {
+  const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, note } = data;
+  const collectionName = Vaccinations.getCollectionName();
+  const exists = Vaccinations.findOne({ lotId }); // returns the existing medication or undefined
+  const empty = Vaccinations.findOne({ drug, quantity: 0 }); // returns the empty medication or undefined
+
+  if (exists) {
+    // if the medication w/ lotId exists:
+    const updateData = { id: exists._id, quantity: exists.quantity + quantity }; // increment the quantity
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
+  } else if (empty) {
+    // else if the medication w/ drug_name exists and its quantity is 0:
+    const updateData = { id: empty._id, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated,
+      note }; // set the following
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', `${drug} added successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
+  } else {
+    // else insert the new medication
+    const definitionData = { ...data };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', `${drug} added successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
+  }
 };
+
 
 // TODO: simplify
 const validateForm = data => {
