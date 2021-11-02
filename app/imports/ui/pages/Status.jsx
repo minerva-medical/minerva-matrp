@@ -70,82 +70,79 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
     setRecordOptionsDropdown(data.value);
   };
 
-  if (ready) {
-    if (medicationFilter !== '') {
-      if (medicationFilter !== 'All') {
-        list = medications.filter((val) => {
-          for (let i = 0; i < val.drugType.length; i++) {
-            if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
-              return val;
-            }
-          }
-          return 0;
-        });
-      }
-    }
-    if (brandFilter !== '') {
-      if (brandFilter !== 'All') {
-        list = medications.filter((val) => {
-          if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
+  if (medicationFilter !== '') {
+    if (medicationFilter !== 'All') {
+      list = list.filter((val) => {
+        for (let i = 0; i < val.drugType.length; i++) {
+          if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
             return val;
           }
-          return 0;
-        });
-      }
+        }
+        return false;
+      });
     }
-    if (locationFilter !== '') {
-      if (locationFilter !== 'All') {
-        list = medications.filter((val) => {
-          if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
-            return val;
-          }
-          return 0;
-        });
-      }
+  }
+  if (brandFilter !== '') {
+    if (brandFilter !== 'All') {
+      list = list.filter((val) => {
+        if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
+          return val;
+        }
+        return false;
+      });
     }
-    if (statusFilter !== '') {
-      if (statusFilter !== 'All') {
-        list = medications.filter((val) => {
-          const percent = Math.floor((val.quantity / val.minQuantity) * 100);
-          if (statusFilter === 'In Stock') {
-            return percent > 30;
-          }
-          if (statusFilter === 'Low Stock') {
-            return (percent > 5 && percent < 30);
-          }
-          if (statusFilter === 'Out of Stock') {
-            return percent <= 5;
-          }
-          return 0;
-        });
-      }
+  }
+  if (locationFilter !== '') {
+    if (locationFilter !== 'All') {
+      list = list.filter((val) => {
+        if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
+          return val;
+        }
+        return false;
+      });
     }
+  }
+  if (statusFilter !== '') {
+    if (statusFilter !== 'All') {
+      list = list.filter((val) => {
+        const percent = Math.floor((val.quantity / val.minQuantity) * 100);
+        if (statusFilter === 'In Stock') {
+          return percent > 30;
+        }
+        if (statusFilter === 'Low Stock') {
+          return (percent > 5 && percent < 30);
+        }
+        if (statusFilter === 'Out of Stock') {
+          return percent <= 5;
+        }
+        return false;
+      });
+    }
+  }
 
-    if (searchMedications !== '') {
-      list = medications.filter((val) => {
-        if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
+  if (searchMedications !== '') {
+    list = list.filter((val) => {
+      if (val.drug.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.brand.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.expire.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.location.toLowerCase().includes(searchMedications.toLowerCase()) ||
             val.lotId.toLowerCase().includes(searchMedications.toLowerCase())) {
-          return val;
-        }
-        return 0;
-      });
-    }
+        return val;
+      }
+      return false;
+    });
+  }
 
-    if (recordOptionsDropdown === '10') {
-      listLength = 10;
-    } else if (recordOptionsDropdown === '25') {
-      listLength = 25;
-    } else if (recordOptionsDropdown === '50') {
-      listLength = 50;
-    } else if (recordOptionsDropdown === '100') {
-      listLength = 100;
-    } else {
-      listLength = 25;
-    }
-
+  if (recordOptionsDropdown === '10') {
+    listLength = 10;
+  } else if (recordOptionsDropdown === '25') {
+    listLength = 25;
+  } else if (recordOptionsDropdown === '50') {
+    listLength = 50;
+  } else if (recordOptionsDropdown === '100') {
+    listLength = 100;
+  } else {
+    listLength = 25;
   }
 
   if (ready) {
