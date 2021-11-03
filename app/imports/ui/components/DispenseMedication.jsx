@@ -86,6 +86,7 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
     lotId: '',
     expire: '',
     dispensedTo: '',
+    dispenseType: '',
     dispensedFrom: '',
     note: '',
   });
@@ -136,7 +137,9 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
                 <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
-              <Grid.Column className='filler-column' />
+              <Grid.Column>
+                <Form.Input type="hidden" name='dispenseType' value="Patient Use"/>
+              </Grid.Column>
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>

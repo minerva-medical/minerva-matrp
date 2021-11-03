@@ -47,6 +47,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
     const [searchHistoricals, setSearchHistoricals] = useState('');
     const [pageNo, setPageNo] = useState(1);
     const [brandFilter, setBrandFilter] = useState('');
+    const [dispenseTypeFilter, setDispenseTypeFilter] = useState('');
     const [logPerPageDropdown, setlogPerPageDropdown] = useState('');
 
     let list = historicals;
@@ -60,6 +61,10 @@ const DispenseLog = ({ ready, historicals, brands }) => {
       setBrandFilter(data.value);
     };
 
+    const handleDispenseTypeFilter = (event, data) => {
+      setDispenseTypeFilter(data.value);
+    };
+
     const handleLogPerPage = (event, data) => {
       setlogPerPageDropdown(data.value);
     };
@@ -68,6 +73,16 @@ const DispenseLog = ({ ready, historicals, brands }) => {
       if (brandFilter !== 'All') {
         list = historicals.filter((val) => {
           if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
+            return val;
+          }
+          return 0;
+        });
+      }
+    }
+    if (dispenseTypeFilter !== '') {
+      if (dispenseTypeFilter !== 'All') {
+        list = historicals.filter((val) => {
+          if (val.dispenseType.toLowerCase().includes(dispenseTypeFilter.toLowerCase())) {
             return val;
           }
           return 0;
@@ -151,6 +166,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
                   inline={true}
                   options={reason}
                   defaultValue={'All'}
+                  onChange={handleDispenseTypeFilter}
                 />
               </Grid.Column>
             </Grid.Row>
