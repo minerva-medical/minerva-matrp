@@ -5,7 +5,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
-import { Brands } from '../../api/brand/BrandCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { distinct } from '../utilities/Functions';
 
@@ -79,6 +78,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
         });
       }
     }
+
     if (dispenseTypeFilter !== '') {
       if (dispenseTypeFilter !== 'All') {
         list = historicals.filter((val) => {
@@ -92,7 +92,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
 
     if (searchHistoricals !== '') {
       list = historicals.filter((val) => {
-        if (val.brand.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
+        if (val.drug.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
             val.lotId.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
             val.dispensedTo.toLowerCase().includes(searchHistoricals.toLowerCase())) {
           return val;
@@ -143,7 +143,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
           <Grid divided columns="equal">
             <Grid.Row style={gridAlign}>
               <Grid.Column>
-                    Sort By: {' '}
+                Sort By: {' '}
                 <Dropdown
                   inline={true}
                   options={sort}
@@ -187,6 +187,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
                 <Table.HeaderCell>Dispense Type</Table.HeaderCell>
                 <Table.HeaderCell>Patient Number</Table.HeaderCell>
                 <Table.HeaderCell>Medication</Table.HeaderCell>
+                <Table.HeaderCell>Brand</Table.HeaderCell>
                 <Table.HeaderCell>LotId</Table.HeaderCell>
                 <Table.HeaderCell>Quantity</Table.HeaderCell>
                 <Table.HeaderCell>Dispensed by</Table.HeaderCell>
@@ -225,9 +226,8 @@ DispenseLog.propTypes = {
 export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
   const historicalSub = Historicals.subscribeHistorical();
-  const brandSub = Brands.subscribeBrand();
   // Determine if the subscription is ready
-  const ready = historicalSub.ready() && medSub.ready() && brandSub.ready();
+  const ready = historicalSub.ready() && medSub.ready();
   // Get the Historical documents.
   const historicals = Historicals.find({}).fetch();
   const brands = distinct('brand', Medications);

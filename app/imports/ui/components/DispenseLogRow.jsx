@@ -10,6 +10,7 @@ const DispenseLogRow = ({ history }) => (
     </Table.Cell>
     <Table.Cell>{history.dispenseType}</Table.Cell>
     <Table.Cell>{history.dispensedTo}</Table.Cell>
+    <Table.Cell>{history.drug}</Table.Cell>
     <Table.Cell>{history.brand}</Table.Cell>
     <Table.Cell>{history.lotId}</Table.Cell>
     <Table.Cell>{history.quantity} {history.isTabs ? 'tabs' : 'mL'}</Table.Cell>
@@ -20,6 +21,7 @@ const DispenseLogRow = ({ history }) => (
 
 DispenseLogRow.propTypes = {
   history: PropTypes.shape({
+    drug: PropTypes.string,
     dateDispensed: PropTypes.date,
     dispensedTo: PropTypes.string,
     dispenseType: PropTypes.string,
