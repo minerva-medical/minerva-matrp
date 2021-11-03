@@ -7,7 +7,7 @@ import { Medications } from '../../api/medication/MedicationCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
@@ -237,9 +237,9 @@ export default withTracker(() => {
     // TODO: exclude 'N/A'
     drugs: distinct('drug', Medications),
     drugTypes: distinct('drugType', DrugTypes),
-    lotIds: distinct('lotId', Medications),
+    lotIds: nestedDistinct('lotId', Medications),
     locations: distinct('location', Locations),
-    brands: distinct('brand', Medications),
+    brands: nestedDistinct('brand', Medications),
     ready: typeSub.ready() && locationSub.ready() && medSub.ready(),
   };
 })(AddMedication);

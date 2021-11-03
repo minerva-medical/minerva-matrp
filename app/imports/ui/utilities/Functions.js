@@ -35,6 +35,18 @@ export function distinct(field, collection, selector = {}) {
   );
 }
 
+export function nestedDistinct(field, collection, selector = {}) {
+  const fields = _.pluck(
+    _.pluck(
+      collection.find(selector, { sort: { [`lotIds.${field}`]: 1 }, fields: { [`lotIds.${field}`]: 1 } }).fetch(),
+      'lotIds',
+    ).flat(),
+    field,
+  );
+
+  return _.uniq(fields, true);
+}
+
 /** convert array to dropdown options */
 export function getOptions(arr) {
   return arr.map(name => ({ key: name, text: name, value: name }));

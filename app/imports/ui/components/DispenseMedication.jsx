@@ -8,7 +8,7 @@ import { Sites } from '../../api/site/SiteCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
@@ -222,8 +222,8 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     drugs: distinct('drug', Medications),
-    lotIds: distinct('lotId', Medications),
-    brands: distinct('brand', Medications),
+    lotIds: nestedDistinct('lotId', Medications),
+    brands: nestedDistinct('brand', Medications),
     ready: siteSub.ready() && historySub.ready() && medSub.ready(),
   };
 })(DispenseMedication);
