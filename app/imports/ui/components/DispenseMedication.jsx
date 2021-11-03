@@ -35,7 +35,7 @@ const submit = (data, callback) => {
     swal('Error', `${drug} only has ${medication.quantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
   } else {
     // else if dispense quantity = medication quantity:
-    const updateData = { id: _id, minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
+    const updateData = { id: _id, minQuantity: 1, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
       location: 'N/A', donated: false, note: 'N/A', drugType: ['N/A'], isTabs: true }; // reset all fields (exc. drug)
     const definitionData = { ...data };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
