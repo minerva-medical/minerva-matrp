@@ -12,7 +12,7 @@
         "brand": "Brand F",
         "expire": "2025-04-02",
         "location": "Case 2",
-        "quantity": 22,
+        "quantity": 21,
         "donated": false,
         "note": "Example note for Benzonatate Capsules."
       },
@@ -21,7 +21,7 @@
         "brand": "Brand F",
         "expire": "2024-01-30",
         "location": "Case 2",
-        "quantity": 22,
+        "quantity": 21,
         "donated": false,
         "note": "Example note for Benzonatate Capsules."
       }

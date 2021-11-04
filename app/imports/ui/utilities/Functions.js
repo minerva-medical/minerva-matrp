@@ -37,12 +37,9 @@ export function distinct(field, collection, selector = {}) {
 
 export function nestedDistinct(field, collection, selector = {}) {
   const fields = _.pluck(
-    _.pluck(
-      collection.find(selector, { sort: { [`lotIds.${field}`]: 1 }, fields: { [`lotIds.${field}`]: 1 } }).fetch(),
-      'lotIds',
-    ).flat(),
+    _.pluck(collection.find(selector, { fields: { [`lotIds.${field}`]: 1 } }).fetch(), 'lotIds').flat(),
     field,
-  );
+  ).sort();
 
   return _.uniq(fields, true);
 }

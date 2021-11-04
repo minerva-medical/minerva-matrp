@@ -57,6 +57,7 @@ class MedicationCollection extends BaseCollection {
    * @param data the unfiltered updateData object.
    */
   update(docID, data) {
+    console.log('data: ', data);
     const updateData = {};
 
     function addString(name) {
@@ -86,15 +87,14 @@ class MedicationCollection extends BaseCollection {
       _.isObject(lotId) &&
       lotId.lotId &&
       lotId.brand &&
-      lotId.expire &&
       _.isNumber(lotId.quantity) &&
       lotId.location &&
-      _.isBoolean(lotId.donated) &&
-      lotId.note
+      _.isBoolean(lotId.donated)
     ))) {
-      updateData.lotId = data.lotIds;
+      updateData.lotIds = data.lotIds;
     }
 
+    console.log('updateData: ', updateData);
     this._collection.update(docID, { $set: updateData });
   }
 
