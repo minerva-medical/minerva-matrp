@@ -57,7 +57,6 @@ class MedicationCollection extends BaseCollection {
    * @param data the unfiltered updateData object.
    */
   update(docID, data) {
-    console.log('data: ', data);
     const updateData = {};
 
     function addString(name) {
@@ -94,7 +93,6 @@ class MedicationCollection extends BaseCollection {
       updateData.lotIds = data.lotIds;
     }
 
-    console.log('updateData: ', updateData);
     this._collection.update(docID, { $set: updateData });
   }
 
