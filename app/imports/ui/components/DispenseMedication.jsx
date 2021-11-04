@@ -5,8 +5,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
-import { Drugs } from '../../api/drug/DrugCollection';
-import { Brands } from '../../api/brand/BrandCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
@@ -38,7 +36,7 @@ const submit = (data, callback) => {
   } else {
     // else if dispense quantity = medication quantity:
     const updateData = { id: _id, minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
-      location: 'N/A', donated: false, note: 'N/A' }; // set quantity to 0 and reset relevant fields
+      location: 'N/A', donated: false, note: 'N/A', drugType: ['N/A'], isTabs: true }; // reset all fields (exc. drug)
     const definitionData = { ...data };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
@@ -68,14 +66,13 @@ const validateForm = (data, callback) => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    // submitData.site = data.site.toLowerCase(); // transform site field to lowercase
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData, callback);
   }
 };
 
 /** Renders the Page for Dispensing Medication. */
-const DispenseMedication = (props) => {
+const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
@@ -86,17 +83,14 @@ const DispenseMedication = (props) => {
     lotId: '',
     expire: '',
     dispensedTo: '',
+    dispenseType: '',
     dispensedFrom: '',
     note: '',
   });
+  const [maxQuantity, setMaxQuantity] = useState(0);
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
-  };
-
-  // handle dropdown search query
-  const handleSearch = (event, { name, searchQuery }) => {
-    setFields({ ...fields, [name]: searchQuery });
   };
 
   // autofill form on lotId select
@@ -104,17 +98,19 @@ const DispenseMedication = (props) => {
     const medication = Medications.findOne({ lotId: value });
     if (medication) {
       const { drug, expire, brand, quantity, isTabs } = medication;
-      const autoFields = { ...fields, lotId: value, drug, expire, brand, quantity, isTabs };
+      const autoFields = { ...fields, lotId: value, drug, expire, brand, isTabs };
       setFields(autoFields);
+      setMaxQuantity(quantity);
     } else {
       setFields({ ...fields, lotId: value });
+      setMaxQuantity(0);
     }
   };
 
   const clearForm = () => setFields({ site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '',
     expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
 
-  if (props.ready) {
+  if (ready) {
     return (
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
@@ -126,6 +122,7 @@ const DispenseMedication = (props) => {
             </Header.Subheader>
           </Header.Content>
         </Header>
+        {/* Semantic UI Form used for functionality */}
         <Form>
           <Grid columns='equal' stackable>
             <Grid.Row>
@@ -133,13 +130,15 @@ const DispenseMedication = (props) => {
                 <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
-              <Grid.Column className='filler-column' />
+              <Grid.Column>
+                <Form.Input type="hidden" name='dispenseType' value="Patient Use"/>
+              </Grid.Column>
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || props.currentUser.username} readOnly/>
+                  value={fields.dispensedFrom || currentUser.username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number"
@@ -148,17 +147,17 @@ const DispenseMedication = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(props.sites)}
+                <Form.Select clearable search label='Site' options={getOptions(sites)}
                   placeholder="Kaka’ako" name='site'
-                  onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
+                  onChange={handleChange} value={fields.site}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
+                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
                   placeholder="Z9Z99"
                   name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
+                <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
                   placeholder="Benzonatate Capsules"
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
@@ -174,13 +173,14 @@ const DispenseMedication = (props) => {
                 </Form.Field>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
+                <Form.Select clearable search label='Brand' options={getOptions(brands)}
                   placeholder="Zonatuss"
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
-                  <Form.Input label='Quantity (tabs/mL)' type='number' min={1} name='quantity' className='quantity'
+                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
+                    type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
                   <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
                     options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
@@ -220,8 +220,6 @@ export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
   const historySub = Historicals.subscribeHistorical();
   const siteSub = Sites.subscribeSite();
-  const drugSub = Drugs.subscribeDrug();
-  const brandSub = Brands.subscribeBrand();
   return {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
@@ -229,6 +227,6 @@ export default withTracker(() => {
     drugs: distinct('drug', Medications),
     lotIds: distinct('lotId', Medications),
     brands: distinct('brand', Medications),
-    ready: siteSub.ready() && drugSub.ready() && brandSub.ready() && historySub.ready() && medSub.ready(),
+    ready: siteSub.ready() && historySub.ready() && medSub.ready(),
   };
 })(DispenseMedication);

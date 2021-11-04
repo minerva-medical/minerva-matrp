@@ -1,0 +1,40 @@
+.manage-tab {
+  min-height: 500px;
+}
+
+.manage-tab .ui.list i {
+  float: right;
+  cursor: pointer;
+}
+
+.manage-tab h2 {
+  border-bottom: 1px solid black;
+  padding-bottom: 1rem;
+}
+
+.manage-tab .controls {
+  display: flex;
+}
+
+.manage-tab .ui.input {
+  padding-right: 3rem;
+  flex: 4 1 0;
+}
+
+.manage-tab .ui.button {
+  flex: 1 1 0;
+  background-color: rgb(29, 62, 102);
+  color: white;
+}
+
+.manage-tab .ui.input input {
+  background-color: #dde0e8;
+}
+
+.manage-tab .ui.input ::placeholder {
+  color: grey;
+}
+
+.manage-tab .ui.list {
+  margin-top: 2rem;
+}

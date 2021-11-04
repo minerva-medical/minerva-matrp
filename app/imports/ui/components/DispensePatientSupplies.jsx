@@ -5,8 +5,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
-import { Drugs } from '../../api/drug/DrugCollection';
-import { Brands } from '../../api/brand/BrandCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
@@ -209,8 +207,6 @@ export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
   const historySub = Historicals.subscribeHistorical();
   const siteSub = Sites.subscribeSite();
-  const drugSub = Drugs.subscribeDrug();
-  const brandSub = Brands.subscribeBrand();
   return {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
@@ -218,6 +214,6 @@ export default withTracker(() => {
     drugs: distinct('drug', Medications),
     lotIds: distinct('lotId', Medications),
     brands: distinct('brand', Medications),
-    ready: siteSub.ready() && drugSub.ready() && brandSub.ready() && historySub.ready() && medSub.ready(),
+    ready: siteSub.ready() && historySub.ready() && medSub.ready(),
   };
 })(DispensePatientSupplies);

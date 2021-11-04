@@ -20,7 +20,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Dispense from '../pages/Dispense';
 import Status from '../pages/Status';
-// import Test from '../pages/test';
+import ManageDropdowns from '../pages/ManageDropdowns';
 import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 
@@ -46,6 +46,7 @@ const App = () => {
         <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
         <ProtectedRoute path="/list" component={ListStuff}/>
         <ProtectedRoute path="/edit/:_id" component={EditNotes}/>
+        <ProtectedRoute exact path="/manage-dropdowns" component={ManageDropdowns}/>
         <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
         <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
         <Route component={NotFound}/>

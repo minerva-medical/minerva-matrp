@@ -6,6 +6,7 @@ export const COMPONENT_IDS = {
   NAVBAR_DISPENSE: 'navbar-dispense',
   NAVBAR_DISPENSE_LOG: 'navbar-dispense-log',
   NAVBAR_ABOUT_US: 'navbar-about-us',
+  NAVBAR_MANAGE_DROPDOWNS: 'navbar-manage-dropdowns',
   DRUG_EDIT: 'drug-edit',
   DRUG_CLOSE: 'drug-close',
   DRUG_PAGE: 'drug-page',
@@ -71,4 +72,7 @@ export const COMPONENT_IDS = {
   DISPENSE_TAB_THREE: 'tab-three',
   DISPENSE_TAB_FOUR: 'tab-four',
   DISPENSE_TAB_FIVE: 'tab-five',
+  MANAGE_DRUG_TYPES: 'manage-drug-types',
+  MANAGE_LOCATIONS: 'manage-locations',
+  MANAGE_SITES: 'manage-sites',
 };

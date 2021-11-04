@@ -1,24 +1,4 @@
 {
-  "brands": [{
-    "brand": "Brand A"
-  },{
-    "brand": "Brand B"
-  },{
-    "brand": "Brand C"
-  },{
-    "brand": "Brand D"
-  },{
-    "brand": "Brand E"
-  },{
-    "brand": "Brand F"
-  },{
-    "brand": "Brand G"
-  },{
-    "brand": "Brand H"
-  },{
-    "brand": "Brand I"
-  }],
-
   "drugTypes": [{
     "drugType": "Allergy & Cold Medicines"
   },{
@@ -47,26 +27,6 @@
     "drugType": "Smoking Cessation"
   },{
     "drugType": "Vitamins & Supplements"
-  }],
-
-  "drugs": [{
-    "drug": "Drug A"
-  },{
-    "drug": "Drug B"
-  },{
-    "drug": "Drug C"
-  },{
-    "drug": "Drug D"
-  },{
-    "drug": "Drug E"
-  },{
-    "drug": "Drug F"
-  },{
-    "drug": "Drug G"
-  },{
-    "drug": "Drug H"
-  },{
-    "drug": "Drug I"
   }],
 
   "locations": [{
@@ -103,26 +63,6 @@
     "location": "Freezer-Derm"
   },{
     "location": "Emergency Kit"
-  }],
-
-  "lotIds": [{
-    "lotId": "111A"
-  },{
-    "lotId": "222B"
-  },{
-    "lotId": "333C"
-  },{
-    "lotId": "444D"
-  },{
-    "lotId": "555E"
-  },{
-    "lotId": "666F"
-  },{
-    "lotId": "777G"
-  },{
-    "lotId": "888H"
-  },{
-    "lotId": "999I"
   }],
 
   "sites": [{
@@ -275,7 +215,8 @@
       "isTabs":  true,
       "dateDispensed": "2021-10-05T24:00Z",
       "dispensedFrom":  "janedoe@hawaii.edu",
-      "dispensedTo": "111111",
+      "dispensedTo": "N/A",
+      "dispenseType": "Expired",
       "site":  "Kaka'ako",
       "note": "test a"
     },
@@ -288,7 +229,8 @@
       "isTabs": false,
       "dateDispensed": "2021-10-05T23:00Z",
       "dispensedFrom":  "johndoe@hawaii.edu",
-      "dispensedTo": "222222",
+      "dispensedTo": "N/A",
+      "dispenseType": "Expired",
       "site":  "Kaka'ako",
       "note": "test b"
     },
@@ -301,7 +243,8 @@
       "isTabs": true,
       "dateDispensed": "2021-10-05T22:00Z",
       "dispensedFrom":  "sueflay@hawaii.edu",
-      "dispensedTo": "333333",
+      "dispensedTo": "N/A",
+      "dispenseType": "Expired",
       "site":  "Kaka'ako",
       "note": "test c"
     },
@@ -315,6 +258,7 @@
       "dateDispensed": "2021-10-05T21:00Z",
       "dispensedFrom":  "amandamin@hawaii.edu",
       "dispensedTo": "444444",
+      "dispenseType": "Patient Use",
       "site":  "Kaka'ako",
       "note": "test d"
     },
@@ -328,6 +272,7 @@
       "dateDispensed": "2021-10-05T20:00Z",
       "dispensedFrom":  "johndoe@hawaii.edu",
       "dispensedTo": "555555",
+      "dispenseType": "Patient Use",
       "site":  "Kaka'ako",
       "note": "test e"
     },
@@ -341,6 +286,7 @@
       "dateDispensed": "2021-10-05T19:00Z",
       "dispensedFrom":  "sueflay@hawaii.edu",
       "dispensedTo": "666666",
+      "dispenseType": "Patient Use",
       "site":  "Kaka'ako",
       "note": "test f"
     },
@@ -354,6 +300,7 @@
       "dateDispensed": "2021-10-05T18:00Z",
       "dispensedFrom":  "janedoe@hawaii.edu",
       "dispensedTo": "777777",
+      "dispenseType": "Patient Use",
       "site":  "Kaka'ako",
       "note": "test g"
     },
@@ -367,6 +314,7 @@
       "dateDispensed": "2021-10-05T17:00Z",
       "dispensedFrom":  "sueflay@hawaii.edu",
       "dispensedTo": "888888",
+      "dispenseType": "Patient Use",
       "site":  "Kaka'ako",
       "note": "test h"
     },
@@ -380,6 +328,7 @@
       "dateDispensed": "2021-10-05T16:00Z",
       "dispensedFrom":  "amandamin@hawaii.edu",
       "dispensedTo": "999999",
+      "dispenseType": "Patient Use",
       "site":  "Kaka'ako",
       "note": "test i"
     }

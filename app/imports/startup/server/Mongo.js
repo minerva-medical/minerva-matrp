@@ -1,11 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Stuffs } from '../../api/stuff/StuffCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { Brands } from '../../api/brand/BrandCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
-import { Drugs } from '../../api/drug/DrugCollection';
 import { Locations } from '../../api/location/LocationCollection';
-import { LotIds } from '../../api/lotId/LotIdCollection';
 import { Sites } from '../../api/site/SiteCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 /* eslint-disable no-console */
@@ -36,33 +33,15 @@ if (Meteor.settings.loadAssetsFile && Medications.count() !== 201) {
 }
 
 if (Meteor.settings.loadAssetsFile) {
-  Brands._collection.remove({}); // clear collection (temporary)
-  console.log(`Loading data from private/${assetsFileName}`);
-  jsonData.brands.map(brand => Brands.define(brand));
-}
-
-if (Meteor.settings.loadAssetsFile) {
   DrugTypes._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
   jsonData.drugTypes.map(drugType => DrugTypes.define(drugType));
 }
 
 if (Meteor.settings.loadAssetsFile) {
-  Drugs._collection.remove({}); // clear collection (temporary)
-  console.log(`Loading data from private/${assetsFileName}`);
-  jsonData.drugs.map(drug => Drugs.define(drug));
-}
-
-if (Meteor.settings.loadAssetsFile) {
   Locations._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
   jsonData.locations.map(location => Locations.define(location));
-}
-
-if (Meteor.settings.loadAssetsFile) {
-  LotIds._collection.remove({}); // clear collection (temporary)
-  console.log(`Loading data from private/${assetsFileName}`);
-  jsonData.lotIds.map(lotId => LotIds.define(lotId));
 }
 
 if (Meteor.settings.loadAssetsFile) {

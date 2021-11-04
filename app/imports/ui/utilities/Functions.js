@@ -6,19 +6,31 @@ import { _ } from 'meteor/underscore';
  * @param collection1
  * @param collection2 (optional)
  */
-export function distinct(field, collection1, collection2) {
-  const array1 = _.pluck(
-    collection1.find({}, { sort: { [field]: 1 }, fields: { [field]: 1 } }).fetch(),
+// export function distinct(field, collection1, collection2) {
+//   const array1 = _.pluck(
+//     collection1.find({}, { sort: { [field]: 1 }, fields: { [field]: 1 } }).fetch(),
+//     field,
+//   );
+//   const array2 = collection2 ?
+//     _.pluck(
+//       collection2.find({}, { sort: { [field]: 1 } }).fetch(),
+//       field,
+//     ) : [];
+//
+//   return _.uniq(
+//     field === 'drugType' ? array1.concat(array2).flat().sort() : array1.concat(array2).sort(),
+//     true,
+//   );
+// }
+
+export function distinct(field, collection, selector = {}) {
+  const fields = _.pluck(
+    collection.find(selector, { sort: { [field]: 1 }, fields: { [field]: 1 } }).fetch(),
     field,
   );
-  const array2 = collection2 ?
-    _.pluck(
-      collection2.find({}, { sort: { [field]: 1 } }).fetch(),
-      field,
-    ) : [];
 
   return _.uniq(
-    field === 'drugType' ? array1.concat(array2).flat().sort() : array1.concat(array2).sort(),
+    field === 'drugType' ? fields.flat() : fields,
     true,
   );
 }

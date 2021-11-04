@@ -2,10 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Stuffs } from '../stuff/StuffCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { UserProfiles } from '../user/UserProfileCollection';
-import { Drugs } from '../drug/DrugCollection';
 import { DrugTypes } from '../drugType/DrugTypeCollection';
-import { Brands } from '../brand/BrandCollection';
-import { LotIds } from '../lotId/LotIdCollection';
 import { Locations } from '../location/LocationCollection';
 import { Sites } from '../site/SiteCollection';
 import { Medications } from '../medication/MedicationCollection';
@@ -25,10 +22,7 @@ class MATRPClass {
       AdminProfiles,
       Stuffs,
       UserProfiles,
-      Drugs,
       DrugTypes,
-      Brands,
-      LotIds,
       Locations,
       Sites,
       Medications,
@@ -42,10 +36,7 @@ class MATRPClass {
       AdminProfiles,
       UserProfiles,
       Stuffs,
-      Drugs,
       DrugTypes,
-      Brands,
-      LotIds,
       Locations,
       Sites,
       Medications,

@@ -4,8 +4,6 @@ import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { Drugs } from '../../api/drug/DrugCollection';
-import { Brands } from '../../api/brand/BrandCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
@@ -14,7 +12,7 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
-  const { drug, minQuantity, quantity, brand, lotId, expire, location, donated, note } = data;
+  const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, note } = data;
   const collectionName = Medications.getCollectionName();
   const exists = Medications.findOne({ lotId }); // returns the existing medication or undefined
   const empty = Medications.findOne({ drug, quantity: 0 }); // returns the empty medication or undefined
@@ -31,10 +29,8 @@ const submit = (data, callback) => {
   } else
   if (empty) {
     // else if the medication w/ drug_name exists and its quantity is 0:
-    const updateData = {
-      id: empty._id, minQuantity, quantity, brand, lotId, expire, location, donated,
-      note,
-    }; // set the following
+    const updateData = { id: empty._id, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated,
+      note }; // set the following
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -70,14 +66,6 @@ const validateForm = (data, callback) => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    // transform some String fields to lowercase
-    // requiredFields.forEach(field => {
-    //   if (field === 'drugType') {
-    //     submitData.drugType = data.drugType.map(type => type.toLowerCase());
-    //   } else if (field !== 'lotId') {
-    //     submitData[field] = data[field].toLowerCase();
-    //   }
-    // });
     submitData.minQuantity = parseInt(data.minQuantity, 10);
     submitData.quantity = parseInt(data.quantity, 10);
     submit(submitData, callback);
@@ -100,11 +88,15 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     note: '',
   });
 
-  const [theDrugTypes, setDrugTypes] = useState([]); // store theDrugTypes in state
-  // update theDrugTypes if drugTypes changes
+  const [filteredDrugs, setFilteredDrugs] = useState([]);
   useEffect(() => {
-    setDrugTypes(drugTypes);
-  }, [drugTypes]);
+    setFilteredDrugs(drugs);
+  }, [drugs]);
+
+  const [filteredBrands, setFilteredBrands] = useState([]);
+  useEffect(() => {
+    setFilteredBrands(brands);
+  }, [brands]);
 
   const handleChange = (event, { name, value, checked }) => {
     setFields({ ...fields, [name]: value !== undefined ? value : checked });
@@ -113,25 +105,6 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
   // handle dropdown search query
   const handleSearch = (event, { name, searchQuery }) => {
     setFields({ ...fields, [name]: searchQuery });
-  };
-
-  // add user inputted drug type if not already added
-  const addDrugType = (event, { value }) => {
-    // const re = new RegExp(value, 'i');
-    if (!theDrugTypes.map(type => type.toLowerCase()).includes(value.toLowerCase())) {
-      setDrugTypes([...theDrugTypes, value]);
-    }
-  };
-
-  // autofill form on drug select
-  const onDrugSelect = (event, { value }) => {
-    const medication = Medications.findOne({ drug: value });
-    if (medication) {
-      const { drugType, isTabs } = medication;
-      setFields({ ...fields, drug: value, drugType, isTabs });
-    } else {
-      setFields({ ...fields, drug: value });
-    }
   };
 
   // autofill form on lotId select
@@ -149,10 +122,17 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     }
   };
 
-  const clearForm = () => setFields({
-    drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
-    brand: '', lotId: '', expire: '', location: '', donated: false, note: '',
-  });
+  const onBrandSelect = (event, { value }) => {
+    setFields({ ...fields, brand: value });
+    // filter drug dropdown
+    const selector = value ? { brand: value } : {};
+    const filteredData = distinct('drug', Medications, selector);
+    // console.log(filteredData);
+    setFilteredDrugs(filteredData);
+  };
+
+  const clearForm = () => setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
+    brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
 
   if (ready) {
     return (
@@ -165,22 +145,20 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
             </Header.Subheader>
           </Header.Content>
         </Header>
+        {/* Semantic UI Form used for functionality */}
         <Form>
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
+                <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
                   placeholder="Benzonatate Capsules" name='drug'
-                  onChange={onDrugSelect} value={fields.drug} onSearchChange={handleSearch}
-                  searchQuery={fields.drug}
-                  id={COMPONENT_IDS.ADD_MEDICATION_DRUG_NAME}/>
+
+                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug} id={COMPONENT_IDS.ADD_MEDICATION_DRUG_NAME}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                  options={getOptions(theDrugTypes)} placeholder="Allergy & Cold Medicines"
-                  name='drugType' onChange={handleChange} value={fields.drugType} allowAdditions
-                  onAddItem={addDrugType}
-                  id={COMPONENT_IDS.ADD_MEDICATION_DRUG_TYPE}/>
+                  options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
+                  name='drugType' onChange={handleChange} value={fields.drugType} id={COMPONENT_IDS.ADD_MEDICATION_DRUG_TYPE}/>
               </Grid.Column>
               <Grid.Column className='filler-column'/>
             </Grid.Row>
@@ -193,11 +171,9 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
                   id={COMPONENT_IDS.ADD_MEDICATION_LOT}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(brands)}
+                <Form.Select clearable search label='Brand' options={getOptions(filteredBrands)}
                   placeholder="Zonatuss" name='brand'
-                  onChange={handleChange} value={fields.brand} onSearchChange={handleSearch}
-                  searchQuery={fields.brand}
-                  id={COMPONENT_IDS.ADD_MEDICATION_BRAND}/>
+                  onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand} id={COMPONENT_IDS.ADD_MEDICATION_BRAND}/>
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
@@ -232,9 +208,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               <Grid.Column>
                 <Form.Select compact clearable search label='Location' options={getOptions(locations)}
                   placeholder="Case 2" name='location'
-                  onChange={handleChange} value={fields.location} onSearchChange={handleSearch}
-                  searchQuery={fields.location}
-                  id={COMPONENT_IDS.ADD_MEDICATION_LOCATION}/>
+                  onChange={handleChange} value={fields.location} id={COMPONENT_IDS.ADD_MEDICATION_LOCATION}/>
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
                 <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated}/>
@@ -273,10 +247,8 @@ AddMedication.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  const drugSub = Drugs.subscribeDrug();
   const typeSub = DrugTypes.subscribeDrugType();
   const locationSub = Locations.subscribeLocation();
-  const brandSub = Brands.subscribeBrand();
   const medSub = Medications.subscribeMedication();
   return {
     // TODO: exclude 'N/A'
@@ -285,6 +257,6 @@ export default withTracker(() => {
     lotIds: distinct('lotId', Medications),
     locations: distinct('location', Locations),
     brands: distinct('brand', Medications),
-    ready: drugSub.ready() && typeSub.ready() && brandSub.ready() && locationSub.ready() && medSub.ready(),
+    ready: typeSub.ready() && locationSub.ready() && medSub.ready(),
   };
 })(AddMedication);
