@@ -23,12 +23,6 @@ const logPerPage = [
   { key: '3', value: '50', text: '50' },
 ];
 
-// Used for sorting the table in accordance to Most Recent or Oldest
-const sort = [
-  { key: '0', value: 'Most Recent', text: 'Most Recent' },
-  { key: '1', value: 'Oldest to Newest', text: 'Oldest to Newest' },
-];
-
 // Used for sorting the table in accordance to the type of dispense
 const reason = [
   { key: '0', value: 'All', text: 'All' },
@@ -46,6 +40,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
     const [searchHistoricals, setSearchHistoricals] = useState('');
     const [pageNo, setPageNo] = useState(1);
     const [brandFilter, setBrandFilter] = useState('');
+    const [date, setDate] = useState('');
     const [dispenseTypeFilter, setDispenseTypeFilter] = useState('');
     const [logPerPageDropdown, setlogPerPageDropdown] = useState('');
 
@@ -60,6 +55,10 @@ const DispenseLog = ({ ready, historicals, brands }) => {
       setBrandFilter(data.value);
     };
 
+    const handleDateFilter = (event, data) => {
+      setDate(data.value);
+    };
+
     const handleDispenseTypeFilter = (event, data) => {
       setDispenseTypeFilter(data.value);
     };
@@ -67,6 +66,15 @@ const DispenseLog = ({ ready, historicals, brands }) => {
     const handleLogPerPage = (event, data) => {
       setlogPerPageDropdown(data.value);
     };
+
+    if (date !== '') {
+      list = historicals.filter((val) => {
+        if (val.dateDispensed.toLocaleDateString('en-CA').includes(date)) {
+          return val;
+        }
+        return 0;
+      });
+    }
 
     if (brandFilter !== '') {
       if (brandFilter !== 'All') {
@@ -125,31 +133,34 @@ const DispenseLog = ({ ready, historicals, brands }) => {
               </Header.Subheader>
             </Header.Content>
           </Header>
-          <Divider/>
-          <Grid>
-            <Grid.Column width={4}>
-              <Input placeholder='Filter by patient...' icon='search'
-                onChange={handleSearch}
-              />
-              <Popup
-                trigger={<Icon name='question circle' color="blue"/>}
-                content='This allows you to filter the Dispense Log table by Patient Number,
+          <Grid divider columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Input placeholder='Filter by patient...' icon='search'
+                  onChange={handleSearch}
+                />
+                <Popup
+                  trigger={<Icon name='question circle' color="blue"/>}
+                  content='This allows you to filter the Dispense Log table by Patient Number,
                   LotId, or Drug Name.'
-                inverted
-              />
-            </Grid.Column>
+                  inverted
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Input type="date"
+                  onChange={handleDateFilter}
+                />
+                <Popup
+                  trigger={<Icon name='question circle' color="blue"/>}
+                  content='This allows you to filter the Dispense Log table by Date.'
+                  inverted
+                />
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
           <Divider/>
           <Grid divided columns="equal">
             <Grid.Row style={gridAlign}>
-              <Grid.Column>
-                Sort By: {' '}
-                <Dropdown
-                  inline={true}
-                  options={sort}
-                  defaultValue={'Most Recent'}
-                />
-              </Grid.Column>
               <Grid.Column>
                 Medication Brand: {' '}
                 <Dropdown
@@ -172,14 +183,14 @@ const DispenseLog = ({ ready, historicals, brands }) => {
             </Grid.Row>
           </Grid>
           <Divider/>
-              Records per page:{' '}
+          Records per page:{' '}
           <Dropdown
             inline={true}
             options={logPerPage}
             defaultValue={logPerPage[1].value}
             onChange={handleLogPerPage}
           />
-              Total count: {historicals.length}
+                Total count: {historicals.length}
           <Table striped singleLine columns={11}>
             <Table.Header>
               <Table.Row>
