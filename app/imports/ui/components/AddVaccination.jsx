@@ -1,34 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader, Input, Icon } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { _ } from 'meteor/underscore';
-import { Sites } from '../../api/site/SiteCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { Vaccinations } from '../../api/vaccination/VaccinationCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-
-/** convert array to dropdown options */
-const getOptions = (arr, name) => {
-  let options = _.pluck(arr, name);
-  options = options.map(elem => ({ key: elem, text: elem, value: elem }));
-  if (name === 'site') {
-    options.push({ key: 'OTHER', text: 'OTHER', value: 'OTHER' });
-  }
-  return options;
-};
+import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
+import { distinct, getOptions} from '../utilities/Functions';
 
 /** On submit, insert the data. */
 const submit = (data, callback) => {
   const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, note } = data;
   const collectionName = Vaccinations.getCollectionName();
-  const exists = Vaccinations.findOne({ lotId }); // returns the existing medication or undefined
-  const empty = Vaccinations.findOne({ drug, quantity: 0 }); // returns the empty medication or undefined
+  const exists = Vaccinations.findOne({ lotId }); // returns the existing vaccination or undefined
+  const empty = Vaccinations.findOne({ drug, quantity: 0 }); // returns the empty vaccination or undefined
 
   if (exists) {
-    // if the medication w/ lotId exists:
+    // if the vaccination w/ lotId exists:
     const updateData = { id: exists._id, quantity: exists.quantity + quantity }; // increment the quantity
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -37,7 +26,7 @@ const submit = (data, callback) => {
         callback(); // resets the form
       });
   } else if (empty) {
-    // else if the medication w/ drug_name exists and its quantity is 0:
+    // else if the vaccination w/ drug_name exists and its quantity is 0:
     const updateData = { id: empty._id, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated,
       note }; // set the following
     updateMethod.callPromise({ collectionName, updateData })
@@ -47,7 +36,7 @@ const submit = (data, callback) => {
         callback(); // resets the form
       });
   } else {
-    // else insert the new medication
+    // else insert the new vaccination
     const definitionData = { ...data };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -59,151 +48,169 @@ const submit = (data, callback) => {
 };
 
 
-// TODO: simplify
-const validateForm = data => {
-  const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
+const validateForm = (data, callback) => {
+  const submitData = { ...data };
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dateAdded', 'site', 'drug', 'lotId', 'brand', 'quantity'];
+  const requiredFields = ['drug', 'drugType', 'brand', 'lotId', 'minQuantity', 'quantity', 'location'];
 
-  // check required fields
+  // if the field is empty, append error message
   requiredFields.forEach(field => {
-    if (!submitData[field]) {
+    if (!submitData[field] || (field === 'drugType' && !submitData.drugType.length)) {
       errorMsg += `${field} cannot be empty.\n`;
     }
   });
 
-  // check new site; submit either site or newSite
-  if (submitData.site === 'OTHER') {
-    if (!submitData.newSite) {
-      errorMsg += 'newSite cannot be empty.\n';
-    } else {
-      delete submitData.site;
-    }
-  } else {
-    delete submitData.newSite;
-  }
-
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    submit(submitData);
+    submitData.minQuantity = parseInt(data.minQuantity, 10);
+    submitData.quantity = parseInt(data.quantity, 10);
+    submit(submitData, callback);
   }
 };
 
 /** Renders the Page for Dispensing Inventory. */
 const AddVaccination = (props) => {
   const [fields, setFields] = useState({
-    site: '',
-    newSite: '',
-    dateAdded: new Date().toLocaleDateString('fr-CA'),
     drug: '',
+    drugType: [],
+    minQuantity: '',
     quantity: '',
-    unit: '', // unit will autofill on selection of drug
+    isTabs: true,
     brand: '',
     lotId: '',
     expire: '',
-    dispensedFrom: '',
-    donorName: '',
     location: '',
+    donated: false,
     note: '',
-    pd: '',
   });
 
-  const handleChange = (event, { name, value }) => {
-    setFields({ ...fields, [name]: value });
+  const [filteredDrugs, setFilteredDrugs] = useState([]);
+  useEffect(() => {
+    setFilteredDrugs(drugs);
+  }, [drugs]);
+
+  const [filteredBrands, setFilteredBrands] = useState([]);
+  useEffect(() => {
+    setFilteredBrands(brands);
+  }, [brands]);
+
+  const handleChange = (event, { name, value, checked }) => {
+    setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
 
-  const pd = [
-    { key: '0', text: 'Purchased', value: 'Purchased' },
-    { key: '1', text: 'Donated', value: 'Donated' },
-  ];
+  // handle dropdown search query
+  const handleSearch = (event, { name, searchQuery }) => {
+    setFields({ ...fields, [name]: searchQuery });
+  };
 
-  if (props.ready) {
+  // autofill form on lotId select
+  const onLotIdSelect = (event, { value }) => {
+    const vaccination = Vaccinations.findOne({ lotId: value });
+    if (vaccination) {
+      const { drug, drugType, expire, brand, minQuantity, isTabs, location, donated, note } = vaccination;
+      const autoFields = { ...fields, lotId: value, drug, drugType, expire, brand, minQuantity, isTabs, location,
+        donated, note };
+      setFields(autoFields);
+    } else {
+      setFields({ ...fields, lotId: value });
+    }
+  };
+
+  const onBrandSelect = (event, { value }) => {
+    setFields({ ...fields, brand: value });
+    // filter drug dropdown
+    const selector = value ? { brand: value } : {};
+    const filteredData = distinct('drug', Vaccinations, selector);
+    // console.log(filteredData);
+    setFilteredDrugs(filteredData);
+  };
+
+  const clearForm = () => setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
+    brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
+
+  if (ready) {
     return (
       <Tab.Pane id='add-form'>
         <Header as="h2">
           <Header.Content>
-            Add Vaccination to Inventory Form
+            Add to Inventory Form
             <Header.Subheader>
-              <i>Please input all relative fields to add a vaccine to the inventory</i>
+              <i>Please input the following information to add to the inventory, to the best of your abilities.</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
+        {/* Semantic UI Form used for functionality */}
         <Form>
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input type="date" label='Date Added' name='dateAdded'
-                  onChange={handleChange} value={fields.dateDispensed}/>
+                <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
+                             placeholder="Benzonatate Capsules" name='drug'
+                             onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Select clearable multiple search label='Drug Type(s)'
+                             options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
+                             name='drugType' onChange={handleChange} value={fields.drugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
-              <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select label='Purchased/Donated' name='pd' options={pd}
-                  onChange={handleChange} value={fields.pd}/>
-                {
-                  fields.pd === 'Donated' &&
-                  <Form.Input placeholder="Input Donor Name Here"
-                    name='donorName' onChange={handleChange}/>
-                }
+                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
+                             placeholder="Z9Z99" name='lotId'
+                             onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(props.sites, 'site')}
-                  placeholder="POST, Kaka’ako, etc."
-                  name='site' onChange={handleChange} value={fields.site}/>
-                {
-                  fields.site === 'OTHER' &&
-                  <Form.Input name='newSite' onChange={handleChange} value={fields.newSite}/>
-                }
+                <Form.Select clearable search label='Brand' options={getOptions(filteredBrands)}
+                             placeholder="Zonatuss" name='brand'
+                             onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs, 'drug')}
-                  name='drug' onChange={handleChange} value={fields.drug}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds, 'lotId')}
-                  name='lotId' onChange={handleChange} value={fields.lotId}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Location' options={getOptions(props.locations, 'location')}
-                  name='location' onChange={handleChange} value={fields.location}/>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
               <Grid.Column>
                 {/* expiration date may be null */}
-                <Form.Input type='date' label='Expiration Date' className='date-input'
-                  name='expire' onChange={handleChange} value={fields.expire}/>
-                <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
-                  name='brand' onChange={handleChange} value={fields.brand}/>
-              </Grid.Column>
-              <Grid.Column>
                 <Form.Field>
-                  <label>Quantity (tabs/mL)</label>
-                  <Input
-                    label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
-                    type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
+                  <label>Expiration Date</label>
+                  <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
+                  <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
+                        style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}/>
+                <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity'
+                            onChange={handleChange} value={fields.minQuantity} placeholder="100"/>
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Group>
+                  <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
+                              onChange={handleChange} value={fields.quantity} placeholder="200"/>
+                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
+                               options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                </Form.Group>
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Select compact clearable search label='Location' options={getOptions(locations)}
+                             placeholder="Case 2" name='location'
+                             onChange={handleChange} value={fields.location}/>
+              </Grid.Column>
+              <Grid.Column className='checkbox-column'>
+                <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                               placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button'>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
+          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>
     );
@@ -213,9 +220,8 @@ const AddVaccination = (props) => {
 
 /** Require an array of Stuff documents in the props. */
 AddVaccination.propTypes = {
-  currentUser: PropTypes.object,
-  sites: PropTypes.array.isRequired,
   drugs: PropTypes.array.isRequired,
+  drugTypes: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
   brands: PropTypes.array.isRequired,
@@ -224,12 +230,15 @@ AddVaccination.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  const siteSub = Sites.subscribeSite();
+  const typeSub = DrugTypes.subscribeDrugType();
   const locationSub = Locations.subscribeLocation();
+  const vacSub = Vaccinations.subscribeVaccination();
   return {
-    currentUser: Meteor.user(),
-    sites: Sites.find({}).fetch(),
-    locations: Locations.find({}).fetch(),
-    ready: siteSub.ready() && locationSub.ready(),
+    drugs: distinct('drug', Vaccinations),
+    drugTypes: distinct('drugType', DrugTypes),
+    lotIds: distinct('lotId', Vaccinations),
+    locations: distinct('location', Locations),
+    brands: distinct('brand', Vaccinations),
+    ready: typeSub.ready() && locationSub.ready() && vacSub.ready(),
   };
 })(AddVaccination);
