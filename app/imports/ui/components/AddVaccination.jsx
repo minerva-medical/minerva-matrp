@@ -71,7 +71,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Inventory. */
-const AddVaccination = (props) => {
+const AddVaccination = ({ drugTypes, ready, drugs, lotIds, brands, locations }) => {
   const [fields, setFields] = useState({
     drug: '',
     drugType: [],
