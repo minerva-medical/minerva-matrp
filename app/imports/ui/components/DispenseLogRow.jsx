@@ -6,7 +6,7 @@ import DispenseInfoPage from './DispenseInfoPage';
 const DispenseLogRow = ({ history }) => (
   <Table.Row>
     <Table.Cell>
-      <i>{history.dateDispensed.toLocaleDateString('en-US')}</i> — [{history.dateDispensed.toLocaleTimeString('en-US')}]
+      <i>{history.dateDispensed.toLocaleDateString('en-CA')}</i> — [{history.dateDispensed.toLocaleTimeString('en-CA')}]
     </Table.Cell>
     <Table.Cell>{history.dispenseType}</Table.Cell>
     <Table.Cell>{history.dispensedTo}</Table.Cell>
