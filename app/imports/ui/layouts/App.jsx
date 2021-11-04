@@ -22,6 +22,7 @@ import Dispense from '../pages/Dispense';
 import Status from '../pages/Status';
 import ManageDropdowns from '../pages/ManageDropdowns';
 import ManageDatabase from '../pages/ManageDatabase';
+import ManageUsers from '../pages/ManageUsers';
 import { ROLE } from '../../api/role/Role';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
@@ -49,6 +50,7 @@ const App = () => {
         <ProtectedRoute exact path="/manage-dropdowns" component={ManageDropdowns}/>
         <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
         <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+        <AdminProtectedRoute path="/manage-users" component={ManageUsers}/>
         <Route component={NotFound}/>
       </Switch>
       {

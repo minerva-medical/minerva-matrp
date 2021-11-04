@@ -9,6 +9,7 @@ export const PAGE_IDS = {
   STATUS: 'status',
   LIST_STUFF_ADMIN: 'list-stuff-admin',
   MANAGE_DATABASE: 'manage-database',
+  MANAGE_USERS: 'manage-users',
   NOT_FOUND: 'not-found',
   SIGN_IN: 'sigin-in',
   SIGN_OUT: 'sign-out',
