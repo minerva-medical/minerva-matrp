@@ -71,54 +71,46 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   };
 
   if (ready) {
-    if (medicationFilter !== '') {
-      if (medicationFilter !== 'All') {
-        list = medications.filter((val) => {
-          for (let i = 0; i < val.drugType.length; i++) {
-            if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
-              return val;
-            }
-          }
-          return 0;
-        });
-      }
-    }
-    if (brandFilter !== '') {
-      if (brandFilter !== 'All') {
-        list = medications.filter((val) => {
-          if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
+    if (medicationFilter !== '' && medicationFilter !== 'All') {
+      list = medications.filter((val) => {
+        for (let i = 0; i < val.drugType.length; i++) {
+          if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
             return val;
           }
-          return 0;
-        });
-      }
+        }
+        return 0;
+      });
     }
-    if (locationFilter !== '') {
-      if (locationFilter !== 'All') {
-        list = medications.filter((val) => {
-          if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
-            return val;
-          }
-          return 0;
-        });
-      }
+    if (brandFilter !== '' && brandFilter !== 'All') {
+      list = medications.filter((val) => {
+        if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
+          return val;
+        }
+        return 0;
+      });
     }
-    if (statusFilter !== '') {
-      if (statusFilter !== 'All') {
-        list = medications.filter((val) => {
-          const percent = Math.floor((val.quantity / val.minQuantity) * 100);
-          if (statusFilter === 'In Stock') {
-            return percent > 30;
-          }
-          if (statusFilter === 'Low Stock') {
-            return (percent > 5 && percent < 30);
-          }
-          if (statusFilter === 'Out of Stock') {
-            return percent <= 5;
-          }
-          return 0;
-        });
-      }
+    if (locationFilter !== '' && locationFilter !== 'All') {
+      list = medications.filter((val) => {
+        if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
+          return val;
+        }
+        return 0;
+      });
+    }
+    if (statusFilter !== '' && statusFilter !== 'All') {
+      list = medications.filter((val) => {
+        const percent = Math.floor((val.quantity / val.minQuantity) * 100);
+        if (statusFilter === 'In Stock') {
+          return percent > 30;
+        }
+        if (statusFilter === 'Low Stock') {
+          return (percent > 5 && percent < 30);
+        }
+        if (statusFilter === 'Out of Stock') {
+          return percent <= 5;
+        }
+        return 0;
+      });
     }
 
     if (searchMedications !== '') {
