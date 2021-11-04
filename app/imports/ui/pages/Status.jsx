@@ -70,8 +70,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
     setRecordOptionsDropdown(data.value);
   };
 
-  if (medicationFilter !== '') {
-    if (medicationFilter !== 'All') {
+  if (medicationFilter !== '' && medicationFilter !== 'All') {
       list = list.filter((val) => {
         for (let i = 0; i < val.drugType.length; i++) {
           if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
@@ -80,30 +79,24 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
         }
         return false;
       });
-    }
   }
-  if (brandFilter !== '') {
-    if (brandFilter !== 'All') {
+  if (brandFilter !== '' && brandFilter !== 'All') {
       list = list.filter((val) => {
         if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
           return val;
         }
         return false;
       });
-    }
   }
-  if (locationFilter !== '') {
-    if (locationFilter !== 'All') {
+  if (locationFilter !== '' && locationFilter !== 'All') {
       list = list.filter((val) => {
         if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
           return val;
         }
         return false;
       });
-    }
   }
-  if (statusFilter !== '') {
-    if (statusFilter !== 'All') {
+  if (statusFilter !== '' && statusFilter !== 'All') {
       list = list.filter((val) => {
         const percent = Math.floor((val.quantity / val.minQuantity) * 100);
         if (statusFilter === 'In Stock') {
@@ -117,7 +110,6 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
         }
         return false;
       });
-    }
   }
 
   if (searchMedications !== '') {
