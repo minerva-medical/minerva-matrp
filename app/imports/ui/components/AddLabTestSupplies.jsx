@@ -8,6 +8,8 @@ import { _ } from 'meteor/underscore';
 import { Sites } from '../../api/site/SiteCollection';
 import { Items } from '../../api/item/ItemCollection';
 import { Locations } from '../../api/location/LocationCollection';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** convert array to dropdown options */
 const getOptions = (arr, name) => {
@@ -87,7 +89,7 @@ const AddLabTestSupplies = (props) => {
 
   if (props.ready) {
     return (
-      <Tab.Pane id='add-form'>
+      <Tab.Pane id={COMPONENT_IDS.ADD_FORM}>
         <Header as="h2">
           <Header.Content>
             Add Lab Test Supplies to Inventory Form

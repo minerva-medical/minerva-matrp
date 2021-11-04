@@ -8,6 +8,7 @@ import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions } from '../utilities/Functions';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
@@ -25,7 +26,8 @@ const submit = (data, callback) => {
         swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
         callback(); // resets the form
       });
-  } else if (empty) {
+  } else
+  if (empty) {
     // else if the medication w/ drug_name exists and its quantity is 0:
     const updateData = { id: empty._id, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated,
       note }; // set the following
@@ -110,8 +112,10 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     const medication = Medications.findOne({ lotId: value });
     if (medication) {
       const { drug, drugType, expire, brand, minQuantity, isTabs, location, donated, note } = medication;
-      const autoFields = { ...fields, lotId: value, drug, drugType, expire, brand, minQuantity, isTabs, location,
-        donated, note };
+      const autoFields = {
+        ...fields, lotId: value, drug, drugType, expire, brand, minQuantity, isTabs, location,
+        donated, note,
+      };
       setFields(autoFields);
     } else {
       setFields({ ...fields, lotId: value });
@@ -132,7 +136,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
 
   if (ready) {
     return (
-      <Tab.Pane id='add-form'>
+      <Tab.Pane id={COMPONENT_IDS.ADD_FORM}>
         <Header as="h2">
           <Header.Content>
               Add to Inventory Form
@@ -148,25 +152,28 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
                   placeholder="Benzonatate Capsules" name='drug'
-                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
+
+                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug} id={COMPONENT_IDS.ADD_MEDICATION_DRUG_NAME}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
                   options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
-                  name='drugType' onChange={handleChange} value={fields.drugType}/>
+                  name='drugType' onChange={handleChange} value={fields.drugType} id={COMPONENT_IDS.ADD_MEDICATION_DRUG_TYPE}/>
               </Grid.Column>
-              <Grid.Column className='filler-column' />
+              <Grid.Column className='filler-column'/>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
                   placeholder="Z9Z99" name='lotId'
-                  onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
+                  onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch}
+                  searchQuery={fields.lotId}
+                  id={COMPONENT_IDS.ADD_MEDICATION_LOT}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(filteredBrands)}
                   placeholder="Zonatuss" name='brand'
-                  onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
+                  onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand} id={COMPONENT_IDS.ADD_MEDICATION_BRAND}/>
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
@@ -174,43 +181,53 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
                   <label>Expiration Date</label>
                   <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
                   <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
-                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
+                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}
+                    id={COMPONENT_IDS.ADD_MEDICATION_EXPIRATION}/>
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity'
-                  onChange={handleChange} value={fields.minQuantity} placeholder="100"/>
+                  onChange={handleChange} value={fields.minQuantity} placeholder="100"
+                  id={COMPONENT_IDS.ADD_MEDICATION_MIN_QUANTITY}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
                   <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder="200"/>
+                    onChange={handleChange} value={fields.quantity} placeholder="200"
+                    id={COMPONENT_IDS.ADD_MEDICATION_QUANTITY}/>
                   <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                    options={[{ key: 'tabs', text: 'tabs', value: true }, {
+                      key: 'mL',
+                      text: 'mL',
+                      value: false,
+                    }]}/>
                 </Form.Group>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select compact clearable search label='Location' options={getOptions(locations)}
                   placeholder="Case 2" name='location'
-                  onChange={handleChange} value={fields.location}/>
+                  onChange={handleChange} value={fields.location} id={COMPONENT_IDS.ADD_MEDICATION_LOCATION}/>
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
-                <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated} />
+                <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."
+                  id={COMPONENT_IDS.ADD_MEDICATION_NOTES}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
+          <Button className='clear-button' onClick={clearForm}
+            id={COMPONENT_IDS.ADD_MEDICATION_CLEAR}>Clear Fields</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}
+            id={COMPONENT_IDS.ADD_MEDICATION_SUBMIT}>Submit</Button>
         </div>
       </Tab.Pane>
     );

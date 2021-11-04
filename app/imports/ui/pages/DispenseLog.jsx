@@ -7,6 +7,7 @@ import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { distinct } from '../utilities/Functions';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 // convert array to dropdown options
 const getOptions = (arr) => {
@@ -114,7 +115,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
     }
 
     return (
-      <Container id='dispense-log'>
+      <Container id={PAGE_IDS.DISPENSE_LOG}>
         <Segment>
           <Header as="h2">
             <Header.Content>

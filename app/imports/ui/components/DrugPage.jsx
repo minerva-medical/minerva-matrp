@@ -31,7 +31,7 @@ const DrugPage = ({ info }) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button size='mini' circular icon='info' color='linkedin' />}
+      trigger={<Button size='mini' circular icon='info' color='linkedin' id={COMPONENT_IDS.DRUG_PAGE_BUTTON}/>}
       size='large'
       dimmer='blurring'
       id={COMPONENT_IDS.DRUG_PAGE}
@@ -85,11 +85,11 @@ const DrugPage = ({ info }) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => setOpen(false)}>
+        <Button color='black' onClick={() => setOpen(false)} id={COMPONENT_IDS.DRUG_CLOSE}>
             Close
         </Button>
         <Button
-          className={COMPONENT_IDS.DRUG_EDIT}
+          id={COMPONENT_IDS.DRUG_EDIT}
           content="Edit"
           labelPosition='right'
           icon='edit'

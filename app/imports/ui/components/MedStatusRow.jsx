@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DrugPage from '../components/DrugPage';
+// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const calculateStatus = (quantity, min) => {
   const status = {};
