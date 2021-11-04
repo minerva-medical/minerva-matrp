@@ -71,45 +71,45 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   };
 
   if (medicationFilter !== '' && medicationFilter !== 'All') {
-      list = list.filter((val) => {
-        for (let i = 0; i < val.drugType.length; i++) {
-          if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
-            return val;
-          }
+    list = list.filter((val) => {
+      for (let i = 0; i < val.drugType.length; i++) {
+        if (val.drugType[i].toLowerCase().includes(medicationFilter.toLowerCase())) {
+          return val;
         }
-        return false;
-      });
+      }
+      return false;
+    });
   }
   if (brandFilter !== '' && brandFilter !== 'All') {
-      list = list.filter((val) => {
-        if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
-          return val;
-        }
-        return false;
-      });
+    list = list.filter((val) => {
+      if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
+        return val;
+      }
+      return false;
+    });
   }
   if (locationFilter !== '' && locationFilter !== 'All') {
-      list = list.filter((val) => {
-        if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
-          return val;
-        }
-        return false;
-      });
+    list = list.filter((val) => {
+      if (val.location.toLowerCase().includes(locationFilter.toLowerCase())) {
+        return val;
+      }
+      return false;
+    });
   }
   if (statusFilter !== '' && statusFilter !== 'All') {
-      list = list.filter((val) => {
-        const percent = Math.floor((val.quantity / val.minQuantity) * 100);
-        if (statusFilter === 'In Stock') {
-          return percent > 30;
-        }
-        if (statusFilter === 'Low Stock') {
-          return (percent > 5 && percent < 30);
-        }
-        if (statusFilter === 'Out of Stock') {
-          return percent <= 5;
-        }
-        return false;
-      });
+    list = list.filter((val) => {
+      const percent = Math.floor((val.quantity / val.minQuantity) * 100);
+      if (statusFilter === 'In Stock') {
+        return percent > 30;
+      }
+      if (statusFilter === 'Low Stock') {
+        return (percent > 5 && percent < 30);
+      }
+      if (statusFilter === 'Out of Stock') {
+        return percent <= 5;
+      }
+      return false;
+    });
   }
 
   if (searchMedications !== '') {
