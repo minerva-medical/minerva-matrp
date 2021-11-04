@@ -121,7 +121,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
                   History Dispense Log
               <Header.Subheader>
                 <i>Use the search filter to look for a specific Patient Number
-                    or click on the table header to sort the column.</i>
+                    or use the dropdown filters.</i>
               </Header.Subheader>
             </Header.Content>
           </Header>
