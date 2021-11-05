@@ -70,6 +70,7 @@ const validateForm = (data, callback) => {
 const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
+    // TODO: use moment?
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
@@ -87,18 +88,21 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
     setFields({ ...fields, [name]: value });
   };
 
-  // autofill form on lotId select
-  const onLotIdSelect = (event, { value }) => {
-    const medication = Medications.findOne({ lotIds: { $elemMatch: { lotId: value } } });
-    if (medication) {
-      const targetObj = medication.lotIds.find(obj => obj.lotId === value);
-      const { drug, isTabs } = medication;
-      const { brand, expire, quantity } = targetObj;
-      const autoFields = { ...fields, lotId: value, drug, expire, brand, isTabs };
+  // handle lotId select
+  const onLotIdSelect = (event, { value: lotId }) => {
+    const target = Medications.findOne({ lotIds: { $elemMatch: { lotId } } });
+    // if lotId is not empty:
+    if (target) {
+      // autofill the form with specific lotId info
+      const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
+      const { drug, isTabs } = target;
+      const { brand, expire, quantity } = targetLotId;
+      const autoFields = { ...fields, lotId, drug, expire, brand, isTabs };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
-      setFields({ ...fields, lotId: value });
+      // else reset specific lotId info
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', isTabs: true });
       setMaxQuantity(0);
     }
   };
