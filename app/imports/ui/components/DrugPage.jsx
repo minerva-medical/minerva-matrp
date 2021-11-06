@@ -5,7 +5,10 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Medications } from '../../api/medication/MedicationCollection';
+import { removeItMethod } from '../../api/base/BaseCollection.methods';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
@@ -26,6 +29,32 @@ const DrugPage = ({ info }) => {
   const font2 = {
     fontSize: '15px',
   };
+
+  const deleteOption = (option, id) => {
+    swal({
+      title: 'Are you sure?',
+      text: `Do you really want to delete ${option}?`,
+      icon: 'warning',
+      buttons: [
+        'No, cancel it!',
+        'Yes, I am sure!',
+      ],
+      dangerMode: true,
+    })
+      .then((isConfirm) => {
+        // if 'yes'
+        if (isConfirm) {
+          const collectionName = Medications.getCollectionName();
+          // if an existing medication uses the drug type
+          removeItMethod.callPromise({ collectionName, instance: id })
+            .catch(error => swal('Error', error.message, 'error'))
+            .then(() => {
+              swal('Success', `${option} deleted successfully`, 'success', { buttons: false, timer: 3000 });
+            });
+
+        }
+      });
+  };
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -33,7 +62,6 @@ const DrugPage = ({ info }) => {
       open={open}
       trigger={<Button size='mini' circular icon='info' color='linkedin' id={COMPONENT_IDS.DRUG_PAGE_BUTTON}/>}
       size='large'
-      dimmer='blurring'
       id={COMPONENT_IDS.DRUG_PAGE}
     >
       <Modal.Header>Drug Information</Modal.Header>
@@ -96,6 +124,13 @@ const DrugPage = ({ info }) => {
           onClick={() => setOpen(false)}
           color='linkedin'
           as={Link} to={`/edit/${info._id}`}
+        />
+        <Button
+          content="Delete"
+          labelPosition='right'
+          icon='trash alternate'
+          color='red'
+          onClick={() => deleteOption(info.drug, info._id)}
         />
       </Modal.Actions>
     </Modal>
