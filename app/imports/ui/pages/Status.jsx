@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Input,
-  Loader, Icon, Popup,
-} from 'semantic-ui-react';
+import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Input,
+  Loader, Icon, Popup } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { _ } from 'meteor/underscore';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MedStatusRow from '../components/MedStatusRow';
-import { distinct, getOptions } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 // convert array to dropdown options
 const getFilters = (arr) => [{ key: 'All', value: 0, text: 'All' }, ...getOptions(arr)];
@@ -48,35 +47,43 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
   useEffect(() => {
     let filter = JSON.parse(JSON.stringify(medications));
     if (searchQuery) {
-      // filter = filter.filter((medication) => medication.drug.toLowerCase().includes(searchQuery.toLowerCase()));
-      filter = filter.filter((medication) => (
-        medication.drug.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        medication.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        medication.expire.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        medication.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        medication.lotId.toLowerCase().includes(searchQuery.toLowerCase())
+      const query = searchQuery.toLowerCase();
+      filter = filter.filter(({ drug, lotIds }) => (
+        drug.toLowerCase().includes(query.toLowerCase()) ||
+        lotIds.findIndex(({ brand }) => brand.toLowerCase().includes(query)) !== -1 ||
+        lotIds.findIndex(({ expire }) => expire.includes(query)) !== -1 ||
+        lotIds.findIndex(({ location }) => location.toLowerCase().includes(query)) !== -1 ||
+        lotIds.findIndex(({ lotId }) => lotId.toLowerCase().includes(query)) !== -1
       ));
     }
     if (typeFilter) {
       filter = filter.filter((medication) => medication.drugType.includes(typeFilter));
     }
     if (brandFilter) {
-      filter = filter.filter((medication) => medication.brand === brandFilter);
+      // filter = filter.filter((medication) => medication.brand === brandFilter);
+      filter = filter.filter((medication) => medication.lotIds.findIndex(
+        lotId => lotId.brand === brandFilter,
+      ) !== -1);
     }
     if (locationFilter) {
-      filter = filter.filter((medication) => medication.location === locationFilter);
+      // filter = filter.filter((medication) => medication.location === locationFilter);
+      filter = filter.filter((medication) => medication.lotIds.findIndex(
+        lotId => lotId.location === locationFilter,
+      ) !== -1);
     }
     if (statusFilter) {
       filter = filter.filter((medication) => {
-        const percent = medication.quantity / medication.minQuantity;
+        const totalQuantity = medication.lotIds.length ?
+          _.pluck(medication.lotIds, 'quantity').reduce((prev, current) => prev + current) : 0;
+        const percent = Math.floor((totalQuantity / medication.minQuantity) * 100);
         if (statusFilter === 'In Stock') {
-          return percent > 0.3;
+          return percent > 30;
         }
         if (statusFilter === 'Low Stock') {
-          return (percent > 0.05 && percent <= 0.3);
+          return (percent > 5 && percent <= 30);
         }
         if (statusFilter === 'Out of Stock') {
-          return percent <= 0.05;
+          return percent <= 5;
         }
         return true;
       });
@@ -147,19 +154,15 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
               onChange={handleRecordLimit} value={maxRecords}/>
             Total count: {filteredMedications.length}
           </div>
-          <Table>
+          <Table selectable>
             <Table.Header>
               <Table.Row>
+                <Table.HeaderCell />
                 <Table.HeaderCell>Medication</Table.HeaderCell>
                 <Table.HeaderCell>Type</Table.HeaderCell>
-                <Table.HeaderCell>Brand</Table.HeaderCell>
-                <Table.HeaderCell>LotId</Table.HeaderCell>
-                <Table.HeaderCell>Quantity</Table.HeaderCell>
-                <Table.HeaderCell>Location</Table.HeaderCell>
-                <Table.HeaderCell>Expiration</Table.HeaderCell>
-                <Table.HeaderCell>Donated</Table.HeaderCell>
+                <Table.HeaderCell>Total Quantity</Table.HeaderCell>
+                <Table.HeaderCell>Unit</Table.HeaderCell>
                 <Table.HeaderCell>Status</Table.HeaderCell>
-                <Table.HeaderCell>Information</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -172,7 +175,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
 
             <Table.Footer>
               <Table.Row>
-                <Table.HeaderCell colSpan="10">
+                <Table.HeaderCell colSpan="6">
                   <Pagination totalPages={Math.ceil(filteredMedications.length / maxRecords)} activePage={pageNo}
                     onPageChange={(event, data) => setPageNo(data.activePage)}/>
                 </Table.HeaderCell>
@@ -205,7 +208,7 @@ export default withTracker(() => {
   const medications = Medications.find({}, { sort: { drug: 1 } }).fetch();
   const drugTypes = distinct('drugType', DrugTypes);
   const locations = distinct('location', Locations);
-  const brands = distinct('brand', Medications);
+  const brands = nestedDistinct('brand', Medications);
   return {
     medications,
     drugTypes,

@@ -182,7 +182,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     // filter drugs
     const filter = distinct('drug', Medications, { lotIds: { $elemMatch: { brand } } });
     console.log(filter);
-    if (filter.length) {
+    if (filter.length && !fields.drug) {
       setFilteredDrugs(filter);
     } else {
       setFilteredDrugs(newDrugs);
