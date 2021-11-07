@@ -50,7 +50,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
       filter = filter.filter(({ drug, lotIds }) => (
         drug.toLowerCase().includes(query.toLowerCase()) ||
         lotIds.findIndex(({ brand }) => brand.toLowerCase().includes(query)) !== -1 ||
-        lotIds.findIndex(({ expire }) => expire.includes(query)) !== -1 ||
+        lotIds.findIndex(({ expire }) => (expire && expire.includes(query)) !== -1) ||
         lotIds.findIndex(({ location }) => location.toLowerCase().includes(query)) !== -1 ||
         lotIds.findIndex(({ lotId }) => lotId.toLowerCase().includes(query)) !== -1
       ));

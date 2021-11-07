@@ -24,10 +24,12 @@ const MedStatusRow = ({ med }) => {
   };
 
   const currentDate = new Date();
-  const expirations = med.lotIds.map(({ expire }) => expire.split('-'));
+  const expirations = med.lotIds.map(({ expire }) => (expire && expire.split('-')));
   const expiredDates = expirations.map((expiration) => {
     const expiredDate = new Date();
-    return expiredDate.setFullYear(parseInt(expiration[0], 10), parseInt(expiration[1], 10) - 1, parseInt(expiration[2], 10));
+    return expiration ?
+      expiredDate.setFullYear(parseInt(expiration[0], 10), parseInt(expiration[1], 10) - 1, parseInt(expiration[2], 10))
+      : expiredDate;
   });
   const isExpired = expiredDates.map((expiredDate) => expiredDate < currentDate);
 
