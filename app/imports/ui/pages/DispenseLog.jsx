@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Icon, Input, Popup,
+import {
+  Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Icon, Input, Popup, Label,
 } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -43,7 +44,8 @@ const DispenseLog = ({ ready, historicals, brands }) => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [pageNo, setPageNo] = useState(1);
-    const [dateFilter, setDateFilter] = useState(0);
+    const [minDateFilter, setMinDateFilter] = useState(0);
+    const [maxDateFilter, setMaxDateFilter] = useState(0);
     const [brandFilter, setBrandFilter] = useState(0);
     const [dispenseTypeFilter, setDispenseTypeFilter] = useState(0);
     const [maxLog, setMaxLog] = useState(10);
@@ -66,15 +68,21 @@ const DispenseLog = ({ ready, historicals, brands }) => {
       if (dispenseTypeFilter) {
         filter = filter.filter((historical) => historical.dispenseType.includes(dispenseTypeFilter));
       }
-      if (dateFilter) {
-        filter = filter.filter((historical) => historical.dateDispensed.includes(dateFilter));
+      if (minDateFilter && maxDateFilter) {
+        filter = filter.filter((historical) => historical.dateDispensed >= (minDateFilter) &&
+            historical.dateDispensed <= (maxDateFilter));
+      }
+      if (minDateFilter || maxDateFilter) {
+        filter = filter.filter((historical) => historical.dateDispensed >= (minDateFilter) ||
+            historical.dateDispensed <= (maxDateFilter));
       }
       setFilterHistoricals(filter);
-    }, [searchQuery, brandFilter, dispenseTypeFilter, dateFilter]);
+    }, [searchQuery, brandFilter, dispenseTypeFilter, minDateFilter, maxDateFilter]);
 
     const handleSearch = (event, { value }) => setSearchQuery(value);
     const handleBrandFilter = (event, { value }) => setBrandFilter(value);
-    const handleDateFilter = (event, { value }) => setDateFilter(value);
+    const handleMinDateFilter = (event, { value }) => setMinDateFilter(value);
+    const handleMaxDateFilter = (event, { value }) => setMaxDateFilter(value);
     const handleDispenseTypeFilter = (event, { value }) => setDispenseTypeFilter(value);
     const handleMaxLog = (event, { value }) => setMaxLog(value);
 
@@ -99,9 +107,15 @@ const DispenseLog = ({ ready, historicals, brands }) => {
                   LotId, or Drug Name.'/>
               </Grid.Column>
               <Grid.Column>
-                <Input type="date" onChange={handleDateFilter}/>
+                <Label basic>Date From</Label>
+                <Input type="date" onChange={handleMinDateFilter}/>
                 <Popup inverted trigger={<Icon name='question circle' color="blue"/>}
-                  content='This allows you to filter the Dispense Log table by Date.'/>
+                  content="This allows you to filter the Dispense Log table
+                  from the selected 'From Date' to today's date or the selected 'To Date'."/>
+              </Grid.Column>
+              <Grid.Column>
+                <Label basic>Date To</Label>
+                <Input type="date" onChange={handleMaxDateFilter}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
