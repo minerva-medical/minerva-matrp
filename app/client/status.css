@@ -1,1 +1,18 @@
+#med-status .lot-row {
+  padding-left: 5em;
+}
 
+#med-status .ui.pagination.menu {
+  border: none;
+  box-shadow: none;
+  background-color: rgb(249, 250, 251);
+}
+
+#med-status .ui.menu .item:before {
+  width: 0;
+}
+
+#med-status .ui.pagination.menu .active.item {
+  background-color: rgba(29, 62, 102, 0.5);
+  border-radius: 50%;
+}

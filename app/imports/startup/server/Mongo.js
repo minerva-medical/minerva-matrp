@@ -25,7 +25,7 @@ if (Stuffs.count() === 0) {
   }
 }
 
-if (Meteor.settings.loadAssetsFile && Medications.count() !== 201) {
+if (Meteor.settings.loadAssetsFile) {
   Medications._collection.remove({}); // clear collection (temporary)
   console.log(`Loading data from private/${assetsFileName}`);
   // jsonData.medications.map(medication => Medications.define(medication));

@@ -3,47 +3,47 @@ import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react
 import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { _ } from 'meteor/underscore';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions } from '../utilities/Functions';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
-  const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, note } = data;
+  const { drug, drugType, minQuantity, quantity, isTabs, brand, lotId, expire, location, donated, note } = data;
   const collectionName = Medications.getCollectionName();
-  const exists = Medications.findOne({ lotId }); // returns the existing medication or undefined
-  const empty = Medications.findOne({ drug, quantity: 0 }); // returns the empty medication or undefined
+  const exists = Medications.findOne({ drug }); // returns the existing medication or undefined
 
-  if (exists) {
-    // if the medication w/ lotId exists:
-    const updateData = { id: exists._id, quantity: exists.quantity + quantity }; // increment the quantity
+  // if the medication does not exist:
+  if (!exists) {
+    // insert the new medication and lotId
+    const newLot = { lotId, brand, expire, location, quantity, donated, note };
+    const definitionData = { drug, drugType, minQuantity, isTabs, lotIds: [newLot] };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', `${drug}, ${lotId} added successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
+  } else {
+    const { lotIds } = exists;
+    // const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId));
+    const target = lotIds.find(obj => obj.lotId === lotId);
+    // if lotId exists, increment the quantity:
+    if (target) {
+      target.quantity += quantity;
+    } else {
+      // else append the new lotId
+      lotIds.push({ lotId, brand, expire, location, quantity, donated, note });
+    }
+    const updateData = { id: exists._id, lotIds };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
         swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
-        callback(); // resets the form
-      });
-  } else
-  if (empty) {
-    // else if the medication w/ drug_name exists and its quantity is 0:
-    const updateData = { id: empty._id, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated,
-      note }; // set the following
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', `${drug} added successfully`, 'success', { buttons: false, timer: 3000 });
-        callback(); // resets the form
-      });
-  } else {
-    // else insert the new medication
-    const definitionData = { ...data };
-    defineMethod.callPromise({ collectionName, definitionData })
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', `${drug} added successfully`, 'success', { buttons: false, timer: 3000 });
         callback(); // resets the form
       });
   }
@@ -54,7 +54,7 @@ const validateForm = (data, callback) => {
   const submitData = { ...data };
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['drug', 'drugType', 'brand', 'lotId', 'minQuantity', 'quantity', 'location'];
+  const requiredFields = ['drug', 'drugType', 'minQuantity', 'lotId', 'brand', 'location', 'quantity'];
 
   // if the field is empty, append error message
   requiredFields.forEach(field => {
@@ -87,52 +87,116 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     donated: false,
     note: '',
   });
+  const isDisabled = drugs.includes(fields.drug);
 
+  // a copy of drugs, lotIds, and brands and their respective filters
+  const [newDrugs, setNewDrugs] = useState([]);
+  useEffect(() => {
+    setNewDrugs(drugs);
+  }, [drugs]);
   const [filteredDrugs, setFilteredDrugs] = useState([]);
   useEffect(() => {
-    setFilteredDrugs(drugs);
-  }, [drugs]);
-
+    setFilteredDrugs(newDrugs);
+  }, [newDrugs]);
+  const [newLotIds, setNewLotIds] = useState([]);
+  useEffect(() => {
+    setNewLotIds(lotIds);
+  }, [lotIds]);
+  const [filteredLotIds, setFilteredLotIds] = useState([]);
+  useEffect(() => {
+    setFilteredLotIds(newLotIds);
+  }, [newLotIds]);
+  const [newBrands, setNewBrands] = useState([]);
+  useEffect(() => {
+    setNewBrands(brands);
+  }, [brands]);
   const [filteredBrands, setFilteredBrands] = useState([]);
   useEffect(() => {
-    setFilteredBrands(brands);
-  }, [brands]);
+    setFilteredBrands(newBrands);
+  }, [newBrands]);
+
+  // handles adding a new drug; IS case sensitive
+  const onAddDrug = (event, { value }) => {
+    if (!newDrugs.map(drug => drug.toLowerCase()).includes(value.toLowerCase())) {
+      setNewDrugs([...newDrugs, value]);
+    }
+  };
+  // handles adding a new lotId; IS NOT case sensitive
+  const onAddLotId = (event, { value }) => {
+    if (!newLotIds.includes(value)) {
+      setNewLotIds([...newLotIds, value]);
+    }
+  };
+  // handles adding a new brand; IS case sensitive
+  const onAddBrand = (event, { value }) => {
+    if (!newBrands.map(brand => brand.toLowerCase()).includes(value.toLowerCase())) {
+      setNewBrands([...newBrands, value]);
+    }
+  };
 
   const handleChange = (event, { name, value, checked }) => {
     setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
 
-  // handle dropdown search query
-  const handleSearch = (event, { name, searchQuery }) => {
-    setFields({ ...fields, [name]: searchQuery });
-  };
-
-  // autofill form on lotId select
-  const onLotIdSelect = (event, { value }) => {
-    const medication = Medications.findOne({ lotId: value });
-    if (medication) {
-      const { drug, drugType, expire, brand, minQuantity, isTabs, location, donated, note } = medication;
-      const autoFields = {
-        ...fields, lotId: value, drug, drugType, expire, brand, minQuantity, isTabs, location,
-        donated, note,
-      };
-      setFields(autoFields);
+  // handles drug select
+  const onDrugSelect = (event, { value: drug }) => {
+    const target = Medications.findOne({ drug });
+    // if the drug exists:
+    if (target) {
+      // autofill the form with specific drug info
+      const { drugType, minQuantity, isTabs, lotIds: lotIdObjs } = target;
+      setFields({ ...fields, drug, drugType, minQuantity, isTabs });
+      // filter lotIds and brands
+      // TODO: sort?
+      setFilteredLotIds(_.pluck(lotIdObjs, 'lotId'));
+      // setFilteredBrands(_.uniq(_.pluck(lotIdObjs, 'brand')));
     } else {
-      setFields({ ...fields, lotId: value });
+      // else reset specific drug info
+      setFields({ ...fields, drug, drugType: [], minQuantity: '', isTabs: true });
+      // reset the filters
+      setFilteredLotIds(newLotIds);
+      // setFilteredBrands(newBrands);
     }
   };
 
-  const onBrandSelect = (event, { value }) => {
-    setFields({ ...fields, brand: value });
-    // filter drug dropdown
-    const selector = value ? { brand: value } : {};
-    const filteredData = distinct('drug', Medications, selector);
-    // console.log(filteredData);
-    setFilteredDrugs(filteredData);
+  // handles lotId select
+  const onLotIdSelect = (event, { value: lotId }) => {
+    const target = Medications.findOne({ lotIds: { $elemMatch: { lotId } } });
+    // if the lotId exists:
+    if (target) {
+      // autofill the form with specific lotId info
+      const targetLotIds = target.lotIds.find(obj => obj.lotId === lotId);
+      const { drug, drugType, minQuantity, isTabs } = target;
+      const { brand, expire, location, donated, note } = targetLotIds;
+      const autoFields = { ...fields, lotId, drug, drugType, expire, brand, minQuantity, isTabs, location,
+        donated, note };
+      setFields(autoFields);
+    } else {
+      // else reset specific lotId info
+      setFields({ ...fields, lotId, expire: '', brand: '', location: '', donated: false, note: '' });
+    }
   };
 
-  const clearForm = () => setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
-    brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
+  // handles brand select
+  const onBrandSelect = (event, { value: brand }) => {
+    setFields({ ...fields, brand });
+    // filter drugs
+    const filter = distinct('drug', Medications, { lotIds: { $elemMatch: { brand } } });
+    console.log(filter);
+    if (filter.length && !fields.drug) {
+      setFilteredDrugs(filter);
+    } else {
+      setFilteredDrugs(newDrugs);
+    }
+  };
+
+  const clearForm = () => {
+    setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
+      brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
+    setFilteredDrugs(newDrugs);
+    setFilteredLotIds(newLotIds);
+    setFilteredBrands(newBrands);
+  };
 
   if (ready) {
     return (
@@ -152,28 +216,43 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
                   placeholder="Benzonatate Capsules" name='drug'
-
-                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug} id={COMPONENT_IDS.ADD_MEDICATION_DRUG_NAME}/>
+                  onChange={onDrugSelect} value={fields.drug} allowAdditions onAddItem={onAddDrug}
+                  id={COMPONENT_IDS.ADD_MEDICATION_DRUG_NAME} />
               </Grid.Column>
+              <Grid.Column className='filler-column' />
+              <Grid.Column className='filler-column' />
+            </Grid.Row>
+            <Grid.Row>
+              {/* TODO: expand drug type column */}
               <Grid.Column>
-                <Form.Select clearable multiple search label='Drug Type(s)'
+                <Form.Select clearable multiple search label='Drug Type(s)' disabled={isDisabled}
                   options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
                   name='drugType' onChange={handleChange} value={fields.drugType} id={COMPONENT_IDS.ADD_MEDICATION_DRUG_TYPE}/>
               </Grid.Column>
-              <Grid.Column className='filler-column'/>
+              <Grid.Column>
+                <Form.Group>
+                  <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity' className='quantity'
+                    onChange={handleChange} value={fields.minQuantity} placeholder="100" disabled={isDisabled}
+                    id={COMPONENT_IDS.ADD_MEDICATION_MIN_QUANTITY} />
+                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
+                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]}
+                    disabled={isDisabled} />
+                </Form.Group>
+              </Grid.Column>
+              <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
+                <Form.Select clearable search label='Lot Number' options={getOptions(filteredLotIds)}
                   placeholder="Z9Z99" name='lotId'
-                  onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch}
-                  searchQuery={fields.lotId}
-                  id={COMPONENT_IDS.ADD_MEDICATION_LOT}/>
+                  onChange={onLotIdSelect} value={fields.lotId} allowAdditions onAddItem={onAddLotId}
+                  id={COMPONENT_IDS.ADD_MEDICATION_LOT} />
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(filteredBrands)}
                   placeholder="Zonatuss" name='brand'
-                  onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand} id={COMPONENT_IDS.ADD_MEDICATION_BRAND}/>
+                  onChange={onBrandSelect} value={fields.brand} allowAdditions onAddItem={onAddBrand}
+                  id={COMPONENT_IDS.ADD_MEDICATION_BRAND} />
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
@@ -188,27 +267,14 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity'
-                  onChange={handleChange} value={fields.minQuantity} placeholder="100"
-                  id={COMPONENT_IDS.ADD_MEDICATION_MIN_QUANTITY}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Group>
-                  <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder="200"
-                    id={COMPONENT_IDS.ADD_MEDICATION_QUANTITY}/>
-                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, {
-                      key: 'mL',
-                      text: 'mL',
-                      value: false,
-                    }]}/>
-                </Form.Group>
-              </Grid.Column>
-              <Grid.Column>
                 <Form.Select compact clearable search label='Location' options={getOptions(locations)}
                   placeholder="Case 2" name='location'
                   onChange={handleChange} value={fields.location} id={COMPONENT_IDS.ADD_MEDICATION_LOCATION}/>
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Input label='Quantity' type='number' min={1} name='quantity'
+                  onChange={handleChange} value={fields.quantity} placeholder="200"
+                  id={COMPONENT_IDS.ADD_MEDICATION_QUANTITY} />
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
                 <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated}/>
@@ -251,12 +317,11 @@ export default withTracker(() => {
   const locationSub = Locations.subscribeLocation();
   const medSub = Medications.subscribeMedication();
   return {
-    // TODO: exclude 'N/A'
     drugs: distinct('drug', Medications),
     drugTypes: distinct('drugType', DrugTypes),
-    lotIds: distinct('lotId', Medications),
+    lotIds: nestedDistinct('lotId', Medications),
     locations: distinct('location', Locations),
-    brands: distinct('brand', Medications),
+    brands: nestedDistinct('brand', Medications),
     ready: typeSub.ready() && locationSub.ready() && medSub.ready(),
   };
 })(AddMedication);

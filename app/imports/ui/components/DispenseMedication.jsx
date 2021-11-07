@@ -8,42 +8,37 @@ import { Sites } from '../../api/site/SiteCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
   const { lotId, quantity, drug } = data;
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
-  const medication = Medications.findOne({ lotId }); // find the existing medication
-  const { _id, isTabs } = medication;
+  const medication = Medications.findOne({ drug }); // find the existing medication
+  const { _id, isTabs, lotIds } = medication;
+  const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
+  const { quantity: targetQuantity } = lotIds[targetIndex];
 
-  if (quantity < medication.quantity) {
-    // if dispense quantity < medication quantity:
-    const updateData = { id: _id, quantity: medication.quantity - quantity }; // decrement the quantity
-    const definitionData = { ...data };
-    const promises = [updateMethod.callPromise({ collectionName, updateData }),
-      defineMethod.callPromise({ collectionName: histCollection, definitionData })];
-    Promise.all(promises)
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
-        callback(); // resets the form
-      });
-  } else if (quantity > medication.quantity) {
-    // else if dispense quantity > medication quantity:
-    swal('Error', `${drug} only has ${medication.quantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
+  // if dispense quantity > lotId quantity:
+  if (quantity > targetQuantity) {
+    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
   } else {
-    // else if dispense quantity = medication quantity:
-    const updateData = { id: _id, minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
-      location: 'N/A', donated: false, note: 'N/A', drugType: ['N/A'], isTabs: true }; // reset all fields (exc. drug)
+    // if dispense quantity < lotId quantity:
+    if (quantity < targetQuantity) {
+      lotIds[targetIndex].quantity -= quantity; // decrement the quantity
+    } else {
+      // else if dispense quantity === lotId quantity:
+      lotIds.splice(targetIndex, 1); // remove the lotId
+    }
+    const updateData = { id: _id, lotIds };
     const definitionData = { ...data };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
-        swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        swal('Success', `${drug}, ${lotId} updated successfully`, 'success', { buttons: false, timer: 3000 });
         callback(); // resets the form
       });
   }
@@ -75,6 +70,7 @@ const validateForm = (data, callback) => {
 const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
+    // TODO: use moment?
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
@@ -93,22 +89,30 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
     setFields({ ...fields, [name]: value });
   };
 
-  // autofill form on lotId select
-  const onLotIdSelect = (event, { value }) => {
-    const medication = Medications.findOne({ lotId: value });
-    if (medication) {
-      const { drug, expire, brand, quantity, isTabs } = medication;
-      const autoFields = { ...fields, lotId: value, drug, expire, brand, isTabs };
+  // handle lotId select
+  const onLotIdSelect = (event, { value: lotId }) => {
+    const target = Medications.findOne({ lotIds: { $elemMatch: { lotId } } });
+    // if lotId is not empty:
+    if (target) {
+      // autofill the form with specific lotId info
+      const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
+      const { drug, isTabs } = target;
+      const { brand, expire, quantity } = targetLotId;
+      const autoFields = { ...fields, lotId, drug, expire, brand, isTabs };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
-      setFields({ ...fields, lotId: value });
+      // else reset specific lotId info
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', isTabs: true });
       setMaxQuantity(0);
     }
   };
 
-  const clearForm = () => setFields({ site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '',
-    expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
+  const clearForm = () => {
+    setFields({ ...fields, site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '', expire: '',
+      dispensedTo: '', dispensedFrom: '', note: '' });
+    setMaxQuantity(0);
+  };
 
   if (ready) {
     return (
@@ -225,8 +229,8 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     drugs: distinct('drug', Medications),
-    lotIds: distinct('lotId', Medications),
-    brands: distinct('brand', Medications),
+    lotIds: nestedDistinct('lotId', Medications),
+    brands: nestedDistinct('brand', Medications),
     ready: siteSub.ready() && historySub.ready() && medSub.ready(),
   };
 })(DispenseMedication);

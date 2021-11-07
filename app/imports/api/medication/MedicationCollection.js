@@ -17,18 +17,20 @@ class MedicationCollection extends BaseCollection {
       drug: String,
       drugType: Array,
       'drugType.$': String,
-      brand: String,
-      lotId: String,
-      expire: {
+      minQuantity: Number,
+      isTabs: Boolean,
+      lotIds: Array,
+      'lotIds.$': Object,
+      'lotIds.$.lotId': String,
+      'lotIds.$.brand': String,
+      'lotIds.$.expire': { // date string "YYYY-MM-DD"
         type: String,
         optional: true,
-      }, // date string "YYYY-MM-DD"
-      minQuantity: Number,
-      quantity: Number,
-      isTabs: Boolean,
-      location: String,
-      donated: Boolean,
-      note: {
+      },
+      'lotIds.$.location': String,
+      'lotIds.$.quantity': Number,
+      'lotIds.$.donated': Boolean,
+      'lotIds.$.note': {
         type: String,
         optional: true,
       },
@@ -39,9 +41,12 @@ class MedicationCollection extends BaseCollection {
    * Defines a new Medication item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note }) {
+  define({ drug, drugType, minQuantity, isTabs, lotIds }) {
+    // const docID = this._collection.insert({
+    //   drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note,
+    // });
     const docID = this._collection.insert({
-      drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note,
+      drug, drugType, minQuantity, isTabs, lotIds,
     });
     return docID;
   }
@@ -75,15 +80,18 @@ class MedicationCollection extends BaseCollection {
     if (data.drugType && data.drugType.every(elem => elem)) {
       updateData.drugType = data.drugType;
     }
-    addString('brand');
-    addString('lotId');
-    addString('expire');
     addNumber('minQuantity');
-    addNumber('quantity');
     addBoolean('isTabs');
-    addString('location');
-    addBoolean('donated');
-    addString('note');
+    if (data.lotIds && data.lotIds.every(lotId => (
+      _.isObject(lotId) &&
+      lotId.lotId &&
+      lotId.brand &&
+      _.isNumber(lotId.quantity) &&
+      lotId.location &&
+      _.isBoolean(lotId.donated)
+    ))) {
+      updateData.lotIds = data.lotIds;
+    }
 
     this._collection.update(docID, { $set: updateData });
   }
@@ -93,8 +101,8 @@ class MedicationCollection extends BaseCollection {
    * @param { String | Object } name A document or docID in this collection.
    * @returns true
    */
-  removeIt(lotId) {
-    const doc = this.findDoc(lotId);
+  removeIt(name) {
+    const doc = this.findDoc(name);
     check(doc, Object);
     this._collection.remove(doc._id);
     return true;
