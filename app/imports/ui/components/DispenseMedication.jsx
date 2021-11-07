@@ -32,7 +32,7 @@ const submit = (data, callback) => {
       lotIds.splice(targetIndex, 1); // remove the lotId
     }
     const updateData = { id: _id, lotIds };
-    const definitionData = { ...data };
+    const definitionData = { ...data, dispenseType: 'Patient Use' };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
@@ -79,7 +79,6 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
     lotId: '',
     expire: '',
     dispensedTo: '',
-    dispenseType: '',
     dispensedFrom: '',
     note: '',
   });
@@ -134,9 +133,7 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
                 <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
-              <Grid.Column>
-                <Form.Input type="hidden" name='dispenseType' value="Patient Use"/>
-              </Grid.Column>
+              <Grid.Column className='filler-column' />
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>

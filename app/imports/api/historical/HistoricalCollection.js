@@ -6,6 +6,7 @@ import { check } from 'meteor/check';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
+export const dispenseTypes = ['Patient Use', 'Broken', 'Lost', 'Contaminated', 'Expired', 'Inventory'];
 export const historicalPublications = {
   historical: 'Historical;',
   historicalAdmin: 'HistoricalAdmin',
@@ -28,7 +29,7 @@ class HistoricalCollection extends BaseCollection {
       dispensedTo: String,
       dispenseType: {
         type: String,
-        optional: true,
+        allowedValues: dispenseTypes,
       },
       site: String,
       note: {
