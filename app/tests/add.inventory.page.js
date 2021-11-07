@@ -38,7 +38,7 @@ class AddInventoryPage {
   async addMedication(lot, quantity) {
     await t.click(`#${COMPONENT_IDS.TAB_ONE}`);
     await t.wait(2000);
-    await t.click(this.lot).click(this.lotOption.withText('0EqhD6'));
+    await t.click(this.lot).click(this.lotOption.withText('0GevS4'));
     await t.wait(2000);
     await t.typeText(`#${COMPONENT_IDS.ADD_MEDICATION_QUANTITY}`, quantity);
     await t.wait(2000);

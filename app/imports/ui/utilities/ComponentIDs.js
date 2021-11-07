@@ -75,4 +75,5 @@ export const COMPONENT_IDS = {
   MANAGE_DRUG_TYPES: 'manage-drug-types',
   MANAGE_LOCATIONS: 'manage-locations',
   MANAGE_SITES: 'manage-sites',
+  MED_STATUS_ROW: 'med-status-row',
 };

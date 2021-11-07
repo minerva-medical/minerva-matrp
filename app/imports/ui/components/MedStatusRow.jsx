@@ -3,7 +3,7 @@ import { Icon, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import DrugPage from '../components/DrugPage';
-// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const MedStatusRow = ({ med }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ const MedStatusRow = ({ med }) => {
   return (
     <>
       {/* the drug row */}
-      <Table.Row onClick={handleOpen} negative={isExpired.includes(true)}>
+      <Table.Row onClick={handleOpen} negative={isExpired.includes(true)} id={COMPONENT_IDS.MED_STATUS_ROW}>
         <Table.Cell>
           <Icon name={`caret ${isOpen ? 'down' : 'up'}`} />
         </Table.Cell>

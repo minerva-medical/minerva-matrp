@@ -18,6 +18,7 @@ class StatusPage {
   }
 
   async openModal() {
+    await t.click(`#${COMPONENT_IDS.MED_STATUS_ROW}`);
     await t.click(`#${COMPONENT_IDS.DRUG_PAGE_BUTTON}`);
     await t.wait(3000);
     await t.click(`#${COMPONENT_IDS.DRUG_CLOSE}`);
