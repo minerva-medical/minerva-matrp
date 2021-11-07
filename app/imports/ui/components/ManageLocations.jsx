@@ -51,7 +51,7 @@ const deleteOption = (option, id) => {
     .then((isConfirm) => {
       // if 'yes'
       if (isConfirm) {
-        const inUse = Medications.findOne({ location: option });
+        const inUse = Medications.findOne({ lotIds: { $elemMatch: { location: option } } });
         const collectionName = Locations.getCollectionName();
         // if an existing medication uses the location
         if (inUse) {
