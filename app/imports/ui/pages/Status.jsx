@@ -74,15 +74,14 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
       filter = filter.filter((medication) => {
         const totalQuantity = medication.lotIds.length ?
           _.pluck(medication.lotIds, 'quantity').reduce((prev, current) => prev + current) : 0;
-        const percent = Math.floor((totalQuantity / medication.minQuantity) * 100);
         if (statusFilter === 'In Stock') {
-          return percent > 30;
+          return totalQuantity > medication.minQuantity;
         }
         if (statusFilter === 'Low Stock') {
-          return (percent > 5 && percent <= 30);
+          return (totalQuantity > 0 && totalQuantity < medication.minQuantity);
         }
         if (statusFilter === 'Out of Stock') {
-          return percent <= 5;
+          return totalQuantity === 0;
         }
         return true;
       });
