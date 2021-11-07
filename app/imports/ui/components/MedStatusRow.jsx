@@ -43,8 +43,8 @@ const MedStatusRow = ({ med }) => {
 
       {/* the lotId row */}
       <Table.Row style={{ display: isOpen ? 'table-row' : 'none' }}>
-        <Table.Cell colSpan={6}>
-          <Table>
+        <Table.Cell colSpan={6} className='lot-row'>
+          <Table color='blue' unstackable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Lot Number</Table.HeaderCell>

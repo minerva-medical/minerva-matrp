@@ -154,7 +154,7 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
               onChange={handleRecordLimit} value={maxRecords}/>
             Total count: {filteredMedications.length}
           </div>
-          <Table selectable>
+          <Table selectable color='blue' unstackable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell />
@@ -176,8 +176,16 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="6">
-                  <Pagination totalPages={Math.ceil(filteredMedications.length / maxRecords)} activePage={pageNo}
-                    onPageChange={(event, data) => setPageNo(data.activePage)}/>
+                  <Pagination
+                    totalPages={Math.ceil(filteredMedications.length / maxRecords)}
+                    activePage={pageNo}
+                    onPageChange={(event, data) => setPageNo(data.activePage)}
+                    ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
+                    firstItem={{ content: <Icon name='angle double left' />, icon: true }}
+                    lastItem={{ content: <Icon name='angle double right' />, icon: true }}
+                    prevItem={{ content: <Icon name='angle left' />, icon: true }}
+                    nextItem={{ content: <Icon name='angle right' />, icon: true }}
+                  />
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
