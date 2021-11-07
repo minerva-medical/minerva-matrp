@@ -22,9 +22,14 @@ const calculateStatus = (quantity, min) => {
 
 const MedStatusRow = ({ med }) => {
   const { color, percent } = calculateStatus(med.quantity, med.minQuantity);
+  const currentDate = new Date();
+  const expiration = med.expire.split('-');
+  const expiredDate = new Date();
+  expiredDate.setFullYear(parseInt(expiration[0], 10), parseInt(expiration[1], 10) - 1, parseInt(expiration[2], 10));
+  const isExpired = expiredDate < currentDate;
 
   return (
-    <Table.Row>
+    <Table.Row negative={isExpired}>
       <Table.Cell>{med.drug}</Table.Cell>
       <Table.Cell>{med.drugType.join(', ')}</Table.Cell>
       <Table.Cell>{med.brand}</Table.Cell>
