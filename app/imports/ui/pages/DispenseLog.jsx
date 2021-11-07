@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
-import { distinct } from '../utilities/Functions';
+import { nestedDistinct } from '../utilities/Functions';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 // convert array to dropdown options
@@ -242,7 +242,7 @@ export default withTracker(() => {
   const ready = historicalSub.ready() && medSub.ready();
   // Get the Historical documents.
   const historicals = Historicals.find({}).fetch();
-  const brands = distinct('brand', Medications);
+  const brands = nestedDistinct('brand', Medications);
   return {
     historicals,
     brands,
