@@ -19,12 +19,7 @@ const MedStatusRow = ({ med }) => {
   });
   const isExpired = expiredDates.map((expiredDate) => expiredDate < currentDate);
 
-  let totalQuantity = med.lotIds.length ? _.pluck(med.lotIds, 'quantity').reduce((prev, current) => prev + current) : 0;
-  for (let i = 0; i < isExpired.length; i++) {
-    if (isExpired[i]) {
-      totalQuantity -= med.lotIds[i].quantity;
-    }
-  }
+  const totalQuantity = med.lotIds.length ? _.pluck(med.lotIds, 'quantity').reduce((prev, current, index) => (isExpired[index] ? prev : prev + current)) : 0;
   const status = Math.floor((totalQuantity / med.minQuantity) * 100);
   const getColor = () => {
     let color;
