@@ -1,35 +1,33 @@
-import React, { useState } from 'react';
-import { Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Icon, Input, Popup,
+import React, { useEffect, useState } from 'react';
+import {
+  Header, Container, Table, Segment, Divider, Dropdown, Pagination, Grid, Loader, Icon, Input, Popup, Label,
 } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
-import { distinct } from '../utilities/Functions';
+import { getOptions, nestedDistinct } from '../utilities/Functions';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
-// convert array to dropdown options
-const getOptions = (arr) => {
-  const options = arr.map(elem => ({ key: elem, text: elem, value: elem }));
-  options.unshift({ key: '0', value: 'All', text: 'All' });
-  return options;
-};
+// Convert array to dropdown options
+const getFilters = (arr) => [{ key: 'All', value: 0, text: 'All' }, ...getOptions(arr)];
 
 // Used for the amount of history log rows that appear in each page.
 const logPerPage = [
-  { key: '0', value: '5', text: '5' },
-  { key: '1', value: '10', text: '10' },
-  { key: '2', value: '25', text: '25' },
-  { key: '3', value: '50', text: '50' },
+  { key: 1, value: 10, text: '10' },
+  { key: 2, value: 25, text: '25' },
+  { key: 3, value: 50, text: '50' },
+  { key: 4, value: 100, text: '100' },
 ];
 
 // Used for sorting the table in accordance to the type of dispense
 const reason = [
-  { key: '0', value: 'All', text: 'All' },
+  { key: 'All', value: 0, text: 'All' },
   { key: '1', value: 'Patient Use', text: 'Patient Use' },
   { key: '2', value: 'Expired', text: 'Expired' },
-  { key: '3', value: 'Broken/Contaminated', text: 'Broken/Contaminated' },
+  { key: '3', value: 'Broken', text: 'Broken' },
+  { key: '4', value: 'Contaminated', text: 'Contaminated' },
 ];
 /** Renders the Page for Dispensing History. */
 const DispenseLog = ({ ready, historicals, brands }) => {
@@ -38,89 +36,55 @@ const DispenseLog = ({ ready, historicals, brands }) => {
       textAlign: 'center',
     };
 
-    const [searchHistoricals, setSearchHistoricals] = useState('');
+    // const [searchHistoricals, setSearchHistoricals] = useState('');
+    const [filterHistoricals, setFilterHistoricals] = useState([]);
+    useEffect(() => {
+      setFilterHistoricals(historicals);
+    }, [historicals]);
+
+    const [searchQuery, setSearchQuery] = useState('');
     const [pageNo, setPageNo] = useState(1);
-    const [brandFilter, setBrandFilter] = useState('');
-    const [date, setDate] = useState('');
-    const [dispenseTypeFilter, setDispenseTypeFilter] = useState('');
-    const [logPerPageDropdown, setlogPerPageDropdown] = useState('');
+    const [minDateFilter, setMinDateFilter] = useState(0);
+    const [maxDateFilter, setMaxDateFilter] = useState(0);
+    const [brandFilter, setBrandFilter] = useState(0);
+    const [dispenseTypeFilter, setDispenseTypeFilter] = useState(0);
+    const [maxLog, setMaxLog] = useState(10);
 
-    let list = historicals;
-    let listLength;
-
-    const handleSearch = (event) => {
-      setSearchHistoricals(event.target.value);
-    };
-
-    const handleBrandFilter = (event, data) => {
-      setBrandFilter(data.value);
-    };
-
-    const handleDateFilter = (event, data) => {
-      setDate(data.value);
-    };
-
-    const handleDispenseTypeFilter = (event, data) => {
-      setDispenseTypeFilter(data.value);
-    };
-
-    const handleLogPerPage = (event, data) => {
-      setlogPerPageDropdown(data.value);
-    };
-
-    if (date !== '') {
-      list = historicals.filter((val) => {
-        if (val.dateDispensed.toLocaleDateString('en-CA').includes(date)) {
-          return val;
-        }
-        return 0;
-      });
-    }
-
-    if (brandFilter !== '') {
-      if (brandFilter !== 'All') {
-        list = historicals.filter((val) => {
-          if (val.brand.toLowerCase().includes(brandFilter.toLowerCase())) {
-            return val;
-          }
-          return 0;
-        });
+    // handles filtering
+    useEffect(() => {
+      let filter = JSON.parse(JSON.stringify(historicals));
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filter = filter.filter((historical) => (
+          historical.drug.toLowerCase().includes(query.toLowerCase()) ||
+            historical.brand.toLowerCase().includes(query) ||
+            historical.dispensedTo.toLowerCase().includes(query) ||
+            historical.lotId.toLowerCase().includes(query.toLowerCase())
+        ));
       }
-    }
-
-    if (dispenseTypeFilter !== '') {
-      if (dispenseTypeFilter !== 'All') {
-        list = historicals.filter((val) => {
-          if (val.dispenseType.toLowerCase().includes(dispenseTypeFilter.toLowerCase())) {
-            return val;
-          }
-          return 0;
-        });
+      if (brandFilter) {
+        filter = filter.filter((historical) => historical.brand.includes(brandFilter));
       }
-    }
+      if (dispenseTypeFilter) {
+        filter = filter.filter((historical) => historical.dispenseType.includes(dispenseTypeFilter));
+      }
+      if (minDateFilter && maxDateFilter) {
+        filter = filter.filter((historical) => historical.dateDispensed >= (minDateFilter) &&
+            historical.dateDispensed <= (maxDateFilter));
+      }
+      if (minDateFilter || maxDateFilter) {
+        filter = filter.filter((historical) => historical.dateDispensed >= (minDateFilter) ||
+            historical.dateDispensed <= (maxDateFilter));
+      }
+      setFilterHistoricals(filter);
+    }, [searchQuery, brandFilter, dispenseTypeFilter, minDateFilter, maxDateFilter]);
 
-    if (searchHistoricals !== '') {
-      list = historicals.filter((val) => {
-        if (val.drug.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
-            val.lotId.toLowerCase().includes(searchHistoricals.toLowerCase()) ||
-            val.dispensedTo.toLowerCase().includes(searchHistoricals.toLowerCase())) {
-          return val;
-        }
-        return 0;
-      });
-    }
-
-    if (logPerPageDropdown === '5') {
-      listLength = 5;
-    } else if (logPerPageDropdown === '10') {
-      listLength = 10;
-    } else if (logPerPageDropdown === '25') {
-      listLength = 25;
-    } else if (logPerPageDropdown === '50') {
-      listLength = 50;
-    } else {
-      listLength = 10;
-    }
+    const handleSearch = (event, { value }) => setSearchQuery(value);
+    const handleBrandFilter = (event, { value }) => setBrandFilter(value);
+    const handleMinDateFilter = (event, { value }) => setMinDateFilter(value);
+    const handleMaxDateFilter = (event, { value }) => setMaxDateFilter(value);
+    const handleDispenseTypeFilter = (event, { value }) => setDispenseTypeFilter(value);
+    const handleMaxLog = (event, { value }) => setMaxLog(value);
 
     return (
       <Container id={PAGE_IDS.DISPENSE_LOG}>
@@ -137,25 +101,21 @@ const DispenseLog = ({ ready, historicals, brands }) => {
           <Grid divider columns="equal">
             <Grid.Row>
               <Grid.Column>
-                <Input placeholder='Filter by patient...' icon='search'
-                  onChange={handleSearch}
-                />
-                <Popup
-                  trigger={<Icon name='question circle' color="blue"/>}
+                <Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}/>
+                <Popup inverted trigger={<Icon name='question circle' color="blue"/>}
                   content='This allows you to filter the Dispense Log table by Patient Number,
-                  LotId, or Drug Name.'
-                  inverted
-                />
+                  LotId, or Drug Name.'/>
               </Grid.Column>
               <Grid.Column>
-                <Input type="date"
-                  onChange={handleDateFilter}
-                />
-                <Popup
-                  trigger={<Icon name='question circle' color="blue"/>}
-                  content='This allows you to filter the Dispense Log table by Date.'
-                  inverted
-                />
+                <Label basic>Date From</Label>
+                <Input type="date" onChange={handleMinDateFilter}/>
+                <Popup inverted trigger={<Icon name='question circle' color="blue"/>}
+                  content="This allows you to filter the Dispense Log table
+                  from the selected 'From Date' to today's date or the selected 'To Date'."/>
+              </Grid.Column>
+              <Grid.Column>
+                <Label basic>Date To</Label>
+                <Input type="date" onChange={handleMaxDateFilter}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -166,33 +126,23 @@ const DispenseLog = ({ ready, historicals, brands }) => {
                 Medication Brand: {' '}
                 <Dropdown
                   inline
-                  options={getOptions(brands)}
+                  options={getFilters(brands)}
                   search
-                  defaultValue={'All'}
+                  value={brandFilter}
                   onChange={handleBrandFilter}
                 />
               </Grid.Column>
               <Grid.Column>
                     Dispense Type: {' '}
-                <Dropdown
-                  inline={true}
-                  options={reason}
-                  defaultValue={'All'}
-                  onChange={handleDispenseTypeFilter}
-                />
+                <Dropdown inline={true} options={reason} value={dispenseTypeFilter} onChange={handleDispenseTypeFilter}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
           <Divider/>
           Records per page:{' '}
-          <Dropdown
-            inline={true}
-            options={logPerPage}
-            defaultValue={logPerPage[1].value}
-            onChange={handleLogPerPage}
-          />
-                Total count: {historicals.length}
-          <Table striped singleLine columns={11}>
+          <Dropdown inline={true} options={logPerPage} value={maxLog} onChange={handleMaxLog}/>
+                Total count: {filterHistoricals.length}
+          <Table striped singleLine columns={11} color='blue'>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Date & Time</Table.HeaderCell>
@@ -208,15 +158,23 @@ const DispenseLog = ({ ready, historicals, brands }) => {
             </Table.Header>
             <Table.Body>
               {
-                list.slice((pageNo - 1) * listLength, pageNo * listLength).map(history => <DispenseLogRow key={history._id}
-                  history={history}/>)
+                filterHistoricals.slice((pageNo - 1) * maxLog, pageNo * maxLog)
+                  .map(history => <DispenseLogRow key={history._id} history={history}/>)
               }
             </Table.Body>
             <Table.Footer>
               <Table.Row>
                 <Table.HeaderCell colSpan="11">
-                  <Pagination totalPages={Math.ceil(historicals.length / listLength)}
-                    activePage={pageNo} onPageChange={(event, data) => setPageNo(data.activePage)}/>
+                  <Pagination
+                    totalPages={Math.ceil(filterHistoricals.length / maxLog)}
+                    activePage={pageNo}
+                    onPageChange={(event, data) => setPageNo(data.activePage)}
+                    ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
+                    firstItem={{ content: <Icon name='angle double left' />, icon: true }}
+                    lastItem={{ content: <Icon name='angle double right' />, icon: true }}
+                    prevItem={{ content: <Icon name='angle left' />, icon: true }}
+                    nextItem={{ content: <Icon name='angle right' />, icon: true }}
+                  />
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
@@ -240,9 +198,9 @@ export default withTracker(() => {
   const historicalSub = Historicals.subscribeHistorical();
   // Determine if the subscription is ready
   const ready = historicalSub.ready() && medSub.ready();
+  const brands = nestedDistinct('brand', Medications);
   // Get the Historical documents.
   const historicals = Historicals.find({}).fetch();
-  const brands = distinct('brand', Medications);
   return {
     historicals,
     brands,

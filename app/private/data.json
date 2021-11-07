@@ -213,12 +213,26 @@
       "expire": "2021-10-10",
       "quantity": 20,
       "isTabs":  true,
-      "dateDispensed": "2021-10-05T24:00Z",
+      "dateDispensed": "2021-11-07T24:00Z",
       "dispensedFrom":  "janedoe@hawaii.edu",
       "dispensedTo": "N/A",
       "dispenseType": "Expired",
       "site":  "Kaka'ako",
       "note": "test a"
+    },
+    {
+      "drug": "Drug A",
+      "brand":  "Brand A",
+      "lotId": "111B",
+      "expire": "2021-10-10",
+      "quantity": 20,
+      "isTabs":  true,
+      "dateDispensed": "2021-11-07T24:00Z",
+      "dispensedFrom":  "janedoe@hawaii.edu",
+      "dispensedTo": "N/A",
+      "dispenseType": "Contaminated",
+      "site":  "Kaka'ako",
+      "note": "test aa"
     },
     {
       "drug": "Drug B",
@@ -227,12 +241,26 @@
       "expire": "2021-10-10",
       "quantity": 40,
       "isTabs": false,
-      "dateDispensed": "2021-10-05T23:00Z",
+      "dateDispensed": "2021-11-07T24:00Z",
       "dispensedFrom":  "johndoe@hawaii.edu",
       "dispensedTo": "N/A",
       "dispenseType": "Expired",
       "site":  "Kaka'ako",
       "note": "test b"
+    },
+    {
+      "drug": "Drug B",
+      "brand":  "Brand B",
+      "lotId": "222BC",
+      "expire": "2021-10-10",
+      "quantity": 40,
+      "isTabs":  false,
+      "dateDispensed": "2021-11-07T24:00Z",
+      "dispensedFrom":  "johndoe@hawaii.edu",
+      "dispensedTo": "N/A",
+      "dispenseType": "Expired",
+      "site":  "Kaka'ako",
+      "note": "test bb"
     },
     {
       "drug": "Drug C",
@@ -241,12 +269,26 @@
       "expire": "2021-10-10",
       "quantity": 30,
       "isTabs": true,
-      "dateDispensed": "2021-10-05T22:00Z",
+      "dateDispensed": "2021-11-07T24:00Z",
       "dispensedFrom":  "sueflay@hawaii.edu",
       "dispensedTo": "N/A",
       "dispenseType": "Expired",
       "site":  "Kaka'ako",
       "note": "test c"
+    },
+    {
+      "drug": "Drug C",
+      "brand": "Brand C",
+      "lotId": "333CB",
+      "expire": "2021-10-10",
+      "quantity": 30,
+      "isTabs": true,
+      "dateDispensed": "2021-10-05T22:00Z",
+      "dispensedFrom":  "sueflay@hawaii.edu",
+      "dispensedTo": "N/A",
+      "dispenseType": "Expired",
+      "site":  "Kaka'ako",
+      "note": "test cc"
     },
     {
       "drug": "Drug D",
@@ -263,6 +305,20 @@
       "note": "test d"
     },
     {
+      "drug": "Drug D",
+      "brand": "Brand D",
+      "lotId": "444DE",
+      "expire": "2021-10-10",
+      "quantity": 5,
+      "isTabs": false,
+      "dateDispensed": "2021-10-05T21:00Z",
+      "dispensedFrom":  "amandamin@hawaii.edu",
+      "dispensedTo": "N/A",
+      "dispenseType": "Contaminated",
+      "site":  "Kaka'ako",
+      "note": "test d"
+    },
+    {
       "drug": "Drug E",
       "brand": "Brand E",
       "lotId": "555E",
@@ -275,6 +331,20 @@
       "dispenseType": "Patient Use",
       "site":  "Kaka'ako",
       "note": "test e"
+    },
+    {
+      "drug": "Drug E",
+      "brand": "Brand E",
+      "lotId": "555EF",
+      "expire": "2021-10-10",
+      "quantity": 10,
+      "isTabs": true,
+      "dateDispensed": "2021-10-05T20:00Z",
+      "dispensedFrom":  "johndoe@hawaii.edu",
+      "dispensedTo": "515151",
+      "dispenseType": "Patient Use",
+      "site":  "Kaka'ako",
+      "note": "test ee"
     },
     {
       "drug": "Drug F",
