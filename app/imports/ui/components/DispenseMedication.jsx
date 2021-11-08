@@ -46,7 +46,7 @@ const submit = (data, callback) => {
 
 /** validates the dispense medication form */
 const validateForm = (data, callback) => {
-  const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
+  const submitData = { ...data, dispensedFrom: Meteor.user().username };
   let errorMsg = '';
   // the required String fields
   // TODO: validation for non patient use
@@ -68,7 +68,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Medication. */
-const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }) => {
+const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
     // TODO: use moment?
@@ -80,7 +80,6 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
     lotId: '',
     expire: '',
     dispensedTo: '',
-    dispensedFrom: '',
     note: '',
     dispenseType: 'Patient Use',
   });
@@ -112,7 +111,7 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
 
   const clearForm = () => {
     setFields({ ...fields, site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '', expire: '',
-      dispensedTo: '', dispensedFrom: '', note: '' });
+      dispensedTo: '', note: '' });
     setMaxQuantity(0);
   };
 
@@ -143,7 +142,7 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || currentUser.username} readOnly/>
+                  value={'' || Meteor.user().username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number" disabled={isDisabled}
@@ -212,7 +211,6 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
 
 /** Require an array of Sites, Drugs, LotIds, and Brands in the props. */
 DispenseMedication.propTypes = {
-  currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   drugs: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
@@ -226,7 +224,6 @@ export default withTracker(() => {
   const historySub = Historicals.subscribeHistorical();
   const siteSub = Sites.subscribeSite();
   return {
-    currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     drugs: distinct('drug', Medications),
     lotIds: nestedDistinct('lotId', Medications),
