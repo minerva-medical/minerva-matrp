@@ -43,7 +43,7 @@ const MedStatusRow = ({ med }) => {
         <Table.Cell>{med.drug}</Table.Cell>
         <Table.Cell>{med.drugType.join(', ')}</Table.Cell>
         <Table.Cell>{totalQuantity}</Table.Cell>
-        <Table.Cell>{med.isTabs ? 'tabs' : 'mL'}</Table.Cell>
+        <Table.Cell>{med.unit}</Table.Cell>
         <Table.Cell>
           <>
             <Icon color={getColor()} name='circle' />
@@ -98,7 +98,7 @@ MedStatusRow.propTypes = {
   med: PropTypes.shape({
     drug: PropTypes.string,
     drugType: PropTypes.array,
-    isTabs: PropTypes.bool,
+    unit: PropTypes.string,
     lotIds: PropTypes.array,
     minQuantity: PropTypes.number,
   }).isRequired,

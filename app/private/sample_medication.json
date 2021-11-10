@@ -5,7 +5,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "gPlFsf",
@@ -33,7 +33,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 60,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "TMdAPX",
@@ -61,7 +61,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 40,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "xZuBHP",
@@ -89,7 +89,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 200,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ddnOdk",
@@ -117,7 +117,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 60,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "4bkb50",
@@ -145,7 +145,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 150,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "uQYnaJ",
@@ -173,7 +173,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 130,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "hyv450",
@@ -201,7 +201,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 120,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "HKjdTf",
@@ -229,7 +229,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "i7hgM4",
@@ -257,7 +257,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "bwRIZ2",
@@ -285,7 +285,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 170,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "2MVFe3",
@@ -313,7 +313,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 10,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "w4sDCA",
@@ -341,7 +341,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 70,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "XjKG0P",
@@ -369,7 +369,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 90,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "AlXHxl",
@@ -397,7 +397,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 110,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "Pa0lDB",
@@ -425,7 +425,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 80,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "CsyPUx",
@@ -453,7 +453,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "mqe3OH",
@@ -481,7 +481,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 150,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ulFk6c",
@@ -509,7 +509,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 40,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "WLBvdh",
@@ -537,7 +537,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "kmJD8Q",
@@ -565,7 +565,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 10,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "mMjVgL",
@@ -593,7 +593,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 200,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "TZETyO",
@@ -621,7 +621,7 @@
       "Allergy & Cold Medicines"
     ],
     "minQuantity": 50,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "qoEbMy",
@@ -649,7 +649,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "yvWWaW",
@@ -677,7 +677,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 140,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ehmACG",
@@ -705,7 +705,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 80,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "rt8Od5",
@@ -733,7 +733,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "Axoovd",
@@ -761,7 +761,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "9liioQ",
@@ -789,7 +789,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 190,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "DEynOh",
@@ -817,7 +817,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 10,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "arUynV",
@@ -845,7 +845,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 20,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "eZq3xE",
@@ -873,7 +873,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "klTrhB",
@@ -901,7 +901,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 120,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "MINy0y",
@@ -929,7 +929,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "oz5ZXm",
@@ -957,7 +957,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 190,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "rvxrfA",
@@ -985,7 +985,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "6TIwyH",
@@ -1013,7 +1013,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 180,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "qlGcUY",
@@ -1041,7 +1041,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 10,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "PKIFSb",
@@ -1069,7 +1069,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 130,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "SH1LpQ",
@@ -1097,7 +1097,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 170,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "3nk26e",
@@ -1125,7 +1125,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "JojATW",
@@ -1153,7 +1153,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "811Swd",
@@ -1181,7 +1181,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 180,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "7xsZdk",
@@ -1209,7 +1209,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "uwm6Oi",
@@ -1237,7 +1237,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 130,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "xlLP2o",
@@ -1265,7 +1265,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "yCM08I",
@@ -1293,7 +1293,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "Y7xsLN",
@@ -1321,7 +1321,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 110,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "MwU0yP",
@@ -1349,7 +1349,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 180,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "aPbwqW",
@@ -1377,7 +1377,7 @@
       "Analgesics / Antiinflammatory"
     ],
     "minQuantity": 150,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "aHwzJv",
@@ -1405,7 +1405,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 130,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "MJ8AGf",
@@ -1433,7 +1433,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 50,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "aOIyOv",
@@ -1461,7 +1461,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "b7fgw8",
@@ -1489,7 +1489,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 80,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "2Fvaja",
@@ -1517,7 +1517,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 120,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Ub4N6d",
@@ -1545,7 +1545,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 30,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "QQzbfZ",
@@ -1573,7 +1573,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 70,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "siL6tJ",
@@ -1601,7 +1601,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "Hx9DuQ",
@@ -1629,7 +1629,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "Quv0Xu",
@@ -1657,7 +1657,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "iynapg",
@@ -1685,7 +1685,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 60,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "xTJBPu",
@@ -1713,7 +1713,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 190,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "5DGJTB",
@@ -1741,7 +1741,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 180,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "jJK1OT",
@@ -1769,7 +1769,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 110,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "w8DDkb",
@@ -1797,7 +1797,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 170,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "gr1088",
@@ -1825,7 +1825,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 130,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "xl7hyR",
@@ -1853,7 +1853,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "g7zCQu",
@@ -1881,7 +1881,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 200,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "NgC7NS",
@@ -1909,7 +1909,7 @@
       "Antihypertensives"
     ],
     "minQuantity": 200,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "CfFB3V",
@@ -1937,7 +1937,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 30,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "5X9lL8",
@@ -1965,7 +1965,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 200,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "O2pNjH",
@@ -1993,7 +1993,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 120,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "nsrZMx",
@@ -2021,7 +2021,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 10,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "DvCdPl",
@@ -2049,7 +2049,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "tk6CNv",
@@ -2077,7 +2077,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 130,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "mdaxuB",
@@ -2105,7 +2105,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 160,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "r9ICEu",
@@ -2133,7 +2133,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 130,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "l0flhm",
@@ -2161,7 +2161,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "llpg2x",
@@ -2189,7 +2189,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "5RwUwu",
@@ -2217,7 +2217,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 160,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "Uya1H1",
@@ -2245,7 +2245,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 130,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "AfYfXM",
@@ -2273,7 +2273,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "3L89I7",
@@ -2301,7 +2301,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 190,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ApqRt9",
@@ -2329,7 +2329,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 110,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "uFw2AF",
@@ -2357,7 +2357,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "3tQ3N3",
@@ -2385,7 +2385,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 180,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "ue3I1l",
@@ -2413,7 +2413,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 110,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "7VDI4W",
@@ -2441,7 +2441,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 170,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "GOe0Wk",
@@ -2469,7 +2469,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 190,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "F8fg9Y",
@@ -2497,7 +2497,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 40,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "blOipg",
@@ -2525,7 +2525,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 40,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "ue8KEA",
@@ -2553,7 +2553,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "mrnY4N",
@@ -2581,7 +2581,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 90,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "GM6XN7",
@@ -2609,7 +2609,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 30,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "KHM0Ui",
@@ -2637,7 +2637,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 60,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "4wmZvm",
@@ -2665,7 +2665,7 @@
       "Antimicrobials"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "zp7lBX",
@@ -2693,7 +2693,7 @@
       "Cardiac / Cholesterol"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "Z2TRju",
@@ -2721,7 +2721,7 @@
       "Cardiac / Cholesterol"
     ],
     "minQuantity": 170,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "grKVum",
@@ -2749,7 +2749,7 @@
       "Cardiac / Cholesterol"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "bhND2R",
@@ -2777,7 +2777,7 @@
       "Cardiac / Cholesterol"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "tqRy2l",
@@ -2805,7 +2805,7 @@
       "Cardiac / Cholesterol"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "JjSiyA",
@@ -2833,7 +2833,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 40,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "M0ge6S",
@@ -2861,7 +2861,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ZCXvbJ",
@@ -2889,7 +2889,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 200,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "VLpdYQ",
@@ -2917,7 +2917,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 200,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "vYDDhB",
@@ -2945,7 +2945,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 160,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "IxETu5",
@@ -2973,7 +2973,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "bBQiSD",
@@ -3001,7 +3001,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 180,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "K5aekP",
@@ -3029,7 +3029,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 70,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "DojXTZ",
@@ -3057,7 +3057,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 80,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "MlqbtZ",
@@ -3085,7 +3085,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 30,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "mj4KVK",
@@ -3113,7 +3113,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 40,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "kZVTws",
@@ -3141,7 +3141,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 30,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "jLai1W",
@@ -3169,7 +3169,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 170,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "lRs6yh",
@@ -3197,7 +3197,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 110,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "sCMKa0",
@@ -3225,7 +3225,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 150,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Hr3LDU",
@@ -3253,7 +3253,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 40,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "7mUuCh",
@@ -3281,7 +3281,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "AYEem3",
@@ -3309,7 +3309,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 200,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "vriLWq",
@@ -3337,7 +3337,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 190,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "qb48dR",
@@ -3365,7 +3365,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 150,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "eiLyyh",
@@ -3393,7 +3393,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 140,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "DP2OZr",
@@ -3421,7 +3421,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 30,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "BeYKT4",
@@ -3449,7 +3449,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "52fxL3",
@@ -3477,7 +3477,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 180,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "LfGtXd",
@@ -3505,7 +3505,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 140,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "gDcUok",
@@ -3533,7 +3533,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "lTwUYm",
@@ -3561,7 +3561,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 120,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "pyMUSH",
@@ -3589,7 +3589,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 80,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "rY104q",
@@ -3617,7 +3617,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "6oIEfy",
@@ -3645,7 +3645,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "AoS7jS",
@@ -3673,7 +3673,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 110,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "3xGxZu",
@@ -3701,7 +3701,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 140,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "xmqS8Q",
@@ -3729,7 +3729,7 @@
       "Dermatologic Preparations"
     ],
     "minQuantity": 90,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "xrZ88q",
@@ -3757,7 +3757,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 90,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "wuoaVn",
@@ -3785,7 +3785,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 160,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "rrNbK5",
@@ -3813,7 +3813,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 70,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "9ANLSi",
@@ -3841,7 +3841,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 20,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "8FKVk5",
@@ -3869,7 +3869,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 130,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "BAqjnu",
@@ -3897,7 +3897,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 110,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "veSgJB",
@@ -3925,7 +3925,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 60,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "kUNhxr",
@@ -3953,7 +3953,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 150,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "g6LyfZ",
@@ -3981,7 +3981,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ASXH7V",
@@ -4009,7 +4009,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 130,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "xQMImt",
@@ -4037,7 +4037,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 110,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "3xPCtk",
@@ -4065,7 +4065,7 @@
       "Diabetes Medicines"
     ],
     "minQuantity": 50,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "0GevS4",
@@ -4093,7 +4093,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 70,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "EdJ6Qt",
@@ -4121,7 +4121,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 90,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "EXswgS",
@@ -4149,7 +4149,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 100,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "4RKcto",
@@ -4177,7 +4177,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "GPabnb",
@@ -4205,7 +4205,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 120,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "sPBQEP",
@@ -4233,7 +4233,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 100,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "CwUGC3",
@@ -4261,7 +4261,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 10,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "VHtOC5",
@@ -4289,7 +4289,7 @@
       "Ear & Eye Preparations"
     ],
     "minQuantity": 10,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "b3D7JI",
@@ -4317,7 +4317,7 @@
       "Emergency Kit"
     ],
     "minQuantity": 160,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "ryWQ22",
@@ -4345,7 +4345,7 @@
       "Emergency Kit"
     ],
     "minQuantity": 160,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "O9VgSb",
@@ -4373,7 +4373,7 @@
       "Emergency Kit"
     ],
     "minQuantity": 110,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "EPQG0C",
@@ -4401,7 +4401,7 @@
       "Emergency Kit"
     ],
     "minQuantity": 110,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "vZDg9w",
@@ -4429,7 +4429,7 @@
       "Emergency Kit"
     ],
     "minQuantity": 10,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "XBR3c9",
@@ -4457,7 +4457,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 40,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "4icle6",
@@ -4485,7 +4485,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "nOB32i",
@@ -4513,7 +4513,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 70,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "tjxFC1",
@@ -4541,7 +4541,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 120,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "aMSBv7",
@@ -4569,7 +4569,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "UCgrmh",
@@ -4597,7 +4597,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 120,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "iABHHN",
@@ -4625,7 +4625,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 100,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "3XUXXJ",
@@ -4653,7 +4653,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 170,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "eNKi7P",
@@ -4681,7 +4681,7 @@
       "Gastrointestinal Medicines"
     ],
     "minQuantity": 130,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "b8b1Jq",
@@ -4709,7 +4709,7 @@
       "Gynecological Medicines"
     ],
     "minQuantity": 30,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "txpS2t",
@@ -4737,7 +4737,7 @@
       "Gynecological Medicines"
     ],
     "minQuantity": 80,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ALdB46",
@@ -4765,7 +4765,7 @@
       "Gynecological Medicines"
     ],
     "minQuantity": 130,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "sy54yo",
@@ -4793,7 +4793,7 @@
       "Gynecological Medicines"
     ],
     "minQuantity": 120,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "ZXs2mo",
@@ -4821,7 +4821,7 @@
       "Gynecological Medicines"
     ],
     "minQuantity": 30,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "5lnQi0",
@@ -4849,7 +4849,7 @@
       "Gynecological Medicines"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "TWVDoS",
@@ -4877,7 +4877,7 @@
       "Gynecological Medicines"
     ],
     "minQuantity": 160,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "OPvKYB",
@@ -4905,7 +4905,7 @@
       "Pulmonary"
     ],
     "minQuantity": 100,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "EYObZE",
@@ -4933,7 +4933,7 @@
       "Pulmonary"
     ],
     "minQuantity": 190,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "DHMBq6",
@@ -4961,7 +4961,7 @@
       "Pulmonary"
     ],
     "minQuantity": 30,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "XOLPsD",
@@ -4989,7 +4989,7 @@
       "Pulmonary"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Yiimor",
@@ -5017,7 +5017,7 @@
       "Pulmonary"
     ],
     "minQuantity": 30,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "OXZ9tq",
@@ -5045,7 +5045,7 @@
       "Pulmonary"
     ],
     "minQuantity": 180,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "fry9k3",
@@ -5073,7 +5073,7 @@
       "Pulmonary"
     ],
     "minQuantity": 100,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "3pkGEV",
@@ -5101,7 +5101,7 @@
       "Pulmonary"
     ],
     "minQuantity": 130,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "OM3Ewz",
@@ -5129,7 +5129,7 @@
       "Smoking Cessation"
     ],
     "minQuantity": 60,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "vEWiu7",
@@ -5157,7 +5157,7 @@
       "Smoking Cessation"
     ],
     "minQuantity": 50,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "L9kB01",
@@ -5185,7 +5185,7 @@
       "Smoking Cessation"
     ],
     "minQuantity": 90,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "zYkvJv",
@@ -5213,7 +5213,7 @@
       "Smoking Cessation"
     ],
     "minQuantity": 190,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "4lProd",
@@ -5241,7 +5241,7 @@
       "Smoking Cessation"
     ],
     "minQuantity": 200,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "43sRZA",
@@ -5269,7 +5269,7 @@
       "Smoking Cessation"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Qbw1Rm",
@@ -5297,7 +5297,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 160,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "MCSzLx",
@@ -5325,7 +5325,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 180,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "mFZleP",
@@ -5353,7 +5353,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 200,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "QNf6sK",
@@ -5381,7 +5381,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 80,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "kA9gM4",
@@ -5409,7 +5409,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 40,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "rpWbiK",
@@ -5437,7 +5437,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 60,
-    "isTabs": false,
+    "unit": "mL",
     "lotIds": [
       {
         "lotId": "a43j22",
@@ -5465,7 +5465,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 120,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "FVsyoW",
@@ -5493,7 +5493,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 90,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Hw53o0",
@@ -5521,7 +5521,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 110,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Jqlbku",
@@ -5549,7 +5549,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 30,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Rn47cw",
@@ -5577,7 +5577,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 170,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "Vooro6",
@@ -5605,7 +5605,7 @@
       "Vitamins & Supplements"
     ],
     "minQuantity": 50,
-    "isTabs": true,
+    "unit": "tab(s)",
     "lotIds": [
       {
         "lotId": "mddzFE",

@@ -16,7 +16,7 @@ const submit = (data, callback) => {
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
   const medication = Medications.findOne({ lotId }); // find the existing medication
-  const { _id, isTabs } = medication;
+  const { _id, unit } = medication;
 
   if (quantity < medication.quantity) {
     // if dispense quantity < medication quantity:
@@ -32,7 +32,7 @@ const submit = (data, callback) => {
       });
   } else if (quantity > medication.quantity) {
     // else if dispense quantity > medication quantity:
-    swal('Error', `${drug} only has ${medication.quantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
+    swal('Error', `${drug} only has ${medication.quantity} ${unit} remaining.`, 'error');
   } else {
     // else if dispense quantity = medication quantity:
     const updateData = { id: _id, minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
@@ -79,7 +79,7 @@ const DispenseLabTestSupplies = (props) => {
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
-    isTabs: true,
+    unit: 'tab(s)',
     brand: '',
     lotId: '',
     expire: '',
@@ -101,15 +101,15 @@ const DispenseLabTestSupplies = (props) => {
   const onLotIdSelect = (event, { value }) => {
     const medication = Medications.findOne({ lotId: value });
     if (medication) {
-      const { drug, expire, brand, quantity, isTabs } = medication;
-      const autoFields = { ...fields, lotId: value, drug, expire, brand, quantity, isTabs };
+      const { drug, expire, brand, quantity, unit } = medication;
+      const autoFields = { ...fields, lotId: value, drug, expire, brand, quantity, unit };
       setFields(autoFields);
     } else {
       setFields({ ...fields, lotId: value });
     }
   };
 
-  const clearForm = () => setFields({ site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '',
+  const clearForm = () => setFields({ site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '',
     expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
 
   if (props.ready) {

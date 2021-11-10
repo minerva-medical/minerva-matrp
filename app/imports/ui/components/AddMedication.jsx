@@ -9,11 +9,11 @@ import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct, units } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
-  const { drug, drugType, minQuantity, quantity, isTabs, brand, lotId, expire, location, donated, note } = data;
+  const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, note } = data;
   const collectionName = Medications.getCollectionName();
   const exists = Medications.findOne({ drug }); // returns the existing medication or undefined
 
@@ -21,7 +21,7 @@ const submit = (data, callback) => {
   if (!exists) {
     // insert the new medication and lotId
     const newLot = { lotId, brand, expire, location, quantity, donated, note };
-    const definitionData = { drug, drugType, minQuantity, isTabs, lotIds: [newLot] };
+    const definitionData = { drug, drugType, minQuantity, unit, lotIds: [newLot] };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -79,7 +79,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     drugType: [],
     minQuantity: '',
     quantity: '',
-    isTabs: true,
+    unit: 'tab(s)',
     brand: '',
     lotId: '',
     expire: '',
@@ -144,15 +144,15 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     // if the drug exists:
     if (target) {
       // autofill the form with specific drug info
-      const { drugType, minQuantity, isTabs, lotIds: lotIdObjs } = target;
-      setFields({ ...fields, drug, drugType, minQuantity, isTabs });
+      const { drugType, minQuantity, unit, lotIds: lotIdObjs } = target;
+      setFields({ ...fields, drug, drugType, minQuantity, unit });
       // filter lotIds and brands
       // TODO: sort?
       setFilteredLotIds(_.pluck(lotIdObjs, 'lotId'));
       // setFilteredBrands(_.uniq(_.pluck(lotIdObjs, 'brand')));
     } else {
       // else reset specific drug info
-      setFields({ ...fields, drug, drugType: [], minQuantity: '', isTabs: true });
+      setFields({ ...fields, drug, drugType: [], minQuantity: '', unit: 'tab(s)' });
       // reset the filters
       setFilteredLotIds(newLotIds);
       // setFilteredBrands(newBrands);
@@ -166,9 +166,9 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     if (target) {
       // autofill the form with specific lotId info
       const targetLotIds = target.lotIds.find(obj => obj.lotId === lotId);
-      const { drug, drugType, minQuantity, isTabs } = target;
+      const { drug, drugType, minQuantity, unit } = target;
       const { brand, expire, location, donated, note } = targetLotIds;
-      const autoFields = { ...fields, lotId, drug, drugType, expire, brand, minQuantity, isTabs, location,
+      const autoFields = { ...fields, lotId, drug, drugType, expire, brand, minQuantity, unit, location,
         donated, note };
       setFields(autoFields);
     } else {
@@ -191,7 +191,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
   };
 
   const clearForm = () => {
-    setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', isTabs: true,
+    setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', unit: 'tab(s)',
       brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
     setFilteredDrugs(newDrugs);
     setFilteredLotIds(newLotIds);
@@ -234,9 +234,8 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
                   <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity' className='quantity'
                     onChange={handleChange} value={fields.minQuantity} placeholder="100" disabled={isDisabled}
                     id={COMPONENT_IDS.ADD_MEDICATION_MIN_QUANTITY} />
-                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]}
-                    disabled={isDisabled} />
+                  <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
+                    options={units} disabled={isDisabled} />
                 </Form.Group>
               </Grid.Column>
               <Grid.Column className='filler-column' />

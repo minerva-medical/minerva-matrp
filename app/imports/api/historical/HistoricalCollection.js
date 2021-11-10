@@ -22,7 +22,7 @@ class HistoricalCollection extends BaseCollection {
         optional: true,
       }, // date string "YYYY-MM-DD"
       quantity: Number,
-      isTabs: Boolean,
+      unit: String,
       dateDispensed: Date,
       dispensedFrom: String,
       dispensedTo: String,
@@ -45,9 +45,9 @@ class HistoricalCollection extends BaseCollection {
    * @param owner the owner of the item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, dispenseType, site, note }) {
+  define({ drug, brand, lotId, expire, quantity, unit, dateDispensed, dispensedFrom, dispensedTo, dispenseType, site, note }) {
     const docID = this._collection.insert({
-      drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, dispenseType, site, note,
+      drug, brand, lotId, expire, quantity, unit, dateDispensed, dispensedFrom, dispensedTo, dispenseType, site, note,
     });
     return docID;
   }

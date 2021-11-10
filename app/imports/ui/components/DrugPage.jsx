@@ -81,7 +81,7 @@ const DrugPage = ({ info }) => {
                         <ListItem><ListHeader>Expiration Date</ListHeader>{info.expire}</ListItem>
                         <ListItem><ListHeader>Minimum Quantity</ListHeader>{info.minQuantity}</ListItem>
                         <ListItem><ListHeader>Quantity in Stock:</ListHeader>{info.quantity}</ListItem>
-                        <ListItem><ListHeader>tabs or mL</ListHeader>{info.isTabs ? 'tabs' : 'mL'}</ListItem>
+                        <ListItem><ListHeader>tabs or mL</ListHeader>{info.unit}</ListItem>
                         <ListItem><ListHeader>Storage Location:</ListHeader>{info.location}</ListItem>
                         <ListItem><ListHeader>Donated?</ListHeader>         {
                           info.donated ?

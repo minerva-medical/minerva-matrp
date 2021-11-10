@@ -6,6 +6,7 @@ import { _ } from 'meteor/underscore';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
+export const allowedUnits = ['bottle(s)', 'g', 'mL', 'tab(s)'];
 export const medicationPublications = {
   medication: 'Medication',
   medicationAdmin: 'MedicationAdmin',
@@ -18,7 +19,7 @@ class MedicationCollection extends BaseCollection {
       drugType: Array,
       'drugType.$': String,
       minQuantity: Number,
-      isTabs: Boolean,
+      unit: String,
       lotIds: Array,
       'lotIds.$': Object,
       'lotIds.$.lotId': String,
@@ -41,12 +42,12 @@ class MedicationCollection extends BaseCollection {
    * Defines a new Medication item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, drugType, minQuantity, isTabs, lotIds }) {
+  define({ drug, drugType, minQuantity, unit, lotIds }) {
     // const docID = this._collection.insert({
     //   drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note,
     // });
     const docID = this._collection.insert({
-      drug, drugType, minQuantity, isTabs, lotIds,
+      drug, drugType, minQuantity, unit, lotIds,
     });
     return docID;
   }
@@ -69,11 +70,11 @@ class MedicationCollection extends BaseCollection {
         updateData[name] = data[name];
       }
     }
-    function addBoolean(name) { // if not undefined
-      if (_.isBoolean(data[name])) {
-        updateData[name] = data[name];
-      }
-    }
+    // function addBoolean(name) { // if not undefined
+    //   if (_.isBoolean(data[name])) {
+    //     updateData[name] = data[name];
+    //   }
+    // }
 
     addString('drug');
     // check if drugType is not undefined && every drug type is not undefined
@@ -81,7 +82,7 @@ class MedicationCollection extends BaseCollection {
       updateData.drugType = data.drugType;
     }
     addNumber('minQuantity');
-    addBoolean('isTabs');
+    addString('unit');
     if (data.lotIds && data.lotIds.every(lotId => (
       _.isObject(lotId) &&
       lotId.lotId &&

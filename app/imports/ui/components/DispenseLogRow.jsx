@@ -13,7 +13,7 @@ const DispenseLogRow = ({ history }) => (
     <Table.Cell>{history.drug}</Table.Cell>
     <Table.Cell>{history.brand}</Table.Cell>
     <Table.Cell>{history.lotId}</Table.Cell>
-    <Table.Cell>{history.quantity} {history.isTabs ? 'tabs' : 'mL'}</Table.Cell>
+    <Table.Cell>{history.quantity} {history.unit}</Table.Cell>
     <Table.Cell>{history.dispensedFrom}</Table.Cell>
     <Table.Cell textAlign='center'><DispenseInfoPage record={history}/></Table.Cell>
   </Table.Row>
@@ -29,7 +29,7 @@ DispenseLogRow.propTypes = {
     lotId: PropTypes.string,
     dispensedFrom: PropTypes.string,
     quantity: PropTypes.number,
-    isTabs: PropTypes.bool,
+    unit: PropTypes.string,
   }).isRequired,
 };
 
