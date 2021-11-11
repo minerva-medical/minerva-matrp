@@ -3,10 +3,11 @@ import { Container, Tab, Menu } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import MedStatus from '../components/MedStatus';
+import SupplyStatus from '../components/SupplyStatus';
 
 const medicationTab = () => <MedStatus />;
 const vaccinesTab = () => <MedStatus />;
-const suppliesTab = () => <MedStatus />;
+const suppliesTab = () => <SupplyStatus />;
 
 const panes = [
   { menuItem: <Menu.Item key={COMPONENT_IDS.STATUS_TAB_ONE} id={COMPONENT_IDS.STATUS_TAB_ONE}>Medication</Menu.Item>,
