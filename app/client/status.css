@@ -1,3 +1,7 @@
+#status {
+  min-width: 1000px;
+}
+
 .status-tab .lot-row {
   padding-left: 5em !important;
 }
@@ -15,4 +19,13 @@
 .status-tab .ui.pagination.menu .active.item {
   background-color: rgba(29, 62, 102, 0.5);
   border-radius: 50%;
+}
+
+#status .ui.tabular.menu {
+  padding-right: 25%;
+}
+
+#status .ui.tabular.menu .item {
+  flex: 1 1 0;
+  justify-content: center;
 }
