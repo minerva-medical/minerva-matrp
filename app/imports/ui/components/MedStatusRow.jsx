@@ -69,7 +69,7 @@ const MedStatusRow = ({ med }) => {
             </Table.Header>
             <Table.Body>
               {
-                med.lotIds.map(({ lotId, brand, expire, location, quantity, donated }, index) => (
+                med.lotIds.map(({ lotId, brand, expire, location, quantity, donated, note }, index) => (
                   <Table.Row key={lotId} negative={isExpired[index]}>
                     <Table.Cell>{lotId}</Table.Cell>
                     <Table.Cell>{brand}</Table.Cell>
@@ -82,7 +82,7 @@ const MedStatusRow = ({ med }) => {
                         <Icon name='check' color='green'/>
                       }
                     </Table.Cell>
-                    <Table.Cell><DrugPage info={med}/></Table.Cell>
+                    <Table.Cell><DrugPage info={med} lotId={lotId} brand={brand} expire={expire} quantity={quantity} note={note} donated={donated} location={location} /></Table.Cell>
                   </Table.Row>
                 ))
               }
