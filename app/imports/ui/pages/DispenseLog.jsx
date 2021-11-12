@@ -98,7 +98,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
               </Header.Subheader>
             </Header.Content>
           </Header>
-          <Grid divider columns="equal">
+          <Grid divider columns="equal" stackable>
             <Grid.Row>
               <Grid.Column>
                 <Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}/>
@@ -120,7 +120,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
             </Grid.Row>
           </Grid>
           <Divider/>
-          <Grid divided columns="equal">
+          <Grid divided columns="equal" stackable>
             <Grid.Row style={gridAlign}>
               <Grid.Column>
                 Medication Brand: {' '}
