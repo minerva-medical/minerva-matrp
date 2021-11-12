@@ -82,7 +82,7 @@ const MedStatusRow = ({ med }) => {
                         <Icon name='check' color='green'/>
                       }
                     </Table.Cell>
-                    <Table.Cell><DrugPage info={med} lotId={lotId} brand={brand} expire={expire} quantity={quantity} note={note} donated={donated} location={location} /></Table.Cell>
+                    <Table.Cell><DrugPage info={med} lotId={lotId} brand={brand} expire={expire} quantity={quantity} note={note} donated={donated} locate={location} /></Table.Cell>
                   </Table.Row>
                 ))
               }

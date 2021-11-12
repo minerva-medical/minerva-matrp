@@ -12,7 +12,7 @@ import { removeItMethod } from '../../api/base/BaseCollection.methods';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, location }) => {
+const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate }) => {
   const [open, setOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
@@ -81,7 +81,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locatio
                         <ListItem><ListHeader>Expiration Date</ListHeader>{expire}</ListItem>
                         <ListItem><ListHeader>Minimum Quantity</ListHeader>{info.minQuantity}</ListItem>
                         <ListItem><ListHeader>Quantity in Stock:</ListHeader>{quantity}</ListItem>
-                        <ListItem><ListHeader>Location:</ListHeader>{location.location}</ListItem>
+                        <ListItem><ListHeader>Location:</ListHeader>{locate}</ListItem>
                         <ListItem><ListHeader>tabs or mL</ListHeader>{info.unit}</ListItem>
                         <ListItem><ListHeader>Donated?</ListHeader>         {
                           donated ?
@@ -147,7 +147,7 @@ DrugPage.propTypes = {
   expire: PropTypes.string,
   quantity: PropTypes.number,
   note: PropTypes.string,
-  location: PropTypes.string,
+  locate: PropTypes.string,
   donated: PropTypes.bool,
 
 };
