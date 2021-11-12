@@ -4,7 +4,7 @@ import {
   ItemContent, ItemDescription, Modal, ListHeader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { AutoForm, ErrorsField, SubmitField, LongTextField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, SubmitField, LongTextField, TextField } from 'uniforms-semantic';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -36,8 +36,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
   };
 
   const submit = (data) => {
-    const { _id } = data;
-    const updateData = { _id };
+    const updateData = { id: data.med.drug, lotId };
     const collectionName = Medications.getCollectionName();
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -158,8 +157,10 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
             <Grid id={PAGE_IDS.EDIT_STUFF} container centered>
               <Grid.Column>
                 <Header as="h3">{info.drug}</Header>
+                <Header as="h4">Lot Number: {lotId}</Header>
                 <AutoForm schema={bridge} onSubmit={data => submit(data)} model={Medications.findDoc(info._id)}>
                   <LongTextField name={'lotIds.$.note'}/>
+                  <TextField name='unit'/>
                   <SubmitField value='Submit'/>
                   <ErrorsField />
                 </AutoForm>
