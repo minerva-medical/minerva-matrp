@@ -80,8 +80,8 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
                         <ListItem><ListHeader>Lot Number</ListHeader>{lotId}</ListItem>
                         <ListItem><ListHeader>Expiration Date</ListHeader>{expire}</ListItem>
                         <ListItem><ListHeader>Minimum Quantity</ListHeader>{info.minQuantity}</ListItem>
-                        <ListItem><ListHeader>Quantity in Stock:</ListHeader>{quantity}</ListItem>
-                        <ListItem><ListHeader>Location:</ListHeader>{locate}</ListItem>
+                        <ListItem><ListHeader>Quantity in Stock</ListHeader>{quantity}</ListItem>
+                        <ListItem><ListHeader>Location</ListHeader>{locate}</ListItem>
                         <ListItem><ListHeader>tabs or mL</ListHeader>{info.unit}</ListItem>
                         <ListItem><ListHeader>Donated?</ListHeader>         {
                           donated ?
@@ -130,7 +130,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           labelPosition='right'
           icon='trash alternate'
           color='red'
-          onClick={() => deleteOption(info.drug, info.lotIds_id)}
+          onClick={() => deleteOption(info.drug, info._id)}
         />
       </Modal.Actions>
     </Modal>
