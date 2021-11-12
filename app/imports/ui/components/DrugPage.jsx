@@ -4,16 +4,21 @@ import {
   ItemContent, ItemDescription, Modal, ListHeader,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { AutoForm, ErrorsField, SubmitField, LongTextField } from 'uniforms-semantic';
+import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { removeItMethod } from '../../api/base/BaseCollection.methods';
-// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { removeItMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { PAGE_IDS } from '../utilities/PageIDs';
+
+const bridge = new SimpleSchema2Bridge(Medications._schema);
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate }) => {
   const [open, setOpen] = React.useState(false);
+  const [secondOpen, setSecondOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
     borderRadius: '15px',
@@ -28,6 +33,15 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
 
   const font2 = {
     fontSize: '15px',
+  };
+
+  const submit = (data) => {
+    const { _id } = data;
+    const updateData = { _id };
+    const collectionName = Medications.getCollectionName();
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
 
   const deleteOption = (option, id) => {
@@ -121,9 +135,9 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           content="Edit"
           labelPosition='right'
           icon='edit'
-          onClick={() => setOpen(false)}
+          onClick={() => setSecondOpen(true)}
           color='linkedin'
-          as={Link} to={`/edit/${info._id}`}
+          // as={Link} to={`/edit/${info._id}`}
         />
         <Button
           content="Delete"
@@ -133,6 +147,34 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           onClick={() => deleteOption(info.drug, info._id)}
         />
       </Modal.Actions>
+      <Modal
+        onClose={() => setSecondOpen(false)}
+        open={secondOpen}
+        size='small'
+      >
+        <Modal.Header>Edit Notes</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <Grid id={PAGE_IDS.EDIT_STUFF} container centered>
+              <Grid.Column>
+                <Header as="h3">{info.drug}</Header>
+                <AutoForm schema={bridge} onSubmit={data => submit(data)} model={Medications.findDoc(info._id)}>
+                  <LongTextField name={'lotIds.$.note'}/>
+                  <SubmitField value='Submit'/>
+                  <ErrorsField />
+                </AutoForm>
+              </Grid.Column>
+            </Grid>
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button
+            icon='check'
+            content='All Done'
+            onClick={() => setSecondOpen(false)}
+          />
+        </Modal.Actions>
+      </Modal>
     </Modal>
 
   );
