@@ -12,7 +12,7 @@ import { removeItMethod } from '../../api/base/BaseCollection.methods';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated }) => {
+const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, location }) => {
   const [open, setOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
@@ -81,6 +81,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated }) => {
                         <ListItem><ListHeader>Expiration Date</ListHeader>{expire}</ListItem>
                         <ListItem><ListHeader>Minimum Quantity</ListHeader>{info.minQuantity}</ListItem>
                         <ListItem><ListHeader>Quantity in Stock:</ListHeader>{quantity}</ListItem>
+                        <ListItem><ListHeader>Location:</ListHeader>{location.location}</ListItem>
                         <ListItem><ListHeader>tabs or mL</ListHeader>{info.unit}</ListItem>
                         <ListItem><ListHeader>Donated?</ListHeader>         {
                           donated ?
@@ -129,7 +130,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated }) => {
           labelPosition='right'
           icon='trash alternate'
           color='red'
-          onClick={() => deleteOption(info.drug, info.lotIds._id)}
+          onClick={() => deleteOption(info.drug, info.lotIds_id)}
         />
       </Modal.Actions>
     </Modal>
@@ -146,6 +147,7 @@ DrugPage.propTypes = {
   expire: PropTypes.string,
   quantity: PropTypes.number,
   note: PropTypes.string,
+  location: PropTypes.string,
   donated: PropTypes.bool,
 
 };
