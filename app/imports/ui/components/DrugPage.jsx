@@ -12,7 +12,7 @@ import { removeItMethod } from '../../api/base/BaseCollection.methods';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const DrugPage = ({ info }) => {
+const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate }) => {
   const [open, setOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
@@ -76,15 +76,15 @@ const DrugPage = ({ info }) => {
                     <ItemMeta style={font2}>{info.drugType}</ItemMeta>
                     <ItemDescription>
                       <List size='large'>
-                        <ListItem><ListHeader>Brand</ListHeader> {info.brand}</ListItem>
-                        <ListItem><ListHeader>Lot Number</ListHeader>{info.lotId}</ListItem>
-                        <ListItem><ListHeader>Expiration Date</ListHeader>{info.expire}</ListItem>
+                        <ListItem><ListHeader>Brand</ListHeader> {brand}</ListItem>
+                        <ListItem><ListHeader>Lot Number</ListHeader>{lotId}</ListItem>
+                        <ListItem><ListHeader>Expiration Date</ListHeader>{expire}</ListItem>
                         <ListItem><ListHeader>Minimum Quantity</ListHeader>{info.minQuantity}</ListItem>
-                        <ListItem><ListHeader>Quantity in Stock:</ListHeader>{info.quantity}</ListItem>
+                        <ListItem><ListHeader>Quantity in Stock</ListHeader>{quantity}</ListItem>
+                        <ListItem><ListHeader>Location</ListHeader>{locate}</ListItem>
                         <ListItem><ListHeader>tabs or mL</ListHeader>{info.unit}</ListItem>
-                        <ListItem><ListHeader>Storage Location:</ListHeader>{info.location}</ListItem>
                         <ListItem><ListHeader>Donated?</ListHeader>         {
-                          info.donated ?
+                          donated ?
                             'Item donated'
                             :
                             'Item not donated'
@@ -102,7 +102,7 @@ const DrugPage = ({ info }) => {
                     <Item>
                       <ItemContent>
                         <Header as='h3'>Notes</Header>
-                        <ItemDescription style={font1}>{info.note}</ItemDescription>
+                        <ItemDescription style={font1}>{note}</ItemDescription>
                       </ItemContent>
                     </Item>
                   </ItemGroup>
@@ -142,6 +142,14 @@ const DrugPage = ({ info }) => {
 // Require a document to be passed to this component.
 DrugPage.propTypes = {
   info: PropTypes.object.isRequired,
+  lotId: PropTypes.string,
+  brand: PropTypes.string,
+  expire: PropTypes.string,
+  quantity: PropTypes.number,
+  note: PropTypes.string,
+  locate: PropTypes.string,
+  donated: PropTypes.bool,
+
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
