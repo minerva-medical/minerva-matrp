@@ -17,7 +17,13 @@ class BaseCollection {
     this._collectionName = `${this._type}Collection`;
     this._collection = new Mongo.Collection(this._collectionName);
     this._schema = schema;
-    this._collection.attachSchema(this._schema);
+    if (typeof schema === 'object') {
+      Object.entries(this._schema).forEach(([key, value]) => {
+        this._collection.attachSchema(value, { selector: { inventoryType: key } });
+      });
+    } else {
+      this._collection.attachSchema(this._schema);
+    }
   }
 
   /**
