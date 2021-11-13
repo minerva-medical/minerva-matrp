@@ -215,7 +215,7 @@
       "site": "POST",
       "name": "Medication Name",
       "note": "Test",
-      "medication": {
+      "element": {
         "unit": "tab(s)",
         "lotId": "12345",
         "brand": "Test Brand",
@@ -232,7 +232,7 @@
       "site": "POST",
       "name": "Vaccine Name",
       "note": "Test",
-      "vaccine": {
+      "element": {
         "lotId": "12345",
         "brand": "Test Brand",
         "expire": "2021-11-13",
@@ -249,7 +249,7 @@
       "site": "POST",
       "name": "Supply Name",
       "note": "Test",
-      "supply": {
+      "element": {
         "supplyType": "Patient",
         "quantity": 10
       }

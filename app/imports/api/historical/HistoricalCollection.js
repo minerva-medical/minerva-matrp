@@ -33,15 +33,15 @@ Schemas.Medication = new SimpleSchema({
     type: String,
     optional: true,
   },
-  medication: Object,
-  'medication.unit': String,
-  'medication.lotId': Number,
-  'medication.brand': String,
-  'medication.expire': { // date string "YYYY-MM-DD"
+  element: Object,
+  'element.unit': String,
+  'element.lotId': Number,
+  'element.brand': String,
+  'element.expire': { // date string "YYYY-MM-DD"
     type: String,
     optional: true,
   },
-  'medication.quantity': Number,
+  'element.quantity': Number,
 });
 // Vaccine Schema
 Schemas.Vaccine = new SimpleSchema({
@@ -62,12 +62,12 @@ Schemas.Vaccine = new SimpleSchema({
     type: String,
     optional: true,
   },
-  vaccine: Object,
-  'vaccine.lotId': Number,
-  'vaccine.brand': String,
-  'vaccine.expire': String,
-  'vaccine.dose': Number,
-  'vaccine.visDate': String,
+  element: Object,
+  'element.lotId': Number,
+  'element.brand': String,
+  'element.expire': String,
+  'element.dose': Number,
+  'element.visDate': String,
 });
 // Supply Schema
 Schemas.Supply = new SimpleSchema({
@@ -88,14 +88,14 @@ Schemas.Supply = new SimpleSchema({
     type: String,
     optional: true,
   },
-  supply: Object,
-  'supply.supplyType': String,
-  'supply.quantity': Number,
+  element: Object,
+  'element.supplyType': String,
+  'element.quantity': Number,
 });
 
 class HistoricalCollection extends BaseCollection {
   constructor() {
-    super('Historicals', Schemas);
+    super('Historicals', Schemas, true);
   }
 
   /**
@@ -105,9 +105,10 @@ class HistoricalCollection extends BaseCollection {
    * @param owner the owner of the item.
    * @return {String} the docID of the new document.
    */
-  define({ inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, obj }) {
+  define({ inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element }) {
+    console.log(inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element);
     const docID = this._collection.insert({
-      inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, obj,
+      inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element,
     });
     return docID;
   }
