@@ -111,10 +111,9 @@ const Status = ({ ready, medications, drugTypes, locations, brands }) => {
           </Header>
           <Grid>
             <Grid.Column width={4}>
-              <Input placeholder='Filter by drug name...' icon='search'
-                onChange={handleSearch} value={searchQuery} />
               <Popup
-                trigger={<Icon name='question circle' color="blue"/>}
+                trigger={<Input placeholder='Filter by drug name...' icon='search'
+                  onChange={handleSearch} value={searchQuery} />}
                 content='This allows you to filter the Inventory by medication, brand, LotID, location, and expiration.'
                 inverted
               />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Icon, Popup, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DispenseInfoPage from './DispenseInfoPage';
 
@@ -14,7 +14,10 @@ const DispenseLogRow = ({ history }) => (
     <Table.Cell>{history.brand}</Table.Cell>
     <Table.Cell>{history.lotId}</Table.Cell>
     <Table.Cell>{history.quantity} {history.unit}</Table.Cell>
-    <Table.Cell>{history.dispensedFrom}</Table.Cell>
+    <Table.Cell textAlign='center'>
+      <Popup trigger={<Icon name='user circle' size='large' color='grey'/>}
+        content={history.dispensedFrom} size='small' position='right center' inverted/>
+    </Table.Cell>
     <Table.Cell textAlign='center'><DispenseInfoPage record={history}/></Table.Cell>
   </Table.Row>
 );

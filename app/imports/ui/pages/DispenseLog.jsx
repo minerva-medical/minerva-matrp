@@ -101,15 +101,13 @@ const DispenseLog = ({ ready, historicals, brands }) => {
           <Grid divider columns="equal" stackable>
             <Grid.Row>
               <Grid.Column>
-                <Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}/>
-                <Popup inverted trigger={<Icon name='question circle' color="blue"/>}
+                <Popup inverted trigger={<Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}/>}
                   content='This allows you to filter the Dispense Log table by Patient Number,
                   LotId, or Drug Name.'/>
               </Grid.Column>
               <Grid.Column>
                 <Label basic>Date From</Label>
-                <Input type="date" onChange={handleMinDateFilter}/>
-                <Popup inverted trigger={<Icon name='question circle' color="blue"/>}
+                <Popup inverted trigger={ <Input type="date" onChange={handleMinDateFilter}/>}
                   content="This allows you to filter the Dispense Log table
                   from the selected 'From Date' to today's date or the selected 'To Date'."/>
               </Grid.Column>
@@ -142,7 +140,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
           Records per page:{' '}
           <Dropdown inline={true} options={logPerPage} value={maxLog} onChange={handleMaxLog}/>
                 Total count: {filterHistoricals.length}
-          <Table striped singleLine columns={11} color='blue'>
+          <Table striped singleLine columns={11} color='blue' compact>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Date & Time</Table.HeaderCell>
@@ -152,7 +150,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
                 <Table.HeaderCell>Brand</Table.HeaderCell>
                 <Table.HeaderCell>LotId</Table.HeaderCell>
                 <Table.HeaderCell>Quantity</Table.HeaderCell>
-                <Table.HeaderCell>Dispensed by</Table.HeaderCell>
+                <Table.HeaderCell>Dispensed By</Table.HeaderCell>
                 <Table.HeaderCell>Information</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
