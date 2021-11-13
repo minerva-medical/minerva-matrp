@@ -59,6 +59,7 @@ if (Meteor.settings.loadAssetsFile && Historicals.count() === 0) {
 }
 
 if (Meteor.settings.loadAssetsFile && Supplys.count() === 0) {
+  // Supplys._collection.remove({});
   console.log('Loading supplies from private/sample_supply.json');
   sampleSupply.map(supply => Supplys.define(supply));
 }

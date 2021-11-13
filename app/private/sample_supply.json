@@ -2,17 +2,17 @@
   {
     "supply": "Theraband - Green",
     "supplyType": "Patient",
-    "minQuantity": 10,
+    "minQuantity": 60,
     "stock": [
       {
-        "location": "Cabinet 2",
-        "quantity": 5,
+        "location": "Cabinet 1",
+        "quantity": 50,
         "donated": false,
         "note": "Example note for Theraband - Green."
       },
       {
         "location": "Cabinet 2",
-        "quantity": 5,
+        "quantity": 50,
         "donated": false,
         "note": "Example note for Theraband - Green."
       }
@@ -24,14 +24,14 @@
     "minQuantity": 70,
     "stock": [
       {
-        "location": "Cabinet 2",
-        "quantity": 6,
+        "location": "Cabinet 1",
+        "quantity": 27,
         "donated": false,
         "note": "Example note for Theraband - Yellow."
       },
       {
         "location": "Cabinet 2",
-        "quantity": 6,
+        "quantity": 27,
         "donated": false,
         "note": "Example note for Theraband - Yellow."
       }
@@ -39,18 +39,18 @@
   },
   {
     "supply": "Theraband - Red",
-    "supplyType": "Lab / Testing",
-    "minQuantity": 30,
+    "supplyType": "Patient",
+    "minQuantity": 50,
     "stock": [
       {
-        "location": "Cabinet 2",
-        "quantity": 23,
+        "location": "Cabinet 1",
+        "quantity": 45,
         "donated": false,
         "note": "Example note for Theraband - Red."
       },
       {
         "location": "Cabinet 2",
-        "quantity": 23,
+        "quantity": 45,
         "donated": false,
         "note": "Example note for Theraband - Red."
       }
@@ -59,37 +59,37 @@
   {
     "supply": "Theraband - Beige",
     "supplyType": "Patient",
-    "minQuantity": 70,
+    "minQuantity": 50,
     "stock": [
       {
-        "location": "Cabinet 2",
-        "quantity": 40,
+        "location": "Cabinet 1",
+        "quantity": 24,
         "donated": true,
         "note": "Example note for Theraband - Beige."
       },
       {
         "location": "Cabinet 2",
-        "quantity": 40,
-        "donated": false,
+        "quantity": 24,
+        "donated": true,
         "note": "Example note for Theraband - Beige."
       }
     ]
   },
   {
     "supply": "Hot Packs",
-    "supplyType": "Lab / Testing",
-    "minQuantity": 60,
+    "supplyType": "Patient",
+    "minQuantity": 50,
     "stock": [
       {
-        "location": "Cabinet 2",
-        "quantity": 36,
+        "location": "Cabinet 1",
+        "quantity": 3,
         "donated": false,
         "note": "Example note for Hot Packs."
       },
       {
         "location": "Cabinet 2",
-        "quantity": 36,
-        "donated": false,
+        "quantity": 3,
+        "donated": true,
         "note": "Example note for Hot Packs."
       }
     ]
@@ -97,17 +97,17 @@
   {
     "supply": "Cold Packs",
     "supplyType": "Patient",
-    "minQuantity": 50,
+    "minQuantity": 80,
     "stock": [
       {
-        "location": "Cabinet 2",
-        "quantity": 35,
+        "location": "Cabinet 1",
+        "quantity": 27,
         "donated": false,
         "note": "Example note for Cold Packs."
       },
       {
         "location": "Cabinet 2",
-        "quantity": 35,
+        "quantity": 27,
         "donated": false,
         "note": "Example note for Cold Packs."
       }
@@ -116,17 +116,17 @@
   {
     "supply": "ACE wrap 2\"",
     "supplyType": "Patient",
-    "minQuantity": 80,
+    "minQuantity": 30,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 33,
+        "quantity": 26,
         "donated": false,
         "note": "Example note for ACE wrap 2\"."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 33,
+        "location": "Cabinet 3",
+        "quantity": 26,
         "donated": true,
         "note": "Example note for ACE wrap 2\"."
       }
@@ -135,17 +135,17 @@
   {
     "supply": "ACE wrap 3\"",
     "supplyType": "Patient",
-    "minQuantity": 50,
+    "minQuantity": 90,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 15,
+        "quantity": 65,
         "donated": false,
         "note": "Example note for ACE wrap 3\"."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 15,
+        "location": "Cabinet 3",
+        "quantity": 65,
         "donated": false,
         "note": "Example note for ACE wrap 3\"."
       }
@@ -153,18 +153,18 @@
   },
   {
     "supply": "ACE wrap 4\"",
-    "supplyType": "Lab / Testing",
-    "minQuantity": 80,
+    "supplyType": "Patient",
+    "minQuantity": 10,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 59,
+        "quantity": 10,
         "donated": false,
         "note": "Example note for ACE wrap 4\"."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 59,
+        "location": "Cabinet 3",
+        "quantity": 10,
         "donated": false,
         "note": "Example note for ACE wrap 4\"."
       }
@@ -172,18 +172,18 @@
   },
   {
     "supply": "ACE wrap 6\"",
-    "supplyType": "Patient",
-    "minQuantity": 20,
+    "supplyType": "Lab / Testing",
+    "minQuantity": 40,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 20,
+        "quantity": 39,
         "donated": false,
         "note": "Example note for ACE wrap 6\"."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 20,
+        "location": "Cabinet 3",
+        "quantity": 39,
         "donated": false,
         "note": "Example note for ACE wrap 6\"."
       }
@@ -191,18 +191,18 @@
   },
   {
     "supply": "Blood Pressure Monitors - Patient",
-    "supplyType": "Patient",
-    "minQuantity": 70,
+    "supplyType": "Lab / Testing",
+    "minQuantity": 80,
     "stock": [
       {
-        "location": "Back Cabinet",
-        "quantity": 67,
+        "location": "Cabinet 1",
+        "quantity": 51,
         "donated": false,
         "note": "Example note for Blood Pressure Monitors - Patient."
       },
       {
         "location": "Back Cabinet",
-        "quantity": 67,
+        "quantity": 51,
         "donated": false,
         "note": "Example note for Blood Pressure Monitors - Patient."
       }
@@ -211,17 +211,17 @@
   {
     "supply": "Cavicide",
     "supplyType": "Lab / Testing",
-    "minQuantity": 50,
+    "minQuantity": 90,
     "stock": [
       {
-        "location": "Shower Closet",
-        "quantity": 48,
+        "location": "Cabinet 1",
+        "quantity": 37,
         "donated": false,
         "note": "Example note for Cavicide."
       },
       {
         "location": "Shower Closet",
-        "quantity": 48,
+        "quantity": 37,
         "donated": false,
         "note": "Example note for Cavicide."
       }
@@ -229,18 +229,18 @@
   },
   {
     "supply": "Rapid Strep Strips",
-    "supplyType": "Lab / Testing",
-    "minQuantity": 90,
+    "supplyType": "Patient",
+    "minQuantity": 50,
     "stock": [
       {
-        "location": "Refrig Closet",
-        "quantity": 7,
+        "location": "Cabinet 1",
+        "quantity": 16,
         "donated": false,
         "note": "Example note for Rapid Strep Strips."
       },
       {
-        "location": "Refrig Closet",
-        "quantity": 7,
+        "location": "Refrigerator Closet",
+        "quantity": 16,
         "donated": false,
         "note": "Example note for Rapid Strep Strips."
       }
@@ -248,38 +248,38 @@
   },
   {
     "supply": "Emesis Basin",
-    "supplyType": "Patient",
-    "minQuantity": 80,
+    "supplyType": "Lab / Testing",
+    "minQuantity": 50,
     "stock": [
       {
-        "location": "Drawer 9",
-        "quantity": 55,
+        "location": "Cabinet 1",
+        "quantity": 48,
         "donated": false,
         "note": "Example note for Emesis Basin."
       },
       {
         "location": "Drawer 9",
-        "quantity": 55,
-        "donated": true,
+        "quantity": 48,
+        "donated": false,
         "note": "Example note for Emesis Basin."
       }
     ]
   },
   {
     "supply": "Hand Sanitizer - Large",
-    "supplyType": "Patient",
-    "minQuantity": 50,
+    "supplyType": "Lab / Testing",
+    "minQuantity": 40,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 30,
+        "quantity": 15,
         "donated": false,
         "note": "Example note for Hand Sanitizer - Large."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 30,
-        "donated": true,
+        "location": "Cabinet 3",
+        "quantity": 15,
+        "donated": false,
         "note": "Example note for Hand Sanitizer - Large."
       }
     ]
@@ -287,17 +287,17 @@
   {
     "supply": "Hand Sanitizer - Small for Patients",
     "supplyType": "Lab / Testing",
-    "minQuantity": 80,
+    "minQuantity": 90,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 38,
+        "quantity": 87,
         "donated": false,
         "note": "Example note for Hand Sanitizer - Small for Patients."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 38,
+        "location": "Cabinet 3",
+        "quantity": 87,
         "donated": false,
         "note": "Example note for Hand Sanitizer - Small for Patients."
       }
@@ -305,18 +305,18 @@
   },
   {
     "supply": "Pregnancy Tests",
-    "supplyType": "Lab / Testing",
-    "minQuantity": 40,
+    "supplyType": "Patient",
+    "minQuantity": 60,
     "stock": [
       {
-        "location": "Refrigerator",
-        "quantity": 31,
-        "donated": true,
+        "location": "Cabinet 1",
+        "quantity": 50,
+        "donated": false,
         "note": "Example note for Pregnancy Tests."
       },
       {
         "location": "Refrigerator",
-        "quantity": 31,
+        "quantity": 50,
         "donated": false,
         "note": "Example note for Pregnancy Tests."
       }
@@ -325,18 +325,18 @@
   {
     "supply": "Urine Dip Sticks",
     "supplyType": "Lab / Testing",
-    "minQuantity": 70,
+    "minQuantity": 50,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 43,
+        "quantity": 27,
         "donated": false,
         "note": "Example note for Urine Dip Sticks."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 43,
-        "donated": false,
+        "location": "Cabinet 3",
+        "quantity": 27,
+        "donated": true,
         "note": "Example note for Urine Dip Sticks."
       }
     ]
@@ -344,17 +344,17 @@
   {
     "supply": "Sensi Wrap 2\"",
     "supplyType": "Lab / Testing",
-    "minQuantity": 80,
+    "minQuantity": 60,
     "stock": [
       {
-        "location": "Drawer 6",
-        "quantity": 50,
+        "location": "Cabinet 1",
+        "quantity": 6,
         "donated": false,
         "note": "Example note for Sensi Wrap 2\"."
       },
       {
         "location": "Drawer 6",
-        "quantity": 50,
+        "quantity": 6,
         "donated": false,
         "note": "Example note for Sensi Wrap 2\"."
       }
@@ -363,17 +363,17 @@
   {
     "supply": "UnaBoot",
     "supplyType": "Patient",
-    "minQuantity": 50,
+    "minQuantity": 100,
     "stock": [
       {
         "location": "Cabinet 1",
-        "quantity": 28,
+        "quantity": 8,
         "donated": false,
         "note": "Example note for UnaBoot."
       },
       {
-        "location": "Cabinet 1",
-        "quantity": 28,
+        "location": "Cabinet 3",
+        "quantity": 8,
         "donated": false,
         "note": "Example note for UnaBoot."
       }
@@ -381,18 +381,18 @@
   },
   {
     "supply": "Thermometers - Patient Supplies",
-    "supplyType": "Patient",
+    "supplyType": "Lab / Testing",
     "minQuantity": 10,
     "stock": [
       {
-        "location": "Case 4",
-        "quantity": 2,
+        "location": "Cabinet 1",
+        "quantity": 3,
         "donated": false,
         "note": "Example note for Thermometers - Patient Supplies."
       },
       {
         "location": "Case 4",
-        "quantity": 2,
+        "quantity": 3,
         "donated": true,
         "note": "Example note for Thermometers - Patient Supplies."
       }
@@ -400,18 +400,18 @@
   },
   {
     "supply": "Thermometer Sheaths",
-    "supplyType": "Lab / Testing",
-    "minQuantity": 90,
+    "supplyType": "Patient",
+    "minQuantity": 20,
     "stock": [
       {
-        "location": "Case 4",
-        "quantity": 22,
+        "location": "Cabinet 1",
+        "quantity": 7,
         "donated": false,
         "note": "Example note for Thermometer Sheaths."
       },
       {
         "location": "Case 4",
-        "quantity": 22,
+        "quantity": 7,
         "donated": false,
         "note": "Example note for Thermometer Sheaths."
       }
