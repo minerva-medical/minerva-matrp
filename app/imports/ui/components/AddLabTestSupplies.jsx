@@ -6,7 +6,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Sites } from '../../api/site/SiteCollection';
-import { Items } from '../../api/item/ItemCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -32,7 +31,7 @@ const validateForm = data => {
   const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dateAdded', 'site', 'item', 'lotId', 'brand', 'quantity'];
+  const requiredFields = ['dateAdded', 'site', 'lotId', 'brand', 'quantity'];
 
   // check required fields
   requiredFields.forEach(field => {
@@ -65,7 +64,6 @@ const AddLabTestSupplies = (props) => {
     site: '',
     newSite: '',
     dateAdded: new Date().toLocaleDateString('fr-CA'),
-    item: '',
     quantity: '',
     unit: '', // unit will autofill on selection of drug
     brand: '',
@@ -130,8 +128,6 @@ const AddLabTestSupplies = (props) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Item Name' options={getOptions(props.items, 'item')}
-                  name='item' onChange={handleChange} value={fields.item}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(props.brands, 'brand')}
@@ -177,7 +173,6 @@ const AddLabTestSupplies = (props) => {
 AddLabTestSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
-  items: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
   brands: PropTypes.array.isRequired,
@@ -187,13 +182,11 @@ AddLabTestSupplies.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   const siteSub = Sites.subscribeSite();
-  const itemSub = Items.subscribeItem();
   const locationSub = Locations.subscribeLocation();
   return {
     currentUser: Meteor.user(),
     sites: Sites.find({}).fetch(),
-    items: Items.find({}).fetch(),
     locations: Locations.find({}).fetch(),
-    ready: siteSub.ready() && itemSub.ready() && locationSub.ready(),
+    ready: siteSub.ready() && locationSub.ready(),
   };
 })(AddLabTestSupplies);

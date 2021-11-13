@@ -23,7 +23,7 @@ const MedStatusRow = ({ med }) => {
   const status = Math.floor((totalQuantity / med.minQuantity) * 100);
   const getColor = () => {
     let color;
-    if (totalQuantity > med.minQuantity) { // range (total, min)
+    if (totalQuantity >= med.minQuantity) { // range [min, inf)
       color = 'green';
     } else if (totalQuantity > 0 && totalQuantity < med.minQuantity) { // range (0, min]
       color = 'yellow';

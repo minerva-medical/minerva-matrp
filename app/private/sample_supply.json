@@ -1,0 +1,420 @@
+[
+  {
+    "supply": "Theraband - Green",
+    "supplyType": "Patient",
+    "minQuantity": 60,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 50,
+        "donated": false,
+        "note": "Example note for Theraband - Green."
+      },
+      {
+        "location": "Cabinet 2",
+        "quantity": 50,
+        "donated": false,
+        "note": "Example note for Theraband - Green."
+      }
+    ]
+  },
+  {
+    "supply": "Theraband - Yellow",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 70,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 27,
+        "donated": false,
+        "note": "Example note for Theraband - Yellow."
+      },
+      {
+        "location": "Cabinet 2",
+        "quantity": 27,
+        "donated": false,
+        "note": "Example note for Theraband - Yellow."
+      }
+    ]
+  },
+  {
+    "supply": "Theraband - Red",
+    "supplyType": "Patient",
+    "minQuantity": 50,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 45,
+        "donated": false,
+        "note": "Example note for Theraband - Red."
+      },
+      {
+        "location": "Cabinet 2",
+        "quantity": 45,
+        "donated": false,
+        "note": "Example note for Theraband - Red."
+      }
+    ]
+  },
+  {
+    "supply": "Theraband - Beige",
+    "supplyType": "Patient",
+    "minQuantity": 50,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 24,
+        "donated": true,
+        "note": "Example note for Theraband - Beige."
+      },
+      {
+        "location": "Cabinet 2",
+        "quantity": 24,
+        "donated": true,
+        "note": "Example note for Theraband - Beige."
+      }
+    ]
+  },
+  {
+    "supply": "Hot Packs",
+    "supplyType": "Patient",
+    "minQuantity": 50,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 3,
+        "donated": false,
+        "note": "Example note for Hot Packs."
+      },
+      {
+        "location": "Cabinet 2",
+        "quantity": 3,
+        "donated": true,
+        "note": "Example note for Hot Packs."
+      }
+    ]
+  },
+  {
+    "supply": "Cold Packs",
+    "supplyType": "Patient",
+    "minQuantity": 80,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 27,
+        "donated": false,
+        "note": "Example note for Cold Packs."
+      },
+      {
+        "location": "Cabinet 2",
+        "quantity": 27,
+        "donated": false,
+        "note": "Example note for Cold Packs."
+      }
+    ]
+  },
+  {
+    "supply": "ACE wrap 2\"",
+    "supplyType": "Patient",
+    "minQuantity": 30,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 26,
+        "donated": false,
+        "note": "Example note for ACE wrap 2\"."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 26,
+        "donated": true,
+        "note": "Example note for ACE wrap 2\"."
+      }
+    ]
+  },
+  {
+    "supply": "ACE wrap 3\"",
+    "supplyType": "Patient",
+    "minQuantity": 90,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 65,
+        "donated": false,
+        "note": "Example note for ACE wrap 3\"."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 65,
+        "donated": false,
+        "note": "Example note for ACE wrap 3\"."
+      }
+    ]
+  },
+  {
+    "supply": "ACE wrap 4\"",
+    "supplyType": "Patient",
+    "minQuantity": 10,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 10,
+        "donated": false,
+        "note": "Example note for ACE wrap 4\"."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 10,
+        "donated": false,
+        "note": "Example note for ACE wrap 4\"."
+      }
+    ]
+  },
+  {
+    "supply": "ACE wrap 6\"",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 40,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 39,
+        "donated": false,
+        "note": "Example note for ACE wrap 6\"."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 39,
+        "donated": false,
+        "note": "Example note for ACE wrap 6\"."
+      }
+    ]
+  },
+  {
+    "supply": "Blood Pressure Monitors - Patient",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 80,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 51,
+        "donated": false,
+        "note": "Example note for Blood Pressure Monitors - Patient."
+      },
+      {
+        "location": "Back Cabinet",
+        "quantity": 51,
+        "donated": false,
+        "note": "Example note for Blood Pressure Monitors - Patient."
+      }
+    ]
+  },
+  {
+    "supply": "Cavicide",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 90,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 37,
+        "donated": false,
+        "note": "Example note for Cavicide."
+      },
+      {
+        "location": "Shower Closet",
+        "quantity": 37,
+        "donated": false,
+        "note": "Example note for Cavicide."
+      }
+    ]
+  },
+  {
+    "supply": "Rapid Strep Strips",
+    "supplyType": "Patient",
+    "minQuantity": 50,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 16,
+        "donated": false,
+        "note": "Example note for Rapid Strep Strips."
+      },
+      {
+        "location": "Refrigerator Closet",
+        "quantity": 16,
+        "donated": false,
+        "note": "Example note for Rapid Strep Strips."
+      }
+    ]
+  },
+  {
+    "supply": "Emesis Basin",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 50,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 48,
+        "donated": false,
+        "note": "Example note for Emesis Basin."
+      },
+      {
+        "location": "Drawer 9",
+        "quantity": 48,
+        "donated": false,
+        "note": "Example note for Emesis Basin."
+      }
+    ]
+  },
+  {
+    "supply": "Hand Sanitizer - Large",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 40,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 15,
+        "donated": false,
+        "note": "Example note for Hand Sanitizer - Large."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 15,
+        "donated": false,
+        "note": "Example note for Hand Sanitizer - Large."
+      }
+    ]
+  },
+  {
+    "supply": "Hand Sanitizer - Small for Patients",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 90,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 87,
+        "donated": false,
+        "note": "Example note for Hand Sanitizer - Small for Patients."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 87,
+        "donated": false,
+        "note": "Example note for Hand Sanitizer - Small for Patients."
+      }
+    ]
+  },
+  {
+    "supply": "Pregnancy Tests",
+    "supplyType": "Patient",
+    "minQuantity": 60,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 50,
+        "donated": false,
+        "note": "Example note for Pregnancy Tests."
+      },
+      {
+        "location": "Refrigerator",
+        "quantity": 50,
+        "donated": false,
+        "note": "Example note for Pregnancy Tests."
+      }
+    ]
+  },
+  {
+    "supply": "Urine Dip Sticks",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 50,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 27,
+        "donated": false,
+        "note": "Example note for Urine Dip Sticks."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 27,
+        "donated": true,
+        "note": "Example note for Urine Dip Sticks."
+      }
+    ]
+  },
+  {
+    "supply": "Sensi Wrap 2\"",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 60,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 6,
+        "donated": false,
+        "note": "Example note for Sensi Wrap 2\"."
+      },
+      {
+        "location": "Drawer 6",
+        "quantity": 6,
+        "donated": false,
+        "note": "Example note for Sensi Wrap 2\"."
+      }
+    ]
+  },
+  {
+    "supply": "UnaBoot",
+    "supplyType": "Patient",
+    "minQuantity": 100,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 8,
+        "donated": false,
+        "note": "Example note for UnaBoot."
+      },
+      {
+        "location": "Cabinet 3",
+        "quantity": 8,
+        "donated": false,
+        "note": "Example note for UnaBoot."
+      }
+    ]
+  },
+  {
+    "supply": "Thermometers - Patient Supplies",
+    "supplyType": "Lab / Testing",
+    "minQuantity": 10,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 3,
+        "donated": false,
+        "note": "Example note for Thermometers - Patient Supplies."
+      },
+      {
+        "location": "Case 4",
+        "quantity": 3,
+        "donated": true,
+        "note": "Example note for Thermometers - Patient Supplies."
+      }
+    ]
+  },
+  {
+    "supply": "Thermometer Sheaths",
+    "supplyType": "Patient",
+    "minQuantity": 20,
+    "stock": [
+      {
+        "location": "Cabinet 1",
+        "quantity": 7,
+        "donated": false,
+        "note": "Example note for Thermometer Sheaths."
+      },
+      {
+        "location": "Case 4",
+        "quantity": 7,
+        "donated": false,
+        "note": "Example note for Thermometer Sheaths."
+      }
+    ]
+  }
+]

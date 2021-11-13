@@ -76,4 +76,8 @@ export const COMPONENT_IDS = {
   MANAGE_LOCATIONS: 'manage-locations',
   MANAGE_SITES: 'manage-sites',
   MED_STATUS_ROW: 'med-status-row',
+  SUPPLY_STATUS_ROW: 'supply-status-row',
+  STATUS_TAB_ONE: 'status-tab-one',
+  STATUS_TAB_TWO: 'status-tab-two',
+  STATUS_TAB_THREE: 'status-tab-three',
 };

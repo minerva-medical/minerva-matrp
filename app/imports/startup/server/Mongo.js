@@ -5,6 +5,7 @@ import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { Sites } from '../../api/site/SiteCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
+import { Supplys } from '../../api/supply/SupplyCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
@@ -16,6 +17,7 @@ function addData(data) {
 const assetsFileName = 'data.json';
 const jsonData = JSON.parse(Assets.getText(assetsFileName));
 const sampleMedication = JSON.parse(Assets.getText('sample_medication.json'));
+const sampleSupply = JSON.parse(Assets.getText('sample_supply.json'));
 
 // Initialize the StuffsCollection if empty.
 if (Stuffs.count() === 0) {
@@ -54,4 +56,10 @@ if (Meteor.settings.loadAssetsFile && Historicals.count() === 0) {
   // Historicals._collection.remove({}); // clear collection (temporary)
   console.log(`Loading history from private/${assetsFileName}`);
   jsonData.historicals.map(historical => Historicals.define(historical));
+}
+
+if (Meteor.settings.loadAssetsFile && Supplys.count() === 0) {
+  // Supplys._collection.remove({});
+  console.log('Loading supplies from private/sample_supply.json');
+  sampleSupply.map(supply => Supplys.define(supply));
 }
