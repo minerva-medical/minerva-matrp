@@ -4,18 +4,49 @@ import { Grid, Header, Form, Button, Tab, Loader } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
-// import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions } from '../utilities/Functions';
+import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
+import { Medications } from '../../api/medication/MedicationCollection';
 
 /** handle submit for Dispense Patient Supply. */
+const submit = (data, callback) => {
+  const { stock, quantity, supply } = data;
+  // const collectionName = Medications.getCollectionName();
+  // const histCollection = Historicals.getCollectionName();
+  // const medication = Medications.findOne({ drug }); // find the existing medication
+  const { _id, stocks } = medication;
+  const targetIndex = stocks.findIndex((obj => obj.stock === stock)); // find the index of existing the stock
+  const { quantity: targetQuantity } = stocks[targetIndex];
+  
 
 /** validates the dispense patient supply form */
+const validateForm = (data, callback) => {
+  const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
+  let errorMsg = '';
+  // the required String fields
+  const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity'];
+
+  // check required fields
+  requiredFields.forEach(field => {
+    if (!submitData[field]) {
+      errorMsg += `${field} cannot be empty.\n`;
+    }
+  });
+
+  if (errorMsg) {
+    swal('Error', `${errorMsg}`, 'error');
+  } else {
+    submitData.quantity = parseInt(data.quantity, 10);
+    submit(submitData, callback);
+  }
+};
 
 /** Renders the Page for Dispensing Patient Supply. */
-const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
+const DispensePatientSupplies = ({ currentUser, ready, sites, stocks, supplys }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
@@ -41,7 +72,7 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
   const clearForm = () => setFields({ site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '',
     expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
 
-  if (props.ready) {
+  if (ready) {
     return (
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
@@ -66,7 +97,7 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || props.currentUser.username} readOnly/>
+                  value={fields.dispensedFrom || currentUser.username} readOnly/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number"
@@ -75,12 +106,12 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(props.sites)}
+                <Form.Select clearable search label='Site' options={getOptions(sites)}
                   placeholder="Kaka’ako" name='site'
                   onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Supply Name' options={getOptions(props.drugs)}
+                <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
@@ -113,6 +144,8 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
 DispensePatientSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
+  supplys: PropTypes.array.isRequired,
+  stocks: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -125,7 +158,8 @@ export default withTracker(() => {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
-    supply: distinct('supply', Supplys),
+    supplys: distinct('supply', Supplys),
+    stocks: nestedDistinct('stock', Supplys),
     ready: siteSub.ready() && historySub.ready() && supSub.ready(),
   };
 })(DispensePatientSupplies);
