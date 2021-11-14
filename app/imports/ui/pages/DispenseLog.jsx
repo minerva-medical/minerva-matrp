@@ -106,14 +106,16 @@ const DispenseLog = ({ ready, historicals, brands }) => {
                   LotId, or Drug Name.'/>
               </Grid.Column>
               <Grid.Column>
-                <Label basic>Date From</Label>
-                <Popup inverted trigger={ <Input type="date" onChange={handleMinDateFilter}/>}
+                <Popup inverted
+                  trigger={<Input type="date"
+                    label={{ basic: true, content: 'From' }}
+                    labelPosition='left'
+                    onChange={handleMinDateFilter}/>}
                   content="This allows you to filter the Dispense Log table
-                  from the selected 'From Date' to today's date or the selected 'To Date'."/>
+                  from the selected 'From' date to today's date or the selected 'To' date."/>
               </Grid.Column>
               <Grid.Column>
-                <Label basic>Date To</Label>
-                <Input type="date" onChange={handleMaxDateFilter}/>
+                <Input type="date" label={{ basic: true, content: 'To' }} labelPosition='left' onChange={handleMaxDateFilter}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -140,7 +142,7 @@ const DispenseLog = ({ ready, historicals, brands }) => {
           Records per page:{' '}
           <Dropdown inline={true} options={logPerPage} value={maxLog} onChange={handleMaxLog}/>
                 Total count: {filterHistoricals.length}
-          <Table striped singleLine columns={11} color='blue' compact>
+          <Table striped singleLine columns={9} color='blue' compact collapsing>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Date & Time</Table.HeaderCell>
