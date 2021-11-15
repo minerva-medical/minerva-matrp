@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader } from 'semantic-ui-react';
-// import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -40,6 +39,7 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
     site: '',
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     supply: '',
+    supplyType: 'Patient',
     quantity: '',
     dispensedTo: '',
     dispensedFrom: '',
