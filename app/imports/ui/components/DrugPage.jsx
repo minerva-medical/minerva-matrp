@@ -4,11 +4,8 @@ import {
   ItemContent, ItemDescription, Modal, ListHeader, Form,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-// import { AutoForm, ErrorsField, SubmitField, LongTextField } from 'uniforms-semantic';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
-// import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-// import SimpleSchema from 'simpl-schema';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { removeItMethod, updateMethod } from '../../api/base/BaseCollection.methods';
@@ -16,9 +13,13 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate }) => {
+
+  // useState for note field when editing notes.
   const [noteField, setNoteField] = useState({
     note: note,
   });
+
+  // useState to open and close modals
   const [open, setOpen] = React.useState(false);
   const [secondOpen, setSecondOpen] = React.useState(false);
   const notes = {
@@ -29,8 +30,6 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
     marginRight: '110px',
   };
 
-  // const identifier = info.lotIds.find(obj => obj.lotId === lotId);
-
   const font1 = {
     fontSize: '16px',
   };
@@ -39,6 +38,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
     fontSize: '15px',
   };
 
+  // used for onChange edit notes field
   const handleNoteChange = (event) => {
     setNoteField(event.target.value);
   };
@@ -148,7 +148,6 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           icon='edit'
           onClick={() => setSecondOpen(true)}
           color='linkedin'
-          // as={Link} to={`/edit/${info._id}`}
         />
         <Button
           content="Delete"
@@ -169,12 +168,11 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
             <Grid id={PAGE_IDS.EDIT_STUFF} container centered>
               <Grid.Column>
                 <Header as="h3">{info.drug}</Header>
-                <Header as="h4">Lot Number: {lotId}</Header>
+                <Header as="h4" color='grey'>Lot Number: {lotId}</Header>
                 <Form>
-                  <Form.TextArea label='Additional Notes' name='note' onChange={handleNoteChange} defaultValue={noteField.note}
+                  <Form.TextArea color='blue'label='Notes' name='note' onChange={handleNoteChange} defaultValue={noteField.note}
                     id={COMPONENT_IDS.ADD_MEDICATION_NOTES}/>
                 </Form>
-                <Button onClick={() => submit(noteField)}>Submit</Button>
               </Grid.Column>
             </Grid>
           </Modal.Description>
@@ -182,8 +180,9 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
         <Modal.Actions>
           <Button
             icon='check'
-            content='All Done'
-            onClick={() => setSecondOpen(false)}
+            content='Save Changes'
+            onClick={() => submit(noteField)}
+            color='green'
           />
         </Modal.Actions>
       </Modal>
