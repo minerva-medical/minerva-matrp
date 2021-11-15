@@ -39,7 +39,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
     fontSize: '15px',
   };
 
-  const handleChange = (event) => {
+  const handleNoteChange = (event) => {
     setNoteField(event.target.value);
   };
 
@@ -48,8 +48,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
     const { lotIds } = exists;
     const target = lotIds.find(obj => obj.lotId === lotId);
     target.note = data;
-    console.log(target.note);
-    const updateData = { id: exists, lotIds };
+    const updateData = { id: info._id, lotIds };
     const collectionName = Medications.getCollectionName();
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -172,7 +171,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
                 <Header as="h3">{info.drug}</Header>
                 <Header as="h4">Lot Number: {lotId}</Header>
                 <Form>
-                  <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} defaultValue={noteField.note}
+                  <Form.TextArea label='Additional Notes' name='note' onChange={handleNoteChange} defaultValue={noteField.note}
                     id={COMPONENT_IDS.ADD_MEDICATION_NOTES}/>
                 </Form>
                 <Button onClick={() => submit(noteField)}>Submit</Button>
