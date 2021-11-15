@@ -5,14 +5,12 @@ import DispenseInfoPage from './DispenseInfoPage';
 
 const DispenseLogRow = ({ history }) => {
 
-  const test = new Date(history.dateDispensed).toLocaleString('en-US');
-
-  console.log(test);
+  const historyDate = new Date(history.dateDispensed).toLocaleString('en-US');
 
   return (
     <Table.Row>
       <Table.Cell>
-        <i>{test}</i>
+        <i>{historyDate}</i>
       </Table.Cell>
       <Table.Cell>{history.dispenseType}</Table.Cell>
       <Table.Cell>{history.dispensedTo}</Table.Cell>
