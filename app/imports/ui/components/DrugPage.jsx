@@ -171,7 +171,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
                 <Header as="h4" color='grey'>Lot Number: {lotId}</Header>
                 <Form>
                   <Form.TextArea color='blue'label='Notes' name='note' onChange={handleNoteChange} defaultValue={noteField.note}
-                    id={COMPONENT_IDS.ADD_MEDICATION_NOTES}/>
+                    id={COMPONENT_IDS.ADD_MEDICATION_NOTES} style={{ minHeight: 200 }}/>
                 </Form>
               </Grid.Column>
             </Grid>
