@@ -23,7 +23,7 @@ class HistoricalCollection extends BaseCollection {
       }, // date string "YYYY-MM-DD"
       quantity: Number,
       unit: String,
-      dateDispensed: Date,
+      dateDispensed: String,
       dispensedFrom: String,
       dispensedTo: String,
       dispenseType: {
