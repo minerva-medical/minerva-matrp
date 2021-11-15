@@ -146,12 +146,10 @@ const DispenseLog = ({ ready, historicals, brands }) => {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Date & Time</Table.HeaderCell>
+                <Table.HeaderCell>Inventory Type</Table.HeaderCell>
                 <Table.HeaderCell>Dispense Type</Table.HeaderCell>
                 <Table.HeaderCell>Patient Number</Table.HeaderCell>
-                <Table.HeaderCell>Medication</Table.HeaderCell>
-                <Table.HeaderCell>Brand</Table.HeaderCell>
-                <Table.HeaderCell>LotId</Table.HeaderCell>
-                <Table.HeaderCell>Quantity</Table.HeaderCell>
+                <Table.HeaderCell>Name</Table.HeaderCell>
                 <Table.HeaderCell>Dispensed By</Table.HeaderCell>
                 <Table.HeaderCell>Information</Table.HeaderCell>
               </Table.Row>

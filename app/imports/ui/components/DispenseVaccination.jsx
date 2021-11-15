@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Icon, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -8,7 +8,7 @@ import { Sites } from '../../api/site/SiteCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions } from '../utilities/Functions';
+import { dispenseTypes, distinct, getOptions } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
@@ -16,7 +16,7 @@ const submit = (data, callback) => {
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
   const medication = Medications.findOne({ lotId }); // find the existing medication
-  const { _id, unit } = medication;
+  const { _id } = medication;
 
   if (quantity < medication.quantity) {
     // if dispense quantity < medication quantity:
@@ -32,7 +32,7 @@ const submit = (data, callback) => {
       });
   } else if (quantity > medication.quantity) {
     // else if dispense quantity > medication quantity:
-    swal('Error', `${drug} only has ${medication.quantity} ${unit} remaining.`, 'error');
+    swal('Error', `${drug} only has ${medication.quantity} remaining.`, 'error');
   } else {
     // else if dispense quantity = medication quantity:
     const updateData = { id: _id, minQuantity: 0, quantity: 0, brand: 'N/A', lotId: 'N/A', expire: 'N/A',
@@ -79,14 +79,17 @@ const DispenseVaccination = (props) => {
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
-    unit: 'tab(s)',
     brand: '',
     lotId: '',
     expire: '',
+    dose: '',
+    visDate: '',
     dispensedTo: '',
     dispensedFrom: '',
     note: '',
+    dispenseType: 'Patient Use',
   });
+  const isDisabled = fields.dispenseType !== 'Patient Use';
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
@@ -109,14 +112,16 @@ const DispenseVaccination = (props) => {
     }
   };
 
-  const clearForm = () => setFields({ site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '',
-    expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
+  const clearForm = () => setFields({ site: '', drug: '', quantity: '', brand: '', lotId: '',
+    expire: '', dose: '', visDate: '', dispensedTo: '', dispensedFrom: '', note: '' });
 
   if (props.ready) {
     return (
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
+            <Dropdown inline name='dispenseType' options={dispenseTypes}
+              onChange={handleChange} value={fields.dispenseType} />
             Dispense from Vaccination Inventory Form
             <Header.Subheader>
               <i>Please input the following information to dispense from the inventory,
@@ -141,27 +146,20 @@ const DispenseVaccination = (props) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number"
-                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
+                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo} disabled={isDisabled}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(props.sites)}
                   placeholder="Kaka’ako" name='site'
-                  onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
+                  onChange={handleChange} value={fields.site} disabled={isDisabled}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(props.lotIds)}
                   placeholder="Z9Z99"
                   name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
               </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(props.drugs)}
-                  placeholder="Benzonatate Capsules"
-                  name='drug' onChange={handleChange} value={fields.drug}/>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
               <Grid.Column>
                 {/* expiration date may be null */}
                 <Form.Field>
@@ -171,17 +169,21 @@ const DispenseVaccination = (props) => {
                     style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
                 </Form.Field>
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(props.brands)}
+                <Form.Input type="datetime-local" label='VIS Date' name='dateDispensed'
+                  onChange={handleChange} value={fields.dateDispensed} disabled={isDisabled}/>
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Select clearable search label='Vaccine Manufacturer' options={getOptions(props.brands)}
                   placeholder="Zonatuss"
                   name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
-                  <Form.Input label='Quantity (tabs/mL)' type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder='30'/>
-                  <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                  <Form.Input label='Dose #' type='number' min={1} max={5} name='quantity' className='dose'
+                    onChange={handleChange} placeholder='1' disabled={isDisabled}/>
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>

@@ -8,31 +8,27 @@ const DispenseLogRow = ({ history }) => (
     <Table.Cell>
       <i>{history.dateDispensed.toLocaleString('en-CA')}</i>
     </Table.Cell>
+    <Table.Cell>{history.inventoryType}</Table.Cell>
     <Table.Cell>{history.dispenseType}</Table.Cell>
     <Table.Cell>{history.dispensedTo}</Table.Cell>
-    <Table.Cell>{history.drug}</Table.Cell>
-    <Table.Cell>{history.brand}</Table.Cell>
-    <Table.Cell>{history.lotId}</Table.Cell>
-    <Table.Cell>{history.quantity} {history.unit}</Table.Cell>
-    <Table.Cell textAlign='center'>
+    <Table.Cell>{history.name}</Table.Cell>
+    <Table.Cell>
       <Popup trigger={<Icon name='user circle' size='large' color='grey'/>}
         content={history.dispensedFrom} size='small' position='right center' inverted/>
     </Table.Cell>
-    <Table.Cell textAlign='center'><DispenseInfoPage record={history}/></Table.Cell>
+    <Table.Cell><DispenseInfoPage record={history}/></Table.Cell>
   </Table.Row>
 );
 
 DispenseLogRow.propTypes = {
   history: PropTypes.shape({
-    drug: PropTypes.string,
+    name: PropTypes.string,
+    inventoryType: PropTypes.string,
     dateDispensed: PropTypes.date,
     dispensedTo: PropTypes.string,
     dispenseType: PropTypes.string,
     brand: PropTypes.string,
-    lotId: PropTypes.string,
     dispensedFrom: PropTypes.string,
-    quantity: PropTypes.number,
-    unit: PropTypes.string,
   }).isRequired,
 };
 

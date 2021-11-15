@@ -59,7 +59,7 @@ const validateForm = data => {
 };
 
 /** Renders the Page for Dispensing Inventory. */
-const AddPatientSupplies = (props) => {
+const AddSupplies = (props) => {
   const [fields, setFields] = useState({
     site: '',
     newSite: '',
@@ -170,7 +170,7 @@ const AddPatientSupplies = (props) => {
 };
 
 /** Require an array of Stuff documents in the props. */
-AddPatientSupplies.propTypes = {
+AddSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
@@ -189,4 +189,4 @@ export default withTracker(() => {
     locations: Locations.find({}).fetch(),
     ready: siteSub.ready() && locationSub.ready(),
   };
-})(AddPatientSupplies);
+})(AddSupplies);

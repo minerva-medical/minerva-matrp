@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
-import { distinct, getOptions } from '../utilities/Functions';
+import { dispenseTypes, distinct, getOptions } from '../utilities/Functions';
 // import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 
 /** handle submit for Dispense Supply. */
@@ -53,11 +53,6 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
     setFields({ ...fields, [name]: value });
   };
 
-  // handle dropdown search query
-  const handleSearch = (event, { name, searchQuery }) => {
-    setFields({ ...fields, [name]: searchQuery });
-  };
-
   // handle supply select
 
   const clearForm = () => {
@@ -69,6 +64,8 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
+            <Dropdown inline name='dispenseType' options={dispenseTypes}
+              onChange={handleChange} value={fields.dispenseType} />
             Dispense from Supplies Inventory Form
             <Header.Subheader>
               <i>Please input the following information, to the best of your abilities, to dispense a Patient or Lab/Testing supply from the inventory</i>
@@ -98,12 +95,12 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(sites)}
                   placeholder="Kaka’ako" name='site'
-                  onChange={handleChange} value={fields.site} onSearchChange={handleSearch} searchQuery={fields.site}/>
+                  onChange={handleChange} disabled={isDisabled}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
-                  name='supply' onChange={handleChange()} value={fields.supply}/>
+                  name='supply' onChange={handleChange} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
