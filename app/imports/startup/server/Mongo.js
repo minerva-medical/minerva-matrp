@@ -18,6 +18,8 @@ const assetsFileName = 'data.json';
 const jsonData = JSON.parse(Assets.getText(assetsFileName));
 const sampleMedication = JSON.parse(Assets.getText('sample_medication.json'));
 const sampleSupply = JSON.parse(Assets.getText('sample_supply.json'));
+const sampleHistorical = JSON.parse(Assets.getText('historicals.json'));
+
 
 // Initialize the StuffsCollection if empty.
 if (Stuffs.count() === 0) {
@@ -32,6 +34,12 @@ if (Meteor.settings.loadAssetsFile && Medications.count() === 0) {
   console.log('Loading medications from private/sample_medication.json');
   // jsonData.medications.map(medication => Medications.define(medication));
   sampleMedication.map(medication => Medications.define(medication));
+}
+
+if (Meteor.settings.loadAssetsFile && Historicals.count() === 0) {
+  // Historicals._collection.remove({}); // clear collection (temporary)
+  console.log('Loading history from private/historicals.json');
+  sampleHistorical.map(historical => Historicals.define(historical));
 }
 
 if (Meteor.settings.loadAssetsFile && DrugTypes.count() === 0) {
@@ -52,14 +60,9 @@ if (Meteor.settings.loadAssetsFile && Sites.count() === 0) {
   jsonData.sites.map(site => Sites.define(site));
 }
 
-if (Meteor.settings.loadAssetsFile && Historicals.count() === 0) {
-  // Historicals._collection.remove({}); // clear collection (temporary)
-  console.log(`Loading history from private/${assetsFileName}`);
-  jsonData.historicals.map(historical => Historicals.define(historical));
-}
-
 if (Meteor.settings.loadAssetsFile && Supplys.count() === 0) {
   // Supplys._collection.remove({});
   console.log('Loading supplies from private/sample_supply.json');
   sampleSupply.map(supply => Supplys.define(supply));
 }
+
