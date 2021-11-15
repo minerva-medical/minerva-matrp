@@ -15,9 +15,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate }) => {
 
   // useState for note field when editing notes.
-  const [noteField, setNoteField] = useState({
-    note: note,
-  });
+  const [noteField, setNoteField] = useState(note);
 
   // useState to open and close modals
   const [open, setOpen] = React.useState(false);
@@ -168,9 +166,10 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
             <Grid id={PAGE_IDS.EDIT_STUFF} container centered>
               <Grid.Column>
                 <Header as="h3">{info.drug}</Header>
-                <Header as="h4" color='grey'>Lot Number: {lotId}</Header>
+                <Header as="h4" color='grey' style={{ marginTop: '10px' }}>Lot Number: {lotId}</Header>
                 <Form>
-                  <Form.TextArea color='blue'label='Notes' name='note' onChange={handleNoteChange} defaultValue={noteField.note}
+                  <Form.TextArea color='blue' label='Notes' name='note' onChange={handleNoteChange}
+                    defaultValue={noteField}
                     id={COMPONENT_IDS.ADD_MEDICATION_NOTES} style={{ minHeight: 200 }}/>
                 </Form>
               </Grid.Column>
@@ -178,11 +177,14 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
+          <Button color='black' onClick={() => setSecondOpen(false)}>
+            Close
+          </Button>
           <Button
             icon='check'
             content='Save Changes'
             onClick={() => submit(noteField)}
-            color='green'
+            color='linkedin'
           />
         </Modal.Actions>
       </Modal>
