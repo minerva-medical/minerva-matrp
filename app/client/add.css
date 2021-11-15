@@ -90,6 +90,15 @@
   font-weight: 700;
 }
 
+#add-inventory .ui.tabular.menu {
+  padding-right: 25%;
+}
+
+#add-inventory .ui.tabular.menu .item {
+  flex: 1 1 0;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 767px) {
   #add-form .filler-column {
     display: none;

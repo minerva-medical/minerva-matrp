@@ -8,12 +8,13 @@ import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { distinct, getOptions } from '../utilities/Functions';
+// import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 
-/** handle submit for Dispense Patient Supply. */
+/** handle submit for Dispense Supply. */
 
-/** validates the dispense patient supply form */
-const validateForm = (data) => { // pass in "callback" when handle submit form ready
-  const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
+/** validates the dispense supply form */
+const validateForm = (data) => { // include "callback" when submit functions works
+  const submitData = { ...data, dispensedFrom: Meteor.user().username };
   let errorMsg = '';
   // the required String fields
   const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity'];
@@ -33,18 +34,20 @@ const validateForm = (data) => { // pass in "callback" when handle submit form r
   }
 };
 
-/** Renders the Page for Dispensing Patient Supply. */
-const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
+/** Renders the Page for Dispensing Supply. */
+const DispenseSupplies = ({ ready, sites, supplys }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     supply: '',
-    supplyType: 'Patient',
+    supplyType: '',
     quantity: '',
     dispensedTo: '',
-    dispensedFrom: '',
     note: '',
+    dispenseType: 'Patient Use',
   });
+  // const [maxQuantity, setMaxQuantity] = useState(0);
+  const isDisabled = fields.dispenseType !== 'Patient Use';
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
@@ -55,18 +58,20 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
     setFields({ ...fields, [name]: searchQuery });
   };
 
-  const clearForm = () => setFields({ site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '',
-    expire: '', dispensedTo: '', dispensedFrom: '', note: '' });
+  // handle supply select
 
+  const clearForm = () => {
+    setFields({ ...fields, site: '', supply: '', quantity: '',
+      dispensedTo: '', note: '' });
+  };
   if (ready) {
     return (
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
-            Dispense from Patient Supplies Inventory Form
+            Dispense from Supplies Inventory Form
             <Header.Subheader>
-              <i>Please input the following information to dispense from the inventory,
-                to the best of your abilities.</i>
+              <i>Please input the following information, to the best of your abilities, to dispense a Patient or Lab/Testing supply from the inventory</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
@@ -83,11 +88,10 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || currentUser.username} readOnly/>
-              </Grid.Column>
+                  value={'' || Meteor.user().username} readOnly/>             </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number"
-                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
+                  disabled={isDisabled} name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -99,11 +103,12 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
               <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
-                  name='supply' onChange={handleChange} value={fields.supply}/>
+                  name='supply' onChange={handleChange()} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
-                  <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
+                  <Form.Input label='Quantity'
+                    type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
                 </Form.Group>
               </Grid.Column>
@@ -127,7 +132,7 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
 };
 
 /** Require an array of Sites, Drugs, LotIds, and Brands in the props. */
-DispensePatientSupplies.propTypes = {
+DispenseSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   supplys: PropTypes.array.isRequired,
@@ -146,4 +151,4 @@ export default withTracker(() => {
     supplys: distinct('supply', Supplys),
     ready: siteSub.ready() && historySub.ready() && supSub.ready(),
   };
-})(DispensePatientSupplies);
+})(DispenseSupplies);

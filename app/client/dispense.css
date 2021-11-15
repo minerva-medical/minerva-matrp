@@ -95,6 +95,15 @@
   width: 100%;
 }
 
+#dispense .ui.tabular.menu {
+  padding-right: 25%;
+}
+
+#dispense .ui.tabular.menu .item {
+  flex: 1 1 0;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 767px) {
   #dispense-form .filler-column {
     display: none;
