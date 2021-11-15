@@ -16,13 +16,13 @@ const submit = (data, callback) => {
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
   const medication = Medications.findOne({ drug }); // find the existing medication
-  const { _id, unit, lotIds } = medication;
+  const { _id, isTabs, lotIds } = medication;
   const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
   const { quantity: targetQuantity } = lotIds[targetIndex];
 
   // if dispense quantity > lotId quantity:
   if (quantity > targetQuantity) {
-    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${unit} remaining.`, 'error');
+    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
   } else {
     // if dispense quantity < lotId quantity:
     if (quantity < targetQuantity) {
@@ -36,11 +36,11 @@ const submit = (data, callback) => {
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', `${drug}, ${lotId} updated successfully`, 'success', { buttons: false, timer: 3000 });
-        callback(); // resets the form
-      });
+        .catch(error => swal('Error', error.message, 'error'))
+        .then(() => {
+          swal('Success', `${drug}, ${lotId} updated successfully`, 'success', { buttons: false, timer: 3000 });
+          callback(); // resets the form
+        });
   }
 };
 
@@ -75,7 +75,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
-    unit: 'tab(s)',
+    isTabs: true,
     brand: '',
     lotId: '',
     expire: '',
@@ -97,14 +97,14 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     if (target) {
       // autofill the form with specific lotId info
       const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
-      const { drug, unit } = target;
+      const { drug, isTabs } = target;
       const { brand, expire, quantity } = targetLotId;
-      const autoFields = { ...fields, lotId, drug, expire, brand, unit };
+      const autoFields = { ...fields, lotId, drug, expire, brand, isTabs };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)' });
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', isTabs: true });
       setMaxQuantity(0);
     }
   };
@@ -117,93 +117,93 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
 
   if (ready) {
     return (
-      <Tab.Pane id='dispense-form'>
-        <Header as="h2">
-          <Header.Content>
-            <Dropdown inline name='dispenseType' options={dispenseTypes}
-              onChange={handleChange} value={fields.dispenseType} />
-            Dispense from Medication Inventory Form
-            <Header.Subheader>
-              <i>Please input the following information to dispense from the inventory, to the best of your abilities.</i>
-            </Header.Subheader>
-          </Header.Content>
-        </Header>
-        {/* Semantic UI Form used for functionality */}
-        <Form>
-          <Grid columns='equal' stackable>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
-                  onChange={handleChange} value={fields.dateDispensed}/>
-              </Grid.Column>
-              <Grid.Column className='filler-column' />
-              <Grid.Column className='filler-column' />
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={'' || Meteor.user().username} readOnly/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Input label='Dispensed To' placeholder="Patient Number" disabled={isDisabled}
-                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(sites)} disabled={isDisabled}
-                  placeholder="Kaka’ako" name='site'
-                  onChange={handleChange} value={fields.site}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
-                  placeholder="Z9Z99"
-                  name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
-                  placeholder="Benzonatate Capsules"
-                  name='drug' onChange={handleChange} value={fields.drug}/>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                {/* expiration date may be null */}
-                <Form.Field>
-                  <label>Expiration Date</label>
-                  <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
-                  <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
-                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
-                </Form.Field>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(brands)}
-                  placeholder="Zonatuss"
-                  name='brand' onChange={handleChange} value={fields.brand}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Group>
-                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
-                    type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder='30'/>
-                  <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
-                    options={units} />
-                </Form.Group>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Form>
-        <div className='buttons-div'>
-          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
-        </div>
-      </Tab.Pane>
+        <Tab.Pane id='dispense-form'>
+          <Header as="h2">
+            <Header.Content>
+              <Dropdown inline name='dispenseType' options={dispenseTypes}
+                        onChange={handleChange} value={fields.dispenseType} />
+              Dispense from Medication Inventory Form
+              <Header.Subheader>
+                <i>Please input the following information to dispense from the inventory, to the best of your abilities.</i>
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+          {/* Semantic UI Form used for functionality */}
+          <Form>
+            <Grid columns='equal' stackable>
+              <Grid.Row>
+                <Grid.Column>
+                  <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
+                              onChange={handleChange} value={fields.dateDispensed}/>
+                </Grid.Column>
+                <Grid.Column className='filler-column' />
+                <Grid.Column className='filler-column' />
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
+                              value={'' || Meteor.user().username} readOnly/>
+                </Grid.Column>
+                <Grid.Column>
+                  <Form.Input label='Dispensed To' placeholder="Patient Number" disabled={isDisabled}
+                              name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Form.Select clearable search label='Site' options={getOptions(sites)} disabled={isDisabled}
+                               placeholder="Kaka’ako" name='site'
+                               onChange={handleChange} value={fields.site}/>
+                </Grid.Column>
+                <Grid.Column>
+                  <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
+                               placeholder="Z9Z99"
+                               name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
+                </Grid.Column>
+                <Grid.Column>
+                  <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
+                               placeholder="Benzonatate Capsules"
+                               name='drug' onChange={handleChange} value={fields.drug}/>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  {/* expiration date may be null */}
+                  <Form.Field>
+                    <label>Expiration Date</label>
+                    <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
+                    <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
+                          style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
+                  </Form.Field>
+                </Grid.Column>
+                <Grid.Column>
+                  <Form.Select clearable search label='Brand' options={getOptions(brands)}
+                               placeholder="Zonatuss"
+                               name='brand' onChange={handleChange} value={fields.brand}/>
+                </Grid.Column>
+                <Grid.Column>
+                  <Form.Group>
+                    <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
+                                type='number' min={1} name='quantity' className='quantity'
+                                onChange={handleChange} value={fields.quantity} placeholder='30'/>
+                    <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
+                                 options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                  </Form.Group>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                                 placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Form>
+          <div className='buttons-div'>
+            <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
+            <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
+          </div>
+        </Tab.Pane>
     );
   }
   return (<Loader active>Getting data</Loader>);
