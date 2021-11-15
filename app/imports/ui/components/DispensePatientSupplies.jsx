@@ -8,23 +8,12 @@ import swal from 'sweetalert';
 import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
-import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
-import { Medications } from '../../api/medication/MedicationCollection';
+import { distinct, getOptions } from '../utilities/Functions';
 
 /** handle submit for Dispense Patient Supply. */
-const submit = (data, callback) => {
-  const { stock, quantity, supply } = data;
-  // const collectionName = Medications.getCollectionName();
-  // const histCollection = Historicals.getCollectionName();
-  // const medication = Medications.findOne({ drug }); // find the existing medication
-  const { _id, stocks } = medication;
-  const targetIndex = stocks.findIndex((obj => obj.stock === stock)); // find the index of existing the stock
-  const { quantity: targetQuantity } = stocks[targetIndex];
-  
 
 /** validates the dispense patient supply form */
-const validateForm = (data, callback) => {
+const validateForm = (data) => { // pass in "callback" when handle submit form ready
   const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
   let errorMsg = '';
   // the required String fields
@@ -41,20 +30,17 @@ const validateForm = (data, callback) => {
     swal('Error', `${errorMsg}`, 'error');
   } else {
     submitData.quantity = parseInt(data.quantity, 10);
-    submit(submitData, callback);
+    // submit(submitData, callback);
   }
 };
 
 /** Renders the Page for Dispensing Patient Supply. */
-const DispensePatientSupplies = ({ currentUser, ready, sites, stocks, supplys }) => {
+const DispensePatientSupplies = ({ currentUser, ready, sites, supplys }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     supply: '',
-    supplyType: '',
-    stock: '',
     quantity: '',
-    location: '',
     dispensedTo: '',
     dispensedFrom: '',
     note: '',
@@ -113,7 +99,7 @@ const DispensePatientSupplies = ({ currentUser, ready, sites, stocks, supplys })
               <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
-                  name='drug' onChange={handleChange} value={fields.drug}/>
+                  name='supply' onChange={handleChange} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
@@ -145,7 +131,6 @@ DispensePatientSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   supplys: PropTypes.array.isRequired,
-  stocks: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -159,7 +144,6 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     supplys: distinct('supply', Supplys),
-    stocks: nestedDistinct('stock', Supplys),
     ready: siteSub.ready() && historySub.ready() && supSub.ready(),
   };
 })(DispensePatientSupplies);
