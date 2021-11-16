@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Icon, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
-import { Medications } from '../../api/medication/MedicationCollection';
-import { Historicals } from '../../api/historical/HistoricalCollection';
+import { Medications, allowedUnits } from '../../api/medication/MedicationCollection';
+import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions, nestedDistinct, units } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
@@ -32,7 +32,11 @@ const submit = (data, callback) => {
       lotIds.splice(targetIndex, 1); // remove the lotId
     }
     const updateData = { id: _id, lotIds };
-    const definitionData = { ...data };
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire } = data;
+    const element = { unit, lotId, brand, expire, quantity };
+    // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
+    const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
+      name: drug, note, element };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
@@ -46,9 +50,10 @@ const submit = (data, callback) => {
 
 /** validates the dispense medication form */
 const validateForm = (data, callback) => {
-  const submitData = { ...data, dispensedFrom: data.dispensedFrom || Meteor.user().username };
+  const submitData = { ...data, dispensedFrom: Meteor.user().username };
   let errorMsg = '';
   // the required String fields
+  // TODO: validation for non patient use
   const requiredFields = ['dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
 
   // check required fields
@@ -67,7 +72,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Medication. */
-const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }) => {
+const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
     // TODO: use moment?
@@ -79,11 +84,12 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
     lotId: '',
     expire: '',
     dispensedTo: '',
-    dispenseType: '',
-    dispensedFrom: '',
     note: '',
+    inventoryType: 'Medication',
+    dispenseType: 'Patient Use',
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
+  const isDisabled = fields.dispenseType !== 'Patient Use';
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
@@ -119,10 +125,11 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
-              Dispense from Medication Inventory Form
+            <Dropdown inline name='dispenseType' options={getOptions(dispenseTypes)}
+              onChange={handleChange} value={fields.dispenseType} />
+            Dispense from Medication Inventory Form
             <Header.Subheader>
-              <i>Please input the following information to dispense from the inventory,
-                  to the best of your abilities.</i>
+              <i>Please input the following information to dispense from the inventory, to the best of your abilities.</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
@@ -134,24 +141,22 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
                 <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
-              <Grid.Column>
-                <Form.Input type="hidden" name='dispenseType' value="Patient Use"/>
-              </Grid.Column>
+              <Grid.Column className='filler-column' />
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={fields.dispensedFrom || currentUser.username} readOnly/>
+                  value={'' || Meteor.user().username} readOnly/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Input label='Dispensed To' placeholder="Patient Number"
+                <Form.Input label='Dispensed To' placeholder="Patient Number" disabled={isDisabled}
                   name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(sites)}
+                <Form.Select clearable search label='Site' options={getOptions(sites)} disabled={isDisabled}
                   placeholder="Kaka’ako" name='site'
                   onChange={handleChange} value={fields.site}/>
               </Grid.Column>
@@ -187,7 +192,7 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
                   <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
-                    options={units} />
+                    options={getOptions(allowedUnits)} />
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>
@@ -211,7 +216,6 @@ const DispenseMedication = ({ currentUser, ready, brands, drugs, lotIds, sites }
 
 /** Require an array of Sites, Drugs, LotIds, and Brands in the props. */
 DispenseMedication.propTypes = {
-  currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   drugs: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
@@ -225,8 +229,6 @@ export default withTracker(() => {
   const historySub = Historicals.subscribeHistorical();
   const siteSub = Sites.subscribeSite();
   return {
-    // TODO: exclude 'N/A'
-    currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     drugs: distinct('drug', Medications),
     lotIds: nestedDistinct('lotId', Medications),

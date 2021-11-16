@@ -48,10 +48,3 @@ export function nestedDistinct(field, collection, selector = {}) {
 export function getOptions(arr) {
   return arr.map(name => ({ key: name, text: name, value: name }));
 }
-
-export const units = [
-  { key: 0, text: 'bottle(s)', value: 'bottle(s)' },
-  { key: 1, text: 'g', value: 'g' },
-  { key: 2, text: 'mL', value: 'mL' },
-  { key: 3, text: 'tab(s)', value: 'tab(s)' },
-];

@@ -12,12 +12,18 @@ class BaseCollection {
    * @param {String} type The name of the entity defined by the subclass.
    * @param {SimpleSchema} schema The schema for validating fields on insertion to the DB.
    */
-  constructor(type, schema) {
+  constructor(type, schema, multiple = false) {
     this._type = type;
     this._collectionName = `${this._type}Collection`;
     this._collection = new Mongo.Collection(this._collectionName);
     this._schema = schema;
-    this._collection.attachSchema(this._schema);
+    if (multiple) {
+      Object.entries(this._schema).forEach(([key, value]) => {
+        this._collection.attachSchema(value, { selector: { inventoryType: key } });
+      });
+    } else {
+      this._collection.attachSchema(this._schema);
+    }
   }
 
   /**

@@ -97,5 +97,56 @@
     "site": "Waimanalo"
   },{
     "site": "First United Methodist"
-  }]
+  }],
+
+  "historicals": [
+    {
+      "inventoryType": "Medication",
+      "dispenseType": "Patient Use",
+      "dateDispensed": "2021-10-05T24:00Z",
+      "dispensedFrom": "johndoe@hawaii.edu",
+      "dispensedTo": "123456",
+      "site": "POST",
+      "name": "Medication Name",
+      "note": "Test",
+      "element": {
+        "unit": "tab(s)",
+        "lotId": "12345",
+        "brand": "Test Brand",
+        "expire": "2021-11-13",
+        "quantity": 10
+      }
+    },
+    {
+      "inventoryType": "Vaccine",
+      "dispenseType": "Patient Use",
+      "dateDispensed": "2021-10-05T24:00Z",
+      "dispensedFrom": "johndoe@hawaii.edu",
+      "dispensedTo": "123456",
+      "site": "POST",
+      "name": "Vaccine Name",
+      "note": "Test",
+      "element": {
+        "lotId": "12345",
+        "brand": "Test Brand",
+        "expire": "2021-11-13",
+        "dose": 1,
+        "visDate": "2021-11-13"
+      }
+    },
+    {
+      "inventoryType": "Supply",
+      "dispenseType": "Patient Use",
+      "dateDispensed": "2021-10-05T24:00Z",
+      "dispensedFrom": "johndoe@hawaii.edu",
+      "dispensedTo": "123456",
+      "site": "POST",
+      "name": "Supply Name",
+      "note": "Test",
+      "element": {
+        "supplyType": "Patient",
+        "quantity": 10
+      }
+    }
+  ]
 }
