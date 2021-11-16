@@ -9,7 +9,17 @@ const MedStatusRow = ({ med }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(!isOpen);
 
-  const totalQuantity = med.lotIds.length ? _.pluck(med.lotIds, 'quantity').reduce((prev, current) => prev + current) : 0;
+  const currentDate = new Date();
+  const expirations = med.lotIds.map(({ expire }) => (expire && expire.split('-')));
+  const expiredDates = expirations.map((expiration) => {
+    const expiredDate = new Date();
+    return expiration ?
+      expiredDate.setFullYear(parseInt(expiration[0], 10), parseInt(expiration[1], 10) - 1, parseInt(expiration[2], 10))
+      : expiredDate;
+  });
+  const isExpired = expiredDates.map((expiredDate) => expiredDate < currentDate);
+
+  const totalQuantity = med.lotIds.length ? _.pluck(med.lotIds, 'quantity').reduce((prev, current, index) => (isExpired[index] ? prev : prev + current)) : 0;
   const status = Math.floor((totalQuantity / med.minQuantity) * 100);
   const getColor = () => {
     let color;
@@ -23,16 +33,6 @@ const MedStatusRow = ({ med }) => {
     return color;
   };
 
-  const currentDate = new Date();
-  const expirations = med.lotIds.map(({ expire }) => (expire && expire.split('-')));
-  const expiredDates = expirations.map((expiration) => {
-    const expiredDate = new Date();
-    return expiration ?
-      expiredDate.setFullYear(parseInt(expiration[0], 10), parseInt(expiration[1], 10) - 1, parseInt(expiration[2], 10))
-      : expiredDate;
-  });
-  const isExpired = expiredDates.map((expiredDate) => expiredDate < currentDate);
-
   return (
     <>
       {/* the drug row */}
@@ -43,7 +43,7 @@ const MedStatusRow = ({ med }) => {
         <Table.Cell>{med.drug}</Table.Cell>
         <Table.Cell>{med.drugType.join(', ')}</Table.Cell>
         <Table.Cell>{totalQuantity}</Table.Cell>
-        <Table.Cell>{med.isTabs ? 'tabs' : 'mL'}</Table.Cell>
+        <Table.Cell>{med.unit}</Table.Cell>
         <Table.Cell>
           <>
             <Icon color={getColor()} name='circle' />
@@ -98,7 +98,7 @@ MedStatusRow.propTypes = {
   med: PropTypes.shape({
     drug: PropTypes.string,
     drugType: PropTypes.array,
-    isTabs: PropTypes.bool,
+    unit: PropTypes.string,
     lotIds: PropTypes.array,
     minQuantity: PropTypes.number,
   }).isRequired,

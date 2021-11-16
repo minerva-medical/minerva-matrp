@@ -51,7 +51,7 @@ const DispenseInfoPage = ({ record }) => {
                         <ListItem><ListHeader>Dispense Location:</ListHeader>{record.site}</ListItem>
                         <Divider/>
                         <ListItem>
-                          <ListHeader>Quantity Dispensed</ListHeader>{record.quantity} {record.isTabs ? 'tabs' : 'mL'}
+                          <ListHeader>Quantity Dispensed</ListHeader>{record.quantity} {record.unit}
                         </ListItem>
                         <ListItem><ListHeader>Patient Number</ListHeader>{record.dispensedTo}</ListItem>
                         <ListItem><ListHeader>Date Dispensed</ListHeader>{record.dateDispensed.toLocaleString()}</ListItem>

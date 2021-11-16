@@ -57,3 +57,10 @@ export const dispenseTypes = [
   { key: 4, text: 'Expired', value: 'Expired' },
   { key: 5, text: 'Inventory', value: 'Inventory' }, // what is inventory?
 ];
+
+export const units = [
+  { key: 0, text: 'bottle(s)', value: 'bottle(s)' },
+  { key: 1, text: 'g', value: 'g' },
+  { key: 2, text: 'mL', value: 'mL' },
+  { key: 3, text: 'tab(s)', value: 'tab(s)' },
+];

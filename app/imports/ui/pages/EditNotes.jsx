@@ -17,7 +17,7 @@ const EditNotes = ({ doc, ready }) => {
 
   // On successful submit, insert the data.
   const submit = (data) => {
-    const { drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note, _id } = data;
+    const { drug, drugType, brand, lotId, expire, minQuantity, quantity, unit, location, donated, note, _id } = data;
     const collectionName = Medications.getCollectionName();
     const updateData = {
       id: _id,
@@ -28,7 +28,7 @@ const EditNotes = ({ doc, ready }) => {
       expire,
       minQuantity,
       quantity,
-      isTabs,
+      unit,
       location,
       donated,
       note,
@@ -64,7 +64,7 @@ const EditNotes = ({ doc, ready }) => {
             <TextField name='expire' readOnly/>
             <NumField name='minQuantity' decimal={false} readOnly/>
             <NumField name='quantity' decimal={false} readOnly/>
-            <HiddenField name='isTabs'/>
+            <HiddenField name='unit'/>
             <TextField name='location' readOnly/>
             <HiddenField name='donated' readOnly/>
             <LongTextField name='note' style={{ color: 'lightblue' }}/>

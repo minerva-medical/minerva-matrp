@@ -8,7 +8,7 @@ import { Sites } from '../../api/site/SiteCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions, nestedDistinct, dispenseTypes } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct, units, dispenseTypes } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
@@ -16,13 +16,13 @@ const submit = (data, callback) => {
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
   const medication = Medications.findOne({ drug }); // find the existing medication
-  const { _id, isTabs, lotIds } = medication;
+  const { _id, unit, lotIds } = medication;
   const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
   const { quantity: targetQuantity } = lotIds[targetIndex];
 
   // if dispense quantity > lotId quantity:
   if (quantity > targetQuantity) {
-    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
+    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${unit} remaining.`, 'error');
   } else {
     // if dispense quantity < lotId quantity:
     if (quantity < targetQuantity) {
@@ -75,7 +75,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
-    isTabs: true,
+    unit: 'tab(s)',
     brand: '',
     lotId: '',
     expire: '',
@@ -97,21 +97,21 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     if (target) {
       // autofill the form with specific lotId info
       const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
-      const { drug, isTabs } = target;
+      const { drug, unit } = target;
       const { brand, expire, quantity } = targetLotId;
-      const autoFields = { ...fields, lotId, drug, expire, brand, isTabs };
+      const autoFields = { ...fields, lotId, drug, expire, brand, unit };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', isTabs: true });
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)' });
       setMaxQuantity(0);
     }
   };
 
   const clearForm = () => {
-    setFields({ ...fields, site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '', expire: '',
-      dispensedTo: '', note: '' });
+    setFields({ ...fields, site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '', expire: '',
+      dispensedTo: '', dispensedFrom: '', note: '' });
     setMaxQuantity(0);
   };
 
@@ -186,8 +186,8 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
-                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                  <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
+                    options={units} />
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>
