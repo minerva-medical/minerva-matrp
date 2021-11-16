@@ -4,12 +4,12 @@ import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
-import { Medications } from '../../api/medication/MedicationCollection';
+import { Medications, allowedUnits } from '../../api/medication/MedicationCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { distinct, getOptions, nestedDistinct, units } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
@@ -235,7 +235,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
                     onChange={handleChange} value={fields.minQuantity} placeholder="100" disabled={isDisabled}
                     id={COMPONENT_IDS.ADD_MEDICATION_MIN_QUANTITY} />
                   <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
-                    options={units} disabled={isDisabled} />
+                    options={getOptions(allowedUnits)} disabled={isDisabled} />
                 </Form.Group>
               </Grid.Column>
               <Grid.Column className='filler-column' />
