@@ -83,7 +83,7 @@ test('Test that the add inventory page works ', async () => {
   await addInventoryPage.addMedication(testMedication.lot, testMedication.quantity);
   await addInventoryPage.addVaccine();
   await addInventoryPage.addPatientSupplies();
-  await addInventoryPage.addLabTestingSupplies();
+  // await addInventoryPage.addLabTestingSupplies();
 
 });
 
@@ -125,8 +125,8 @@ test('Test that the dispense page works', async () => {
   await dispensePage.dispenseMedication();
   await dispensePage.dispenseVaccine();
   await dispensePage.dispensePatientSupplies();
-  await dispensePage.dispenseLabTestingSupplies();
-  await dispensePage.dispenseReports();
+  // await dispensePage.dispenseLabTestingSupplies();
+  // await dispensePage.dispenseReports();
   // want to see if we can get to the editStuffPage
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
   // await t.click(editLinks.nth(0));

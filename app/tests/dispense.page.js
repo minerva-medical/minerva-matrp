@@ -33,15 +33,15 @@ class DispensePage {
     await t.wait(3000);
   }
 
-  async dispenseLabTestingSupplies() {
-    await t.click(`#${COMPONENT_IDS.DISPENSE_TAB_FOUR}`);
-    await t.wait(3000);
-  }
-
-  async dispenseReports() {
-    await t.click(`#${COMPONENT_IDS.DISPENSE_TAB_FIVE}`);
-    await t.wait(3000);
-  }
+  // async dispenseLabTestingSupplies() {
+  //   await t.click(`#${COMPONENT_IDS.DISPENSE_TAB_FOUR}`);
+  //   await t.wait(3000);
+  // }
+  //
+  // async dispenseReports() {
+  //   await t.click(`#${COMPONENT_IDS.DISPENSE_TAB_FIVE}`);
+  //   await t.wait(3000);
+  // }
 
 }
 

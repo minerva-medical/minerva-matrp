@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader, Icon, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
+import moment from 'moment';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -59,7 +60,6 @@ const validateForm = (data, callback) => {
 
   let errorMsg = '';
   // the required String fields
-  // TODO: validation for non patient use
   const requiredFields = ['dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
 
   // check required fields
@@ -81,8 +81,7 @@ const validateForm = (data, callback) => {
 const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
-    // TODO: use moment?
-    dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
+    dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
     drug: '',
     quantity: '',
     unit: 'tab(s)',

@@ -4,9 +4,10 @@ import {
 } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { Historicals } from '../../api/historical/HistoricalCollection';
+import { Historicals, dispenseTypes, inventoryTypes } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { getOptions } from '../utilities/Functions';
 
 // Used for the amount of history log rows that appear in each page.
 const logPerPage = [
@@ -17,21 +18,11 @@ const logPerPage = [
 ];
 
 // Used for sorting the table in accordance to the type of dispense
-const reason = [
-  { key: 'All', value: 0, text: 'All' },
-  { key: '1', value: 'Patient Use', text: 'Patient Use' },
-  { key: '2', value: 'Expired', text: 'Expired' },
-  { key: '3', value: 'Broken', text: 'Broken' },
-  { key: '4', value: 'Contaminated', text: 'Contaminated' },
-];
+const reason = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(dispenseTypes)];
 
 // Used for sorting the table in accordance to the type of inventory
-const inventory = [
-  { key: 'All', value: 0, text: 'All' },
-  { key: '1', value: 'Medication', text: 'Medication' },
-  { key: '2', value: 'Vaccine', text: 'Vaccine' },
-  { key: '3', value: 'Supply', text: 'Supply' },
-];
+const inventory = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(inventoryTypes)];
+
 /** Renders the Page for Dispensing History. */
 const DispenseLog = ({ ready, historicals }) => {
   if (ready) {
@@ -64,10 +55,10 @@ const DispenseLog = ({ ready, historicals }) => {
         ));
       }
       if (inventoryFilter) {
-        filter = filter.filter((historical) => historical.name.includes(inventoryFilter));
+        filter = filter.filter((historical) => historical.inventoryType === inventoryFilter);
       }
       if (dispenseTypeFilter) {
-        filter = filter.filter((historical) => historical.dispenseType.includes(dispenseTypeFilter));
+        filter = filter.filter((historical) => historical.dispenseType === dispenseTypeFilter);
       }
       if (minDateFilter && maxDateFilter) {
         filter = filter.filter((historical) => historical.dateDispensed >= (minDateFilter) &&
