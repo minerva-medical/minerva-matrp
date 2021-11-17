@@ -172,11 +172,11 @@ const DispenseVaccination = ({ ready, brands, lotIds, sites }) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Vaccine'
-                  placeholder="Zonatuss"
-                  name='name' onChange={handleChange} value={fields.name}/>
+                  placeholder="J&J COVID"
+                  name='name' onChange={handleChange} />
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
+                <Form.Select clearable search label='Lot Number'
                   placeholder="Z9Z99"
                   name='lotId' value={fields.lotId}/>
               </Grid.Column>
@@ -191,8 +191,8 @@ const DispenseVaccination = ({ ready, brands, lotIds, sites }) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Manufacturer' options={getOptions(brands)}
-                  placeholder="Zonatuss"
-                  name='brand' onChange={handleChange} value={fields.brand}/>
+                  placeholder="ACAM2000 Sanofi Pasteur"
+                  name='brand' onChange={handleChange}/>
               </Grid.Column>
 
             </Grid.Row>

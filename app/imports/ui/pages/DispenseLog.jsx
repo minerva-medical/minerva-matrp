@@ -134,7 +134,7 @@ const DispenseLog = ({ ready, historicals }) => {
               </Grid.Column>
               <Grid.Column>
                     Dispense Type: {' '}
-                <Dropdown inline={true} options={reason} value={dispenseTypeFilter} onChange={handleDispenseTypeFilter}/>
+                <Dropdown inline={true} options={reason} search value={dispenseTypeFilter} onChange={handleDispenseTypeFilter}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
