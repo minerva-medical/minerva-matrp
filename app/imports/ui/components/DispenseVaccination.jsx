@@ -127,7 +127,7 @@ const DispenseVaccination = ({ ready, brands, lotIds, sites }) => {
         <Header as="h2">
           <Header.Content>
             <Dropdown inline name='dispenseType' options={dispenseTypes} onChange={handleChange} value={fields.dispenseType} />
-            Dispense from Vaccination Inventory Form
+            Dispense from Vaccine Inventory Form
             <Header.Subheader>
               <i>Please input the following information to dispense from the inventory,
                 to the best of your abilities.</i>
