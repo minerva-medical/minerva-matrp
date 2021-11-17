@@ -5,10 +5,10 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
-import { Medications } from '../../api/medication/MedicationCollection';
-import { Historicals } from '../../api/historical/HistoricalCollection';
+import { Medications, allowedUnits } from '../../api/medication/MedicationCollection';
+import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions, nestedDistinct, dispenseTypes } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
@@ -32,7 +32,11 @@ const submit = (data, callback) => {
       lotIds.splice(targetIndex, 1); // remove the lotId
     }
     const updateData = { id: _id, lotIds };
-    const definitionData = { ...data };
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire } = data;
+    const element = { unit, lotId, brand, expire, quantity };
+    // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
+    const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
+      name: drug, note, element };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
@@ -81,6 +85,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     expire: '',
     dispensedTo: '',
     note: '',
+    inventoryType: 'Medication',
     dispenseType: 'Patient Use',
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
@@ -110,8 +115,8 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
   };
 
   const clearForm = () => {
-    setFields({ ...fields, site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '', expire: '',
-      dispensedTo: '', note: '' });
+    setFields({ ...fields, site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '', expire: '',
+      dispensedTo: '', dispensedFrom: '', note: '' });
     setMaxQuantity(0);
   };
 
@@ -120,7 +125,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
-            <Dropdown inline name='dispenseType' options={dispenseTypes}
+            <Dropdown inline name='dispenseType' options={getOptions(dispenseTypes)}
               onChange={handleChange} value={fields.dispenseType} />
               Dispense from Medication Inventory Form
             <Header.Subheader>
@@ -186,8 +191,8 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
-                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                  <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
+                    options={getOptions(allowedUnits)} />
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>

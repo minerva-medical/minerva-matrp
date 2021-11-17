@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Grid, Button, Segment, Header, Container, GridColumn, Item, ItemGroup, List, ListItem, ItemMeta,
-  ItemContent, ItemDescription, Modal, ListHeader,
+  ItemContent, ItemDescription, Modal, ListHeader, Form,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { removeItMethod } from '../../api/base/BaseCollection.methods';
-// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { removeItMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate }) => {
+
+  // useState for note field when editing notes.
+  const [noteField, setNoteField] = useState(note);
+
+  // useState to open and close modals
   const [open, setOpen] = React.useState(false);
+  const [secondOpen, setSecondOpen] = React.useState(false);
   const notes = {
     backgroundColor: '#CCE8F5',
     borderRadius: '15px',
@@ -28,6 +34,23 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
 
   const font2 = {
     fontSize: '15px',
+  };
+
+  // used for onChange edit notes field
+  const handleNoteChange = (event) => {
+    setNoteField(event.target.value);
+  };
+
+  const submit = (data) => {
+    const exists = Medications.findDoc(info._id);
+    const { lotIds } = exists;
+    const target = lotIds.find(obj => obj.lotId === lotId);
+    target.note = data;
+    const updateData = { id: info._id, lotIds };
+    const collectionName = Medications.getCollectionName();
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
 
   const deleteOption = (option, id) => {
@@ -83,7 +106,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
                         <ListItem><ListHeader>Quantity in Stock</ListHeader>{quantity}</ListItem>
                         <ListItem><ListHeader>Location</ListHeader>{locate}</ListItem>
                         <ListItem><ListHeader>tabs or mL</ListHeader>{info.unit}</ListItem>
-                        <ListItem><ListHeader>Donated?</ListHeader>         {
+                        <ListItem><ListHeader>Donated?</ListHeader> {
                           donated ?
                             'Item donated'
                             :
@@ -121,9 +144,8 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           content="Edit"
           labelPosition='right'
           icon='edit'
-          onClick={() => setOpen(false)}
+          onClick={() => setSecondOpen(true)}
           color='linkedin'
-          as={Link} to={`/edit/${info._id}`}
         />
         <Button
           content="Delete"
@@ -133,6 +155,39 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           onClick={() => deleteOption(info.drug, info._id)}
         />
       </Modal.Actions>
+      <Modal
+        onClose={() => setSecondOpen(false)}
+        open={secondOpen}
+        size='small'
+      >
+        <Modal.Header>Edit Notes</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <Grid id={PAGE_IDS.EDIT_STUFF} container centered>
+              <Grid.Column>
+                <Header as="h3">{info.drug}</Header>
+                <Header as="h4" color='grey' style={{ marginTop: '10px' }}>Lot Number: {lotId}</Header>
+                <Form>
+                  <Form.TextArea color='blue' label='Notes' name='note' onChange={handleNoteChange}
+                    defaultValue={noteField}
+                    id={COMPONENT_IDS.ADD_MEDICATION_NOTES} style={{ minHeight: 200 }}/>
+                </Form>
+              </Grid.Column>
+            </Grid>
+          </Modal.Description>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='black' onClick={() => setSecondOpen(false)}>
+            Close
+          </Button>
+          <Button
+            icon='check'
+            content='Save Changes'
+            onClick={() => submit(noteField)}
+            color='linkedin'
+          />
+        </Modal.Actions>
+      </Modal>
     </Modal>
 
   );
@@ -149,7 +204,6 @@ DrugPage.propTypes = {
   note: PropTypes.string,
   locate: PropTypes.string,
   donated: PropTypes.bool,
-
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
