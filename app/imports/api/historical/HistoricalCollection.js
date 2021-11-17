@@ -35,7 +35,7 @@ Schemas.Medication = new SimpleSchema({
   },
   element: Object,
   'element.unit': String,
-  'element.lotId': Number,
+  'element.lotId': String,
   'element.brand': String,
   'element.expire': { // date string "YYYY-MM-DD"
     type: String,
@@ -63,7 +63,7 @@ Schemas.Vaccine = new SimpleSchema({
     optional: true,
   },
   element: Object,
-  'element.lotId': Number,
+  'element.lotId': String,
   'element.brand': String,
   'element.expire': String,
   'element.dose': Number,
@@ -106,7 +106,7 @@ class HistoricalCollection extends BaseCollection {
    * @return {String} the docID of the new document.
    */
   define({ inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element }) {
-    console.log(inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element);
+    // console.log(inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element);
     const docID = this._collection.insert({
       inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element,
     });

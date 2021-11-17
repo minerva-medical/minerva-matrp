@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
-import { Historicals } from '../../api/historical/HistoricalCollection';
-import { dispenseTypes, distinct, getOptions } from '../utilities/Functions';
+import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
+import { distinct, getOptions } from '../utilities/Functions';
 // import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 
 /** handle submit for Dispense Supply. */
@@ -64,7 +64,7 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
-            <Dropdown inline name='dispenseType' options={dispenseTypes}
+            <Dropdown inline name='dispenseType' options={getOptions(dispenseTypes)}
               onChange={handleChange} value={fields.dispenseType} />
             Dispense from Supplies Inventory Form
             <Header.Subheader>

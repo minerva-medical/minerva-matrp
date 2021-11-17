@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader, Icon, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
+import moment from 'moment';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
-import { Medications } from '../../api/medication/MedicationCollection';
-import { Historicals } from '../../api/historical/HistoricalCollection';
+import { Medications, allowedUnits } from '../../api/medication/MedicationCollection';
+import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { distinct, getOptions, nestedDistinct, dispenseTypes } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
@@ -16,13 +17,13 @@ const submit = (data, callback) => {
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
   const medication = Medications.findOne({ drug }); // find the existing medication
-  const { _id, isTabs, lotIds } = medication;
+  const { _id, unit, lotIds } = medication;
   const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
   const { quantity: targetQuantity } = lotIds[targetIndex];
 
   // if dispense quantity > lotId quantity:
   if (quantity > targetQuantity) {
-    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
+    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${unit} remaining.`, 'error');
   } else {
     // if dispense quantity < lotId quantity:
     if (quantity < targetQuantity) {
@@ -32,7 +33,11 @@ const submit = (data, callback) => {
       lotIds.splice(targetIndex, 1); // remove the lotId
     }
     const updateData = { id: _id, lotIds };
-    const definitionData = { ...data };
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire } = data;
+    const element = { unit, lotId, brand, expire, quantity };
+    // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
+    const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
+      name: drug, note, element };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: histCollection, definitionData })];
     Promise.all(promises)
@@ -47,9 +52,14 @@ const submit = (data, callback) => {
 /** validates the dispense medication form */
 const validateForm = (data, callback) => {
   const submitData = { ...data, dispensedFrom: Meteor.user().username };
+
+  if (data.dispenseType !== 'Patient Use') { // handle non patient use dispense
+    submitData.dispensedTo = '-';
+    submitData.site = '-';
+  }
+
   let errorMsg = '';
   // the required String fields
-  // TODO: validation for non patient use
   const requiredFields = ['dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
 
   // check required fields
@@ -71,16 +81,16 @@ const validateForm = (data, callback) => {
 const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
-    // TODO: use moment?
-    dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
+    dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
     drug: '',
     quantity: '',
-    isTabs: true,
+    unit: 'tab(s)',
     brand: '',
     lotId: '',
     expire: '',
     dispensedTo: '',
     note: '',
+    inventoryType: 'Medication',
     dispenseType: 'Patient Use',
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
@@ -97,21 +107,21 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     if (target) {
       // autofill the form with specific lotId info
       const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
-      const { drug, isTabs } = target;
+      const { drug, unit } = target;
       const { brand, expire, quantity } = targetLotId;
-      const autoFields = { ...fields, lotId, drug, expire, brand, isTabs };
+      const autoFields = { ...fields, lotId, drug, expire, brand, unit };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', isTabs: true });
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)' });
       setMaxQuantity(0);
     }
   };
 
   const clearForm = () => {
-    setFields({ ...fields, site: '', drug: '', quantity: '', isTabs: true, brand: '', lotId: '', expire: '',
-      dispensedTo: '', note: '' });
+    setFields({ ...fields, site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '', expire: '',
+      dispensedTo: '', dispensedFrom: '', note: '' });
     setMaxQuantity(0);
   };
 
@@ -120,7 +130,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
-            <Dropdown inline name='dispenseType' options={dispenseTypes}
+            <Dropdown inline name='dispenseType' options={getOptions(dispenseTypes)}
               onChange={handleChange} value={fields.dispenseType} />
               Dispense from Medication Inventory Form
             <Header.Subheader>
@@ -186,8 +196,8 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
-                  <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                  <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
+                    options={getOptions(allowedUnits)} />
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>

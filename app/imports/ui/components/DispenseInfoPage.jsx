@@ -41,17 +41,17 @@ const DispenseInfoPage = ({ record }) => {
               <ItemGroup relaxed>
                 <Item>
                   <ItemContent>
-                    <Header as='h2'>{record.drug}</Header>
+                    <Header as='h2'>{record.name}</Header>
                     <Divider/>
                     <ItemDescription>
                       <List size='large'>
-                        <ListItem><ListHeader>Brand</ListHeader> {record.brand}</ListItem>
-                        <ListItem><ListHeader>Lot Number</ListHeader>{record.lotId}</ListItem>
-                        <ListItem><ListHeader>Expiration Date</ListHeader>{record.expire}</ListItem>
+                        <ListItem><ListHeader>Brand</ListHeader> {record.element.brand}</ListItem>
+                        <ListItem><ListHeader>Lot Number</ListHeader>{record.element.lotId}</ListItem>
+                        <ListItem><ListHeader>Expiration Date</ListHeader>{record.element.expire}</ListItem>
                         <ListItem><ListHeader>Dispense Location:</ListHeader>{record.site}</ListItem>
                         <Divider/>
                         <ListItem>
-                          <ListHeader>Quantity Dispensed</ListHeader>{record.quantity} {record.unit}
+                          <ListHeader>Quantity Dispensed</ListHeader>{record.element.quantity} {record.element.unit}
                         </ListItem>
                         <ListItem><ListHeader>Patient Number</ListHeader>{record.dispensedTo}</ListItem>
                         <ListItem><ListHeader>Date Dispensed</ListHeader>{record.dateDispensed.toLocaleString()}</ListItem>

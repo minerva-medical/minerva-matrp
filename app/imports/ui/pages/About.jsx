@@ -1,13 +1,13 @@
 import React from 'react';
-import { Grid, Header, Icon } from 'semantic-ui-react';
+import { Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** A simple static component to render some text for the landing page. */
 const About = () => (
   <Grid id={PAGE_IDS.ABOUT_US} verticalAlign='middle' textAlign='center' container centered>
     <Grid.Column width={12}>
+      <Image src = '../images/minervaLogoBlack.png' size='medium' centered/>
       <Header as='h1' icon textAlign='center'>
-        <Icon name='users' circular/>
         <Header.Content>About Us</Header.Content>
       </Header>
       <p>Minerva Medical is a project for ICS 414 at UH Manoa, the project page can be seen
