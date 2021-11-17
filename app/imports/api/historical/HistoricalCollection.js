@@ -106,7 +106,7 @@ class HistoricalCollection extends BaseCollection {
    * @return {String} the docID of the new document.
    */
   define({ inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element }) {
-    console.log(inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element);
+    // console.log(inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element);
     const docID = this._collection.insert({
       inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element,
     });
