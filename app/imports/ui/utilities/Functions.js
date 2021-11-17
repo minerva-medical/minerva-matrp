@@ -57,4 +57,3 @@ export const dispenseTypes = [
   { key: 4, text: 'Expired', value: 'Expired' },
   { key: 5, text: 'Inventory', value: 'Inventory' }, // what is inventory?
 ];
-

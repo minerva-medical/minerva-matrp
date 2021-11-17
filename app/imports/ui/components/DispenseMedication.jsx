@@ -33,7 +33,7 @@ const submit = (data, callback) => {
     }
     const updateData = { id: _id, lotIds };
     const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire } = data;
-    const element = { unit, lotId, brand, expire, quantity };
+    const element = { lotId, brand, expire, quantity };
     // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
       name: drug, note, element };

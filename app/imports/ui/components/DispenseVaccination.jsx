@@ -73,7 +73,7 @@ const validateForm = (data) => { // don't forget to include "callback"
 };
 
 /** Renders the Page for Dispensing Vaccine. */
-const DispenseVaccination = ({ ready, brands, lotIds, sites }) => {
+const DispenseVaccination = ({ ready, brands, sites }) => {
   const [fields, setFields] = useState({
     site: '',
     // TODO: use moment?

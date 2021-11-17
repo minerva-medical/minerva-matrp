@@ -20,7 +20,6 @@ const sampleMedication = JSON.parse(Assets.getText('sample_medication.json'));
 const sampleSupply = JSON.parse(Assets.getText('sample_supply.json'));
 const sampleHistorical = JSON.parse(Assets.getText('historicals.json'));
 
-
 // Initialize the StuffsCollection if empty.
 if (Stuffs.count() === 0) {
   if (Meteor.settings.defaultData) {
@@ -65,4 +64,3 @@ if (Meteor.settings.loadAssetsFile && Supplys.count() === 0) {
   console.log('Loading supplies from private/sample_supply.json');
   sampleSupply.map(supply => Supplys.define(supply));
 }
-

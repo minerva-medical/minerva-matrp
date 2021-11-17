@@ -4,7 +4,7 @@ import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { _ } from 'meteor/underscore';
+// import { _ } from 'meteor/underscore';
 import { Sites } from '../../api/site/SiteCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -33,11 +33,6 @@ const AddVaccination = (props) => {
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
   };
-
-  const pd = [
-    { key: '0', text: 'Purchased', value: 'Purchased' },
-    { key: '1', text: 'Donated', value: 'Donated' },
-  ];
 
   if (props.ready) {
     return (

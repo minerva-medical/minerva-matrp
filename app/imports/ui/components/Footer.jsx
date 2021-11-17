@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Image } from 'semantic-ui-react';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 const Footer = () => {
@@ -15,6 +15,7 @@ const Footer = () => {
       <div style={divStyle} className="ui center aligned container fluid">
         <hr/>
         <Header inverted as='h3'>Designed by Minerva Medical</Header>
+        <Image src = '../images/minervaLogo.png' size='tiny' centered/>
         <a style={{ color: 'lightblue' }} href="https://minerva-medical.github.io" target='_blank' rel='noreferrer'>
             Our Project Page</a>
       </div>
