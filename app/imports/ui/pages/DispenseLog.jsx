@@ -195,7 +195,7 @@ export default withTracker(() => {
   // Determine if the subscription is ready
   const ready = historicalSub.ready();
   // Get the Historical documents.
-  const historicals = Historicals.find({}).fetch();
+  const historicals = Historicals.find({}, { sort: { dateDispensed: -1 } }).fetch();
   return {
     historicals,
     ready,

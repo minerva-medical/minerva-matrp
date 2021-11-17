@@ -6,9 +6,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { Historicals } from '../../api/historical/HistoricalCollection';
+import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
 // import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
-import { dispenseTypes, distinct, getOptions, nestedDistinct } from '../utilities/Functions';
+import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handle submit for Dispense Vaccine. */
 /*
@@ -126,7 +126,8 @@ const DispenseVaccination = ({ ready, brands, sites }) => {
       <Tab.Pane id='dispense-form'>
         <Header as="h2">
           <Header.Content>
-            <Dropdown inline name='dispenseType' options={dispenseTypes} onChange={handleChange} value={fields.dispenseType} />
+            <Dropdown inline name='dispenseType' options={getOptions(dispenseTypes)}
+              onChange={handleChange} value={fields.dispenseType} />
             Dispense from Vaccine Inventory Form
             <Header.Subheader>
               <i>Please input the following information to dispense from the inventory,

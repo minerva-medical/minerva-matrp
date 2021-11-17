@@ -16,13 +16,13 @@ const submit = (data, callback) => {
   const collectionName = Medications.getCollectionName();
   const histCollection = Historicals.getCollectionName();
   const medication = Medications.findOne({ drug }); // find the existing medication
-  const { _id, isTabs, lotIds } = medication;
+  const { _id, unit, lotIds } = medication;
   const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
   const { quantity: targetQuantity } = lotIds[targetIndex];
 
   // if dispense quantity > lotId quantity:
   if (quantity > targetQuantity) {
-    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${isTabs ? 'tabs' : 'mL'} remaining.`, 'error');
+    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${unit} remaining.`, 'error');
   } else {
     // if dispense quantity < lotId quantity:
     if (quantity < targetQuantity) {
@@ -33,7 +33,7 @@ const submit = (data, callback) => {
     }
     const updateData = { id: _id, lotIds };
     const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire } = data;
-    const element = { lotId, brand, expire, quantity };
+    const element = { unit, lotId, brand, expire, quantity };
     // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
       name: drug, note, element };
@@ -51,6 +51,12 @@ const submit = (data, callback) => {
 /** validates the dispense medication form */
 const validateForm = (data, callback) => {
   const submitData = { ...data, dispensedFrom: Meteor.user().username };
+
+  if (data.dispenseType !== 'Patient Use') { // handle non patient use dispense
+    submitData.dispensedTo = '-';
+    submitData.site = '-';
+  }
+
   let errorMsg = '';
   // the required String fields
   // TODO: validation for non patient use
@@ -79,7 +85,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
     drug: '',
     quantity: '',
-    isTabs: true,
+    unit: 'tab(s)',
     brand: '',
     lotId: '',
     expire: '',
@@ -102,14 +108,14 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     if (target) {
       // autofill the form with specific lotId info
       const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
-      const { drug, isTabs } = target;
+      const { drug, unit } = target;
       const { brand, expire, quantity } = targetLotId;
-      const autoFields = { ...fields, lotId, drug, expire, brand, isTabs };
+      const autoFields = { ...fields, lotId, drug, expire, brand, unit };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', isTabs: true });
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)' });
       setMaxQuantity(0);
     }
   };

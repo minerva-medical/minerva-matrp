@@ -48,12 +48,3 @@ export function nestedDistinct(field, collection, selector = {}) {
 export function getOptions(arr) {
   return arr.map(name => ({ key: name, text: name, value: name }));
 }
-
-export const dispenseTypes = [
-  { key: 0, text: 'Patient Use', value: 'Patient Use' },
-  { key: 1, text: 'Broken', value: 'Broken' },
-  { key: 2, text: 'Lost', value: 'Lost' },
-  { key: 3, text: 'Contaminated', value: 'Contaminated' },
-  { key: 4, text: 'Expired', value: 'Expired' },
-  { key: 5, text: 'Inventory', value: 'Inventory' }, // what is inventory?
-];
