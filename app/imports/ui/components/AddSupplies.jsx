@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Input, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Input } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { _ } from 'meteor/underscore';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import { SupplyTypes } from '../../api/supplyType/SupplyTypeCollection';
-import { Sites } from '../../api/site/SiteCollection';
-import { Locations } from '../../api/location/LocationCollection';import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { Locations } from '../../api/location/LocationCollection';
+import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { distinct, getOptions, nestedDistinct, units } from '../utilities/Functions';
-import { Medications } from '../../api/medication/MedicationCollection';
-import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
+import { distinct, getOptions } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
@@ -58,19 +54,6 @@ const validateForm = (data, callback) => {
     }
   });
 
-/*
-  // check new site; submit either site or newSite
-  if (submitData.site === 'OTHER') {
-    if (!submitData.newSite) {
-      errorMsg += 'newSite cannot be empty.\n';
-    } else {
-      delete submitData.site;
-    }
-  } else {
-    delete submitData.newSite;
-  }
-*/
-
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
@@ -81,7 +64,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Inventory. */
-const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
+const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
   const [fields, setFields] = useState({
     supply: '',
     supplyType: [],
@@ -133,12 +116,12 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
                   options={getOptions(supplyTypes)} placeholder="Supply type"
                   name='supplyType' onChange={handleChange} value={fields.supplyType} id={COMPONENT_IDS.ADD_SUPPLY_TYPE}/>
               </Grid.Column>
-                  <Grid.Column>
+              <Grid.Column>
 
                 <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity' className='quantity'
-                            onChange={handleChange} value={fields.minQuantity} placeholder="100"
-                            id={COMPONENT_IDS.ADD_SUPPLY_MIN_QUANTITY} />
-                  </Grid.Column>
+                  onChange={handleChange} value={fields.minQuantity} placeholder="100"
+                  id={COMPONENT_IDS.ADD_SUPPLY_MIN_QUANTITY} />
+              </Grid.Column>
               <Grid.Column className='checkbox-column'>
               </Grid.Column>
 
@@ -185,7 +168,6 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
 AddSupplies.propTypes = {
   supplys: PropTypes.array.isRequired,
   supplyTypes: PropTypes.array.isRequired,
-  currentUser: PropTypes.object,
   locations: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
