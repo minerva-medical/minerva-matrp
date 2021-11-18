@@ -107,6 +107,7 @@ test('Test that the status log and dispense log pages work', async () => {
   await dispenseLogPage.isDisplayed();
   await t.wait(3000);
   await dispenseLogPage.openModal();
+  await dispenseLogPage.testDropDowns();
   await dispenseLogPage.testFilter();
   // want to see if we can get to the editStuffPage
   // Edit Notes is now on Modal
@@ -131,7 +132,6 @@ test('Test that the dispense page works', async () => {
   await dispensePage.dispenseMedication();
   await dispensePage.dispenseVaccine();
   await dispensePage.dispensePatientSupplies();
-  // await dispensePage.dispenseLabTestingSupplies();
   // await dispensePage.dispenseReports();
   // want to see if we can get to the editStuffPage
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);

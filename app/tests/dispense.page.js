@@ -6,6 +6,8 @@ class DispensePage {
   constructor() {
     this.pageId = `#${PAGE_IDS.DISPENSE}`;
     this.pageSelector = Selector(this.pageId);
+    this.lotType = Selector(`#${COMPONENT_IDS.DISPENSE_MED_LOT}`);
+    this.lotTypeOption = this.lotType.find('span');
   }
 
   /** Asserts that this page is currently displayed. */
@@ -19,8 +21,15 @@ class DispensePage {
 
   async dispenseMedication() {
     await t.click(`#${COMPONENT_IDS.DISPENSE_TAB_ONE}`);
+    await t.click(this.lotType).click(this.lotTypeOption.withText('0GevS4'));
     await t.wait(2000);
-
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_MED_PT_NUM}`, '1234567');
+    await t.wait(2000);
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_MED_QUANTITY}`, '10');
+    await t.wait(2000);
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_MED_NOTES}`, 'Testing');
+    await t.click(`#${COMPONENT_IDS.DISPENSE_MED_CLEAR}`);
+    await t.wait(2000);
   }
 
   async dispenseVaccine() {

@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Medications, allowedUnits } from '../../api/medication/MedicationCollection';
 import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
@@ -156,7 +157,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Dispensed To' placeholder="Patient Number" disabled={isDisabled}
-                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
+                  name='dispensedTo' onChange={handleChange} value={fields.dispensedTo} id={COMPONENT_IDS.DISPENSE_MED_PT_NUM}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -168,7 +169,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
                   placeholder="Z9Z99"
-                  name='lotId' onChange={onLotIdSelect} value={fields.lotId}/>
+                  name='lotId' onChange={onLotIdSelect} value={fields.lotId} id={COMPONENT_IDS.DISPENSE_MED_LOT}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
@@ -195,7 +196,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                 <Form.Group>
                   <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder='30'/>
+                    onChange={handleChange} value={fields.quantity} placeholder='30' id={COMPONENT_IDS.DISPENSE_MED_QUANTITY}/>
                   <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
                     options={getOptions(allowedUnits)} />
                 </Form.Group>
@@ -204,13 +205,14 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."
+                  id={COMPONENT_IDS.DISPENSE_MED_NOTES}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
+          <Button className='clear-button' onClick={clearForm} id={COMPONENT_IDS.DISPENSE_MED_CLEAR}>Clear Fields</Button>
           <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>

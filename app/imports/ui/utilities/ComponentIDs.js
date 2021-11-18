@@ -89,4 +89,11 @@ export const COMPONENT_IDS = {
   MEDICATION_LOCATION: 'medication-location',
   INVENTORY_STATUS: 'inventory-status',
   NUM_OF_RECORDS: 'num-of-records',
+  INVENTORY_TYPE: 'inventory-type',
+  DISPENSE_TYPE: 'dispense-type',
+  DISPENSE_MED_LOT: 'dispense-med-lot',
+  DISPENSE_MED_PT_NUM: 'dispense-med-pt-num',
+  DISPENSE_MED_QUANTITY: 'dispense-med-quantity',
+  DISPENSE_MED_NOTES: 'dispense-med-notes',
+  DISPENSE_MED_CLEAR: 'dispense-med-clear',
 };
