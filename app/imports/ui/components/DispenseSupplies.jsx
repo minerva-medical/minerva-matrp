@@ -8,13 +8,54 @@ import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { distinct, getOptions } from '../utilities/Functions';
-// import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 
 /** handle submit for Dispense Supply. */
+const submit = (data, callback) => {
+  const { supply, quantity } = data;
+  const collectionName = Supplys.getCollectionName();
+  const histCollection = Historicals.getCollectionName();
+  const supplyItem = Supplys.findOne({ supply }); // find the existing medication
+  const { _id, stock } = supplyItem;
+  const targetIndex = stock.findIndex((obj => obj.quantity)); // find the index of existing the lotId
+  const { quantity: targetQuantity } = stock[targetIndex];
+
+  // if dispense quantity > stock quantity:
+  if (quantity > targetQuantity) {
+    swal('Error', `${supply} only has ${targetQuantity}`, 'error');
+  } else {
+    // if dispense quantity < stock quantity:
+    if (quantity < targetQuantity) {
+      stock[targetIndex].quantity -= quantity; // decrement the quantity
+    } else {
+      // else if dispense quantity === stock quantity:
+      supply.splice(targetIndex, 1); // remove the supply
+    }
+    const updateData = { id: _id, stock };
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, supplyType } = data;
+    const element = { supplyType, quantity };
+    // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
+    const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name: supply, note, element };
+    const promises = [updateMethod.callPromise({ collectionName, updateData }),
+      defineMethod.callPromise({ collectionName: histCollection, definitionData })];
+    Promise.all(promises)
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', `${supply} updated successfully`, 'success', { buttons: false, timer: 3000 });
+        callback(); // resets the form
+      });
+  }
+};
 
 /** validates the dispense supply form */
-const validateForm = (data) => { // include "callback" when submit functions works
+const validateForm = (data, callback) => {
   const submitData = { ...data, dispensedFrom: Meteor.user().username };
+
+  if (data.dispenseType !== 'Patient Use') { // handle non patient use dispense
+    submitData.dispensedTo = '-';
+    submitData.site = '-';
+  }
+
   let errorMsg = '';
   // the required String fields
   const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity'];
@@ -30,7 +71,7 @@ const validateForm = (data) => { // include "callback" when submit functions wor
     swal('Error', `${errorMsg}`, 'error');
   } else {
     submitData.quantity = parseInt(data.quantity, 10);
-    // submit(submitData, callback);
+    submit(submitData, callback);
   }
 };
 
@@ -44,9 +85,10 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
     quantity: '',
     dispensedTo: '',
     note: '',
+    inventoryType: 'Supply',
     dispenseType: 'Patient Use',
   });
-  // const [maxQuantity, setMaxQuantity] = useState(0);
+  const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
 
   const handleChange = (event, { name, value }) => {
@@ -54,9 +96,26 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
   };
 
   // handle supply select
+  const onSupplySelect = (event, { value: supply }) => {
+    const target = Supplys.findOne({ supply });
+    // if lotId is not empty:
+    if (target) {
+      // autofill the form with specific lotId info
+      const { supplyType, stock } = target;
+      const targetStockQuantity = target.stock.find(obj => obj.quantity);
+      const { quantity } = targetStockQuantity;
+      const autoFields = { ...fields, supply, supplyType, stock };
+      setFields(autoFields);
+      setMaxQuantity(quantity);
+    } else {
+      // else reset specific lotId info
+      setFields({ ...fields });
+      setMaxQuantity(0);
+    }
+  };
 
   const clearForm = () => {
-    setFields({ ...fields, site: '', supply: '', quantity: '',
+    setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
       dispensedTo: '', note: '' });
   };
   if (ready) {
@@ -100,11 +159,11 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
               <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
-                  name='supply' onChange={handleChange} value={fields.supply}/>
+                  name='supply' onChange={onSupplySelect} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
-                  <Form.Input label='Quantity'
+                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
                 </Form.Group>
