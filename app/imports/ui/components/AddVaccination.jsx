@@ -26,7 +26,7 @@ const AddVaccination = (props) => {
   });
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
-  /*const [filteredDrugs, setFilteredDrugs] = useState([]);
+  /* const [filteredDrugs, setFilteredDrugs] = useState([]);
   useEffect(() => {
     setFilteredDrugs(drugs);
   }, [drugs]);
@@ -37,7 +37,7 @@ const AddVaccination = (props) => {
   }, [brands]);
 
   const handleChange = (event, { name, value, checked }) => {
-    setFields({ ...fields, [name]: value !== undefined ? value : checked });*/
+    setFields({ ...fields, [name]: value !== undefined ? value : checked }); */
   };
 
   if (props.ready) {
@@ -127,7 +127,7 @@ AddVaccination.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   drugs: PropTypes.array.isRequired,
-  //drugTypes: PropTypes.array.isRequired,
+  // drugTypes: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
   brands: PropTypes.array.isRequired,
@@ -138,20 +138,20 @@ AddVaccination.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   const siteSub = Sites.subscribeSite();
-  //const typeSub = DrugTypes.subscribeDrugType();
+  // const typeSub = DrugTypes.subscribeDrugType();
   const locationSub = Locations.subscribeLocation();
-  //const vacSub = Vaccinations.subscribeVaccination();
+  // const vacSub = Vaccinations.subscribeVaccination();
   return {
     currentUser: Meteor.user(),
     sites: Sites.find({}).fetch(),
     locations: Locations.find({}).fetch(),
     ready: siteSub.ready() && locationSub.ready(),
-    /*drugs: distinct('drug', Vaccinations),
+    /* drugs: distinct('drug', Vaccinations),
     drugTypes: distinct('drugType', DrugTypes),
     lotIds: distinct('lotId', Vaccinations),
     locations: distinct('location', Locations),
     brands: distinct('brand', Vaccinations),
-    ready: typeSub.ready() && locationSub.ready() && vacSub.ready(),*/
+    ready: typeSub.ready() && locationSub.ready() && vacSub.ready(), */
 
   };
 })(AddVaccination);

@@ -10,9 +10,12 @@
     { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
   ],
-
+  "public": {
+    "development": true
+  },
   "monti": {
     "appId": "changeme",
     "appSecret": "changeme"
-  }
+  },
+  "loadAssetsFile": true
 }
