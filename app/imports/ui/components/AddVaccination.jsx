@@ -228,6 +228,8 @@ AddVaccination.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
+
+//Currently vaccination subscribes to same drugType collection as medication collection.
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   const typeSub = DrugTypes.subscribeDrugType();
