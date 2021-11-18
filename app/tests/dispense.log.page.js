@@ -20,12 +20,12 @@ class DispenseLogPage {
   async openModal() {
     await t.click(`#${COMPONENT_IDS.DISPENSE_INFO_BUTTON}`);
     await t.wait(3000);
-    await t.click(`#${COMPONENT_IDS.DISPENSE_INFO__CLOSE}`);
+    await t.click(`#${COMPONENT_IDS.DISPENSE_INFO_CLOSE}`);
     await t.wait(3000);
   }
 
-  async addPatientSupplies() {
-    await t.click(`#${COMPONENT_IDS.ADD_PATIENT_SUPPLIES}`);
+  async testFilter() {
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_FILTER}`, '71239');
     await t.wait(3000);
   }
 

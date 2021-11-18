@@ -106,6 +106,8 @@ test('Test that the status log and dispense log pages work', async () => {
   await navBar.gotoDispenseLogPage();
   await dispenseLogPage.isDisplayed();
   await t.wait(3000);
+  await dispenseLogPage.openModal();
+  await dispenseLogPage.testFilter();
   // want to see if we can get to the editStuffPage
   // Edit Notes is now on Modal
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);

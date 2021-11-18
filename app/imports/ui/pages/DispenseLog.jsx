@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { Historicals, dispenseTypes, inventoryTypes } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { getOptions } from '../utilities/Functions';
 
 // Used for the amount of history log rows that appear in each page.
@@ -93,7 +94,8 @@ const DispenseLog = ({ ready, historicals }) => {
           <Grid divider columns="equal" stackable>
             <Grid.Row>
               <Grid.Column>
-                <Popup inverted trigger={<Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}/>}
+                <Popup inverted trigger={<Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}
+                                                id={COMPONENT_IDS.DISPENSE_FILTER}/>}
                   content='This allows you to filter the Dispense Log table by Patient Number or Inventory Name.'/>
               </Grid.Column>
               <Grid.Column>

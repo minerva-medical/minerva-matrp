@@ -11,6 +11,7 @@ export const COMPONENT_IDS = {
   DRUG_CLOSE: 'drug-close',
   DRUG_PAGE: 'drug-page',
   DISPENSE_INFO: 'dispense-info',
+  DISPENSE_FILTER: 'dispense-filter',
   DISPENSE_INFO_BUTTON: 'dispense-info-button',
   DISPENSE_INFO_CLOSE: 'dispense-info-close',
   DRUG_PAGE_BUTTON: 'drug-page-button',

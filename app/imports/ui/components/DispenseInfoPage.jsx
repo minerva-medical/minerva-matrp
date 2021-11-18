@@ -81,7 +81,7 @@ const DispenseInfoPage = ({ record }) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => setOpen(false)} id={COMPONENT_IDS.DISPENSE_INFO_BUTTON}> Close</Button>
+        <Button color='black' onClick={() => setOpen(false)} id={COMPONENT_IDS.DISPENSE_INFO_CLOSE}> Close</Button>
       </Modal.Actions>
     </Modal>
 
