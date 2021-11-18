@@ -29,6 +29,26 @@
     "drugType": "Vitamins & Supplements"
   }],
 
+  "supplyTypes": [{
+    "supplyType": "type 1"
+  },{
+    "supplyType": "type 2"
+  },{
+    "supplyType": "type 3"
+  },{
+    "supplyType": "type 4"
+  },{
+    "supplyType": "type 5"
+  },{
+    "supplyType": "type 6"
+  },{
+    "supplyType": "type 7"
+  },{
+    "supplyType": "type 8"
+  },{
+    "supplyType": "type 9"
+  }],
+
   "locations": [{
     "location": "Case 1"
   },{

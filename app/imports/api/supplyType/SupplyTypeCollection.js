@@ -1,81 +1,33 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-import { _ } from 'meteor/underscore';
+// import { _ } from 'meteor/underscore';
 // import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
-export const supplyTypes = ['Lab / Testing', 'Patient'];
-export const supplyPublications = {
-  supply: 'Supply',
-  supplyAdmin: 'SupplyAdmin',
+export const supplyTypePublications = {
+  supplyType: 'SupplyType',
+  supplyTypeAdmin: 'SupplyTypeAdmin',
 };
 
-class SupplyCollection extends BaseCollection {
+class SupplyTypeCollection extends BaseCollection {
   constructor() {
-    super('Supplys', new SimpleSchema({
-      supply: String,
+    super('SupplyTypes', new SimpleSchema({
       supplyType: String,
-      minQuantity: {
-        type: Number,
-        optional: true,
-      },
-      stock: Array,
-      'stock.$': Object,
-      'stock.$.quantity': Number,
-      'stock.$.location': String,
-      'stock.$.donated': Boolean,
-      'stock.$.note': {
-        type: String,
-        optional: true,
-      },
     }));
   }
 
   /**
-   * Defines a new Supply supply.
+   * Defines a new SupplyType.
+   * @param supplyType.
    * @return {String} the docID of the new document.
    */
-  define({ supply, supplyType, minQuantity, stock }) {
+  define({ supplyType }) {
     const docID = this._collection.insert({
-      supply, supplyType, minQuantity, stock,
+      supplyType,
     });
     return docID;
-  }
-
-  /**
-   * Updates the given document.
-   * @param docID the id of the document to update.
-   * @param data the unfiltered updateData object.
-   */
-  update(docID, data) {
-    const updateData = {};
-
-    function addString(name) {
-      if (data[name]) { // if not undefined or empty String
-        updateData[name] = data[name];
-      }
-    }
-    function addNumber(name) { // if not undefined
-      if (_.isNumber(data[name])) {
-        updateData[name] = data[name];
-      }
-    }
-
-    addString('supply');
-    addString('supplyType');
-    addNumber('minQuantity');
-    if (data.stock && data.stock.every(elem => (
-      _.isObject(elem) &&
-      _.isNumber(elem.quantity) &&
-      elem.location &&
-      _.isBoolean(elem.donated)
-    ))) {
-      updateData.stock = data.stock;
-    }
-
-    this._collection.update(docID, { $set: updateData });
   }
 
   /**
@@ -92,21 +44,22 @@ class SupplyCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and to users.
+   * It publishes the entire collection for admin and just the supplyType associated to an owner.
    */
   publish() {
     if (Meteor.isServer) {
-      // get the SupplyCollection instance.
+      // get the SupplyTypeCollection instance.
       const instance = this;
       /** This subscription publishes only the documents associated with the logged in user */
-      Meteor.publish(supplyPublications.supply, function publish() {
+      Meteor.publish(supplyTypePublications.supplyType, function publish() {
         if (this.userId) {
           return instance._collection.find();
         }
         return this.ready();
       });
 
-      Meteor.publish(supplyPublications.supplyAdmin, function publish() {
+      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
+      Meteor.publish(supplyTypePublications.supplyTypeAdmin, function publish() {
         if (this.userId) {
           return instance._collection.find();
         }
@@ -116,11 +69,11 @@ class SupplyCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for users.
+   * Subscription method for supplyType owned by the current user.
    */
-  subscribeSupply() {
+  subscribeSupplyType() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(supplyPublications.supply);
+      return Meteor.subscribe(supplyTypePublications.supplyType);
     }
     return null;
   }
@@ -129,9 +82,9 @@ class SupplyCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeSupplyAdmin() {
+  subscribeSupplyTypeAdmin() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(supplyPublications.supplyAdmin);
+      return Meteor.subscribe(supplyTypePublications.supplyTypeAdmin);
     }
     return null;
   }
@@ -150,4 +103,4 @@ class SupplyCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Supplys = new SupplyCollection();
+export const SupplyTypes = new SupplyTypeCollection();
