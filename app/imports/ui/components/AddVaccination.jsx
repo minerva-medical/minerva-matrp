@@ -13,7 +13,7 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 /** On submit, insert the data. */
 
 /** Renders the Page for Dispensing Inventory. */
-const AddVaccination = (props) => {
+const AddVaccination = ({ drugTypes, ready, drugs, lotIds, brands, locations }) => {
   const [fields, setFields] = useState({
     site: '',
     newSite: '',
@@ -23,15 +23,23 @@ const AddVaccination = (props) => {
     brand: '',
     lotId: '',
     expire: '',
-    dispensedFrom: '',
-    donorName: '',
     location: '',
+    donated: false,
     note: '',
-    pd: '',
   });
 
-  const handleChange = (event, { name, value }) => {
-    setFields({ ...fields, [name]: value });
+  const [filteredDrugs, setFilteredDrugs] = useState([]);
+  useEffect(() => {
+    setFilteredDrugs(drugs);
+  }, [drugs]);
+
+  const [filteredBrands, setFilteredBrands] = useState([]);
+  useEffect(() => {
+    setFilteredBrands(brands);
+  }, [brands]);
+
+  const handleChange = (event, { name, value, checked }) => {
+    setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
 
   if (props.ready) {
@@ -41,10 +49,11 @@ const AddVaccination = (props) => {
           <Header.Content>
               Add Vaccine to Inventory Form
             <Header.Subheader>
-              <i>Please input all relative fields to add a vaccine to the inventory</i>
+              <i>Please input the following information to add to the inventory, to the best of your abilities.</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
+        {/* Semantic UI Form used for functionality */}
         <Form>
           <Grid columns='equal' stackable>
             <Grid.Row>
@@ -118,23 +127,26 @@ const AddVaccination = (props) => {
 
 /** Require an array of Stuff documents in the props. */
 AddVaccination.propTypes = {
-  currentUser: PropTypes.object,
-  sites: PropTypes.array.isRequired,
   drugs: PropTypes.array.isRequired,
+  drugTypes: PropTypes.array.isRequired,
   lotIds: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
   brands: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
+// Currently vaccination subscribes to same drugType collection as medication collection.
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  const siteSub = Sites.subscribeSite();
+  const typeSub = DrugTypes.subscribeDrugType();
   const locationSub = Locations.subscribeLocation();
+  const vacSub = Vaccinations.subscribeVaccination();
   return {
-    currentUser: Meteor.user(),
-    sites: Sites.find({}).fetch(),
-    locations: Locations.find({}).fetch(),
-    ready: siteSub.ready() && locationSub.ready(),
+    drugs: distinct('drug', Vaccinations),
+    drugTypes: distinct('drugType', DrugTypes),
+    lotIds: distinct('lotId', Vaccinations),
+    locations: distinct('location', Locations),
+    brands: distinct('brand', Vaccinations),
+    ready: typeSub.ready() && locationSub.ready() && vacSub.ready(),
   };
 })(AddVaccination);

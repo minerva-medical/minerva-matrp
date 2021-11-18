@@ -203,7 +203,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
       <Tab.Pane id={COMPONENT_IDS.ADD_FORM}>
         <Header as="h2">
           <Header.Content>
-              Add to Inventory Form
+              Add Medication to Inventory Form
             <Header.Subheader>
               <i>Please input the following information to add to the inventory, to the best of your abilities.</i>
             </Header.Subheader>

@@ -6,6 +6,7 @@ import { DrugTypes } from '../drugType/DrugTypeCollection';
 import { Locations } from '../location/LocationCollection';
 import { Sites } from '../site/SiteCollection';
 import { Medications } from '../medication/MedicationCollection';
+import { Vaccinations } from '../vaccination/VaccinationCollection';
 import { Historicals } from '../historical/HistoricalCollection';
 import { Supplys } from '../supply/SupplyCollection';
 import { SupplyTypes } from '../supplyType/SupplyTypeCollection';
@@ -27,6 +28,7 @@ class MATRPClass {
       Locations,
       Sites,
       Medications,
+      Vaccinations,
       Historicals,
       Supplys,
       SupplyTypes,
@@ -42,6 +44,7 @@ class MATRPClass {
       Locations,
       Sites,
       Medications,
+      Vaccinations,
       Historicals,
       Supplys,
       SupplyTypes,
