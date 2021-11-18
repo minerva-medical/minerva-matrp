@@ -13,7 +13,7 @@ import { defineMethod, removeItMethod } from '../../api/base/BaseCollection.meth
  * inserts the supply option
  */
 const insertOption = (option, supply, callback) => {
-  const existing = _.pluck(supply, 'supply').map(supply => supply.toLowerCase());
+  const existing = _.pluck(supply, 'supply').map(theSupply => theSupply.toLowerCase());
   // validation:
   if (!option) {
     // if option is empty
