@@ -18,7 +18,7 @@ const submit = (data, callback) => {
   const supplyItem = Supplys.findOne({ supply }); // find the existing medication
   const { _id, stock } = supplyItem;
   const targetIndex = stock.findIndex((obj => obj.quantity)); // find the index of existing the lotId
-  const { quantity: targetQuantity, supplyType } = stock[targetIndex];
+  const { quantity: targetQuantity } = stock[targetIndex];
 
   // if dispense quantity > stock quantity:
   if (quantity > targetQuantity) {
@@ -28,11 +28,11 @@ const submit = (data, callback) => {
     if (quantity < targetQuantity) {
       stock[targetIndex].quantity -= quantity; // decrement the quantity
     } else {
-      // else if dispense quantity === lotId quantity:
+      // else if dispense quantity === stock quantity:
       supply.splice(targetIndex, 1); // remove the supply
     }
     const updateData = { id: _id, stock };
-    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note } = data;
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, supplyType } = data;
     const element = { supplyType, quantity };
     // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name: supply, note, element };
@@ -115,7 +115,7 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
   };
 
   const clearForm = () => {
-    setFields({ ...fields, site: '', supply: '', quantity: '',
+    setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
       dispensedTo: '', note: '' });
   };
   if (ready) {
