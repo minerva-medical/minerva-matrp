@@ -24,7 +24,7 @@ const submit = (data, callback) => {
   if (!exists) {
     // insert the new supply and stock
     const newStock = { quantity, location, donated, note };
-    const definitionData = { supply, supplyType, minQuantity, stocks: [newStock] };
+    const definitionData = { supply, supplyType, minQuantity, stock: [newStock] };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -33,8 +33,8 @@ const submit = (data, callback) => {
       });
   } else {
     console.log('I don\'t think it should ever get here so this can probably be deleted');
-    const { stocks } = exists;
-    const updateData = { id: exists._id, stocks };
+    const { stock } = exists;
+    const updateData = { id: exists._id, stock };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -89,7 +89,7 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
     quantity: '',
     location: '',
     note: '',
-    pd: '', //donated?
+    donated: false,
   });
   // a copy of drugs, lotIds, and brands and their respective filters
   const [newSupplys, setNewSupplys] = useState([]);
@@ -104,11 +104,6 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
   };
-
-  const pd = [
-    { key: '0', text: 'Purchased', value: 'Purchased' },
-    { key: '1', text: 'Donated', value: 'Donated' },
-  ];
 
   if (ready) {
     return (
@@ -126,7 +121,7 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(filteredSupplys)}
-                  placeholder="Example supply" name='supply' value={fields.supply}
+                  placeholder="Example supply" name='supply' onChange={handleChange} value={fields.supply}
                   id={COMPONENT_IDS.ADD_SUPPLY_NAME} />
               </Grid.Column>
               <Grid.Column className='filler-column' />
@@ -144,13 +139,8 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
                             onChange={handleChange} value={fields.minQuantity} placeholder="100"
                             id={COMPONENT_IDS.ADD_SUPPLY_MIN_QUANTITY} />
                   </Grid.Column>
-                <Form.Select label='Purchased/Donated' name='pd' options={pd}
-                             onChange={handleChange} value={fields.pd}/>
-                {
-                  fields.pd === 'Donated' &&
-                  <Form.Input placeholder="Input Donor Name Here"
-                              name='donorName' onChange={handleChange}/>
-                }
+              <Grid.Column className='checkbox-column'>
+              </Grid.Column>
 
             </Grid.Row>
             <Grid.Row>
@@ -160,9 +150,8 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Field>
-                  <label>Quantity (tabs/mL)</label>
+                  <label>Quantity</label>
                   <Input
-                    label={{ basic: true, content: fields.quantity ? 'tabs' : '' }} labelPosition='right'
                     type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
                 </Form.Field>
               </Grid.Column>
@@ -170,6 +159,10 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
                 <Form.Select clearable search label='Location' options={getOptions(locations, 'location')}
                   name='location' onChange={handleChange} value={fields.location}/>
               </Grid.Column>
+              <Grid.Column className='checkbox-column'>
+                <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated}/>
+              </Grid.Column>
+
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>

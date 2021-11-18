@@ -16,10 +16,7 @@ class SupplyCollection extends BaseCollection {
   constructor() {
     super('Supplys', new SimpleSchema({
       supply: String,
-      supplyType: {
-        type: String,
-        allowedValues: supplyTypes,
-      },
+      supplyType: String,
       minQuantity: {
         type: Number,
         optional: true,
