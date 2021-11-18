@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
-// import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
@@ -126,7 +125,7 @@ class VaccinationCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for users.
+   * Subscription Vaccination method for users.
    */
   subscribeVaccination() {
     if (Meteor.isClient) {
