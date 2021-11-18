@@ -6,6 +6,10 @@ class DispenseLogPage {
   constructor() {
     this.pageId = `#${PAGE_IDS.DISPENSE_LOG}`;
     this.pageSelector = Selector(this.pageId);
+    this.invenType = Selector(`#${COMPONENT_IDS.INVENTORY_TYPE}`);
+    this.invenTypeOption = this.invenType.find('span');
+    this.dispenseType = Selector(`#${COMPONENT_IDS.DISPENSE_TYPE}`);
+    this.dispenseTypeOption = this.dispenseType.find('span');
   }
 
   /** Asserts that this page is currently displayed. */
@@ -20,18 +24,24 @@ class DispenseLogPage {
   async openModal() {
     await t.click(`#${COMPONENT_IDS.DISPENSE_INFO_BUTTON}`);
     await t.wait(3000);
-    await t.click(`#${COMPONENT_IDS.DISPENSE_INFO__CLOSE}`);
+    await t.click(`#${COMPONENT_IDS.DISPENSE_INFO_CLOSE}`);
     await t.wait(3000);
   }
 
-  async addPatientSupplies() {
-    await t.click(`#${COMPONENT_IDS.ADD_PATIENT_SUPPLIES}`);
+  async testFilter() {
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_FILTER}`, '71239');
     await t.wait(3000);
   }
 
-  async addLabTestingSupplies() {
-    await t.click(`#${COMPONENT_IDS.ADD_LAB_SUPPLIES}`);
-    await t.wait(3000);
+  async testDropDowns() {
+    await t.click(this.invenType).click(this.invenTypeOption.withText('Vaccine'));
+    await t.wait(2000);
+    await t.click(this.invenType).click(this.invenTypeOption.withText('All'));
+    await t.wait(2000);
+    await t.click(this.dispenseType).click(this.dispenseTypeOption.withText('Contaminated'));
+    await t.wait(2000);
+    await t.click(this.dispenseType).click(this.dispenseTypeOption.withText('All'));
+    await t.wait(2000);
   }
 
 }

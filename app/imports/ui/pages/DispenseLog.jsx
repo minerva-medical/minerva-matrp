@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { Historicals, dispenseTypes, inventoryTypes } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { getOptions } from '../utilities/Functions';
 
 // Used for the amount of history log rows that appear in each page.
@@ -51,7 +52,7 @@ const DispenseLog = ({ ready, historicals }) => {
         const query = searchQuery.toLowerCase();
         filter = filter.filter((historical) => (
           historical.name.toLowerCase().includes(query) ||
-          historical.dispensedTo.toLowerCase().includes(query)
+            historical.dispensedTo.toLowerCase().includes(query)
         ));
       }
       if (inventoryFilter) {
@@ -83,7 +84,7 @@ const DispenseLog = ({ ready, historicals }) => {
         <Segment>
           <Header as="h2">
             <Header.Content>
-                  History Dispense Log
+                History Dispense Log
               <Header.Subheader>
                 <i>Use the search filter to look for a specific Patient Number
                     or use the dropdown filters.</i>
@@ -93,7 +94,9 @@ const DispenseLog = ({ ready, historicals }) => {
           <Grid divider columns="equal" stackable>
             <Grid.Row>
               <Grid.Column>
-                <Popup inverted trigger={<Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}/>}
+                <Popup inverted
+                  trigger={<Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}
+                    id={COMPONENT_IDS.DISPENSE_FILTER}/>}
                   content='This allows you to filter the Dispense Log table by Patient Number or Inventory Name.'/>
               </Grid.Column>
               <Grid.Column>
@@ -106,7 +109,8 @@ const DispenseLog = ({ ready, historicals }) => {
                   from the selected 'From' date to today's date or the selected 'To' date."/>
               </Grid.Column>
               <Grid.Column>
-                <Input type="date" label={{ basic: true, content: 'To' }} labelPosition='left' onChange={handleMaxDateFilter}/>
+                <Input type="date" label={{ basic: true, content: 'To' }} labelPosition='left'
+                  onChange={handleMaxDateFilter}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -114,25 +118,27 @@ const DispenseLog = ({ ready, historicals }) => {
           <Grid divided columns="equal" stackable>
             <Grid.Row style={gridAlign}>
               <Grid.Column>
-                Inventory Type: {' '}
+                  Inventory Type: {' '}
                 <Dropdown
                   inline
                   options={inventory}
                   search
                   value={inventoryFilter}
                   onChange={handleInventoryFilter}
+                  id={COMPONENT_IDS.INVENTORY_TYPE}
                 />
               </Grid.Column>
               <Grid.Column>
-                    Dispense Type: {' '}
-                <Dropdown inline={true} options={reason} search value={dispenseTypeFilter} onChange={handleDispenseTypeFilter}/>
+                  Dispense Type: {' '}
+                <Dropdown inline={true} options={reason} search value={dispenseTypeFilter}
+                  onChange={handleDispenseTypeFilter} id={COMPONENT_IDS.DISPENSE_TYPE}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
           <Divider/>
-          Records per page:{' '}
+            Records per page:{' '}
           <Dropdown inline={true} options={logPerPage} value={maxLog} onChange={handleMaxLog}/>
-                Total count: {filterHistoricals.length}
+            Total count: {filterHistoricals.length}
           <Table striped singleLine columns={9} color='blue' compact collapsing>
             <Table.Header>
               <Table.Row>
@@ -158,11 +164,11 @@ const DispenseLog = ({ ready, historicals }) => {
                     totalPages={Math.ceil(filterHistoricals.length / maxLog)}
                     activePage={pageNo}
                     onPageChange={(event, data) => setPageNo(data.activePage)}
-                    ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
-                    firstItem={{ content: <Icon name='angle double left' />, icon: true }}
-                    lastItem={{ content: <Icon name='angle double right' />, icon: true }}
-                    prevItem={{ content: <Icon name='angle left' />, icon: true }}
-                    nextItem={{ content: <Icon name='angle right' />, icon: true }}
+                    ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
+                    firstItem={{ content: <Icon name='angle double left'/>, icon: true }}
+                    lastItem={{ content: <Icon name='angle double right'/>, icon: true }}
+                    prevItem={{ content: <Icon name='angle left'/>, icon: true }}
+                    nextItem={{ content: <Icon name='angle right'/>, icon: true }}
                   />
                 </Table.HeaderCell>
               </Table.Row>
