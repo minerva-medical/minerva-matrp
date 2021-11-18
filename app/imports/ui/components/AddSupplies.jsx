@@ -134,9 +134,16 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable multiple search label='Supply Type(s)'
+                <Form.Select clearable search label='Supply Type'
                   options={getOptions(supplyTypes)} placeholder="Supply type"
-                  name='supplyType' value={fields.supplyType} id={COMPONENT_IDS.ADD_SUPPLY_TYPE}/>
+                  name='supplyType' onChange={handleChange} value={fields.supplyType} id={COMPONENT_IDS.ADD_SUPPLY_TYPE}/>
+              </Grid.Column>
+                  <Grid.Column>
+
+                <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity' className='quantity'
+                            onChange={handleChange} value={fields.minQuantity} placeholder="100"
+                            id={COMPONENT_IDS.ADD_SUPPLY_MIN_QUANTITY} />
+                  </Grid.Column>
                 <Form.Select label='Purchased/Donated' name='pd' options={pd}
                              onChange={handleChange} value={fields.pd}/>
                 {
@@ -145,7 +152,6 @@ const AddSupplies = ({supplys, supplyTypes, currentUser, locations, ready}) => {
                               name='donorName' onChange={handleChange}/>
                 }
 
-              </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
