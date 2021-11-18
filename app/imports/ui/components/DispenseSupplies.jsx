@@ -15,6 +15,12 @@ import { distinct, getOptions } from '../utilities/Functions';
 /** validates the dispense supply form */
 const validateForm = (data) => { // include "callback" when submit functions works
   const submitData = { ...data, dispensedFrom: Meteor.user().username };
+
+  if (data.dispenseType !== 'Patient Use') { // handle non patient use dispense
+    submitData.dispensedTo = '-';
+    submitData.site = '-';
+  }
+
   let errorMsg = '';
   // the required String fields
   const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity'];
@@ -44,9 +50,10 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
     quantity: '',
     dispensedTo: '',
     note: '',
+    inventoryType: 'Supply',
     dispenseType: 'Patient Use',
   });
-  // const [maxQuantity, setMaxQuantity] = useState(0);
+  const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
 
   const handleChange = (event, { name, value }) => {
@@ -54,6 +61,23 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
   };
 
   // handle supply select
+  const onSupplySelect = (event, { value: supply }) => {
+    const target = Supplys.findOne({ supply });
+    // if lotId is not empty:
+    if (target) {
+      // autofill the form with specific lotId info
+      const { stock } = target;
+      const targetStock = target.stock.find(obj => obj.quantity);
+      const { quantity } = targetStock;
+      const autoFields = { ...fields, supply, stock };
+      setFields(autoFields);
+      setMaxQuantity(quantity);
+    } else {
+      // else reset specific lotId info
+      setFields({ ...fields });
+      setMaxQuantity(0);
+    }
+  };
 
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', quantity: '',
@@ -100,11 +124,11 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
               <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
-                  name='supply' onChange={handleChange} value={fields.supply}/>
+                  name='supply' onChange={onSupplySelect} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
-                  <Form.Input label='Quantity'
+                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
                 </Form.Group>
