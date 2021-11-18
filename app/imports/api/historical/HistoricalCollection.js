@@ -11,27 +11,91 @@ export const historicalPublications = {
   historicalAdmin: 'HistoricalAdmin',
 };
 
+export const inventoryTypes = ['Medication', 'Vaccine', 'Supply'];
+export const dispenseTypes = ['Patient Use', 'Broken', 'Lost', 'Contaminated', 'Expired', 'Inventory'];
+export const Schemas = {};
+// Medication Schema
+Schemas.Medication = new SimpleSchema({
+  inventoryType: {
+    type: String,
+    allowedValues: inventoryTypes,
+  },
+  dispenseType: {
+    type: String,
+    allowedValues: dispenseTypes,
+  },
+  dateDispensed: Date,
+  dispensedFrom: String,
+  dispensedTo: String,
+  site: String,
+  name: String,
+  note: {
+    type: String,
+    optional: true,
+  },
+  element: Object,
+  'element.unit': String,
+  'element.lotId': String,
+  'element.brand': String,
+  'element.expire': { // date string "YYYY-MM-DD"
+    type: String,
+    optional: true,
+  },
+  'element.quantity': Number,
+});
+// Vaccine Schema
+Schemas.Vaccine = new SimpleSchema({
+  inventoryType: {
+    type: String,
+    allowedValues: inventoryTypes,
+  },
+  dispenseType: {
+    type: String,
+    allowedValues: dispenseTypes,
+  },
+  dateDispensed: Date,
+  dispensedFrom: String,
+  dispensedTo: String,
+  site: String,
+  name: String,
+  note: {
+    type: String,
+    optional: true,
+  },
+  element: Object,
+  'element.lotId': String,
+  'element.brand': String,
+  'element.expire': String,
+  'element.dose': Number,
+  'element.visDate': String,
+});
+// Supply Schema
+Schemas.Supply = new SimpleSchema({
+  inventoryType: {
+    type: String,
+    allowedValues: inventoryTypes,
+  },
+  dispenseType: {
+    type: String,
+    allowedValues: dispenseTypes,
+  },
+  dateDispensed: Date,
+  dispensedFrom: String,
+  dispensedTo: String,
+  site: String,
+  name: String,
+  note: {
+    type: String,
+    optional: true,
+  },
+  element: Object,
+  'element.supplyType': String,
+  'element.quantity': Number,
+});
+
 class HistoricalCollection extends BaseCollection {
   constructor() {
-    super('Historicals', new SimpleSchema({
-      drug: String,
-      brand: String,
-      lotId: String,
-      expire: {
-        type: String,
-        optional: true,
-      }, // date string "YYYY-MM-DD"
-      quantity: Number,
-      isTabs: Boolean,
-      dateDispensed: Date,
-      dispensedFrom: String,
-      dispensedTo: String,
-      site: String,
-      note: {
-        type: String,
-        optional: true,
-      },
-    }));
+    super('Historicals', Schemas, true);
   }
 
   /**
@@ -41,9 +105,10 @@ class HistoricalCollection extends BaseCollection {
    * @param owner the owner of the item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note }) {
+  define({ inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element }) {
+    // console.log(inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element);
     const docID = this._collection.insert({
-      drug, brand, lotId, expire, quantity, isTabs, dateDispensed, dispensedFrom, dispensedTo, site, note,
+      inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name, note, element,
     });
     return docID;
   }

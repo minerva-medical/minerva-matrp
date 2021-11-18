@@ -35,7 +35,7 @@ const NavBar = ({ currentUser }) => {
               <Icon name='archive'/>
             </Menu.Item>,
             <Menu.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active" exact
-              to="/dispenseLog" key='dispenseLog'>
+              to="/dispense-log" key='dispense-log'>
               Dispense Log
               <Icon name='book'/>
             </Menu.Item>,

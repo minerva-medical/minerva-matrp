@@ -2,39 +2,31 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
-// import { Roles } from 'meteor/alanning:roles';x
+// import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
-export const allowedUnits = ['bottle(s)', 'g', 'mL', 'tab(s)'];
-export const medicationPublications = {
-  medication: 'Medication',
-  medicationAdmin: 'MedicationAdmin',
+export const supplyTypes = ['Lab / Testing', 'Patient'];
+export const supplyPublications = {
+  supply: 'Supply',
+  supplyAdmin: 'SupplyAdmin',
 };
 
-class MedicationCollection extends BaseCollection {
+class SupplyCollection extends BaseCollection {
   constructor() {
-    super('Medications', new SimpleSchema({
-      drug: String,
-      drugType: Array,
-      'drugType.$': String,
-      minQuantity: Number,
-      unit: {
-        type: String,
-        allowedValues: allowedUnits,
-      },
-      lotIds: Array,
-      'lotIds.$': Object,
-      'lotIds.$.lotId': String,
-      'lotIds.$.brand': String,
-      'lotIds.$.expire': { // date string "YYYY-MM-DD"
-        type: String,
+    super('Supplys', new SimpleSchema({
+      supply: String,
+      supplyType: String,
+      minQuantity: {
+        type: Number,
         optional: true,
       },
-      'lotIds.$.location': String,
-      'lotIds.$.quantity': Number,
-      'lotIds.$.donated': Boolean,
-      'lotIds.$.note': {
+      stock: Array,
+      'stock.$': Object,
+      'stock.$.quantity': Number,
+      'stock.$.location': String,
+      'stock.$.donated': Boolean,
+      'stock.$.note': {
         type: String,
         optional: true,
       },
@@ -42,15 +34,12 @@ class MedicationCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Medication item.
+   * Defines a new Supply supply.
    * @return {String} the docID of the new document.
    */
-  define({ drug, drugType, minQuantity, unit, lotIds }) {
-    // const docID = this._collection.insert({
-    //   drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note,
-    // });
+  define({ supply, supplyType, minQuantity, stock }) {
     const docID = this._collection.insert({
-      drug, drugType, minQuantity, unit, lotIds,
+      supply, supplyType, minQuantity, stock,
     });
     return docID;
   }
@@ -73,28 +62,17 @@ class MedicationCollection extends BaseCollection {
         updateData[name] = data[name];
       }
     }
-    // function addBoolean(name) { // if not undefined
-    //   if (_.isBoolean(data[name])) {
-    //     updateData[name] = data[name];
-    //   }
-    // }
 
-    addString('drug');
-    // check if drugType is not undefined && every drug type is not undefined
-    if (data.drugType && data.drugType.every(elem => elem)) {
-      updateData.drugType = data.drugType;
-    }
+    addString('supply');
+    addString('supplyType');
     addNumber('minQuantity');
-    addString('unit');
-    if (data.lotIds && data.lotIds.every(lotId => (
-      _.isObject(lotId) &&
-      lotId.lotId &&
-      lotId.brand &&
-      _.isNumber(lotId.quantity) &&
-      lotId.location &&
-      _.isBoolean(lotId.donated)
+    if (data.stock && data.stock.every(elem => (
+      _.isObject(elem) &&
+      _.isNumber(elem.quantity) &&
+      elem.location &&
+      _.isBoolean(elem.donated)
     ))) {
-      updateData.lotIds = data.lotIds;
+      updateData.stock = data.stock;
     }
 
     this._collection.update(docID, { $set: updateData });
@@ -118,17 +96,17 @@ class MedicationCollection extends BaseCollection {
    */
   publish() {
     if (Meteor.isServer) {
-      // get the MedicationCollection instance.
+      // get the SupplyCollection instance.
       const instance = this;
-      Meteor.publish(medicationPublications.medication, function publish() {
+      /** This subscription publishes only the documents associated with the logged in user */
+      Meteor.publish(supplyPublications.supply, function publish() {
         if (this.userId) {
-          // const username = Meteor.users.findOne(this.userId).username;
           return instance._collection.find();
         }
         return this.ready();
       });
 
-      Meteor.publish(medicationPublications.medicationAdmin, function publish() {
+      Meteor.publish(supplyPublications.supplyAdmin, function publish() {
         if (this.userId) {
           return instance._collection.find();
         }
@@ -140,9 +118,9 @@ class MedicationCollection extends BaseCollection {
   /**
    * Subscription method for users.
    */
-  subscribeMedication() {
+  subscribeSupply() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(medicationPublications.medication);
+      return Meteor.subscribe(supplyPublications.supply);
     }
     return null;
   }
@@ -151,9 +129,9 @@ class MedicationCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeMedicationAdmin() {
+  subscribeSupplyAdmin() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(medicationPublications.medicationAdmin);
+      return Meteor.subscribe(supplyPublications.supplyAdmin);
     }
     return null;
   }
@@ -172,4 +150,4 @@ class MedicationCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Medications = new MedicationCollection();
+export const Supplys = new SupplyCollection();

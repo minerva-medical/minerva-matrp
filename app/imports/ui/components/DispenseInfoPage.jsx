@@ -28,10 +28,10 @@ const DispenseInfoPage = ({ record }) => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button size='mini' circular icon='info' color='linkedin'/>}
+      trigger={<Button size='mini' circular icon='info' color='linkedin' id={COMPONENT_IDS.DISPENSE_INFO_BUTTON}/>}
       size='large'
       dimmer='blurring'
-      id={COMPONENT_IDS.DRUG_PAGE}
+      id={COMPONENT_IDS.DISPENSE_INFO}
     >
       <Modal.Header>Dispense Log Information</Modal.Header>
       <Modal.Content image>
@@ -41,17 +41,17 @@ const DispenseInfoPage = ({ record }) => {
               <ItemGroup relaxed>
                 <Item>
                   <ItemContent>
-                    <Header as='h2'>{record.drug}</Header>
+                    <Header as='h2'>{record.name}</Header>
                     <Divider/>
                     <ItemDescription>
                       <List size='large'>
-                        <ListItem><ListHeader>Brand</ListHeader> {record.brand}</ListItem>
-                        <ListItem><ListHeader>Lot Number</ListHeader>{record.lotId}</ListItem>
-                        <ListItem><ListHeader>Expiration Date</ListHeader>{record.expire}</ListItem>
+                        <ListItem><ListHeader>Brand</ListHeader> {record.element.brand}</ListItem>
+                        <ListItem><ListHeader>Lot Number</ListHeader>{record.element.lotId}</ListItem>
+                        <ListItem><ListHeader>Expiration Date</ListHeader>{record.element.expire}</ListItem>
                         <ListItem><ListHeader>Dispense Location:</ListHeader>{record.site}</ListItem>
                         <Divider/>
                         <ListItem>
-                          <ListHeader>Quantity Dispensed</ListHeader>{record.quantity} {record.isTabs ? 'tabs' : 'mL'}
+                          <ListHeader>Quantity Dispensed</ListHeader>{record.element.quantity} {record.element.unit}
                         </ListItem>
                         <ListItem><ListHeader>Patient Number</ListHeader>{record.dispensedTo}</ListItem>
                         <ListItem><ListHeader>Date Dispensed</ListHeader>{record.dateDispensed.toLocaleString()}</ListItem>
@@ -81,7 +81,7 @@ const DispenseInfoPage = ({ record }) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => setOpen(false)}> Close</Button>
+        <Button color='black' onClick={() => setOpen(false)} id={COMPONENT_IDS.DISPENSE_INFO_CLOSE}> Close</Button>
       </Modal.Actions>
     </Modal>
 

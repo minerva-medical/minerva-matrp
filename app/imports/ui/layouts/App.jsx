@@ -43,7 +43,7 @@ const App = () => {
         <ProtectedRoute path="/dispense" component={Dispense}/>
         <ProtectedRoute path="/status" component={Status}/>
         <ProtectedRoute path="/add" component={AddInventory}/>
-        <ProtectedRoute path="/dispenseLog" component={DispenseLog}/>
+        <ProtectedRoute path="/dispense-log" component={DispenseLog}/>
         <ProtectedRoute path="/list" component={ListStuff}/>
         <ProtectedRoute path="/edit/:_id" component={EditNotes}/>
         <ProtectedRoute exact path="/manage-dropdowns" component={ManageDropdowns}/>

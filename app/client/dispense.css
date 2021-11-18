@@ -83,6 +83,27 @@
   width: 0;
 }
 
+#dispense-form .ui.inline.dropdown {
+  margin-right: 10px;
+  padding: 0 10px;
+  background-color: rgb(29, 62, 102);
+  color: white;
+  border-radius: 500em;
+}
+
+#dispense-form .ui.inline.dropdown .menu.transition {
+  width: 100%;
+}
+
+#dispense .ui.tabular.menu {
+  padding-right: 25%;
+}
+
+#dispense .ui.tabular.menu .item {
+  flex: 1 1 0;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 767px) {
   #dispense-form .filler-column {
     display: none;

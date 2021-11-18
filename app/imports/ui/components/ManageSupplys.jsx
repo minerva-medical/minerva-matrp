@@ -5,26 +5,26 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { Locations } from '../../api/location/LocationCollection';
+import { Supplys } from '../../api/supply/SupplyCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
 import { defineMethod, removeItMethod } from '../../api/base/BaseCollection.methods';
 
 /**
- * inserts the location option
+ * inserts the supply option
  */
-const insertOption = (option, locations, callback) => {
-  const existing = _.pluck(locations, 'location').map(location => location.toLowerCase());
+const insertOption = (option, supply, callback) => {
+  const existing = _.pluck(supply, 'supply').map(theSupply => theSupply.toLowerCase());
   // validation:
   if (!option) {
     // if option is empty
-    swal('Error', 'Location cannot be empty.', 'error');
+    swal('Error', 'Supply  cannot be empty.', 'error');
   } else if (existing.includes(option.toLowerCase())) {
     // if option exists
     swal('Error', `${option} already exists!`, 'error');
   } else {
     // else add option
-    const collectionName = Locations.getCollectionName();
-    const definitionData = { location: option };
+    const collectionName = Supplys.getCollectionName();
+    const definitionData = { supply: option };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -35,7 +35,7 @@ const insertOption = (option, locations, callback) => {
 };
 
 /**
- * deletes the location option
+ * deletes the supply  option
  */
 const deleteOption = (option, id) => {
   swal({
@@ -51,9 +51,9 @@ const deleteOption = (option, id) => {
     .then((isConfirm) => {
       // if 'yes'
       if (isConfirm) {
-        const inUse = Medications.findOne({ lotIds: { $elemMatch: { location: option } } });
-        const collectionName = Locations.getCollectionName();
-        // if an existing medication uses the location
+        const inUse = Medications.findOne({ supply: option });
+        const collectionName = Supplys.getCollectionName();
+        // if an existing medication uses the supply
         if (inUse) {
           swal('Error', `${option} is in use.`, 'error');
         } else {
@@ -67,26 +67,26 @@ const deleteOption = (option, id) => {
     });
 };
 
-const ManageLocations = ({ locations, ready }) => {
+const ManageSupplys = ({ supplys, ready }) => {
   const [newOption, setNewOption] = useState('');
 
   const clearField = () => setNewOption('');
 
   if (ready) {
     return (
-      <div id={COMPONENT_IDS.MANAGE_LOCATIONS} className='manage-tab'>
-        <Header as='h2'>{`Manage Locations (${locations.length})`}</Header>
+      <div id={COMPONENT_IDS.MANAGE_SUPPLYS} className='manage-tab'>
+        <Header as='h2'>{`Manage Supplys (${supplys.length})`}</Header>
         <div className='controls'>
           <Input onChange={(event, { value }) => setNewOption(value)} value={newOption}
-            placeholder='Add new location...' />
-          <Button content='Add' onClick={() => insertOption(newOption, locations, clearField)} />
+            placeholder='Add new supply ...' />
+          <Button content='Add' onClick={() => insertOption(newOption, supplys, clearField)} />
         </div>
         <List divided relaxed>
           {
-            locations.map(({ location, _id }) => (
+            supplys.map(({ supply, _id }) => (
               <List.Item key={_id}>
-                <List.Icon name='trash alternate' onClick={() => deleteOption(location, _id)} />
-                <List.Content>{location}</List.Content>
+                <List.Icon name='trash alternate' onClick={() => deleteOption(supply, _id)} />
+                <List.Content>{supply}</List.Content>
               </List.Item>
             ))
           }
@@ -97,18 +97,18 @@ const ManageLocations = ({ locations, ready }) => {
   return (<Loader active>Getting data</Loader>);
 };
 
-ManageLocations.propTypes = {
-  locations: PropTypes.array.isRequired,
+ManageSupplys.propTypes = {
+  supplys: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 export default withTracker(() => {
   const medicationSub = Medications.subscribeMedication();
-  const locationSub = Locations.subscribeLocation();
-  const locations = Locations.find({}, { sort: { location: 1 } }).fetch();
-  const ready = locationSub.ready() && medicationSub.ready();
+  const supplySub = Supplys.subscribeSupply();
+  const supplys = Supplys.find({}, { sort: { supply: 1 } }).fetch();
+  const ready = supplySub.ready() && medicationSub.ready();
   return {
-    locations,
+    supplys,
     ready,
   };
-})(ManageLocations);
+})(ManageSupplys);

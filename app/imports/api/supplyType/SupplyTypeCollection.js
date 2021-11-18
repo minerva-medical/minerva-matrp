@@ -1,45 +1,57 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-// import { check } from 'meteor/check';
+import { check } from 'meteor/check';
 // import { _ } from 'meteor/underscore';
 // import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 
-export const itemPublications = {
-  item: 'Item',
-  itemAdmin: 'ItemAdmin',
+export const supplyTypePublications = {
+  supplyType: 'SupplyType',
+  supplyTypeAdmin: 'SupplyTypeAdmin',
 };
 
-class ItemCollection extends BaseCollection {
+class SupplyTypeCollection extends BaseCollection {
   constructor() {
-    super('Items', new SimpleSchema({
-      item: String,
+    super('SupplyTypes', new SimpleSchema({
+      supplyType: String,
     }));
   }
 
   /**
-   * Defines a new Item item.
-   * @param name the name of the item.
+   * Defines a new SupplyType.
+   * @param supplyType.
    * @return {String} the docID of the new document.
    */
-  define({ item }) {
+  define({ supplyType }) {
     const docID = this._collection.insert({
-      item,
+      supplyType,
     });
     return docID;
   }
 
   /**
+   * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
+   * @param { String | Object } name A document or docID in this collection.
+   * @returns true
+   */
+  removeIt(name) {
+    const doc = this.findDoc(name);
+    check(doc, Object);
+    this._collection.remove(doc._id);
+    return true;
+  }
+
+  /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the item associated to an owner.
+   * It publishes the entire collection for admin and just the supplyType associated to an owner.
    */
   publish() {
     if (Meteor.isServer) {
-      // get the DrugCollection instance.
+      // get the SupplyTypeCollection instance.
       const instance = this;
       /** This subscription publishes only the documents associated with the logged in user */
-      Meteor.publish(itemPublications.item, function publish() {
+      Meteor.publish(supplyTypePublications.supplyType, function publish() {
         if (this.userId) {
           return instance._collection.find();
         }
@@ -47,7 +59,7 @@ class ItemCollection extends BaseCollection {
       });
 
       /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-      Meteor.publish(itemPublications.itemAdmin, function publish() {
+      Meteor.publish(supplyTypePublications.supplyTypeAdmin, function publish() {
         if (this.userId) {
           return instance._collection.find();
         }
@@ -57,11 +69,11 @@ class ItemCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for item owned by the current user.
+   * Subscription method for supplyType owned by the current user.
    */
-  subscribeItem() {
+  subscribeSupplyType() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(itemPublications.item);
+      return Meteor.subscribe(supplyTypePublications.supplyType);
     }
     return null;
   }
@@ -70,9 +82,9 @@ class ItemCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeItemAdmin() {
+  subscribeSupplyTypeAdmin() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(itemPublications.itemAdmin);
+      return Meteor.subscribe(supplyTypePublications.supplyTypeAdmin);
     }
     return null;
   }
@@ -91,4 +103,4 @@ class ItemCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Items = new ItemCollection();
+export const SupplyTypes = new SupplyTypeCollection();
