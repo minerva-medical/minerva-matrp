@@ -7,7 +7,7 @@ import { Locations } from '../../api/location/LocationCollection';
 import { Vaccinations } from '../../api/vaccination/VaccinationCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
-import { distinct, getOptions} from '../utilities/Functions';
+import { distinct, getOptions } from '../utilities/Functions';
 
 /** On submit, insert the data. */
 const submit = (data, callback) => {
@@ -46,7 +46,6 @@ const submit = (data, callback) => {
       });
   }
 };
-
 
 const validateForm = (data, callback) => {
   const submitData = { ...data };
@@ -147,26 +146,26 @@ const AddVaccination = ({ drugTypes, ready, drugs, lotIds, brands, locations }) 
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Drug Name' options={getOptions(filteredDrugs)}
-                             placeholder="Benzonatate Capsules" name='drug'
-                             onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
+                  placeholder="Benzonatate Capsules" name='drug'
+                  onChange={handleChange} value={fields.drug} onSearchChange={handleSearch} searchQuery={fields.drug}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable multiple search label='Drug Type(s)'
-                             options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
-                             name='drugType' onChange={handleChange} value={fields.drugType}/>
+                  options={getOptions(drugTypes)} placeholder="Allergy & Cold Medicines"
+                  name='drugType' onChange={handleChange} value={fields.drugType}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
-                             placeholder="Z9Z99" name='lotId'
-                             onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
+                  placeholder="Z9Z99" name='lotId'
+                  onChange={onLotIdSelect} value={fields.lotId} onSearchChange={handleSearch} searchQuery={fields.lotId}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Brand' options={getOptions(filteredBrands)}
-                             placeholder="Zonatuss" name='brand'
-                             onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
+                  placeholder="Zonatuss" name='brand'
+                  onChange={onBrandSelect} value={fields.brand} onSearchChange={handleSearch} searchQuery={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
@@ -174,27 +173,27 @@ const AddVaccination = ({ drugTypes, ready, drugs, lotIds, brands, locations }) 
                   <label>Expiration Date</label>
                   <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
                   <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
-                        style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
+                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity'
-                            onChange={handleChange} value={fields.minQuantity} placeholder="100"/>
+                  onChange={handleChange} value={fields.minQuantity} placeholder="100"/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
                   <Form.Input label='Quantity' type='number' min={1} name='quantity' className='quantity'
-                              onChange={handleChange} value={fields.quantity} placeholder="200"/>
+                    onChange={handleChange} value={fields.quantity} placeholder="200"/>
                   <Form.Select compact name='isTabs' onChange={handleChange} value={fields.isTabs} className='unit'
-                               options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
+                    options={[{ key: 'tabs', text: 'tabs', value: true }, { key: 'mL', text: 'mL', value: false }]} />
                 </Form.Group>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select compact clearable search label='Location' options={getOptions(locations)}
-                             placeholder="Case 2" name='location'
-                             onChange={handleChange} value={fields.location}/>
+                  placeholder="Case 2" name='location'
+                  onChange={handleChange} value={fields.location}/>
               </Grid.Column>
               <Grid.Column className='checkbox-column'>
                 <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated} />
@@ -203,7 +202,7 @@ const AddVaccination = ({ drugTypes, ready, drugs, lotIds, brands, locations }) 
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                               placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -228,8 +227,7 @@ AddVaccination.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
-
-//Currently vaccination subscribes to same drugType collection as medication collection.
+// Currently vaccination subscribes to same drugType collection as medication collection.
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   const typeSub = DrugTypes.subscribeDrugType();
