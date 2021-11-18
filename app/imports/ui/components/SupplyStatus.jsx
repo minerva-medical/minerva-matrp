@@ -8,6 +8,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { distinct, getOptions } from '../utilities/Functions';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import SupplyStatusRow from './SupplyStatusRow';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 // convert array to dropdown options
 const getFilters = (arr) => [{ key: 'All', value: 0, text: 'All' }, ...getOptions(arr)];
@@ -91,7 +92,7 @@ const SupplyStatus = ({ ready, supplies, locations }) => {
         <Grid>
           <Grid.Column width={4}>
             <Input placeholder='Filter by supply name...' icon='search'
-              onChange={handleSearch} value={searchQuery} />
+              onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.SUPPLY_FILTER}/>
             <Popup
               trigger={<Icon name='question circle' color="blue"/>}
               content='This allows you to filter the inventory by supply name and location.'

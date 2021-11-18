@@ -7,6 +7,7 @@ import { Medications } from '../../api/medication/MedicationCollection';
 import { DrugTypes } from '../../api/drugType/DrugTypeCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import MedStatusRow from '../components/MedStatusRow';
 import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
@@ -111,7 +112,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
           <Grid.Column width={4}>
             <Popup
               trigger={<Input placeholder='Filter by drug name...' icon='search'
-                onChange={handleSearch} value={searchQuery} />}
+                onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.STATUS_FILTER} />}
               content='This allows you to filter the Inventory by medication, brand, LotID, location, and expiration.'
               inverted
             />
@@ -123,22 +124,22 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
             <Grid.Column>
               Medication Type: {' '}
               <Dropdown inline options={getFilters(drugTypes)} search
-                onChange={handleTypeFilter} value={typeFilter} />
+                onChange={handleTypeFilter} value={typeFilter} id={COMPONENT_IDS.MEDICATION_TYPE}/>
             </Grid.Column>
             <Grid.Column>
               Medication Brand: {' '}
               <Dropdown inline options={getFilters(brands)} search
-                onChange={handleBrandFilter} value={brandFilter} />
+                onChange={handleBrandFilter} value={brandFilter} id={COMPONENT_IDS.MEDICATION_BRAND}/>
             </Grid.Column>
             <Grid.Column>
               Medication Location: {' '}
               <Dropdown inline options={getFilters(locations)} search
-                onChange={handleLocationFilter} value={locationFilter} />
+                onChange={handleLocationFilter} value={locationFilter} id={COMPONENT_IDS.MEDICATION_LOCATION} />
             </Grid.Column>
             <Grid.Column>
               Inventory Status: {' '}
               <Dropdown inline options={statusOptions} search
-                onChange={handleStatusFilter} value={statusFilter}/>
+                onChange={handleStatusFilter} value={statusFilter} id={COMPONENT_IDS.INVENTORY_STATUS}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -146,7 +147,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
         <div>
           Records per page: {' '}
           <Dropdown inline options={recordOptions}
-            onChange={handleRecordLimit} value={maxRecords}/>
+            onChange={handleRecordLimit} value={maxRecords} id={COMPONENT_IDS.NUM_OF_RECORDS}/>
           Total count: {filteredMedications.length}
         </div>
         <Table selectable color='blue' unstackable>

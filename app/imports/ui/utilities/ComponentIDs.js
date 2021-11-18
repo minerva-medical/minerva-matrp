@@ -80,4 +80,12 @@ export const COMPONENT_IDS = {
   STATUS_TAB_ONE: 'status-tab-one',
   STATUS_TAB_TWO: 'status-tab-two',
   STATUS_TAB_THREE: 'status-tab-three',
+  EDIT_CLOSE: 'edit-close',
+  STATUS_FILTER: 'status-filter',
+  SUPPLY_FILTER: 'supply-filter',
+  MEDICATION_TYPE: 'medication-type',
+  MEDICATION_BRAND: 'medication-brand',
+  MEDICATION_LOCATION: 'medication-location',
+  INVENTORY_STATUS: 'inventory-status',
+  NUM_OF_RECORDS: 'num-of-records',
 };

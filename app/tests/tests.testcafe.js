@@ -83,7 +83,6 @@ test('Test that the add inventory page works ', async () => {
   await addInventoryPage.addMedication(testMedication.lot, testMedication.quantity);
   await addInventoryPage.addVaccine();
   await addInventoryPage.addPatientSupplies();
-  // await addInventoryPage.addLabTestingSupplies();
 
 });
 
@@ -93,17 +92,22 @@ test('Test that the status log and dispense log pages work', async () => {
   await landingPage.goToLogin();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
-  // await navBar.gotoDispensePage();
-  // await dispensePage.isDisplayed();
+  await navBar.gotoDispensePage();
+  await dispensePage.isDisplayed();
   await t.wait(3000);
   await navBar.gotoStatusLogPage();
   await statusPage.isDisplayed();
   await statusPage.openModal();
   await t.wait(3000);
+  await statusPage.viewTabs();
+  await t.wait(3000);
+  await statusPage.testDropDowns();
+  await statusPage.testFilter();
   await navBar.gotoDispenseLogPage();
   await dispenseLogPage.isDisplayed();
   await t.wait(3000);
   // want to see if we can get to the editStuffPage
+  // Edit Notes is now on Modal
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
   // await t.click(editLinks.nth(0));
   // await editStuffPage.isDisplayed();

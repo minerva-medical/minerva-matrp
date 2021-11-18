@@ -177,7 +177,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='black' onClick={() => setSecondOpen(false)}>
+          <Button color='black' onClick={() => setSecondOpen(false)} id={COMPONENT_IDS.EDIT_CLOSE}>
             Close
           </Button>
           <Button
