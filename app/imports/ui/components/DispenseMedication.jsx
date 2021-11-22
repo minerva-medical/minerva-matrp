@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Medications, allowedUnits } from '../../api/medication/MedicationCollection';
-import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
+import { dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
@@ -16,7 +16,6 @@ import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 const submit = (data, callback) => {
   const { lotId, quantity, drug } = data;
   const collectionName = Medications.getCollectionName();
-  const histCollection = Historicals.getCollectionName();
   const medication = Medications.findOne({ drug }); // find the existing medication
   const { _id, unit, lotIds } = medication;
   const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
@@ -40,7 +39,7 @@ const submit = (data, callback) => {
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
       name: drug, note, element };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
-      defineMethod.callPromise({ collectionName: histCollection, definitionData })];
+      defineMethod.callPromise({ collectionName: 'HistoricalsCollection', definitionData })];
     Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -233,13 +232,12 @@ DispenseMedication.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
-  const historySub = Historicals.subscribeHistorical();
   const siteSub = Sites.subscribeSite();
   return {
     sites: distinct('site', Sites),
     drugs: distinct('drug', Medications),
     lotIds: nestedDistinct('lotId', Medications),
     brands: nestedDistinct('brand', Medications),
-    ready: siteSub.ready() && historySub.ready() && medSub.ready(),
+    ready: siteSub.ready() && medSub.ready(),
   };
 })(DispenseMedication);

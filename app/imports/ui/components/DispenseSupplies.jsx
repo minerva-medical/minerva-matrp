@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
-import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
+import { dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { distinct, getOptions } from '../utilities/Functions';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 
@@ -14,7 +14,6 @@ import { defineMethod, updateMethod } from '../../api/base/BaseCollection.method
 const submit = (data, callback) => {
   const { supply, quantity } = data;
   const collectionName = Supplys.getCollectionName();
-  const histCollection = Historicals.getCollectionName();
   const supplyItem = Supplys.findOne({ supply }); // find the existing medication
   const { _id, stock } = supplyItem;
   const targetIndex = stock.findIndex((obj => obj.quantity)); // find the index of existing the lotId
@@ -37,7 +36,7 @@ const submit = (data, callback) => {
     // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name: supply, note, element };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
-      defineMethod.callPromise({ collectionName: histCollection, definitionData })];
+      defineMethod.callPromise({ collectionName: 'HistoricalsCollection', definitionData })];
     Promise.all(promises)
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -198,13 +197,12 @@ DispenseSupplies.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   const supSub = Supplys.subscribeSupply();
-  const historySub = Historicals.subscribeHistorical(); // this will be used soon
   const siteSub = Sites.subscribeSite();
   return {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     supplys: distinct('supply', Supplys),
-    ready: siteSub.ready() && historySub.ready() && supSub.ready(),
+    ready: siteSub.ready() && supSub.ready(),
   };
 })(DispenseSupplies);

@@ -6,7 +6,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Sites } from '../../api/site/SiteCollection';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { Historicals, dispenseTypes } from '../../api/historical/HistoricalCollection';
+import { dispenseTypes } from '../../api/historical/HistoricalCollection';
 // import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
@@ -227,13 +227,12 @@ DispenseVaccination.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   const medSub = Medications.subscribeMedication();
-  const historySub = Historicals.subscribeHistorical();
   const siteSub = Sites.subscribeSite();
   return {
     sites: distinct('site', Sites),
     drugs: distinct('drug', Medications),
     lotIds: nestedDistinct('lotId', Medications),
     brands: nestedDistinct('brand', Medications),
-    ready: siteSub.ready() && historySub.ready() && medSub.ready(),
+    ready: siteSub.ready() && medSub.ready(),
   };
 })(DispenseVaccination);
