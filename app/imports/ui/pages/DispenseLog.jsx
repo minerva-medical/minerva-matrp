@@ -4,6 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Historicals, dispenseTypes, inventoryTypes } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -61,13 +62,13 @@ const DispenseLog = ({ ready, historicals }) => {
       if (dispenseTypeFilter) {
         filter = filter.filter((historical) => historical.dispenseType === dispenseTypeFilter);
       }
-      if (minDateFilter && maxDateFilter) {
-        filter = filter.filter((historical) => historical.dateDispensed >= (minDateFilter) &&
-            historical.dateDispensed <= (maxDateFilter));
+      if (minDateFilter) {
+        const minDate = moment(minDateFilter).utc().format();
+        filter = filter.filter((historical) => historical.dateDispensed >= minDate);
       }
-      if (minDateFilter || maxDateFilter) {
-        filter = filter.filter((historical) => historical.dateDispensed >= (minDateFilter) ||
-            historical.dateDispensed <= (maxDateFilter));
+      if (maxDateFilter) {
+        const maxDate = moment(maxDateFilter).utc().format();
+        filter = filter.filter((historical) => historical.dateDispensed <= maxDate);
       }
       setFilterHistoricals(filter);
     }, [searchQuery, inventoryFilter, dispenseTypeFilter, minDateFilter, maxDateFilter]);
@@ -91,7 +92,7 @@ const DispenseLog = ({ ready, historicals }) => {
               </Header.Subheader>
             </Header.Content>
           </Header>
-          <Grid divider columns="equal" stackable>
+          <Grid columns="equal" stackable>
             <Grid.Row>
               <Grid.Column>
                 <Popup inverted
@@ -101,16 +102,16 @@ const DispenseLog = ({ ready, historicals }) => {
               </Grid.Column>
               <Grid.Column>
                 <Popup inverted
-                  trigger={<Input type="date"
-                    label={{ basic: true, content: 'From' }}
-                    labelPosition='left'
-                    onChange={handleMinDateFilter}/>}
+                  trigger={
+                    <Input type="date" label={{ basic: true, content: 'From' }} labelPosition='left'
+                      onChange={handleMinDateFilter} max={maxDateFilter} />
+                  }
                   content="This allows you to filter the Dispense Log table
                   from the selected 'From' date to today's date or the selected 'To' date."/>
               </Grid.Column>
               <Grid.Column>
                 <Input type="date" label={{ basic: true, content: 'To' }} labelPosition='left'
-                  onChange={handleMaxDateFilter}/>
+                  onChange={handleMaxDateFilter} min={minDateFilter} />
               </Grid.Column>
             </Grid.Row>
           </Grid>

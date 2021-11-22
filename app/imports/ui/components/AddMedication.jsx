@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Icon } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -255,13 +255,8 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
-                <Form.Field>
-                  <label>Expiration Date</label>
-                  <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
-                  <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
-                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}
-                    id={COMPONENT_IDS.ADD_MEDICATION_EXPIRATION}/>
-                </Form.Field>
+                <Form.Input type='date' label='Expiration Date' name='expire'
+                  onChange={handleChange} value={fields.expire} id={COMPONENT_IDS.ADD_MEDICATION_EXPIRATION} />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>

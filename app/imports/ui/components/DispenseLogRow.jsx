@@ -1,11 +1,12 @@
 import React from 'react';
 import { Icon, Popup, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import DispenseInfoPage from './DispenseInfoPage';
 
 const DispenseLogRow = ({ history }) => {
 
-  const historyDate = new Date(history.dateDispensed).toLocaleString('en-US');
+  const historyDate = moment(history.dateDispensed).format('MM/DD/YYYY, hh:mm A');
 
   return (
     <Table.Row>

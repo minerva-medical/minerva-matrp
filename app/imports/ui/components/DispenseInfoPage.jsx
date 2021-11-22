@@ -4,6 +4,7 @@ import {
   ItemContent, ItemDescription, Modal, ListHeader, Divider,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -54,7 +55,9 @@ const DispenseInfoPage = ({ record }) => {
                           <ListHeader>Quantity Dispensed</ListHeader>{record.element.quantity} {record.element.unit}
                         </ListItem>
                         <ListItem><ListHeader>Patient Number</ListHeader>{record.dispensedTo}</ListItem>
-                        <ListItem><ListHeader>Date Dispensed</ListHeader>{record.dateDispensed.toLocaleString()}</ListItem>
+                        <ListItem><ListHeader>Date Dispensed</ListHeader>
+                          {moment(record.dateDispensed).format('llll')}
+                        </ListItem>
                         <ListItem><ListHeader>Dispensed By</ListHeader>{record.dispensedFrom}</ListItem>
                         <br/>
                       </List>
