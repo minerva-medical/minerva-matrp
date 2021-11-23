@@ -4,9 +4,10 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import MedStatus from '../components/MedStatus';
 import SupplyStatus from '../components/SupplyStatus';
+import VaccineStatus from '../components/VaccineStatus';
 
 const medicationTab = () => <MedStatus />;
-const vaccinesTab = () => <MedStatus />;
+const vaccinesTab = () => <VaccineStatus />;
 const suppliesTab = () => <SupplyStatus />;
 
 const panes = [

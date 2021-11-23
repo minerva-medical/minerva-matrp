@@ -1,0 +1,464 @@
+[
+  {
+    "vaccine": "Adenovirus",
+    "brand": "Barr Labs Inc.",
+    "minQuantity": 70,
+    "visDate": "2024-12-27",
+    "lotIds": [
+      {
+        "lotId": "MEUa19",
+        "expire": "2023-03-21",
+        "location": "Refrigerator",
+        "quantity": 65,
+        "note": "Example note for Barr Labs Inc. Adenovirus."
+      },
+      {
+        "lotId": "We9ERy",
+        "expire": "2022-08-25",
+        "location": "Refrigerator",
+        "quantity": 65,
+        "note": "Example note for Barr Labs Inc. Adenovirus."
+      }
+    ]
+  },
+  {
+    "vaccine": "Anthrax",
+    "brand": "Emergent",
+    "minQuantity": 20,
+    "visDate": "2024-10-18",
+    "lotIds": [
+      {
+        "lotId": "dRgjna",
+        "expire": "2023-07-22",
+        "location": "Refrigerator",
+        "quantity": 11,
+        "note": "Example note for Emergent Anthrax."
+      },
+      {
+        "lotId": "RNLipN",
+        "expire": "2023-02-03",
+        "location": "Refrigerator",
+        "quantity": 11,
+        "note": "Example note for Emergent Anthrax."
+      }
+    ]
+  },
+  {
+    "vaccine": "Anthrax",
+    "brand": "BioSolutions",
+    "minQuantity": 10,
+    "visDate": "2023-03-08",
+    "lotIds": [
+      {
+        "lotId": "ZBlpaG",
+        "expire": "2024-07-31",
+        "location": "Refrigerator",
+        "quantity": 9,
+        "note": "Example note for BioSolutions Anthrax."
+      },
+      {
+        "lotId": "U8pt40",
+        "expire": "2025-03-17",
+        "location": "Refrigerator",
+        "quantity": 9,
+        "note": "Example note for BioSolutions Anthrax."
+      }
+    ]
+  },
+  {
+    "vaccine": "Cholera",
+    "brand": "PaxVax",
+    "minQuantity": 40,
+    "visDate": "2021-11-25",
+    "lotIds": [
+      {
+        "lotId": "V3Niz1",
+        "expire": "2024-04-20",
+        "location": "Refrigerator",
+        "quantity": 3,
+        "note": "Example note for PaxVax Cholera."
+      },
+      {
+        "lotId": "Sb1zCP",
+        "expire": "2022-08-29",
+        "location": "Refrigerator",
+        "quantity": 3,
+        "note": "Example note for PaxVax Cholera."
+      }
+    ]
+  },
+  {
+    "vaccine": "DTaP",
+    "brand": "sanofi",
+    "minQuantity": 20,
+    "visDate": "2024-08-11",
+    "lotIds": [
+      {
+        "lotId": "k5EMaj",
+        "expire": "2022-08-10",
+        "location": "Refrigerator",
+        "quantity": 10,
+        "note": "Example note for sanofi DTaP."
+      },
+      {
+        "lotId": "w5tYJx",
+        "expire": "2022-08-29",
+        "location": "Refrigerator",
+        "quantity": 10,
+        "note": "Example note for sanofi DTaP."
+      }
+    ]
+  },
+  {
+    "vaccine": "DTaP",
+    "brand": "GlaxoSmithKline",
+    "minQuantity": 70,
+    "visDate": "2023-03-28",
+    "lotIds": [
+      {
+        "lotId": "BMZj6z",
+        "expire": "2023-09-29",
+        "location": "Refrigerator",
+        "quantity": 17,
+        "note": "Example note for GlaxoSmithKline DTaP."
+      },
+      {
+        "lotId": "JyjrNj",
+        "expire": "2023-06-05",
+        "location": "Refrigerator",
+        "quantity": 17,
+        "note": "Example note for GlaxoSmithKline DTaP."
+      }
+    ]
+  },
+  {
+    "vaccine": "DT",
+    "brand": "sanofi",
+    "minQuantity": 40,
+    "visDate": "2022-08-05",
+    "lotIds": [
+      {
+        "lotId": "lD2Et9",
+        "expire": "2022-06-01",
+        "location": "Refrigerator",
+        "quantity": 39,
+        "note": "Example note for sanofi DT."
+      },
+      {
+        "lotId": "uwaS7O",
+        "expire": "2023-06-01",
+        "location": "Refrigerator",
+        "quantity": 39,
+        "note": "Example note for sanofi DT."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hib",
+    "brand": "sanofi",
+    "minQuantity": 60,
+    "visDate": "2025-08-16",
+    "lotIds": [
+      {
+        "lotId": "Xb1xUN",
+        "expire": "2025-03-04",
+        "location": "Refrigerator",
+        "quantity": 29,
+        "note": "Example note for sanofi Hib."
+      },
+      {
+        "lotId": "pxNNoH",
+        "expire": "2022-11-16",
+        "location": "Refrigerator",
+        "quantity": 29,
+        "note": "Example note for sanofi Hib."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hib",
+    "brand": "GlaxoSmithKline",
+    "minQuantity": 40,
+    "visDate": "2024-03-08",
+    "lotIds": [
+      {
+        "lotId": "SyLWGz",
+        "expire": "2023-07-09",
+        "location": "Refrigerator",
+        "quantity": 31,
+        "note": "Example note for GlaxoSmithKline Hib."
+      },
+      {
+        "lotId": "mCMXnt",
+        "expire": "2023-09-25",
+        "location": "Refrigerator",
+        "quantity": 31,
+        "note": "Example note for GlaxoSmithKline Hib."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hib",
+    "brand": "Merck",
+    "minQuantity": 10,
+    "visDate": "2023-05-01",
+    "lotIds": [
+      {
+        "lotId": "mqNfVE",
+        "expire": "2022-09-01",
+        "location": "Refrigerator",
+        "quantity": 4,
+        "note": "Example note for Merck Hib."
+      },
+      {
+        "lotId": "TkehZo",
+        "expire": "2022-06-05",
+        "location": "Refrigerator",
+        "quantity": 4,
+        "note": "Example note for Merck Hib."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hepatitis A",
+    "brand": "GlaxoSmithKline",
+    "minQuantity": 10,
+    "visDate": "2023-09-29",
+    "lotIds": [
+      {
+        "lotId": "FhK0uS",
+        "expire": "2023-06-24",
+        "location": "Refrigerator",
+        "quantity": 6,
+        "note": "Example note for GlaxoSmithKline Hepatitis A."
+      },
+      {
+        "lotId": "nyHez1",
+        "expire": "2024-11-25",
+        "location": "Refrigerator",
+        "quantity": 6,
+        "note": "Example note for GlaxoSmithKline Hepatitis A."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hepatitis A",
+    "brand": "Merck",
+    "minQuantity": 40,
+    "visDate": "2025-02-18",
+    "lotIds": [
+      {
+        "lotId": "Wt81Nv",
+        "expire": "2022-04-02",
+        "location": "Refrigerator",
+        "quantity": 26,
+        "note": "Example note for Merck Hepatitis A."
+      },
+      {
+        "lotId": "zKuc2W",
+        "expire": "2024-06-09",
+        "location": "Refrigerator",
+        "quantity": 26,
+        "note": "Example note for Merck Hepatitis A."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hepatitis B",
+    "brand": "GlaxoSmithKline",
+    "minQuantity": 90,
+    "visDate": "2022-08-22",
+    "lotIds": [
+      {
+        "lotId": "0ZDcQI",
+        "expire": "2024-07-21",
+        "location": "Refrigerator",
+        "quantity": 86,
+        "note": "Example note for GlaxoSmithKline Hepatitis B."
+      },
+      {
+        "lotId": "InwJ9q",
+        "expire": "2022-06-25",
+        "location": "Refrigerator",
+        "quantity": 86,
+        "note": "Example note for GlaxoSmithKline Hepatitis B."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hepatitis B",
+    "brand": "Merck",
+    "minQuantity": 100,
+    "visDate": "2023-08-06",
+    "lotIds": [
+      {
+        "lotId": "lsBzCA",
+        "expire": "2023-09-06",
+        "location": "Refrigerator",
+        "quantity": 19,
+        "note": "Example note for Merck Hepatitis B."
+      },
+      {
+        "lotId": "UZ8IPr",
+        "expire": "2025-08-05",
+        "location": "Refrigerator",
+        "quantity": 19,
+        "note": "Example note for Merck Hepatitis B."
+      }
+    ]
+  },
+  {
+    "vaccine": "Hepatitis B",
+    "brand": "Dynavax Technologies",
+    "minQuantity": 90,
+    "visDate": "2023-04-08",
+    "lotIds": [
+      {
+        "lotId": "ayzQ6a",
+        "expire": "2024-01-18",
+        "location": "Refrigerator",
+        "quantity": 37,
+        "note": "Example note for Dynavax Technologies Hepatitis B."
+      },
+      {
+        "lotId": "sIji1Q",
+        "expire": "2022-02-15",
+        "location": "Refrigerator",
+        "quantity": 37,
+        "note": "Example note for Dynavax Technologies Hepatitis B."
+      }
+    ]
+  },
+  {
+    "vaccine": "Shingles",
+    "brand": "GlaxoSmithKline",
+    "minQuantity": 50,
+    "visDate": "2025-05-25",
+    "lotIds": [
+      {
+        "lotId": "8HYuoh",
+        "expire": "2024-11-02",
+        "location": "Refrigerator",
+        "quantity": 37,
+        "note": "Example note for GlaxoSmithKline Shingles."
+      },
+      {
+        "lotId": "Y6moOS",
+        "expire": "2023-12-07",
+        "location": "Refrigerator",
+        "quantity": 37,
+        "note": "Example note for GlaxoSmithKline Shingles."
+      }
+    ]
+  },
+  {
+    "vaccine": "HPV",
+    "brand": "Merck",
+    "minQuantity": 60,
+    "visDate": "2022-02-09",
+    "lotIds": [
+      {
+        "lotId": "MoZQgv",
+        "expire": "2023-03-03",
+        "location": "Refrigerator",
+        "quantity": 18,
+        "note": "Example note for Merck HPV."
+      },
+      {
+        "lotId": "RyqpEZ",
+        "expire": "2022-12-18",
+        "location": "Refrigerator",
+        "quantity": 18,
+        "note": "Example note for Merck HPV."
+      }
+    ]
+  },
+  {
+    "vaccine": "Influenza",
+    "brand": "Seqirus",
+    "minQuantity": 40,
+    "visDate": "2023-01-16",
+    "lotIds": [
+      {
+        "lotId": "DbzPde",
+        "expire": "2023-05-29",
+        "location": "Refrigerator",
+        "quantity": 7,
+        "note": "Example note for Seqirus Influenza."
+      },
+      {
+        "lotId": "PdpK3o",
+        "expire": "2024-05-22",
+        "location": "Refrigerator",
+        "quantity": 7,
+        "note": "Example note for Seqirus Influenza."
+      }
+    ]
+  },
+  {
+    "vaccine": "Influenza",
+    "brand": "GlaxoSmithKline",
+    "minQuantity": 10,
+    "visDate": "2025-01-27",
+    "lotIds": [
+      {
+        "lotId": "ZH2o1D",
+        "expire": "2025-09-13",
+        "location": "Refrigerator",
+        "quantity": 0,
+        "note": "Example note for GlaxoSmithKline Influenza."
+      },
+      {
+        "lotId": "9hLgdy",
+        "expire": "2022-07-30",
+        "location": "Refrigerator",
+        "quantity": 0,
+        "note": "Example note for GlaxoSmithKline Influenza."
+      }
+    ]
+  },
+  {
+    "vaccine": "Influenza",
+    "brand": "sanofi",
+    "minQuantity": 100,
+    "visDate": "2025-06-27",
+    "lotIds": [
+      {
+        "lotId": "RFV480",
+        "expire": "2021-12-06",
+        "location": "Refrigerator",
+        "quantity": 73,
+        "note": "Example note for sanofi Influenza."
+      },
+      {
+        "lotId": "wPe0lc",
+        "expire": "2025-01-15",
+        "location": "Refrigerator",
+        "quantity": 73,
+        "note": "Example note for sanofi Influenza."
+      }
+    ]
+  },
+  {
+    "vaccine": "Influenza",
+    "brand": "Medimmune",
+    "minQuantity": 90,
+    "visDate": "2023-01-31",
+    "lotIds": [
+      {
+        "lotId": "aBRE45",
+        "expire": "2023-01-01",
+        "location": "Refrigerator",
+        "quantity": 73,
+        "note": "Example note for Medimmune Influenza."
+      },
+      {
+        "lotId": "KWHE0D",
+        "expire": "2023-04-19",
+        "location": "Refrigerator",
+        "quantity": 73,
+        "note": "Example note for Medimmune Influenza."
+      }
+    ]
+  }
+]
