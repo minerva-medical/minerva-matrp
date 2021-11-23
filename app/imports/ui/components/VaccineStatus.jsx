@@ -160,7 +160,10 @@ const VaccineStatus = ({ ready, vaccines, locations, brands }) => {
                 <Pagination
                   totalPages={Math.ceil(filteredVaccines.length / maxRecords)}
                   activePage={pageNo}
-                  onPageChange={(event, data) => setPageNo(data.activePage)}
+                  onPageChange={(event, data) => {
+                    setPageNo(data.activePage);
+                    window.scrollTo(0, 0);
+                  }}
                   ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
                   firstItem={{ content: <Icon name='angle double left' />, icon: true }}
                   lastItem={{ content: <Icon name='angle double right' />, icon: true }}
