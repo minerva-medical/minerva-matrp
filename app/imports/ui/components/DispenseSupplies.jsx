@@ -154,7 +154,8 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Input clearable label='Dispensed To' placeholder="Patient Number"
-                  disabled={isDisabled} name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
+                  disabled={isDisabled} name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}
+                  id={COMPONENT_IDS.DISPENSE_SUP_PT_NUM}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -181,7 +182,7 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
+          <Button className='clear-button' onClick={clearForm} id={COMPONENT_IDS.DISPENSE_SUP_CLEAR}>Clear Fields</Button>
           <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>
