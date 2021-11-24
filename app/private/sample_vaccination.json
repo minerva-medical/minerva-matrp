@@ -1,0 +1,26 @@
+[
+  {
+    "vaccine": "COVID-19 Vaccine",
+    "minQuantity": 170,
+    "lotIds": [
+      {
+        "lotId": "aVWj9P",
+        "manufacturer": "Janssen COVID-19",
+        "expire": "2023-10-31",
+        "location": "Freezer",
+        "quantity": 15,
+        "donated": false,
+        "note": "Example note for Loperamide 2 mg."
+      },
+      {
+        "lotId": "GtRxFl",
+        "manufacturer": "Pfizer-BioNTech",
+        "expire": "2022-11-15",
+        "location": "Freezer",
+        "quantity": 20,
+        "donated": false,
+        "note": "Example note for Loperamide 2 mg."
+      }
+    ]
+  }
+]
