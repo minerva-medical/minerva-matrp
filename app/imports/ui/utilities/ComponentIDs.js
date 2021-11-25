@@ -94,6 +94,7 @@ export const COMPONENT_IDS = {
   NUM_OF_RECORDS: 'num-of-records',
   INVENTORY_TYPE: 'inventory-type',
   DISPENSE_TYPE: 'dispense-type',
+  DISPENSE_SITE: 'dispense-site',
   DISPENSE_MED_LOT: 'dispense-med-lot',
   DISPENSE_MED_PT_NUM: 'dispense-med-pt-num',
   DISPENSE_MED_QUANTITY: 'dispense-med-quantity',

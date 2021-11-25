@@ -5,7 +5,7 @@ import {
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Historicals, dispenseTypes, inventoryTypes } from '../../api/historical/HistoricalCollection';
+import { Historicals, dispenseTypes, inventoryTypes, sites } from '../../api/historical/HistoricalCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -25,6 +25,7 @@ const reason = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(dispenseTyp
 // Used for sorting the table in accordance to the type of inventory
 const inventory = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(inventoryTypes)];
 
+const location = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(sites)];
 /** Renders the Page for Dispensing History. */
 const DispenseLog = ({ ready, historicals }) => {
   if (ready) {
@@ -44,6 +45,7 @@ const DispenseLog = ({ ready, historicals }) => {
     const [maxDateFilter, setMaxDateFilter] = useState(0);
     const [inventoryFilter, setInventoryFilter] = useState(0);
     const [dispenseTypeFilter, setDispenseTypeFilter] = useState(0);
+    const [siteFilter, setSiteFilter] = useState(0);
     const [maxLog, setMaxLog] = useState(10);
 
     // handles filtering
@@ -62,6 +64,9 @@ const DispenseLog = ({ ready, historicals }) => {
       if (dispenseTypeFilter) {
         filter = filter.filter((historical) => historical.dispenseType === dispenseTypeFilter);
       }
+      if (siteFilter) {
+        filter = filter.filter((historical) => historical.site === siteFilter);
+      }
       if (minDateFilter) {
         const minDate = moment(minDateFilter).utc().format();
         filter = filter.filter((historical) => historical.dateDispensed >= minDate);
@@ -71,13 +76,14 @@ const DispenseLog = ({ ready, historicals }) => {
         filter = filter.filter((historical) => historical.dateDispensed <= maxDate);
       }
       setFilterHistoricals(filter);
-    }, [searchQuery, inventoryFilter, dispenseTypeFilter, minDateFilter, maxDateFilter]);
+    }, [searchQuery, inventoryFilter, dispenseTypeFilter, siteFilter, minDateFilter, maxDateFilter]);
 
     const handleSearch = (event, { value }) => setSearchQuery(value);
     const handleInventoryFilter = (event, { value }) => setInventoryFilter(value);
     const handleMinDateFilter = (event, { value }) => setMinDateFilter(value);
     const handleMaxDateFilter = (event, { value }) => setMaxDateFilter(value);
     const handleDispenseTypeFilter = (event, { value }) => setDispenseTypeFilter(value);
+    const handleSiteFilter = (event, { value }) => setSiteFilter(value);
     const handleMaxLog = (event, { value }) => setMaxLog(value);
 
     return (
@@ -133,6 +139,11 @@ const DispenseLog = ({ ready, historicals }) => {
                   Dispense Type: {' '}
                 <Dropdown inline={true} options={reason} search value={dispenseTypeFilter}
                   onChange={handleDispenseTypeFilter} id={COMPONENT_IDS.DISPENSE_TYPE}/>
+              </Grid.Column>
+              <Grid.Column>
+                Site Location: {' '}
+                <Dropdown inline={true} options={location} search value={siteFilter}
+                  onChange={handleSiteFilter} id={COMPONENT_IDS.DISPENSE_SITE}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
