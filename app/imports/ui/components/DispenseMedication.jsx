@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import moment from 'moment';
@@ -95,6 +95,14 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
+
+  // update date dispensed every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFields({ ...fields, dateDispensed: moment().format('YYYY-MM-DDTHH:mm') });
+    }, 1000 * 60);
+    return () => clearInterval(interval);
+  });
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });

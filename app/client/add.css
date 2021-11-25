@@ -27,15 +27,6 @@
   margin-bottom: 0;
 }
 
-#add-form .x-icon {
-  position: absolute;
-  bottom: 11px;
-  right: 28px;
-  background-color: #dde0e8;
-  font-size: 16px;
-  cursor: pointer;
-}
-
 #add-form .buttons-div {
   padding: 1em;
 }
@@ -84,10 +75,13 @@
   width: 0;
 }
 
-/* the checkbox */
-#add-form .checkbox-column {
+#add-form .donated-field {
   align-self: center;
-  font-weight: 700;
+}
+
+#add-form .donated-by-field {
+  flex: 1 1 0;
+  width: 0;
 }
 
 #add-inventory .ui.tabular.menu {
@@ -102,9 +96,5 @@
 @media only screen and (max-width: 767px) {
   #add-form .filler-column {
     display: none;
-  }
-
-  #add-form .x-icon {
-    bottom: 25px;
   }
 }
