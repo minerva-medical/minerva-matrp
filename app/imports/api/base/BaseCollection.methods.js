@@ -56,6 +56,20 @@ export const removeItMethod = new ValidatedMethod({
   },
 });
 
+export const removeLotItMethod = new ValidatedMethod({
+  name: 'BaseCollection.removeLotID',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run({ collectionName, instance, lotInstance }) {
+    if (Meteor.isServer) {
+      const collection = MATRP.getCollection(collectionName);
+      collection.assertValidRoleForMethod(this.userId);
+      return collection.update({ _id: instance }, { $pull: { lotIds: { _id: lotInstance } } });
+    }
+    return true;
+  },
+});
+
 export const dumpDatabaseMethod = new ValidatedMethod({
   name: 'base.dumpDatabase',
   mixins: [CallPromiseMixin],

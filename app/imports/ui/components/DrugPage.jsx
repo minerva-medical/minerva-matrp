@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { removeItMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { removeLotItMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
@@ -53,7 +53,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
       .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
 
-  const deleteOption = (option, id) => {
+  const deleteOption = (option, id, lotID) => {
     swal({
       title: 'Are you sure?',
       text: `Do you really want to delete ${option}?`,
@@ -69,7 +69,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
         if (isConfirm) {
           const collectionName = Medications.getCollectionName();
           // if an existing medication uses the drug type
-          removeItMethod.callPromise({ collectionName, instance: id })
+          removeLotItMethod.callPromise({ collectionName, instance: id, lotInstance: lotID })
             .catch(error => swal('Error', error.message, 'error'))
             .then(() => {
               swal('Success', `${option} deleted successfully`, 'success', { buttons: false, timer: 3000 });
@@ -152,7 +152,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           labelPosition='right'
           icon='trash alternate'
           color='red'
-          onClick={() => deleteOption(info.drug, info._id)}
+          onClick={() => deleteOption(lotId, info._id, info._id)}
         />
       </Modal.Actions>
       <Modal
