@@ -27,15 +27,6 @@
   margin-bottom: 0;
 }
 
-/*#dispense-form .x-icon {*/
-/*  position: absolute;*/
-/*  bottom: 11px;*/
-/*  right: 28px;*/
-/*  background-color: #dde0e8;*/
-/*  font-size: 16px;*/
-/*  cursor: pointer;*/
-/*}*/
-
 #dispense-form .buttons-div {
   padding: 1em;
 }
@@ -107,9 +98,5 @@
 @media only screen and (max-width: 767px) {
   #dispense-form .filler-column {
     display: none;
-  }
-
-  #dispense-form .x-icon {
-    bottom: 25px;
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Icon, Dropdown } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -183,12 +183,8 @@ const DispenseVaccination = ({ ready, brands, sites }) => {
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
-                <Form.Field>
-                  <label>Expiration Date</label>
-                  <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
-                  <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
-                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
-                </Form.Field>
+                <Form.Input type='date' label='Expiration Date' name='expire'
+                  onChange={handleChange} value={fields.expire}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Manufacturer' options={getOptions(brands)}
