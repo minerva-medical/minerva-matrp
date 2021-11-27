@@ -53,7 +53,7 @@ const Signup = ({ location }) => {
         <Grid textAlign="center" centered>
           <Grid.Column computer={7} tablet={7} mobile={9}>
             <Icon name='stethoscope' size='huge' style={{ visibility: 'hidden' }}/>
-            <Header as="h1" textAlign="center">
+            <Header as="h1" textAlign="center" style={{ marginLeft: '10px' }}>
               MINERVA
             </Header>
           </Grid.Column>

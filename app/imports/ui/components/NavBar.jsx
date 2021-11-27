@@ -12,7 +12,7 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 const NavBar = ({ currentUser }) => {
   const menuStyle = { marginBottom: '30px', backgroundColor: '#1D3E66', backgroundSize: 'content' };
   return (
-    <Menu style={menuStyle} attached="top" borderless inverted>
+    <Menu style={menuStyle} attached="top" borderless stackable inverted compact>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/about">
         <Header inverted as='h1'>Minerva</Header>
       </Menu.Item>
