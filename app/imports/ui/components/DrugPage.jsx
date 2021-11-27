@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Medications } from '../../api/medication/MedicationCollection';
-import { removeLotItMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { updateMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
@@ -53,7 +53,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
       .then(() => swal('Success', 'Item updated successfully', 'success'));
   };
 
-  const deleteOption = (option, id, lotID) => {
+  const deleteOption = (option) => {
     swal({
       title: 'Are you sure?',
       text: `Do you really want to delete ${option}?`,
@@ -68,12 +68,15 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
         // if 'yes'
         if (isConfirm) {
           const collectionName = Medications.getCollectionName();
-          // if an existing medication uses the drug type
-          removeLotItMethod.callPromise({ collectionName, instance: id, lotInstance: lotID })
+          const drug = info.drug;
+          const medications = Medications.findOne({ drug });
+          const { _id, lotIds } = medications;
+          const targetIndex = lotIds.findIndex((obj => obj.lotId === option));
+          lotIds.splice(targetIndex, 1);
+          const updateData = { id: _id, lotIds };
+          updateMethod.callPromise({ collectionName, updateData })
             .catch(error => swal('Error', error.message, 'error'))
-            .then(() => {
-              swal('Success', `${option} deleted successfully`, 'success', { buttons: false, timer: 3000 });
-            });
+            .then(() => swal('Success', `${drug} updated successfully`, 'success', { buttons: false, timer: 3000 }));
 
         }
       });
@@ -152,7 +155,7 @@ const DrugPage = ({ info, lotId, brand, expire, quantity, note, donated, locate 
           labelPosition='right'
           icon='trash alternate'
           color='red'
-          onClick={() => deleteOption(lotId, info._id, info._id)}
+          onClick={() => deleteOption(lotId)}
         />
       </Modal.Actions>
       <Modal
