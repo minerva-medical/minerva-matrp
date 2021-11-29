@@ -95,6 +95,15 @@
   justify-content: center;
 }
 
+#dispense .donated-field {
+  align-self: center;
+}
+
+#dispense .donated-by-field {
+  flex: 1 1 0;
+  width: 0;
+}
+
 @media only screen and (max-width: 767px) {
   #dispense-form .filler-column {
     display: none;
