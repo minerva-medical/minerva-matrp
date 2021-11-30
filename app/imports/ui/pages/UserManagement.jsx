@@ -10,19 +10,19 @@ const UserManagement = () => (
       <Grid.Row computer={5} tablet={7} mobile={9} centered>
         <Grid.Column computer={5} centered>
           <Image
-            size="large"
+            size="massive"
             src="/images/add-user.png"
             href="/generate-new-users"/>
         </Grid.Column>
         <Grid.Column computer={5} centered>
           <Image
             size="massive"
-            src="https://cdn1.iconfinder.com/data/icons/user-fill-icons-set/144/User003_Edit-512.png"
+            src="/images/edit-user.png"
             href="#"/>
         </Grid.Column>
         <Grid.Column computer={5} centered>
           <Image
-            size="medium"
+            size="large"
             src="/images/list-user.png"
             href="#"/>
         </Grid.Column>
