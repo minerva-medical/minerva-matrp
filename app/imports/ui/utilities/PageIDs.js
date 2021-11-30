@@ -17,4 +17,6 @@ export const PAGE_IDS = {
   VACCINE_STATUS: 'vaccine-status',
   SUPPLY_STATUS: 'supply-status',
   MANAGE_DROPDOWNS: 'manage-dropdowns',
+  USER_MANAGEMENT: 'user-management',
+  GENERATE_USERS: 'generate-new-users',
 };
