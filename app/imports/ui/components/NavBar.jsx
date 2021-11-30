@@ -51,6 +51,7 @@ const NavBar = ({ currentUser }) => {
           <Dropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} item text="Manage" key="manage-dropdown">
             <Dropdown.Menu>
               <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} exact to="/manage-database" content="Database" />
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_USERS} key="user-management" as={NavLink} exact to="/user-management" content="User Management" />
             </Dropdown.Menu>
           </Dropdown>]
       ) : ''}
