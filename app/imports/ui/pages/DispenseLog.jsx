@@ -5,11 +5,12 @@ import {
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Historicals, dispenseTypes, inventoryTypes, sites } from '../../api/historical/HistoricalCollection';
+import { Historicals, dispenseTypes, inventoryTypes } from '../../api/historical/HistoricalCollection';
+import { Sites } from '../../api/site/SiteCollection';
 import DispenseLogRow from '../components/DispenseLogRow';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { getOptions } from '../utilities/Functions';
+import { distinct, getOptions } from '../utilities/Functions';
 
 // Used for the amount of history log rows that appear in each page.
 const logPerPage = [
@@ -25,9 +26,10 @@ const reason = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(dispenseTyp
 // Used for sorting the table in accordance to the type of inventory
 const inventory = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(inventoryTypes)];
 
-const location = [{ key: 'All', value: 0, text: 'All' }, ...getOptions(sites)];
+const getFilters = (arr) => [{ key: 'All', value: 0, text: 'All' }, ...getOptions(arr)];
+
 /** Renders the Page for Dispensing History. */
-const DispenseLog = ({ ready, historicals }) => {
+const DispenseLog = ({ ready, historicals, sites }) => {
   if (ready) {
     const gridAlign = {
       textAlign: 'center',
@@ -141,8 +143,8 @@ const DispenseLog = ({ ready, historicals }) => {
                   onChange={handleDispenseTypeFilter} id={COMPONENT_IDS.DISPENSE_TYPE}/>
               </Grid.Column>
               <Grid.Column>
-                Site Location: {' '}
-                <Dropdown inline={true} options={location} search value={siteFilter}
+                Dispense Site: {' '}
+                <Dropdown inline={true} options={getFilters(sites)} search value={siteFilter}
                   onChange={handleSiteFilter} id={COMPONENT_IDS.DISPENSE_SITE}/>
               </Grid.Column>
             </Grid.Row>
@@ -196,17 +198,21 @@ const DispenseLog = ({ ready, historicals }) => {
 DispenseLog.propTypes = {
   historicals: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
+  sites: PropTypes.array.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
   const historicalSub = Historicals.subscribeHistorical();
+  const siteSub = Sites.subscribeSite();
   // Determine if the subscription is ready
-  const ready = historicalSub.ready();
+  const ready = historicalSub.ready() && siteSub.ready();
   // Get the Historical documents.
   const historicals = Historicals.find({}, { sort: { dateDispensed: -1 } }).fetch();
+  const sites = distinct('site', Sites);
   return {
     historicals,
     ready,
+    sites,
   };
 })(DispenseLog);

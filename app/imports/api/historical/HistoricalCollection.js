@@ -13,7 +13,6 @@ export const historicalPublications = {
 
 export const inventoryTypes = ['Medication', 'Vaccine', 'Supply'];
 export const dispenseTypes = ['Patient Use', 'Broken', 'Lost', 'Contaminated', 'Expired', 'Inventory'];
-export const sites = ['JOC', 'POST', 'Haleiwa', 'Kaka\'ako', 'St. Augustines', 'Kalaeloa', 'Waianae', 'Waimanalo', 'First United Methodist'];
 export const Schemas = {};
 // Medication Schema
 Schemas.Medication = new SimpleSchema({
@@ -28,10 +27,7 @@ Schemas.Medication = new SimpleSchema({
   dateDispensed: Date,
   dispensedFrom: String,
   dispensedTo: String,
-  site: {
-    type: String,
-    allowedValues: sites,
-  },
+  site: String,
   name: String,
   note: {
     type: String,
@@ -65,10 +61,7 @@ Schemas.Vaccine = new SimpleSchema({
   dateDispensed: Date,
   dispensedFrom: String,
   dispensedTo: String,
-  site: {
-    type: String,
-    allowedValues: sites,
-  },
+  site: String,
   name: String,
   note: {
     type: String,
@@ -94,10 +87,7 @@ Schemas.Supply = new SimpleSchema({
   dateDispensed: Date,
   dispensedFrom: String,
   dispensedTo: String,
-  site: {
-    type: String,
-    allowedValues: sites,
-  },
+  site: String,
   name: String,
   note: {
     type: String,
