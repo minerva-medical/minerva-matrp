@@ -3,6 +3,7 @@ export const COMPONENT_IDS = {
   NAVBAR_ADD_INVENTORY: 'navbar-add-inventory',
   NAVBAR_ADD_STUFF: 'navbar-add-stuff',
   NAVBAR_STATUS: 'navbar-status',
+  NAVBAR_STATUS_NOTIFICATION: 'navbar-status-notification',
   NAVBAR_DISPENSE: 'navbar-dispense',
   NAVBAR_DISPENSE_LOG: 'navbar-dispense-log',
   NAVBAR_ABOUT_US: 'navbar-about-us',
