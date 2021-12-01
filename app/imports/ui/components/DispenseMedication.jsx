@@ -11,6 +11,7 @@ import { Medications, allowedUnits } from '../../api/medication/MedicationCollec
 import { dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
+import DispenseMedicationSingle from './DispenseMedicationSingle';
 
 /** handle submit for Dispense Medication. */
 const submit = (data, callback) => {
@@ -95,8 +96,8 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     dispenseType: 'Patient Use',
     donated: false,
     donatedBy: '',
+    maxQuantity: 0,
   });
-  const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
 
   // update date dispensed every minute
@@ -120,20 +121,18 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
       const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
       const { drug, unit } = target;
       const { brand, expire, quantity, donated, donatedBy } = targetLotId;
-      const autoFields = { ...fields, lotId, drug, expire, brand, unit, donated, donatedBy };
+      const autoFields = { ...fields, lotId, drug, expire, brand, unit, donated, donatedBy, maxQuantity: quantity };
       setFields(autoFields);
-      setMaxQuantity(quantity);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)', donated: false, donatedBy: '' });
-      setMaxQuantity(0);
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)', donated: false,
+        donatedBy: '', maxQuantity: 0 });
     }
   };
 
   const clearForm = () => {
     setFields({ ...fields, site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '', expire: '',
-      dispensedTo: '', dispensedFrom: '', note: '', donated: false, donatedBy: '' });
-    setMaxQuantity(0);
+      dispensedTo: '', dispensedFrom: '', note: '', donated: false, donatedBy: '', maxQuantity: 0 });
   };
 
   if (ready) {
@@ -175,57 +174,8 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   onChange={handleChange} value={fields.site}/>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
-                  placeholder="Z9Z99"
-                  name='lotId' onChange={onLotIdSelect} value={fields.lotId} id={COMPONENT_IDS.DISPENSE_MED_LOT}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Drug Name' options={getOptions(drugs)}
-                  placeholder="Benzonatate Capsules"
-                  name='drug' onChange={handleChange} value={fields.drug}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(brands)}
-                  placeholder="Zonatuss"
-                  name='brand' onChange={handleChange} value={fields.brand}/>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                {/* expiration date may be null */}
-                <Form.Input type='date' label='Expiration Date' name='expire'
-                  onChange={handleChange} value={fields.expire}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Group>
-                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
-                    type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder='30' id={COMPONENT_IDS.DISPENSE_MED_QUANTITY}/>
-                  <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
-                    options={getOptions(allowedUnits)} />
-                </Form.Group>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Field>
-                  <label>Donated</label>
-                  <Form.Group>
-                    <Form.Checkbox name='donated' className='donated-field'
-                      onChange={handleChange} checked={fields.donated}/>
-                    <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
-                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} />
-                  </Form.Group>
-                </Form.Field>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please add any additional notes, special instructions, or information that should be known here."
-                  id={COMPONENT_IDS.DISPENSE_MED_NOTES}/>
-              </Grid.Column>
-            </Grid.Row>
+            <DispenseMedicationSingle lotIds={lotIds} drugs={drugs} brands={brands} fields={fields}
+              handleChange={handleChange} onLotIdSelect={onLotIdSelect} allowedUnits={allowedUnits} />
           </Grid>
         </Form>
         <div className='buttons-div'>
