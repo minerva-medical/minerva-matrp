@@ -9,29 +9,27 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // Render the form.
 const StatusNotification = ({ ready, medications }) => {
 
+  const menuStyle = {
+    marginRight: '10px',
+  };
+
   const filter = JSON.parse(JSON.stringify(medications));
 
   const lowFilter = filter.filter((medication) => {
     const totalQuantity = medication.lotIds.length ?
       _.pluck(medication.lotIds, 'quantity').reduce((prev, current) => prev + current) : 0;
-    if ('Low Stock') {
-      return (totalQuantity > 0 && totalQuantity < medication.minQuantity);
-    }
-    return true;
+    return (totalQuantity > 0 && totalQuantity < medication.minQuantity);
   });
 
   const outFilter = filter.filter((medication) => {
     const totalQuantity = medication.lotIds.length ?
       _.pluck(medication.lotIds, 'quantity').reduce((prev, current) => prev + current) : 0;
-    if ('Out of Stock') {
-      return totalQuantity === 0;
-    }
-    return true;
+    return totalQuantity === 0;
   });
 
   if (ready) {
     return (
-      <Menu.Menu id={COMPONENT_IDS.STATUS_NOTIFICATION} icon>
+      <Menu.Menu style={menuStyle} id={COMPONENT_IDS.STATUS_NOTIFICATION} icon>
         <Menu.Item fitted>
           <Icon name='announcement'/>
           <Dropdown button floating labeled simple pointing="top right">
