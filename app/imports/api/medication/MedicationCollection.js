@@ -34,6 +34,10 @@ class MedicationCollection extends BaseCollection {
       'lotIds.$.location': String,
       'lotIds.$.quantity': Number,
       'lotIds.$.donated': Boolean,
+      'lotIds.$.donatedBy': {
+        type: String,
+        optional: true,
+      },
       'lotIds.$.note': {
         type: String,
         optional: true,

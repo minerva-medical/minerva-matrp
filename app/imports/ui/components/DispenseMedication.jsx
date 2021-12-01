@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import moment from 'moment';
@@ -33,8 +33,9 @@ const submit = (data, callback) => {
       lotIds.splice(targetIndex, 1); // remove the lotId
     }
     const updateData = { id: _id, lotIds };
-    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire } = data;
-    const element = { unit, lotId, brand, expire, quantity };
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire,
+      donated, donatedBy } = data;
+    const element = { unit, lotId, brand, expire, quantity, donated, donatedBy };
     // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
       name: drug, note, element };
@@ -92,12 +93,22 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     note: '',
     inventoryType: 'Medication',
     dispenseType: 'Patient Use',
+    donated: false,
+    donatedBy: '',
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
 
-  const handleChange = (event, { name, value }) => {
-    setFields({ ...fields, [name]: value });
+  // update date dispensed every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFields({ ...fields, dateDispensed: moment().format('YYYY-MM-DDTHH:mm') });
+    }, 1000 * 60);
+    return () => clearInterval(interval);
+  });
+
+  const handleChange = (event, { name, value, checked }) => {
+    setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
 
   // handle lotId select
@@ -108,20 +119,20 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
       // autofill the form with specific lotId info
       const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
       const { drug, unit } = target;
-      const { brand, expire, quantity } = targetLotId;
-      const autoFields = { ...fields, lotId, drug, expire, brand, unit };
+      const { brand, expire, quantity, donated, donatedBy } = targetLotId;
+      const autoFields = { ...fields, lotId, drug, expire, brand, unit, donated, donatedBy };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)' });
+      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)', donated: false, donatedBy: '' });
       setMaxQuantity(0);
     }
   };
 
   const clearForm = () => {
     setFields({ ...fields, site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '', expire: '',
-      dispensedTo: '', dispensedFrom: '', note: '' });
+      dispensedTo: '', dispensedFrom: '', note: '', donated: false, donatedBy: '' });
     setMaxQuantity(0);
   };
 
@@ -158,13 +169,13 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                 <Form.Input label='Dispensed To' placeholder="Patient Number" disabled={isDisabled}
                   name='dispensedTo' onChange={handleChange} value={fields.dispensedTo} id={COMPONENT_IDS.DISPENSE_MED_PT_NUM}/>
               </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(sites)} disabled={isDisabled}
                   placeholder="Kaka’ako" name='site'
                   onChange={handleChange} value={fields.site}/>
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number' options={getOptions(lotIds)}
                   placeholder="Z9Z99"
@@ -175,17 +186,17 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   placeholder="Benzonatate Capsules"
                   name='drug' onChange={handleChange} value={fields.drug}/>
               </Grid.Column>
+              <Grid.Column>
+                <Form.Select clearable search label='Brand' options={getOptions(brands)}
+                  placeholder="Zonatuss"
+                  name='brand' onChange={handleChange} value={fields.brand}/>
+              </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 {/* expiration date may be null */}
                 <Form.Input type='date' label='Expiration Date' name='expire'
                   onChange={handleChange} value={fields.expire}/>
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Select clearable search label='Brand' options={getOptions(brands)}
-                  placeholder="Zonatuss"
-                  name='brand' onChange={handleChange} value={fields.brand}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
@@ -195,6 +206,17 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   <Form.Select compact name='unit' onChange={handleChange} value={fields.unit} className='unit'
                     options={getOptions(allowedUnits)} />
                 </Form.Group>
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Donated</label>
+                  <Form.Group>
+                    <Form.Checkbox name='donated' className='donated-field'
+                      onChange={handleChange} checked={fields.donated}/>
+                    <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
+                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} />
+                  </Form.Group>
+                </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>

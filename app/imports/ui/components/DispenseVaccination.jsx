@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Icon, Dropdown } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-react';
 import swal from 'sweetalert';
+import moment from 'moment';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -76,8 +77,7 @@ const validateForm = (data) => { // don't forget to include "callback"
 const DispenseVaccination = ({ ready, brands, sites }) => {
   const [fields, setFields] = useState({
     site: '',
-    // TODO: use moment?
-    dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
+    dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
     dispensedTo: '',
     lotId: '',
     brand: '',
@@ -90,6 +90,14 @@ const DispenseVaccination = ({ ready, brands, sites }) => {
   });
   // const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
+
+  // update date dispensed every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFields({ ...fields, dateDispensed: moment().format('YYYY-MM-DDTHH:mm') });
+    }, 1000 * 60);
+    return () => clearInterval(interval);
+  });
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
@@ -183,12 +191,8 @@ const DispenseVaccination = ({ ready, brands, sites }) => {
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
-                <Form.Field>
-                  <label>Expiration Date</label>
-                  <Form.Input type='date' name='expire' onChange={handleChange} value={fields.expire}/>
-                  <Icon name='x' className='x-icon' onClick={() => setFields({ ...fields, expire: '' })}
-                    style={{ visibility: fields.expire ? 'visible' : 'hidden' }}/>
-                </Form.Field>
+                <Form.Input type='date' label='Expiration Date' name='expire'
+                  onChange={handleChange} value={fields.expire}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Manufacturer' options={getOptions(brands)}
