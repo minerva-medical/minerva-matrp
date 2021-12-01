@@ -84,20 +84,24 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
-    drug: '',
-    quantity: '',
-    unit: 'tab(s)',
-    brand: '',
-    lotId: '',
-    expire: '',
     dispensedTo: '',
-    note: '',
     inventoryType: 'Medication',
     dispenseType: 'Patient Use',
-    donated: false,
-    donatedBy: '',
-    maxQuantity: 0,
   });
+  const [innerFields, setInnerFields] = useState([
+    {
+      lotId: '',
+      drug: '',
+      brand: '',
+      expire: '',
+      quantity: '',
+      unit: 'tab(s)',
+      donated: false,
+      donatedBy: '',
+      note: '',
+      maxQuantity: 0,
+    },
+  ]);
   const isDisabled = fields.dispenseType !== 'Patient Use';
 
   // update date dispensed every minute
@@ -108,12 +112,19 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     return () => clearInterval(interval);
   });
 
-  const handleChange = (event, { name, value, checked }) => {
-    setFields({ ...fields, [name]: value !== undefined ? value : checked });
+  const handleChange = (event, { name, value }) => {
+    setFields({ ...fields, [name]: value });
+  };
+
+  const handleChangeInner = (event, { index, name, value, checked }) => {
+    const newInnerFields = [...innerFields];
+    newInnerFields[index] = { ...innerFields[index], [name]: value !== undefined ? value : checked };
+    setInnerFields(newInnerFields);
   };
 
   // handle lotId select
-  const onLotIdSelect = (event, { value: lotId }) => {
+  const onLotIdSelect = (event, { index, value: lotId }) => {
+    const newInnerFields = [...innerFields];
     const target = Medications.findOne({ lotIds: { $elemMatch: { lotId } } });
     // if lotId is not empty:
     if (target) {
@@ -121,18 +132,21 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
       const targetLotId = target.lotIds.find(obj => obj.lotId === lotId);
       const { drug, unit } = target;
       const { brand, expire, quantity, donated, donatedBy } = targetLotId;
-      const autoFields = { ...fields, lotId, drug, expire, brand, unit, donated, donatedBy, maxQuantity: quantity };
-      setFields(autoFields);
+      newInnerFields[index] = { ...innerFields[index], lotId, drug, expire, brand, unit, donated, donatedBy,
+        maxQuantity: quantity };
+      setInnerFields(newInnerFields);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, drug: '', expire: '', brand: '', unit: 'tab(s)', donated: false,
-        donatedBy: '', maxQuantity: 0 });
+      newInnerFields[index] = { ...innerFields[index], lotId, drug: '', expire: '', brand: '', unit: 'tab(s)',
+        donated: false, donatedBy: '', maxQuantity: 0 };
+      setInnerFields(newInnerFields);
     }
   };
 
   const clearForm = () => {
-    setFields({ ...fields, site: '', drug: '', quantity: '', unit: 'tab(s)', brand: '', lotId: '', expire: '',
-      dispensedTo: '', dispensedFrom: '', note: '', donated: false, donatedBy: '', maxQuantity: 0 });
+    setFields({ ...fields, site: '', dispensedTo: '', dispenseType: 'Patient Use' });
+    setInnerFields([{ lotId: '', drug: '', brand: '', expire: '', quantity: '', unit: 'tab(s)', donated: false,
+      donatedBy: '', note: '', maxQuantity: 0 }]);
   };
 
   if (ready) {
@@ -174,8 +188,8 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   onChange={handleChange} value={fields.site}/>
               </Grid.Column>
             </Grid.Row>
-            <DispenseMedicationSingle lotIds={lotIds} drugs={drugs} brands={brands} fields={fields}
-              handleChange={handleChange} onLotIdSelect={onLotIdSelect} allowedUnits={allowedUnits} />
+            <DispenseMedicationSingle lotIds={lotIds} drugs={drugs} brands={brands} fields={innerFields[0]}
+              handleChange={handleChangeInner} onLotIdSelect={onLotIdSelect} allowedUnits={allowedUnits} index={0} />
           </Grid>
         </Form>
         <div className='buttons-div'>
