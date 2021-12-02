@@ -48,16 +48,15 @@ const NavBar = ({ currentUser }) => {
         ) : ''
       }
       {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
-        [<Menu.Item id={COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN} as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>,
-          <Dropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} item text="Manage" key="manage-dropdown">
-            <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} exact to="/manage-database" content="Database" />
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_USERS} key="user-management" as={NavLink} exact to="/user-management" content="User Management" />
-            </Dropdown.Menu>
-          </Dropdown>]
+        [<Dropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} item text="Manage" key="manage-dropdown" simple>
+          <Dropdown.Menu>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} exact to="/manage-database" content="Database" />
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_USERS} key="user-management" as={NavLink} exact to="/user-management" content="User Management" />
+          </Dropdown.Menu>
+        </Dropdown>]
       ) : ''}
       <Menu.Item position="right">
-        <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS_NOTIFICATION} as={NavLink} activeClassName="active" exact to="/status-notification" key='status-notification'>
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS_NOTIFICATION}>
           <StatusNotification/>
         </Menu.Item>
         {
