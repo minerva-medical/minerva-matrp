@@ -151,9 +151,6 @@ test('Test that admin pages display', async () => {
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
   // await t.click(editLinks.nth(0));
   // await editStuffPage.isDisplayed();
-  await navBar.gotoListStuffAdminPage();
-  await listStuffAdminPage.isDisplayed();
-  await t.wait(5000);
   await navBar.gotoManageDatabasePage();
   await manageDatabasePage.isDisplayed();
   await t.wait(5000);
