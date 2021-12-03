@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { getOptions } from '../utilities/Functions';
 
-const DispenseMedicationSingle = ({ lotIds, drugs, brands, fields, handleChange, onLotIdSelect, allowedUnits,
-  index }) => (
+const DispenseMedicationSingle = ({ lotIds, drugs, brands, fields, handleChange, handleCheck, onLotIdSelect,
+  allowedUnits, index }) => (
   // return (
   <>
     <Grid.Row>
@@ -42,7 +42,7 @@ const DispenseMedicationSingle = ({ lotIds, drugs, brands, fields, handleChange,
           <label>Donated</label>
           <Form.Group>
             <Form.Checkbox name='donated' className='donated-field'
-              onChange={handleChange} checked={fields.donated} index={index}/>
+              onChange={handleCheck} checked={fields.donated} index={index}/>
             <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
               onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} index={index}/>
           </Form.Group>
@@ -59,6 +59,7 @@ DispenseMedicationSingle.propTypes = {
   brands: PropTypes.array.isRequired,
   fields: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleCheck: PropTypes.func.isRequired,
   onLotIdSelect: PropTypes.func.isRequired,
   allowedUnits: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,

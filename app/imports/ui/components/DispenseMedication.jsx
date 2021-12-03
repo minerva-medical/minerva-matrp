@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Tab, Loader, Dropdown, Divider } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import moment from 'moment';
 import { Meteor } from 'meteor/meteor';
@@ -132,9 +132,19 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     setFields({ ...fields, [name]: value });
   };
 
-  const handleChangeInner = (event, { index, name, value, checked }) => {
+  const handleChangeInner = (event, { index, name, value }) => {
     const newInnerFields = [...innerFields];
-    newInnerFields[index] = { ...innerFields[index], [name]: value !== undefined ? value : checked };
+    newInnerFields[index] = { ...innerFields[index], [name]: value };
+    setInnerFields(newInnerFields);
+  };
+
+  const handleCheck = (event, { index, name, checked }) => {
+    const newInnerFields = [...innerFields];
+    if (!checked) {
+      newInnerFields[index] = { ...innerFields[index], [name]: checked, donatedBy: '' };
+    } else {
+      newInnerFields[index] = { ...innerFields[index], [name]: checked };
+    }
     setInnerFields(newInnerFields);
   };
 
@@ -220,11 +230,24 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
               </Grid.Column>
             </Grid.Row>
             {
-              innerFields.map((innerField, index) => (
-                <DispenseMedicationSingle lotIds={lotIds} drugs={drugs} brands={brands} fields={innerField}
-                  handleChange={handleChangeInner} onLotIdSelect={onLotIdSelect}
-                  allowedUnits={allowedUnits} index={index} key={index} />
-              ))
+              innerFields.map((innerField, index) => {
+                const elements = [];
+                elements.push(
+                  <DispenseMedicationSingle lotIds={lotIds} drugs={drugs} brands={brands} fields={innerField}
+                    handleChange={handleChangeInner} handleCheck={handleCheck} onLotIdSelect={onLotIdSelect}
+                    allowedUnits={allowedUnits} index={index} key={`FORM_${index}`} />,
+                );
+                if (innerFields.length > 1 && index !== innerFields.length - 1) {
+                  elements.push(
+                    <Grid.Row style={{ padding: 0 }} key={`DIVIDER_${index}`}>
+                      <Grid.Column>
+                        <Divider fitted/>
+                      </Grid.Column>
+                    </Grid.Row>,
+                  );
+                }
+                return elements;
+              })
             }
             <Grid.Row style={{ padding: 0 }}>
               <Grid.Column style={{ display: 'flex', justifyContent: 'flex-end' }}>
