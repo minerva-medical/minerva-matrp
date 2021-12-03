@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { getOptions } from '../utilities/Functions';
 
-const DispenseMedicationSingle = ({ lotIds, drugs, brands, fields, handleChange, onLotIdSelect, allowedUnits, index }) => (
+const DispenseMedicationSingle = ({ lotIds, drugs, brands, fields, handleChange, onLotIdSelect, allowedUnits,
+  index }) => (
   // return (
   <>
     <Grid.Row>
@@ -46,13 +47,6 @@ const DispenseMedicationSingle = ({ lotIds, drugs, brands, fields, handleChange,
               onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} index={index}/>
           </Form.Group>
         </Form.Field>
-      </Grid.Column>
-    </Grid.Row>
-    <Grid.Row>
-      <Grid.Column>
-        <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-          placeholder="Please add any additional notes, special instructions, or information that should be known here."
-          index={index} id={COMPONENT_IDS.DISPENSE_MED_NOTES}/>
       </Grid.Column>
     </Grid.Row>
   </>

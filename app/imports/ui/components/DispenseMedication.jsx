@@ -14,59 +14,72 @@ import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 import DispenseMedicationSingle from './DispenseMedicationSingle';
 
 /** handle submit for Dispense Medication. */
-const submit = (data, callback) => {
-  const { lotId, quantity, drug } = data;
+const submit = (fields, innerFields, callback) => {
+  const { site, dateDispensed, dispensedTo, dispensedFrom, inventoryType, dispenseType, note } = fields;
+  // const { lotId, drug, brand, expire, quantity, unit, donated, donatedBy, maxQuantity } = innerFields;
+  // TODO: historical record should allow multiple drugs?
   const collectionName = Medications.getCollectionName();
-  const medication = Medications.findOne({ drug }); // find the existing medication
-  const { _id, unit, lotIds } = medication;
-  const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
-  const { quantity: targetQuantity } = lotIds[targetIndex];
 
-  // if dispense quantity > lotId quantity:
-  if (quantity > targetQuantity) {
-    swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${unit} remaining.`, 'error');
-  } else {
-    // if dispense quantity < lotId quantity:
-    if (quantity < targetQuantity) {
-      lotIds[targetIndex].quantity -= quantity; // decrement the quantity
+  innerFields.forEach(innerField => {
+    const { lotId, drug, brand, expire, quantity, unit, donated, donatedBy } = innerField;
+    const medication = Medications.findOne({ drug }); // find the existing medication
+    const { _id, lotIds } = medication;
+    const targetIndex = lotIds.findIndex((obj => obj.lotId === lotId)); // find the index of existing the lotId
+    const { quantity: targetQuantity } = lotIds[targetIndex];
+
+    // if dispense quantity > lotId quantity:
+    if (quantity > targetQuantity) {
+      swal('Error', `${drug}, ${lotId} only has ${targetQuantity} ${unit} remaining.`, 'error');
     } else {
-      // else if dispense quantity === lotId quantity:
-      lotIds.splice(targetIndex, 1); // remove the lotId
+      // if dispense quantity < lotId quantity:
+      if (quantity < targetQuantity) {
+        lotIds[targetIndex].quantity -= quantity; // decrement the quantity
+      } else {
+        // else if dispense quantity === lotId quantity:
+        lotIds.splice(targetIndex, 1); // remove the lotId
+      }
+      const updateData = { id: _id, lotIds };
+      const element = { unit, lotId, brand, expire, quantity, donated, donatedBy };
+      const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
+        name: drug, note, element };
+      // TODO: fix promises, fix swal
+      const promises = [
+        updateMethod.callPromise({ collectionName, updateData }),
+        defineMethod.callPromise({ collectionName: 'HistoricalsCollection', definitionData }),
+      ];
+      Promise.all(promises)
+        .catch(error => swal('Error', error.message, 'error'))
+        .then(() => {
+          swal('Success', `${drug}, ${lotId} updated successfully`, 'success', { buttons: false, timer: 3000 });
+          callback(); // resets the form
+        });
     }
-    const updateData = { id: _id, lotIds };
-    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, brand, expire,
-      donated, donatedBy } = data;
-    const element = { unit, lotId, brand, expire, quantity, donated, donatedBy };
-    // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
-    const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site,
-      name: drug, note, element };
-    const promises = [updateMethod.callPromise({ collectionName, updateData }),
-      defineMethod.callPromise({ collectionName: 'HistoricalsCollection', definitionData })];
-    Promise.all(promises)
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => {
-        swal('Success', `${drug}, ${lotId} updated successfully`, 'success', { buttons: false, timer: 3000 });
-        callback(); // resets the form
-      });
-  }
+  });
 };
 
 /** validates the dispense medication form */
-const validateForm = (data, callback) => {
-  const submitData = { ...data, dispensedFrom: Meteor.user().username };
+const validateForm = (fields, innerFields, callback) => {
+  const submitFields = { ...fields, dispensedFrom: Meteor.user().username };
+  const submitInnerFields = [...innerFields];
 
-  if (data.dispenseType !== 'Patient Use') { // handle non patient use dispense
-    submitData.dispensedTo = '-';
-    submitData.site = '-';
+  if (fields.dispenseType !== 'Patient Use') { // handle non patient use dispense
+    submitFields.dispensedTo = '-';
+    submitFields.site = '-';
   }
 
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dispensedTo', 'site', 'drug', 'lotId', 'brand', 'quantity'];
+  const requiredFields = ['dispensedTo', 'site'];
+  const requiredInnerFields = ['drug', 'lotId', 'brand', 'quantity'];
 
   // check required fields
   requiredFields.forEach(field => {
-    if (!submitData[field]) {
+    if (!submitFields[field]) {
+      errorMsg += `${field} cannot be empty.\n`;
+    }
+  });
+  requiredInnerFields.forEach(field => {
+    if (submitInnerFields.findIndex(obj => obj[field] === '') !== -1) {
       errorMsg += `${field} cannot be empty.\n`;
     }
   });
@@ -74,8 +87,11 @@ const validateForm = (data, callback) => {
   if (errorMsg) {
     swal('Error', `${errorMsg}`, 'error');
   } else {
-    submitData.quantity = parseInt(data.quantity, 10);
-    submit(submitData, callback);
+    /* eslint no-param-reassign: ["error", { "props": false }] */
+    submitInnerFields.forEach(obj => {
+      obj.quantity = parseInt(obj.quantity, 10);
+    });
+    submit(submitFields, submitInnerFields, callback);
   }
 };
 
@@ -87,6 +103,7 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     dispensedTo: '',
     inventoryType: 'Medication',
     dispenseType: 'Patient Use',
+    note: '',
   });
   const [innerFields, setInnerFields] = useState([
     {
@@ -98,7 +115,6 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
       unit: 'tab(s)',
       donated: false,
       donatedBy: '',
-      note: '',
       maxQuantity: 0,
     },
   ]);
@@ -143,10 +159,25 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
     }
   };
 
+  // handle add new drug
+  const onAddDrug = () => {
+    const newInnerFields = [...innerFields];
+    newInnerFields.push({ lotId: '', drug: '', brand: '', expire: '', quantity: '', unit: 'tab(s)', donated: false,
+      donatedBy: '', maxQuantity: 0 });
+    setInnerFields(newInnerFields);
+  };
+
+  // handle remove drug
+  const onRemoveDrug = () => {
+    const newInnerFields = [...innerFields];
+    newInnerFields.pop();
+    setInnerFields(newInnerFields);
+  };
+
   const clearForm = () => {
-    setFields({ ...fields, site: '', dispensedTo: '', dispenseType: 'Patient Use' });
+    setFields({ ...fields, site: '', dispensedTo: '', dispenseType: 'Patient Use', note: '' });
     setInnerFields([{ lotId: '', drug: '', brand: '', expire: '', quantity: '', unit: 'tab(s)', donated: false,
-      donatedBy: '', note: '', maxQuantity: 0 }]);
+      donatedBy: '', maxQuantity: 0 }]);
   };
 
   if (ready) {
@@ -188,13 +219,34 @@ const DispenseMedication = ({ ready, brands, drugs, lotIds, sites }) => {
                   onChange={handleChange} value={fields.site}/>
               </Grid.Column>
             </Grid.Row>
-            <DispenseMedicationSingle lotIds={lotIds} drugs={drugs} brands={brands} fields={innerFields[0]}
-              handleChange={handleChangeInner} onLotIdSelect={onLotIdSelect} allowedUnits={allowedUnits} index={0} />
+            {
+              innerFields.map((innerField, index) => (
+                <DispenseMedicationSingle lotIds={lotIds} drugs={drugs} brands={brands} fields={innerField}
+                  handleChange={handleChangeInner} onLotIdSelect={onLotIdSelect}
+                  allowedUnits={allowedUnits} index={index} key={index} />
+              ))
+            }
+            <Grid.Row style={{ padding: 0 }}>
+              <Grid.Column style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {
+                  innerFields.length !== 1 &&
+                  <Button negative compact icon='minus' content='Remove Drug' size='mini' onClick={onRemoveDrug}/>
+                }
+                <Button positive compact icon='add' content='Add New Drug' size='mini' onClick={onAddDrug} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."
+                  id={COMPONENT_IDS.DISPENSE_MED_NOTES}/>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
           <Button className='clear-button' onClick={clearForm} id={COMPONENT_IDS.DISPENSE_MED_CLEAR}>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields, innerFields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>
     );
