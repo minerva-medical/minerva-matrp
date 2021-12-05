@@ -101,8 +101,16 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
     return () => clearInterval(interval);
   });
 
-  const handleChange = (event, { name, value, checked }) => {
-    setFields({ ...fields, [name]: value !== undefined ? value : checked });
+  const handleChange = (event, { name, value }) => {
+    setFields({ ...fields, [name]: value });
+  };
+
+  const handleCheck = (event, { name, checked }) => {
+    if (!checked) {
+      setFields({ ...fields, [name]: checked, donatedBy: '' });
+    } else {
+      setFields({ ...fields, [name]: checked });
+    }
   };
 
   // handle supply select
@@ -186,7 +194,7 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
                   <label>Donated</label>
                   <Form.Group>
                     <Form.Checkbox name='donated' className='donated-field'
-                      onChange={handleChange} checked={fields.donated}/>
+                      onChange={handleCheck} checked={fields.donated}/>
                     <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
                       onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} />
                   </Form.Group>
