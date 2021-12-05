@@ -1,6 +1,6 @@
 import { t } from 'testcafe';
 import {
-  listStuffAdminPage,
+  // listStuffAdminPage,
   manageDatabasePage,
   signOutPage,
   aboutUsPage,
@@ -63,7 +63,7 @@ test('Test that about us page displays', async () => {
   await landingPage.goToLogin();
   await signInPage.signin(credentials.username, credentials.password);
   await navBar.isLoggedIn(credentials.username);
-  await navBar.gotoAboutUsPage();
+  // await navBar.gotoAboutUsPage();
   await aboutUsPage.isDisplayed();
   await t.wait(5000);
   await navBar.logout();

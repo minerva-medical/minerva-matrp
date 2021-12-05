@@ -166,8 +166,8 @@ const DispenseVaccination = ({ ready, brands, sites }) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Vaccine'
-                             placeholder="J&J COVID"
-                             name='name' onChange={handleChange} />
+                  placeholder="J&J COVID"
+                  name='name' onChange={handleChange} />
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
@@ -179,15 +179,15 @@ const DispenseVaccination = ({ ready, brands, sites }) => {
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number'
-                             placeholder="Z9Z99"
-                             name='lotId' value={fields.lotId}/>
+                  placeholder="Z9Z99"
+                  name='lotId' value={fields.lotId}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(sites)}
-                             placeholder="Kaka’ako" name='site'
-                             onChange={handleChange} value={fields.site} disabled={isDisabled}/>
+                  placeholder="Kaka’ako" name='site'
+                  onChange={handleChange} value={fields.site} disabled={isDisabled}/>
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
