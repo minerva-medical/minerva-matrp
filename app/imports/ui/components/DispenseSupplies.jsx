@@ -59,7 +59,7 @@ const validateForm = (data, callback) => {
 
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity'];
+  const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity', 'donated'];
 
   // check required fields
   requiredFields.forEach(field => {
@@ -77,7 +77,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Supply. */
-const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
+const DispenseSupplies = ({ ready, sites, supplys }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
@@ -90,6 +90,7 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
     dispenseType: 'Patient Use',
     donated: false,
     donatedBy: '',
+    location: '',
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
@@ -102,8 +103,8 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
     return () => clearInterval(interval);
   });
 
-  const handleChange = (event, { name, value }) => {
-    setFields({ ...fields, [name]: value });
+  const handleChange = (event, { name, value, checked }) => {
+    setFields({ ...fields, [name]: value !== undefined ? value : checked });
   };
 
   const handleCheck = (event, { name, checked }) => {
@@ -128,14 +129,14 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
       setMaxQuantity(quantity);
     } else {
       // else reset specific supply info
-      setFields({ ...fields, supply, supplyType: '', stock: '' });
+      setFields({ ...fields, supplyType: '', stock: '' });
       setMaxQuantity(0);
     }
   };
 
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
-      dispensedTo: '', location: '', note: '' });
+      dispensedTo: '', note: '' });
     setMaxQuantity(0);
   };
 
@@ -185,19 +186,12 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
                   name='supply' onChange={onSupplySelect} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Location' options={getOptions(locations)}
-                  placeholder="Case 2"
-                  name='supply' onChange={handleChange} value={fields.location}/>
-              </Grid.Column>
-              <Grid.Column>
                 <Form.Group>
                   <Form.Input clearable label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'id={COMPONENT_IDS.DISPENSE_SUP_QUANTITY}/>
                 </Form.Group>
               </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
               <Grid.Column>
                 <Form.Field>
                   <label>Donated</label>
@@ -209,8 +203,6 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
                   </Form.Group>
                 </Form.Field>
               </Grid.Column>
-              <Grid.Column className='filler-column' />
-              <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
@@ -235,7 +227,6 @@ DispenseSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   supplys: PropTypes.array.isRequired,
-  locations: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -250,7 +241,6 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     supplys: distinct('supply', Supplys),
-    locations: distinct('location', Locations),
     ready: siteSub.ready() && supSub.ready() && locationSub.ready(),
   };
 })(DispenseSupplies);
