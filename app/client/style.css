@@ -13,6 +13,11 @@
     font-size: 6rem;
     margin-top: 80% !important;
   }
+
+  .button-location {
+    align-items: center;
+    margin: 0;
+  }
 }
 
 @media  screen and (min-width: 768px) {
@@ -265,4 +270,7 @@ input {
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
+
+.nav menu {display: none;}
+
 

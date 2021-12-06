@@ -12,8 +12,8 @@ const Landing = () => (
         <Header className="landing-text" as="h1">MINERVA MEDICAL</Header>
       </Grid>
       <Divider section hidden/>
-      <Grid verticalAlign="top" textAlign="center" container>
-        <Grid.Column computer={5} tablet={7} mobile={9}>
+      <Grid verticalAlign="top" textAlign="center" container className='button-location'>
+        <Grid.Column computer={5} tablet={7} mobile={11}>
           <Button id={COMPONENT_IDS.LANDING_TO_REGISTER} size="massive" as={NavLink} activeClassName="" exact to="/signup" key='signup' inverted
             style={{ font: 'Lato' }}>REGISTER</Button>
         </Grid.Column>
