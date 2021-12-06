@@ -11,6 +11,7 @@ import { dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { distinct, getOptions } from '../utilities/Functions';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Locations } from '../../api/location/LocationCollection';
 
 /** handle submit for Dispense Supply. */
 const submit = (data, callback) => {
@@ -76,7 +77,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Supply. */
-const DispenseSupplies = ({ ready, sites, supplys }) => {
+const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
@@ -134,7 +135,7 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
 
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
-      dispensedTo: '', note: '' });
+      dispensedTo: '', location: '', note: '' });
     setMaxQuantity(0);
   };
 
@@ -178,11 +179,15 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-
               <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
                   name='supply' onChange={onSupplySelect} value={fields.supply}/>
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Select clearable search label='Location' options={getOptions(locations)}
+                  placeholder="Case 2"
+                  name='supply' onChange={handleChange} value={fields.location}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
@@ -230,6 +235,7 @@ DispenseSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   supplys: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -237,12 +243,14 @@ DispenseSupplies.propTypes = {
 export default withTracker(() => {
   const supSub = Supplys.subscribeSupply();
   const siteSub = Sites.subscribeSite();
+  const locationSub = Locations.subscribeLocation();
 
   return {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     supplys: distinct('supply', Supplys),
-    ready: siteSub.ready() && supSub.ready(),
+    locations: distinct('location', Locations),
+    ready: siteSub.ready() && supSub.ready() && locationSub.ready(),
   };
 })(DispenseSupplies);
