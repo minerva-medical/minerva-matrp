@@ -108,6 +108,20 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
   const handleStatusFilter = (event, { value }) => setStatusFilter(value);
   const handleRecordLimit = (event, { value }) => setMaxRecords(value);
 
+  const [mobile, setMobile] = useState(false);
+
+  const handleMobile = () => {
+    if (window.innerWidth < 7200) {
+      setMobile(true);
+    } else {
+      setMobile(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleMobile);
+  });
+
   if (ready) {
     return (
       <Tab.Pane id={PAGE_IDS.MED_STATUS}>
@@ -131,7 +145,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
           </Grid.Column>
         </Grid>
         <Divider/>
-        <Grid divided columns="equal">
+        <Grid divided columns="equal" stackable>
           <Grid.Row textAlign='center'>
             <Grid.Column>
                 Medication Type: {' '}
@@ -163,7 +177,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
             onChange={handleRecordLimit} value={maxRecords} id={COMPONENT_IDS.NUM_OF_RECORDS}/>
             Total count: {filteredMedications.length}
         </div>
-        <Table selectable color='blue' unstackable>
+        <Table selectable color='blue' className='status-wrapped'>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell/>
@@ -185,6 +199,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
           <Table.Footer>
             <Table.Row>
               <Table.HeaderCell colSpan="6">
+                { mobile === false &&
                 <Pagination
                   totalPages={Math.ceil(filteredMedications.length / maxRecords)}
                   activePage={pageNo}
@@ -195,6 +210,19 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
                   prevItem={{ content: <Icon name='angle left'/>, icon: true }}
                   nextItem={{ content: <Icon name='angle right'/>, icon: true }}
                 />
+                }
+                { mobile === true &&
+                <Pagination
+                  totalPages={Math.ceil(filteredMedications.length / maxRecords)}
+                  activePage={pageNo}
+                  onPageChange={(event, data) => setPageNo(data.activePage)}
+                  ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
+                  firstItem={null}
+                  lastItem={null}
+                  siblingRange={1}
+                  boundaryRange={0}
+                />
+                }
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>

@@ -30,9 +30,11 @@
   justify-content: center;
 }
 
-.status-wrapped {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background-size:
+@media screen and (max-width: 760px) {
+  .status-wrapped {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 35%;
+  }
 }
