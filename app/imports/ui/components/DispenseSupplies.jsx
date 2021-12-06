@@ -77,7 +77,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Supply. */
-const DispenseSupplies = ({ ready, sites, supplys }) => {
+const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
@@ -123,20 +123,20 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
       // autofill the form with specific supply info
       const { supplyType, stock } = target;
       const targetStockQuantity = target.stock.find(obj => obj.quantity);
-      const { quantity } = targetStockQuantity;
-      const autoFields = { ...fields, supply, supplyType, stock };
+      const { quantity, location } = targetStockQuantity;
+      const autoFields = { ...fields, supply, supplyType, stock, location };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific supply info
-      setFields({ ...fields, supplyType: '', stock: '' });
+      setFields({ ...fields, supply, supplyType: '', stock: '', location: '' });
       setMaxQuantity(0);
     }
   };
 
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
-      dispensedTo: '', note: '' });
+      dispensedTo: '', location: '', note: '' });
     setMaxQuantity(0);
   };
 
@@ -186,12 +186,19 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
                   name='supply' onChange={onSupplySelect} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
+                <Form.Select clearable search label='Location' options={getOptions(locations)}
+                  placeholder="Case 2" onChange={handleChange}
+                  name='supply' value={fields.location}/>
+              </Grid.Column>
+              <Grid.Column>
                 <Form.Group>
                   <Form.Input clearable label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30'id={COMPONENT_IDS.DISPENSE_SUP_QUANTITY}/>
                 </Form.Group>
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
               <Grid.Column>
                 <Form.Field>
                   <label>Donated</label>
@@ -203,6 +210,8 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
                   </Form.Group>
                 </Form.Field>
               </Grid.Column>
+              <Grid.Column className='filler-column' />
+              <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
@@ -227,6 +236,7 @@ DispenseSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   supplys: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -241,6 +251,7 @@ export default withTracker(() => {
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     supplys: distinct('supply', Supplys),
+    locations: distinct('location', Locations),
     ready: siteSub.ready() && supSub.ready() && locationSub.ready(),
   };
 })(DispenseSupplies);
