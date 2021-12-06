@@ -29,3 +29,10 @@
   flex: 1 1 0;
   justify-content: center;
 }
+
+.status-wrapped {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-size:
+}

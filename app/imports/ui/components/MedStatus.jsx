@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Header, Table, Divider, Dropdown, Pagination, Grid, Input, Loader, Icon, Popup, Tab } from 'semantic-ui-react';
+import {
+  Header,
+  Table,
+  Divider,
+  Dropdown,
+  Pagination,
+  Grid,
+  Input,
+  Loader,
+  Icon,
+  Popup,
+  Tab,
+} from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -49,10 +61,10 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
       const query = searchQuery.toLowerCase();
       filter = filter.filter(({ drug, lotIds }) => (
         drug.toLowerCase().includes(query.toLowerCase()) ||
-        lotIds.findIndex(({ brand }) => brand.toLowerCase().includes(query)) !== -1 ||
-        lotIds.findIndex(({ expire }) => (expire && expire.includes(query))) !== -1 ||
-        lotIds.findIndex(({ location }) => location.toLowerCase().includes(query)) !== -1 ||
-        lotIds.findIndex(({ lotId }) => lotId.toLowerCase().includes(query)) !== -1
+          lotIds.findIndex(({ brand }) => brand.toLowerCase().includes(query)) !== -1 ||
+          lotIds.findIndex(({ expire }) => (expire && expire.includes(query))) !== -1 ||
+          lotIds.findIndex(({ location }) => location.toLowerCase().includes(query)) !== -1 ||
+          lotIds.findIndex(({ lotId }) => lotId.toLowerCase().includes(query)) !== -1
       ));
     }
     if (typeFilter) {
@@ -98,13 +110,13 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
 
   if (ready) {
     return (
-      <Tab.Pane id={PAGE_IDS.MED_STATUS} className='status-tab'>
+      <Tab.Pane id={PAGE_IDS.MED_STATUS}>
         <Header as="h2">
           <Header.Content>
-            Medication Inventory Status
+              Medication Inventory Status
             <Header.Subheader>
               <i>Use the search filter to check for a specific drug or
-                use the dropdown filters.</i>
+                  use the dropdown filters.</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
@@ -112,7 +124,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
           <Grid.Column width={4}>
             <Popup
               trigger={<Input placeholder='Filter by drug name...' icon='search'
-                onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.STATUS_FILTER} />}
+                onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.STATUS_FILTER}/>}
               content='This allows you to filter the Inventory by medication, brand, LotID, location, and expiration.'
               inverted
             />
@@ -122,22 +134,23 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
         <Grid divided columns="equal">
           <Grid.Row textAlign='center'>
             <Grid.Column>
-              Medication Type: {' '}
+                Medication Type: {' '}
               <Dropdown inline options={getFilters(drugTypes)} search
                 onChange={handleTypeFilter} value={typeFilter} id={COMPONENT_IDS.MEDICATION_TYPE}/>
             </Grid.Column>
             <Grid.Column>
-              Medication Brand: {' '}
+                Medication Brand: {' '}
               <Dropdown inline options={getFilters(brands)} search
                 onChange={handleBrandFilter} value={brandFilter} id={COMPONENT_IDS.MEDICATION_BRAND}/>
             </Grid.Column>
             <Grid.Column>
-              Medication Location: {' '}
+                Medication Location: {' '}
               <Dropdown inline options={getFilters(locations)} search
-                onChange={handleLocationFilter} value={locationFilter} id={COMPONENT_IDS.MEDICATION_LOCATION} />
+                onChange={handleLocationFilter} value={locationFilter}
+                id={COMPONENT_IDS.MEDICATION_LOCATION}/>
             </Grid.Column>
             <Grid.Column>
-              Inventory Status: {' '}
+                Inventory Status: {' '}
               <Dropdown inline options={statusOptions} search
                 onChange={handleStatusFilter} value={statusFilter} id={COMPONENT_IDS.INVENTORY_STATUS}/>
             </Grid.Column>
@@ -145,15 +158,15 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
         </Grid>
         <Divider/>
         <div>
-          Records per page: {' '}
+            Records per page: {' '}
           <Dropdown inline options={recordOptions}
             onChange={handleRecordLimit} value={maxRecords} id={COMPONENT_IDS.NUM_OF_RECORDS}/>
-          Total count: {filteredMedications.length}
+            Total count: {filteredMedications.length}
         </div>
         <Table selectable color='blue' unstackable>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell />
+              <Table.HeaderCell/>
               <Table.HeaderCell>Medication</Table.HeaderCell>
               <Table.HeaderCell>Type</Table.HeaderCell>
               <Table.HeaderCell>Total Quantity</Table.HeaderCell>
@@ -176,11 +189,11 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
                   totalPages={Math.ceil(filteredMedications.length / maxRecords)}
                   activePage={pageNo}
                   onPageChange={(event, data) => setPageNo(data.activePage)}
-                  ellipsisItem={{ content: <Icon name='ellipsis horizontal' />, icon: true }}
-                  firstItem={{ content: <Icon name='angle double left' />, icon: true }}
-                  lastItem={{ content: <Icon name='angle double right' />, icon: true }}
-                  prevItem={{ content: <Icon name='angle left' />, icon: true }}
-                  nextItem={{ content: <Icon name='angle right' />, icon: true }}
+                  ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
+                  firstItem={{ content: <Icon name='angle double left'/>, icon: true }}
+                  lastItem={{ content: <Icon name='angle double right'/>, icon: true }}
+                  prevItem={{ content: <Icon name='angle left'/>, icon: true }}
+                  nextItem={{ content: <Icon name='angle right'/>, icon: true }}
                 />
               </Table.HeaderCell>
             </Table.Row>

@@ -20,7 +20,7 @@ const panes = [
 
 const Status = () => (
   <Container id={PAGE_IDS.STATUS}>
-    <Tab panes={panes} />
+    <Tab panes={panes} menu={{ className: 'status-wrapped' }}/>
   </Container>
 );
 

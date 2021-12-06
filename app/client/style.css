@@ -271,6 +271,14 @@ input {
   transform: translateX(20%);
 }
 
-.nav menu {display: none;}
+.nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
-
+.status-wrapped {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
