@@ -13,21 +13,21 @@ export const vaccinationPublications = {
 class VaccinationCollection extends BaseCollection {
   constructor() {
     super('Vaccinations', new SimpleSchema({
-      drug: String,
-      drugType: Array,
-      'drugType.$': String,
-      brand: String,
-      lotId: String,
-      expire: {
+      vaccine: String,
+      // is vaccineType needed?
+      brand: String, // the manufacturer (e.g. Pfizer)
+      minQuantity: Number,
+      visDate: String, // the latest vaccine information statement date
+      lotIds: Array,
+      'lotIds.$': Object,
+      'lotIds.$.lotId': String,
+      'lotIds.$.expire': { // date string "YYYY-MM-DD"
         type: String,
         optional: true,
-      }, // date string "YYYY-MM-DD"
-      minQuantity: Number,
-      quantity: Number,
-      isTabs: Boolean,
-      location: String,
-      donated: Boolean,
-      note: {
+      },
+      'lotIds.$.location': String,
+      'lotIds.$.quantity': Number, // the number of doses
+      'lotIds.$.note': {
         type: String,
         optional: true,
       },
@@ -38,9 +38,9 @@ class VaccinationCollection extends BaseCollection {
    * Defines a new Vaccination item.
    * @return {String} the docID of the new document.
    */
-  define({ drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note }) {
+  define({ vaccine, brand, minQuantity, visDate, lotIds }) {
     const docID = this._collection.insert({
-      drug, drugType, brand, lotId, expire, minQuantity, quantity, isTabs, location, donated, note,
+      vaccine, brand, minQuantity, visDate, lotIds,
     });
     return docID;
   }
@@ -63,26 +63,19 @@ class VaccinationCollection extends BaseCollection {
         updateData[name] = data[name];
       }
     }
-    function addBoolean(name) { // if not undefined
-      if (_.isBoolean(data[name])) {
-        updateData[name] = data[name];
-      }
-    }
 
-    addString('drug');
-    // check if drugType is not undefined && every drug type is not undefined
-    if (data.drugType && data.drugType.every(elem => elem)) {
-      updateData.drugType = data.drugType;
-    }
+    addString('vaccine');
     addString('brand');
-    addString('lotId');
-    addString('expire');
     addNumber('minQuantity');
-    addNumber('quantity');
-    addBoolean('isTabs');
-    addString('location');
-    addBoolean('donated');
-    addString('note');
+    addString('visDate');
+    if (data.lotIds && data.lotIds.every(lotId => (
+      _.isObject(lotId) &&
+      lotId.lotId &&
+      _.isNumber(lotId.quantity) &&
+      lotId.location
+    ))) {
+      updateData.lotIds = data.lotIds;
+    }
 
     this._collection.update(docID, { $set: updateData });
   }

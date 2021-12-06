@@ -16,7 +16,10 @@ class SupplyCollection extends BaseCollection {
   constructor() {
     super('Supplys', new SimpleSchema({
       supply: String,
-      supplyType: String,
+      supplyType: {
+        type: String,
+        allowedValues: supplyTypes, // only two supply types.
+      },
       minQuantity: {
         type: Number,
         optional: true,
@@ -26,6 +29,10 @@ class SupplyCollection extends BaseCollection {
       'stock.$.quantity': Number,
       'stock.$.location': String,
       'stock.$.donated': Boolean,
+      'stock.$.donatedBy': {
+        type: String,
+        optional: true,
+      },
       'stock.$.note': {
         type: String,
         optional: true,
