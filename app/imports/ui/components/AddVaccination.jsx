@@ -74,9 +74,9 @@ const AddVaccination = ({ ready, vaccines, locations, lotIds, brands }) => {
             <Grid.Row>
               {/* TODO: expand drug type column */}
               <Grid.Column>
-                <Form.Select clearable search label='Manufacturer'
+                <Form.Select clearable search label='Manufacturer Brand'
                   placeholder="ACAM2000 Sanofi Pasteur" options={getOptions(brands)}
-                  name='brand' onChange={handleChange}/>
+                  name='brand' value={fields.brand} onChange={handleChange}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Lot Number'
@@ -85,11 +85,16 @@ const AddVaccination = ({ ready, vaccines, locations, lotIds, brands }) => {
               </Grid.Column>
               <Grid.Column>
                 {/* expiration date may be null */}
-                <Form.Input type='date' label='Expiration Date' name='expire'
+                <Form.Input type='date' label='VIS Date' name='visDate'
                   onChange={handleChange} value={fields.expire}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
+              <Grid.Column>
+                {/* expiration date may be null */}
+                <Form.Input type='date' label='Expiration Date' name='expire'
+                  onChange={handleChange} value={fields.expire}/>
+              </Grid.Column>
               <Grid.Column>
                 <Form.Input label='Minimum Quantity' type='number' min={1} name='minQuantity' className='quantity'
                   onChange={handleChange} value={fields.minQuantity} placeholder="100"/>
@@ -99,12 +104,12 @@ const AddVaccination = ({ ready, vaccines, locations, lotIds, brands }) => {
                   placeholder="Case 2" name='location' options={getOptions(locations)}
                   onChange={handleChange} value={fields.location} id={COMPONENT_IDS.ADD_MEDICATION_LOCATION}/>
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
               <Grid.Column>
                 <Form.Input label='Quantity' type='number' min={1} name='quantity'
                   onChange={handleChange} value={fields.quantity} placeholder="200"/>
               </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
               <Grid.Column>
                 <Form.Field>
                   <label>Donated</label>
@@ -116,7 +121,6 @@ const AddVaccination = ({ ready, vaccines, locations, lotIds, brands }) => {
                   </Form.Group>
                 </Form.Field>
               </Grid.Column>
-              <Grid.Column className='filler-column' />
               <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
