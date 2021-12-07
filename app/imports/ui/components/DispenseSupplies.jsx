@@ -34,8 +34,8 @@ const submit = (data, callback) => {
       stock.splice(targetIndex, 1); // remove the stock
     }
     const updateData = { id: _id, stock };
-    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, supplyType } = data;
-    const element = { supplyType, quantity };
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, supplyType, donated, donatedBy } = data;
+    const element = { supplyType, quantity, donated, donatedBy };
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name: supply, note, element };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: 'HistoricalsCollection', definitionData })];
@@ -123,13 +123,13 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
       // autofill the form with specific supply info
       const { supplyType, stock } = target;
       const targetStockQuantity = target.stock.find(obj => obj.quantity);
-      const { quantity, location } = targetStockQuantity;
-      const autoFields = { ...fields, supply, supplyType, stock, location };
+      const { quantity, location, donated, donatedBy } = targetStockQuantity;
+      const autoFields = { ...fields, supply, supplyType, stock, location, donated, donatedBy };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific supply info
-      setFields({ ...fields, supply, supplyType: '', stock: '', location: '' });
+      setFields({ ...fields, supply, supplyType: '', stock: '', location: '', donated: false, donatedBy: '' });
       setMaxQuantity(0);
     }
   };
