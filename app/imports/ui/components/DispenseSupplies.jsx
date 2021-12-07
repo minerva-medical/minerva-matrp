@@ -3,6 +3,7 @@ import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-r
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { _ } from 'meteor/underscore';
 import swal from 'sweetalert';
 import moment from 'moment';
 import { Sites } from '../../api/site/SiteCollection';
@@ -19,7 +20,7 @@ const submit = (data, callback) => {
   const collectionName = Supplys.getCollectionName();
   const supplyItem = Supplys.findOne({ supply }); // find the existing supply
   const { _id, stock } = supplyItem;
-  const targetIndex = stock.findIndex((obj => obj.quantity)); // find the index of existing the supply
+  const targetIndex = stock.findIndex((obj => obj.location && obj.quantity)); // find the index of existing the supply
   const { quantity: targetQuantity } = stock[targetIndex];
 
   // if dispense quantity > supply quantity:
@@ -94,6 +95,11 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
+  const [filteredLocation, setFilteredLocation] = useState([]);
+  const [newLocations, setNewLocations] = useState([]);
+  useEffect(() => {
+    setNewLocations(locations);
+  }, [locations]);
 
   // update date dispensed every minute
   useEffect(() => {
@@ -103,8 +109,8 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
     return () => clearInterval(interval);
   });
 
-  const handleChange = (event, { name, value, checked }) => {
-    setFields({ ...fields, [name]: value !== undefined ? value : checked });
+  const handleChange = (event, { name, value }) => {
+    setFields({ ...fields, [name]: value });
   };
 
   const handleCheck = (event, { name, checked }) => {
@@ -121,23 +127,29 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
     // if supply is not empty:
     if (target) {
       // autofill the form with specific supply info
-      const { supplyType, stock } = target;
+      const { supplyType, stock: stockObjs } = target;
+      setFilteredLocation(_.pluck(stockObjs, 'location'));
       const targetStockQuantity = target.stock.find(obj => obj.quantity);
-      const { quantity, location, donated, donatedBy } = targetStockQuantity;
-      const autoFields = { ...fields, supply, supplyType, stock, location, donated, donatedBy };
+      const { quantity, donated, donatedBy } = targetStockQuantity;
+      const autoFields = { ...fields, supply, supplyType, donated, donatedBy };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
       // else reset specific supply info
-      setFields({ ...fields, supply, supplyType: '', stock: '', location: '', donated: false, donatedBy: '' });
+      setFields({ ...fields, supply, supplyType: '', stock: '', location: '', donatedBy: '' });
       setMaxQuantity(0);
     }
+  };
+
+  const onLocationSelect = (event, { value: location }) => {
+    setFields({ ...fields, location });
   };
 
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
       dispensedTo: '', location: '', note: '' });
     setMaxQuantity(0);
+    setFilteredLocation(newLocations);
   };
 
   if (ready) {
@@ -186,15 +198,15 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
                   name='supply' onChange={onSupplySelect} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Location' options={getOptions(locations)}
-                  placeholder="Case 2" onChange={handleChange}
+                <Form.Select clearable search label='Location' options={getOptions(filteredLocation)}
+                  placeholder="Case 2" onChange={onLocationSelect}
                   name='supply' value={fields.location}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
                   <Form.Input clearable label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder='30'id={COMPONENT_IDS.DISPENSE_SUP_QUANTITY}/>
+                    onChange={handleChange} value={fields.quantity} placeholder='30' id={COMPONENT_IDS.DISPENSE_SUP_QUANTITY}/>
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>
