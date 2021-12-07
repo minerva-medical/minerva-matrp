@@ -145,7 +145,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
           </Grid.Column>
         </Grid>
         <Divider/>
-        <Grid divided columns="equal" stackable>
+        <Grid divided columns="equal" style={{ display: 'flex' }}>
           <Grid.Row textAlign='center'>
             <Grid.Column>
                 Medication Type: {' '}
@@ -177,7 +177,7 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
             onChange={handleRecordLimit} value={maxRecords} id={COMPONENT_IDS.NUM_OF_RECORDS}/>
             Total count: {filteredMedications.length}
         </div>
-        <Table selectable color='blue' className='status-wrapped'>
+        <Table selectable color='blue' className='status-wrapped' unstackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell/>
@@ -200,33 +200,35 @@ const MedStatus = ({ ready, medications, drugTypes, locations, brands }) => {
             <Table.Row>
               <Table.HeaderCell colSpan="6">
                 { mobile === false &&
-                <Pagination
-                  totalPages={Math.ceil(filteredMedications.length / maxRecords)}
-                  activePage={pageNo}
-                  onPageChange={(event, data) => setPageNo(data.activePage)}
-                  ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
-                  firstItem={{ content: <Icon name='angle double left'/>, icon: true }}
-                  lastItem={{ content: <Icon name='angle double right'/>, icon: true }}
-                  prevItem={{ content: <Icon name='angle left'/>, icon: true }}
-                  nextItem={{ content: <Icon name='angle right'/>, icon: true }}
-                />
-                }
-                { mobile === true &&
-                <Pagination
-                  totalPages={Math.ceil(filteredMedications.length / maxRecords)}
-                  activePage={pageNo}
-                  onPageChange={(event, data) => setPageNo(data.activePage)}
-                  ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
-                  firstItem={null}
-                  lastItem={null}
-                  siblingRange={1}
-                  boundaryRange={0}
-                />
+                    <div>
+                      <Pagination
+                        totalPages={Math.ceil(filteredMedications.length / maxRecords)}
+                        activePage={pageNo}
+                        onPageChange={(event, data) => setPageNo(data.activePage)}
+                        ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
+                        firstItem={{ content: <Icon name='angle double left'/>, icon: true }}
+                        lastItem={{ content: <Icon name='angle double right'/>, icon: true }}
+                        prevItem={{ content: <Icon name='angle left'/>, icon: true }}
+                        nextItem={{ content: <Icon name='angle right'/>, icon: true }}
+                      />
+                    </div>
                 }
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
         </Table>
+        { mobile === true &&
+        <Pagination
+          totalPages={Math.ceil(filteredMedications.length / maxRecords)}
+          activePage={pageNo}
+          onPageChange={(event, data) => setPageNo(data.activePage)}
+          ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
+          firstItem={null}
+          lastItem={null}
+          siblingRange={1}
+          boundaryRange={0}
+        />
+        }
       </Tab.Pane>
     );
   }

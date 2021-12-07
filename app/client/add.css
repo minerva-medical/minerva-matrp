@@ -108,3 +108,32 @@
     bottom: 25px;
   }
 }
+
+@media only screen and (max-width: 390px) {
+  #add-form .buttons-div {
+    padding: 0;
+    margin-top: 15px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  #add-form .clear-button {
+    min-width: 50px;
+    border-radius: 500rem;
+    padding: 0.75em;
+    background-color: rgb(29, 62, 102);
+    color: white;
+  }
+
+  #add-form .submit-button {
+    min-width: 50px;
+    border-radius: 500rem;
+    padding: 0.80em;
+    background-color: #C1D9B1;
+    color: rgb(29, 62, 102);
+  }
+
+  #add-form label {
+    font-size: 1em;
+  }
+}
