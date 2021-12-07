@@ -30,9 +30,8 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   .status-wrapped {
-    display: flex;
     width: 100%;
     position: relative;
     overflow: auto;
@@ -42,7 +41,4 @@
     flex: 0 0 0;
   }
 
-  #status .ui.stackable.divided.equal.width.grid {
-    width: 30%
-  }
 }
