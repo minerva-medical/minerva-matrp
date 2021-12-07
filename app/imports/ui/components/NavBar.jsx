@@ -35,7 +35,7 @@ const NavBar = ({ currentUser }) => {
         {
           currentUser ? (
             [
-              <Menu.Item key='dropdown-navbar'>
+              <Menu.Item key='dropdown-navbar' fitted>
                 <Dropdown icon='bars'>
                   <Dropdown.Menu>
                     <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact
@@ -84,7 +84,10 @@ const NavBar = ({ currentUser }) => {
             </Dropdown.Menu>
           </Dropdown>]
         ) : ''}
-        <Menu.Item position="right">
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS_NOTIFICATION} size='mini' >
+          <StatusNotification/>
+        </Menu.Item>
+        <Menu.Item position="right" fitted>
           {
             currentUser === '' ?
               (

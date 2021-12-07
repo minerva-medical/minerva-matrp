@@ -29,7 +29,7 @@ const StatusNotification = ({ ready, medications }) => {
 
   if (ready) {
     return (
-      <Menu.Menu style={menuStyle} id={COMPONENT_IDS.STATUS_NOTIFICATION} icon>
+      <Menu.Menu style={menuStyle} id={COMPONENT_IDS.STATUS_NOTIFICATION}>
         <Menu.Item fitted>
           <Icon name='announcement'/>
           <Dropdown button floating labeled simple pointing="top right">

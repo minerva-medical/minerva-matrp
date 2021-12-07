@@ -140,17 +140,17 @@ const DispenseLog = ({ ready, historicals, sites }) => {
                 </Grid.Column>
                 <Grid.Column>
                   Dispense Type: {' '}
-                <Dropdown inline={true} options={reason} search value={dispenseTypeFilter}
-                  onChange={handleDispenseTypeFilter} id={COMPONENT_IDS.DISPENSE_TYPE}/>
-              </Grid.Column>
-              <Grid.Column>
+                  <Dropdown inline={true} options={reason} search value={dispenseTypeFilter}
+                    onChange={handleDispenseTypeFilter} id={COMPONENT_IDS.DISPENSE_TYPE}/>
+                </Grid.Column>
+                <Grid.Column>
                 Dispense Site: {' '}
-                <Dropdown inline={true} options={getFilters(sites)} search value={siteFilter}
-                  onChange={handleSiteFilter} id={COMPONENT_IDS.DISPENSE_SITE}/>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <Divider/>
+                  <Dropdown inline={true} options={getFilters(sites)} search value={siteFilter}
+                    onChange={handleSiteFilter} id={COMPONENT_IDS.DISPENSE_SITE}/>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <Divider/>
             Records per page:{' '}
             <Dropdown inline={true} options={logPerPage} value={maxLog} onChange={handleMaxLog}/>
             Total count: {filterHistoricals.length}
