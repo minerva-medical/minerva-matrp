@@ -10,10 +10,14 @@ const Footer = () => {
     color: 'white',
     padding: '40px 100px 40px 100px',
     marginTop: '15px',
+    marginLeft: '0px',
+    marginRight: '0px',
+    textAlign: 'center',
+    alignItems: 'center',
   };
   return (
     <footer>
-      <div style={divStyle} className="ui center aligned container fluid">
+      <div style={divStyle} >
         <hr/>
         <Header inverted as='h3'>Designed by Minerva Medical</Header>
         <Image src = '../images/minervaLogo.png' size='tiny' centered/>

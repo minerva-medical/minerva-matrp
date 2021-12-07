@@ -13,6 +13,11 @@
     font-size: 6rem;
     margin-top: 80% !important;
   }
+
+  .button-location {
+    align-items: center;
+    margin: 0;
+  }
 }
 
 @media  screen and (min-width: 768px) {
@@ -266,3 +271,8 @@ input {
   transform: translateX(20%);
 }
 
+.nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

@@ -109,3 +109,22 @@
     display: none;
   }
 }
+
+@media only screen and (max-width: 375px) {
+  #dispense-form .clear-button {
+    min-width: 50px;
+    border-radius: 500rem;
+    padding: 0.8em;
+    background-color: rgb(29, 62, 102);
+    color: white;
+  }
+
+  #dispense-form .submit-button {
+    min-width: 50px;
+    border-radius: 500rem;
+    padding: 0.8em;
+    background-color: #C1D9B1;
+    color: rgb(29, 62, 102);
+  }
+
+}

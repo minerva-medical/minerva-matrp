@@ -118,14 +118,22 @@
   padding: 1.2em 3.6em;
 }
 
+.signin-message {
+  padding-top: 20px;
+}
+
 /* Sign in @media */
 @media only screen and (max-width: 700px) {
-  #signin-div .seven.wide.column {
+  #signin-div .seven.wide.column h1 {
     display: inline !important;
   }
 
   #signin-div .nine.wide.column {
     width: 100% !important;
+  }
+
+  .signin-message {
+    padding-top: 20px;
   }
 }
 

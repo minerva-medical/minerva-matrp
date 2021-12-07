@@ -51,9 +51,9 @@ const Signup = ({ location }) => {
     <div id='signup-div'>
       <Container id={PAGE_IDS.SIGN_UP}>
         <Grid textAlign="center" centered>
-          <Grid.Column computer={7} tablet={7} mobile={9}>
+          <Grid.Column computer={7} tablet={7} mobile={9} textAlign='center'>
             <Icon name='stethoscope' size='huge' style={{ visibility: 'hidden' }}/>
-            <Header as="h1" textAlign="center">
+            <Header as="h1" textAlign="center" style={{ marginLeft: '-15px' }}>
               MINERVA
             </Header>
           </Grid.Column>
@@ -84,16 +84,18 @@ const Signup = ({ location }) => {
               />
               <Form.Button id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} content="Submit"/>
             </Form>
-            <h3>Already have a registered account? <NavLink exact to="/signin" key="signin" id="signIn">LOG IN</NavLink></h3>
-            {error === '' ? (
-              ''
-            ) : (
-              <Message
-                error
-                header="Registration was not successful"
-                content={error}
-              />
-            )}
+            <div className='signin-message'>
+              <h3>Already have a registered account? <NavLink exact to="/signin" key="signin" id="signIn">LOG IN</NavLink></h3>
+              {error === '' ? (
+                ''
+              ) : (
+                <Message
+                  error
+                  header="Registration was not successful"
+                  content={error}
+                />
+              )}
+            </div>
           </Grid.Column>
         </Grid>
       </Container>

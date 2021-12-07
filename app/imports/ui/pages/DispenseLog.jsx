@@ -89,55 +89,56 @@ const DispenseLog = ({ ready, historicals, sites }) => {
     const handleMaxLog = (event, { value }) => setMaxLog(value);
 
     return (
-      <Container id={PAGE_IDS.DISPENSE_LOG}>
-        <Segment>
-          <Header as="h2">
-            <Header.Content>
+      <div className='status-wrapped'>
+        <Container id={PAGE_IDS.DISPENSE_LOG}>
+          <Segment className='status-wrapped'>
+            <Header as="h2">
+              <Header.Content>
                 History Dispense Log
-              <Header.Subheader>
-                <i>Use the search filter to look for a specific Patient Number
+                <Header.Subheader>
+                  <i>Use the search filter to look for a specific Patient Number
                     or use the dropdown filters.</i>
-              </Header.Subheader>
-            </Header.Content>
-          </Header>
-          <Grid columns="equal" stackable>
-            <Grid.Row>
-              <Grid.Column>
-                <Popup inverted
-                  trigger={<Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}
-                    id={COMPONENT_IDS.DISPENSE_FILTER}/>}
-                  content='This allows you to filter the Dispense Log table by Patient Number or Inventory Name.'/>
-              </Grid.Column>
-              <Grid.Column>
-                <Popup inverted
-                  trigger={
-                    <Input type="date" label={{ basic: true, content: 'From' }} labelPosition='left'
-                      onChange={handleMinDateFilter} max={maxDateFilter} />
-                  }
-                  content="This allows you to filter the Dispense Log table
+                </Header.Subheader>
+              </Header.Content>
+            </Header>
+            <Grid columns="equal" stackable>
+              <Grid.Row>
+                <Grid.Column>
+                  <Popup inverted
+                    trigger={<Input placeholder='Filter by patient...' icon='search' onChange={handleSearch}
+                      id={COMPONENT_IDS.DISPENSE_FILTER}/>}
+                    content='This allows you to filter the Dispense Log table by Patient Number or Inventory Name.'/>
+                </Grid.Column>
+                <Grid.Column>
+                  <Popup inverted
+                    trigger={
+                      <Input type="date" label={{ basic: true, content: 'From' }} labelPosition='left'
+                        onChange={handleMinDateFilter} max={maxDateFilter} />
+                    }
+                    content="This allows you to filter the Dispense Log table
                   from the selected 'From' date to today's date or the selected 'To' date."/>
-              </Grid.Column>
-              <Grid.Column>
-                <Input type="date" label={{ basic: true, content: 'To' }} labelPosition='left'
-                  onChange={handleMaxDateFilter} min={minDateFilter} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <Divider/>
-          <Grid divided columns="equal" stackable>
-            <Grid.Row style={gridAlign}>
-              <Grid.Column>
+                </Grid.Column>
+                <Grid.Column>
+                  <Input type="date" label={{ basic: true, content: 'To' }} labelPosition='left'
+                    onChange={handleMaxDateFilter} min={minDateFilter} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <Divider/>
+            <Grid divided columns="equal" stackable>
+              <Grid.Row style={gridAlign}>
+                <Grid.Column>
                   Inventory Type: {' '}
-                <Dropdown
-                  inline
-                  options={inventory}
-                  search
-                  value={inventoryFilter}
-                  onChange={handleInventoryFilter}
-                  id={COMPONENT_IDS.INVENTORY_TYPE}
-                />
-              </Grid.Column>
-              <Grid.Column>
+                  <Dropdown
+                    inline
+                    options={inventory}
+                    search
+                    value={inventoryFilter}
+                    onChange={handleInventoryFilter}
+                    id={COMPONENT_IDS.INVENTORY_TYPE}
+                  />
+                </Grid.Column>
+                <Grid.Column>
                   Dispense Type: {' '}
                 <Dropdown inline={true} options={reason} search value={dispenseTypeFilter}
                   onChange={handleDispenseTypeFilter} id={COMPONENT_IDS.DISPENSE_TYPE}/>
@@ -151,45 +152,46 @@ const DispenseLog = ({ ready, historicals, sites }) => {
           </Grid>
           <Divider/>
             Records per page:{' '}
-          <Dropdown inline={true} options={logPerPage} value={maxLog} onChange={handleMaxLog}/>
+            <Dropdown inline={true} options={logPerPage} value={maxLog} onChange={handleMaxLog}/>
             Total count: {filterHistoricals.length}
-          <Table striped singleLine columns={9} color='blue' compact collapsing>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Date & Time</Table.HeaderCell>
-                <Table.HeaderCell>Inventory Type</Table.HeaderCell>
-                <Table.HeaderCell>Dispense Type</Table.HeaderCell>
-                <Table.HeaderCell>Patient Number</Table.HeaderCell>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Dispensed By</Table.HeaderCell>
-                <Table.HeaderCell>Information</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {
-                filterHistoricals.slice((pageNo - 1) * maxLog, pageNo * maxLog)
-                  .map(history => <DispenseLogRow key={history._id} history={history}/>)
-              }
-            </Table.Body>
-            <Table.Footer>
-              <Table.Row>
-                <Table.HeaderCell colSpan="11">
-                  <Pagination
-                    totalPages={Math.ceil(filterHistoricals.length / maxLog)}
-                    activePage={pageNo}
-                    onPageChange={(event, data) => setPageNo(data.activePage)}
-                    ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
-                    firstItem={{ content: <Icon name='angle double left'/>, icon: true }}
-                    lastItem={{ content: <Icon name='angle double right'/>, icon: true }}
-                    prevItem={{ content: <Icon name='angle left'/>, icon: true }}
-                    nextItem={{ content: <Icon name='angle right'/>, icon: true }}
-                  />
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Footer>
-          </Table>
-        </Segment>
-      </Container>
+            <Table striped singleLine columns={9} color='blue' compact collapsing unstackable>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Date & Time</Table.HeaderCell>
+                  <Table.HeaderCell>Inventory Type</Table.HeaderCell>
+                  <Table.HeaderCell>Dispense Type</Table.HeaderCell>
+                  <Table.HeaderCell>Patient Number</Table.HeaderCell>
+                  <Table.HeaderCell>Name</Table.HeaderCell>
+                  <Table.HeaderCell>Dispensed By</Table.HeaderCell>
+                  <Table.HeaderCell>Information</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {
+                  filterHistoricals.slice((pageNo - 1) * maxLog, pageNo * maxLog)
+                    .map(history => <DispenseLogRow key={history._id} history={history}/>)
+                }
+              </Table.Body>
+              <Table.Footer>
+                <Table.Row>
+                  <Table.HeaderCell colSpan="11">
+                    <Pagination
+                      totalPages={Math.ceil(filterHistoricals.length / maxLog)}
+                      activePage={pageNo}
+                      onPageChange={(event, data) => setPageNo(data.activePage)}
+                      ellipsisItem={{ content: <Icon name='ellipsis horizontal'/>, icon: true }}
+                      firstItem={{ content: <Icon name='angle double left'/>, icon: true }}
+                      lastItem={{ content: <Icon name='angle double right'/>, icon: true }}
+                      prevItem={{ content: <Icon name='angle left'/>, icon: true }}
+                      nextItem={{ content: <Icon name='angle right'/>, icon: true }}
+                    />
+                  </Table.HeaderCell>
+                </Table.Row>
+              </Table.Footer>
+            </Table>
+          </Segment>
+        </Container>
+      </div>
     );
   }
   return (<Loader active>Getting data</Loader>);
