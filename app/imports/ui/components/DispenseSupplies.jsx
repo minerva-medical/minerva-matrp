@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
+import moment from 'moment';
 import { Sites } from '../../api/site/SiteCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
 import { dispenseTypes } from '../../api/historical/HistoricalCollection';
@@ -78,7 +79,7 @@ const validateForm = (data, callback) => {
 const DispenseSupplies = ({ ready, sites, supplys }) => {
   const [fields, setFields] = useState({
     site: '',
-    dateDispensed: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16),
+    dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
     supply: '',
     supplyType: '',
     quantity: '',
@@ -86,12 +87,30 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
     note: '',
     inventoryType: 'Supply',
     dispenseType: 'Patient Use',
+    donated: false,
+    donatedBy: '',
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
 
+  // update date dispensed every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFields({ ...fields, dateDispensed: moment().format('YYYY-MM-DDTHH:mm') });
+    }, 1000 * 60);
+    return () => clearInterval(interval);
+  });
+
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
+  };
+
+  const handleCheck = (event, { name, checked }) => {
+    if (!checked) {
+      setFields({ ...fields, [name]: checked, donatedBy: '' });
+    } else {
+      setFields({ ...fields, [name]: checked });
+    }
   };
 
   // handle supply select
@@ -115,8 +134,9 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
 
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
-      dispensedTo: '', note: '' });
+      dispensedTo: '', note: '', donated: false, donatedBy: '' });
   };
+
   if (ready) {
     return (
       <Tab.Pane id='dispense-form'>
@@ -167,6 +187,21 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
                     onChange={handleChange} value={fields.quantity} placeholder='30'/>
                 </Form.Group>
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Donated</label>
+                  <Form.Group>
+                    <Form.Checkbox name='donated' className='donated-field'
+                      onChange={handleCheck} checked={fields.donated}/>
+                    <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
+                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} />
+                  </Form.Group>
+                </Form.Field>
+              </Grid.Column>
+              <Grid.Column className='filler-column' />
+              <Grid.Column className='filler-column' />
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>

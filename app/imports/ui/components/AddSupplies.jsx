@@ -12,14 +12,14 @@ import { distinct, getOptions } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
-  const { supply, supplyType, minQuantity, quantity, location, donated, note } = data;
+  const { supply, supplyType, minQuantity, quantity, location, donated, donatedBy, note } = data;
   const collectionName = Supplys.getCollectionName();
   const exists = Supplys.findOne({ supply }); // returns the existing supply or undefined
 
   // if the supply does not exist:
   if (!exists) {
     // insert the new supply and stock
-    const newStock = { quantity, location, donated, note };
+    const newStock = { quantity, location, donated, donatedBy, note };
     const definitionData = { supply, supplyType, minQuantity, stock: [newStock] };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -73,6 +73,7 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
     location: '',
     note: '',
     donated: false,
+    donatedBy: '',
   });
   // a copy of drugs, lotIds, and brands and their respective filters
   const [newSupplys, setNewSupplys] = useState([]);
@@ -86,6 +87,14 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
 
   const handleChange = (event, { name, value }) => {
     setFields({ ...fields, [name]: value });
+  };
+
+  const handleCheck = (event, { name, checked }) => {
+    if (!checked) {
+      setFields({ ...fields, [name]: checked, donatedBy: '' });
+    } else {
+      setFields({ ...fields, [name]: checked });
+    }
   };
 
   if (ready) {
@@ -142,8 +151,16 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
                 <Form.Select clearable search label='Location' options={getOptions(locations, 'location')}
                   name='location' onChange={handleChange} value={fields.location}/>
               </Grid.Column>
-              <Grid.Column className='checkbox-column'>
-                <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated}/>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Donated</label>
+                  <Form.Group>
+                    <Form.Checkbox name='donated' className='donated-field'
+                      onChange={handleCheck} checked={fields.donated}/>
+                    <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
+                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} />
+                  </Form.Group>
+                </Form.Field>
               </Grid.Column>
 
             </Grid.Row>

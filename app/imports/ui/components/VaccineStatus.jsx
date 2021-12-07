@@ -3,12 +3,12 @@ import { Header, Table, Divider, Dropdown, Pagination, Grid, Input, Loader, Icon
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { Vaccinations } from '../../api/vaccination/VaccinationCollection';
 import { Locations } from '../../api/location/LocationCollection';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { distinct, getOptions } from '../utilities/Functions';
-import { Supplys } from '../../api/supply/SupplyCollection';
-import SupplyStatusRow from './SupplyStatusRow';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import VaccineStatusRow from './VaccineStatusRow';
+import { distinct, getOptions } from '../utilities/Functions';
 
 // convert array to dropdown options
 const getFilters = (arr) => [{ key: 'All', value: 0, text: 'All' }, ...getOptions(arr)];
@@ -28,41 +28,48 @@ const statusOptions = [
 ];
 
 // Render the form.
-const SupplyStatus = ({ ready, supplies, locations }) => {
-  const [filteredSupplies, setFilteredSupplies] = useState([]);
+const VaccineStatus = ({ ready, vaccines, locations, brands }) => {
+  const [filteredVaccines, setFilteredVaccines] = useState([]);
   useEffect(() => {
-    setFilteredSupplies(supplies);
-  }, [supplies]);
+    setFilteredVaccines(vaccines);
+  }, [vaccines]);
   const [searchQuery, setSearchQuery] = useState('');
   const [pageNo, setPageNo] = useState(1);
+  const [brandFilter, setBrandFilter] = useState(0);
   const [locationFilter, setLocationFilter] = useState(0);
   const [statusFilter, setStatusFilter] = useState(0);
   const [maxRecords, setMaxRecords] = useState(25);
 
   // handles filtering
   useEffect(() => {
-    let filter = JSON.parse(JSON.stringify(supplies)); // deep clone supplies
+    let filter = JSON.parse(JSON.stringify(vaccines));
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      filter = filter.filter(({ supply, stock }) => (
-        supply.toLowerCase().includes(query.toLowerCase()) ||
-        stock.findIndex(({ location }) => location.toLowerCase().includes(query)) !== -1
+      filter = filter.filter(({ vaccine, brand, lotIds }) => (
+        vaccine.toLowerCase().includes(query.toLowerCase()) ||
+        brand.toLowerCase().includes(query.toLowerCase()) ||
+        lotIds.findIndex(({ expire }) => (expire && expire.includes(query))) !== -1 ||
+        lotIds.findIndex(({ location }) => location.toLowerCase().includes(query)) !== -1 ||
+        lotIds.findIndex(({ lotId }) => lotId.toLowerCase().includes(query)) !== -1
       ));
     }
+    if (brandFilter) {
+      filter = filter.filter((vaccine) => vaccine.brand === brandFilter);
+    }
     if (locationFilter) {
-      filter = filter.filter((supply) => supply.stock.findIndex(
-        stock => stock.location === locationFilter,
+      filter = filter.filter((vaccine) => vaccine.lotIds.findIndex(
+        lotId => lotId.location === locationFilter,
       ) !== -1);
     }
     if (statusFilter) {
-      filter = filter.filter((supply) => {
-        const totalQuantity = supply.stock.length ?
-          _.pluck(supply.stock, 'quantity').reduce((prev, current) => prev + current) : 0;
+      filter = filter.filter((vaccine) => {
+        const totalQuantity = vaccine.lotIds.length ?
+          _.pluck(vaccine.lotIds, 'quantity').reduce((prev, current) => prev + current) : 0;
         if (statusFilter === 'In Stock') {
-          return totalQuantity >= supply.minQuantity;
+          return totalQuantity >= vaccine.minQuantity;
         }
         if (statusFilter === 'Low Stock') {
-          return (totalQuantity > 0 && totalQuantity < supply.minQuantity);
+          return (totalQuantity > 0 && totalQuantity < vaccine.minQuantity);
         }
         if (statusFilter === 'Out of Stock') {
           return totalQuantity === 0;
@@ -70,32 +77,33 @@ const SupplyStatus = ({ ready, supplies, locations }) => {
         return true;
       });
     }
-    setFilteredSupplies(filter);
-  }, [searchQuery, locationFilter, statusFilter]);
+    setFilteredVaccines(filter);
+  }, [searchQuery, brandFilter, locationFilter, statusFilter]);
 
   const handleSearch = (event, { value }) => setSearchQuery(value);
+  const handleBrandFilter = (event, { value }) => setBrandFilter(value);
   const handleLocationFilter = (event, { value }) => setLocationFilter(value);
   const handleStatusFilter = (event, { value }) => setStatusFilter(value);
   const handleRecordLimit = (event, { value }) => setMaxRecords(value);
 
   if (ready) {
     return (
-      <Tab.Pane id={PAGE_IDS.SUPPLY_STATUS} className='status-tab'>
+      <Tab.Pane id={PAGE_IDS.VACCINE_STATUS} className='status-tab'>
         <Header as="h2">
           <Header.Content>
-            Supply Inventory Status
+            Vaccine Inventory Status
             <Header.Subheader>
-              <i>Use the search filter or the dropdown filters to check for a specific supply.</i>
+              <i>Use the search filter to check for a specific vaccine or
+                use the dropdown filters.</i>
             </Header.Subheader>
           </Header.Content>
         </Header>
         <Grid>
           <Grid.Column width={4}>
-            <Input placeholder='Filter by supply name...' icon='search'
-              onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.SUPPLY_FILTER}/>
             <Popup
-              trigger={<Icon name='question circle' color="blue"/>}
-              content='This allows you to filter the inventory by supply name and location.'
+              trigger={<Input placeholder='Filter by vaccine name...' icon='search'
+                onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.VACCINE_FILTER} />}
+              content='This allows you to filter the Inventory by vaccine, brand, LotID, location, and expiration.'
               inverted
             />
           </Grid.Column>
@@ -104,14 +112,19 @@ const SupplyStatus = ({ ready, supplies, locations }) => {
         <Grid divided columns="equal">
           <Grid.Row textAlign='center'>
             <Grid.Column>
-              Supply Location: {' '}
+              Vaccine Brand: {' '}
+              <Dropdown inline options={getFilters(brands)} search
+                onChange={handleBrandFilter} value={brandFilter} id={COMPONENT_IDS.VACCINE_BRAND}/>
+            </Grid.Column>
+            <Grid.Column>
+              Vaccine Location: {' '}
               <Dropdown inline options={getFilters(locations)} search
-                onChange={handleLocationFilter} value={locationFilter} />
+                onChange={handleLocationFilter} value={locationFilter} id={COMPONENT_IDS.MEDICATION_LOCATION} />
             </Grid.Column>
             <Grid.Column>
               Inventory Status: {' '}
               <Dropdown inline options={statusOptions} search
-                onChange={handleStatusFilter} value={statusFilter}/>
+                onChange={handleStatusFilter} value={statusFilter} id={COMPONENT_IDS.INVENTORY_STATUS}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -119,32 +132,33 @@ const SupplyStatus = ({ ready, supplies, locations }) => {
         <div>
           Records per page: {' '}
           <Dropdown inline options={recordOptions}
-            onChange={handleRecordLimit} value={maxRecords}/>
-          Total count: {filteredSupplies.length}
+            onChange={handleRecordLimit} value={maxRecords} id={COMPONENT_IDS.NUM_OF_RECORDS}/>
+          Total count: {filteredVaccines.length}
         </div>
         <Table selectable color='blue' unstackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell />
-              <Table.HeaderCell>Supply</Table.HeaderCell>
-              <Table.HeaderCell>Type</Table.HeaderCell>
+              <Table.HeaderCell>Vaccine</Table.HeaderCell>
+              <Table.HeaderCell>Manufacturer</Table.HeaderCell>
               <Table.HeaderCell>Total Quantity</Table.HeaderCell>
+              <Table.HeaderCell>VIS Date</Table.HeaderCell>
               <Table.HeaderCell>Status</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
           <Table.Body>
             {
-              filteredSupplies.slice((pageNo - 1) * maxRecords, pageNo * maxRecords)
-                .map(supply => <SupplyStatusRow key={supply._id} supply={supply}/>)
+              filteredVaccines.slice((pageNo - 1) * maxRecords, pageNo * maxRecords)
+                .map(vaccine => <VaccineStatusRow key={vaccine._id} vaccine={vaccine}/>)
             }
           </Table.Body>
 
           <Table.Footer>
             <Table.Row>
-              <Table.HeaderCell colSpan="5">
+              <Table.HeaderCell colSpan="6">
                 <Pagination
-                  totalPages={Math.ceil(filteredSupplies.length / maxRecords)}
+                  totalPages={Math.ceil(filteredVaccines.length / maxRecords)}
                   activePage={pageNo}
                   onPageChange={(event, data) => {
                     setPageNo(data.activePage);
@@ -166,24 +180,27 @@ const SupplyStatus = ({ ready, supplies, locations }) => {
   return (<Loader active>Getting data</Loader>);
 };
 
-SupplyStatus.propTypes = {
-  supplies: PropTypes.array.isRequired,
+VaccineStatus.propTypes = {
+  vaccines: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
+  brands: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
-  const supplySub = Supplys.subscribeSupply();
+  const vaccineSub = Vaccinations.subscribeVaccination();
   const locationSub = Locations.subscribeLocation();
   // Determine if the subscription is ready
-  const ready = supplySub.ready() && locationSub.ready();
-  // Get the Supply documents and sort them by name.
-  const supplies = Supplys.find({}, { sort: { supply: 1 } }).fetch();
+  const ready = vaccineSub.ready() && locationSub.ready();
+  // Get the Vaccination documents and sort them by name.
+  const vaccines = Vaccinations.find({}, { sort: { vaccine: 1 } }).fetch();
   const locations = distinct('location', Locations);
+  const brands = distinct('brand', Vaccinations);
   return {
-    supplies,
+    vaccines,
     locations,
+    brands,
     ready,
   };
-})(SupplyStatus);
+})(VaccineStatus);

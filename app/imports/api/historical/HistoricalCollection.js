@@ -42,6 +42,11 @@ Schemas.Medication = new SimpleSchema({
     optional: true,
   },
   'element.quantity': Number,
+  'element.donated': Boolean,
+  'element.donatedBy': {
+    type: String,
+    optional: true,
+  },
 });
 // Vaccine Schema
 Schemas.Vaccine = new SimpleSchema({
@@ -91,6 +96,11 @@ Schemas.Supply = new SimpleSchema({
   element: Object,
   'element.supplyType': String,
   'element.quantity': Number,
+  'element.donated': Boolean,
+  'element.donatedBy': {
+    type: String,
+    optional: true,
+  },
 });
 
 class HistoricalCollection extends BaseCollection {

@@ -13,14 +13,14 @@ import { distinct, getOptions, nestedDistinct } from '../utilities/Functions';
 
 /** handles submit for add medication. */
 const submit = (data, callback) => {
-  const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, note } = data;
+  const { drug, drugType, minQuantity, quantity, unit, brand, lotId, expire, location, donated, donatedBy, note } = data;
   const collectionName = Medications.getCollectionName();
   const exists = Medications.findOne({ drug }); // returns the existing medication or undefined
 
   // if the medication does not exist:
   if (!exists) {
     // insert the new medication and lotId
-    const newLot = { lotId, brand, expire, location, quantity, donated, note };
+    const newLot = { lotId, brand, expire, location, quantity, donated, donatedBy, note };
     const definitionData = { drug, drugType, minQuantity, unit, lotIds: [newLot] };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
@@ -37,7 +37,7 @@ const submit = (data, callback) => {
       target.quantity += quantity;
     } else {
       // else append the new lotId
-      lotIds.push({ lotId, brand, expire, location, quantity, donated, note });
+      lotIds.push({ lotId, brand, expire, location, quantity, donated, donatedBy, note });
     }
     const updateData = { id: exists._id, lotIds };
     updateMethod.callPromise({ collectionName, updateData })
@@ -85,6 +85,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     expire: '',
     location: '',
     donated: false,
+    donatedBy: '',
     note: '',
   });
   const isDisabled = drugs.includes(fields.drug);
@@ -134,8 +135,16 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     }
   };
 
-  const handleChange = (event, { name, value, checked }) => {
-    setFields({ ...fields, [name]: value !== undefined ? value : checked });
+  const handleChange = (event, { name, value }) => {
+    setFields({ ...fields, [name]: value });
+  };
+
+  const handleCheck = (event, { name, checked }) => {
+    if (!checked) {
+      setFields({ ...fields, [name]: checked, donatedBy: '' });
+    } else {
+      setFields({ ...fields, [name]: checked });
+    }
   };
 
   // handles drug select
@@ -167,13 +176,13 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
       // autofill the form with specific lotId info
       const targetLotIds = target.lotIds.find(obj => obj.lotId === lotId);
       const { drug, drugType, minQuantity, unit } = target;
-      const { brand, expire, location, donated, note } = targetLotIds;
+      const { brand, expire, location, donated, donatedBy, note } = targetLotIds;
       const autoFields = { ...fields, lotId, drug, drugType, expire, brand, minQuantity, unit, location,
-        donated, note };
+        donated, donatedBy, note };
       setFields(autoFields);
     } else {
       // else reset specific lotId info
-      setFields({ ...fields, lotId, expire: '', brand: '', location: '', donated: false, note: '' });
+      setFields({ ...fields, lotId, expire: '', brand: '', location: '', donated: false, donatedBy: '', note: '' });
     }
   };
 
@@ -182,7 +191,6 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
     setFields({ ...fields, brand });
     // filter drugs
     const filter = distinct('drug', Medications, { lotIds: { $elemMatch: { brand } } });
-    console.log(filter);
     if (filter.length && !fields.drug) {
       setFilteredDrugs(filter);
     } else {
@@ -192,7 +200,7 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
 
   const clearForm = () => {
     setFields({ drug: '', drugType: [], minQuantity: '', quantity: '', unit: 'tab(s)',
-      brand: '', lotId: '', expire: '', location: '', donated: false, note: '' });
+      brand: '', lotId: '', expire: '', location: '', donated: false, donatedBy: '', note: '' });
     setFilteredDrugs(newDrugs);
     setFilteredLotIds(newLotIds);
     setFilteredBrands(newBrands);
@@ -270,8 +278,16 @@ const AddMedication = ({ drugTypes, ready, drugs, lotIds, brands, locations }) =
                   onChange={handleChange} value={fields.quantity} placeholder="200"
                   id={COMPONENT_IDS.ADD_MEDICATION_QUANTITY} />
               </Grid.Column>
-              <Grid.Column className='checkbox-column'>
-                <Form.Checkbox label='Donated' name='donated' onChange={handleChange} checked={fields.donated}/>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Donated</label>
+                  <Form.Group>
+                    <Form.Checkbox name='donated' className='donated-field'
+                      onChange={handleCheck} checked={fields.donated}/>
+                    <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
+                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} />
+                  </Form.Group>
+                </Form.Field>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>

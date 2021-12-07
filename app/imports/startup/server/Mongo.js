@@ -6,6 +6,7 @@ import { Locations } from '../../api/location/LocationCollection';
 import { Sites } from '../../api/site/SiteCollection';
 import { Historicals } from '../../api/historical/HistoricalCollection';
 import { Supplys } from '../../api/supply/SupplyCollection';
+import { Vaccinations } from '../../api/vaccination/VaccinationCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
@@ -19,6 +20,7 @@ const jsonData = JSON.parse(Assets.getText(assetsFileName));
 const sampleMedication = JSON.parse(Assets.getText('sample_medication.json'));
 const sampleSupply = JSON.parse(Assets.getText('sample_supply.json'));
 const sampleHistorical = JSON.parse(Assets.getText('historicals.json'));
+const sampleVaccines = JSON.parse(Assets.getText('sample_vaccines.json'));
 
 // Initialize the StuffsCollection if empty.
 if (Stuffs.count() === 0) {
@@ -63,4 +65,9 @@ if (Meteor.settings.loadAssetsFile && Supplys.count() === 0) {
   // Supplys._collection.remove({});
   console.log('Loading supplies from private/sample_supply.json');
   sampleSupply.map(supply => Supplys.define(supply));
+}
+
+if (Meteor.settings.loadAssetsFile && Vaccinations.count() === 0) {
+  console.log('Loading vaccines from private/sample_vaccines.json');
+  sampleVaccines.map(vaccine => Vaccinations.define(vaccine));
 }
