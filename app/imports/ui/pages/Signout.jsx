@@ -19,7 +19,7 @@ const Signout = () => {
               <Icon name='home'/> HOME
             </Button>
             <Button as={NavLink} activeClassName="" exact to="/signin" key='signin' size='huge'
-              inverted colored>LOGIN</Button>
+              inverted>LOGIN</Button>
           </Button.Group>
         </Grid.Row>
       </Grid>
