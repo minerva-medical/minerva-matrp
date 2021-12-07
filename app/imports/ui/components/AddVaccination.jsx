@@ -154,13 +154,12 @@ const AddVaccination = ({ ready, vaccines, locations, lotIds, brands }) => {
     const target = Vaccinations.findOne({ vaccine });
     // if the drug exists:
     if (target) {
-      // autofill the form with specific drug info
+      // autofill the form with specific vaccine info
       const { minQuantity, lotIds: lotIdObjs } = target;
       setFields({ ...fields, vaccine, minQuantity });
       // filter lotIds and brands
       // TODO: sort?
       setFilteredLotIds(_.pluck(lotIdObjs, 'lotId'));
-      // setFilteredBrands(_.uniq(_.pluck(lotIdObjs, 'brand')));
     } else {
       // else reset specific drug info
       setFields({ ...fields, vaccine, minQuantity: '', expire: '', visDate: '',
@@ -193,7 +192,7 @@ const AddVaccination = ({ ready, vaccines, locations, lotIds, brands }) => {
   // handles brand select
   const onBrandSelect = (event, { value: brand }) => {
     setFields({ ...fields, brand });
-    // filter drugs
+    // filter vaccines
     const filter = distinct('vaccine', Vaccinations, { brand });
     if (filter.length && !fields.vaccine) {
       setFilteredVaccines(filter);
