@@ -101,4 +101,5 @@ export const COMPONENT_IDS = {
   DISPENSE_MED_QUANTITY: 'dispense-med-quantity',
   DISPENSE_MED_NOTES: 'dispense-med-notes',
   DISPENSE_MED_CLEAR: 'dispense-med-clear',
+  NAVBAR_MANAGE_DROPDOWN_USERS: 'navbar-manage-dropdown-users',
 };
