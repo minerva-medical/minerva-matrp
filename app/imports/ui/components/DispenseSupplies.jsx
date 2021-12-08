@@ -20,7 +20,7 @@ const submit = (data, callback) => {
   const collectionName = Supplys.getCollectionName();
   const supplyItem = Supplys.findOne({ supply }); // find the existing supply
   const { _id, stock } = supplyItem;
-  const targetIndex = stock.findIndex((obj => obj.location && obj.quantity)); // find the index of existing the supply
+  const targetIndex = stock.findIndex((obj => obj.quantity)); // find the index of existing the supply
   const { quantity: targetQuantity } = stock[targetIndex];
 
   // if dispense quantity > supply quantity:
