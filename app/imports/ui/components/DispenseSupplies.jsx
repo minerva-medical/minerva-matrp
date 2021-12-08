@@ -3,6 +3,7 @@ import { Grid, Header, Form, Button, Tab, Loader, Dropdown } from 'semantic-ui-r
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { _ } from 'meteor/underscore';
 import swal from 'sweetalert';
 import moment from 'moment';
 import { Sites } from '../../api/site/SiteCollection';
@@ -10,31 +11,32 @@ import { Supplys } from '../../api/supply/SupplyCollection';
 import { dispenseTypes } from '../../api/historical/HistoricalCollection';
 import { distinct, getOptions } from '../utilities/Functions';
 import { defineMethod, updateMethod } from '../../api/base/BaseCollection.methods';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Locations } from '../../api/location/LocationCollection';
 
 /** handle submit for Dispense Supply. */
 const submit = (data, callback) => {
   const { supply, quantity } = data;
   const collectionName = Supplys.getCollectionName();
-  const supplyItem = Supplys.findOne({ supply }); // find the existing medication
+  const supplyItem = Supplys.findOne({ supply }); // find the existing supply
   const { _id, stock } = supplyItem;
-  const targetIndex = stock.findIndex((obj => obj.quantity)); // find the index of existing the lotId
+  const targetIndex = stock.findIndex((obj => obj.quantity)); // find the index of existing the supply
   const { quantity: targetQuantity } = stock[targetIndex];
 
-  // if dispense quantity > stock quantity:
+  // if dispense quantity > supply quantity:
   if (quantity > targetQuantity) {
     swal('Error', `${supply} only has ${targetQuantity}`, 'error');
   } else {
-    // if dispense quantity < stock quantity:
+    // if dispense quantity < supply quantity:
     if (quantity < targetQuantity) {
       stock[targetIndex].quantity -= quantity; // decrement the quantity
     } else {
-      // else if dispense quantity === stock quantity:
-      supply.splice(targetIndex, 1); // remove the supply
+      // else if dispense quantity === supply quantity:
+      stock.splice(targetIndex, 1); // remove the stock
     }
     const updateData = { id: _id, stock };
-    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, supplyType } = data;
-    const element = { supplyType, quantity };
-    // const { drug, quantity, unit, brand, lotId, expire, note, ...definitionData } = data;
+    const { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, note, supplyType, donated, donatedBy } = data;
+    const element = { supplyType, quantity, donated, donatedBy };
     const definitionData = { inventoryType, dispenseType, dateDispensed, dispensedFrom, dispensedTo, site, name: supply, note, element };
     const promises = [updateMethod.callPromise({ collectionName, updateData }),
       defineMethod.callPromise({ collectionName: 'HistoricalsCollection', definitionData })];
@@ -58,7 +60,7 @@ const validateForm = (data, callback) => {
 
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity'];
+  const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity', 'donated'];
 
   // check required fields
   requiredFields.forEach(field => {
@@ -76,7 +78,7 @@ const validateForm = (data, callback) => {
 };
 
 /** Renders the Page for Dispensing Supply. */
-const DispenseSupplies = ({ ready, sites, supplys }) => {
+const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
   const [fields, setFields] = useState({
     site: '',
     dateDispensed: moment().format('YYYY-MM-DDTHH:mm'),
@@ -89,9 +91,15 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
     dispenseType: 'Patient Use',
     donated: false,
     donatedBy: '',
+    location: '',
   });
   const [maxQuantity, setMaxQuantity] = useState(0);
   const isDisabled = fields.dispenseType !== 'Patient Use';
+  const [filteredLocation, setFilteredLocation] = useState([]);
+  const [newLocations, setNewLocations] = useState([]);
+  useEffect(() => {
+    setNewLocations(locations);
+  }, [locations]);
 
   // update date dispensed every minute
   useEffect(() => {
@@ -116,25 +124,32 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
   // handle supply select
   const onSupplySelect = (event, { value: supply }) => {
     const target = Supplys.findOne({ supply });
-    // if lotId is not empty:
+    // if supply is not empty:
     if (target) {
-      // autofill the form with specific lotId info
-      const { supplyType, stock } = target;
+      // autofill the form with specific supply info
+      const { supplyType, stock: stockObjs } = target;
+      setFilteredLocation(_.pluck(stockObjs, 'location'));
       const targetStockQuantity = target.stock.find(obj => obj.quantity);
-      const { quantity } = targetStockQuantity;
-      const autoFields = { ...fields, supply, supplyType, stock };
+      const { quantity, donated, donatedBy } = targetStockQuantity;
+      const autoFields = { ...fields, supply, supplyType, donated, donatedBy };
       setFields(autoFields);
       setMaxQuantity(quantity);
     } else {
-      // else reset specific lotId info
-      setFields({ ...fields });
+      // else reset specific supply info
+      setFields({ ...fields, supply, supplyType: '', stock: '', location: '', donatedBy: '' });
       setMaxQuantity(0);
     }
   };
 
+  const onLocationSelect = (event, { value: location }) => {
+    setFields({ ...fields, location });
+  };
+
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
-      dispensedTo: '', note: '', donated: false, donatedBy: '' });
+      dispensedTo: '', location: '', note: '' });
+    setMaxQuantity(0);
+    setFilteredLocation(newLocations);
   };
 
   if (ready) {
@@ -154,7 +169,7 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
+                <Form.Input clearable type="datetime-local" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
@@ -162,29 +177,36 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
-                  value={'' || Meteor.user().username} readOnly/>             </Grid.Column>
-              <Grid.Column>
-                <Form.Input label='Dispensed To' placeholder="Patient Number"
-                  disabled={isDisabled} name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}/>
+                <Form.Input clearable label='Dispensed By' name='dispensedFrom' onChange={handleChange}
+                  value={'' || Meteor.user().username} readOnly/>
               </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
               <Grid.Column>
                 <Form.Select clearable search label='Site' options={getOptions(sites)}
                   placeholder="Kaka’ako" name='site'
                   onChange={handleChange} disabled={isDisabled}/>
               </Grid.Column>
               <Grid.Column>
+                <Form.Input clearable label='Dispensed To' placeholder="Patient Number"
+                  disabled={isDisabled} name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}
+                  id={COMPONENT_IDS.DISPENSE_SUP_PT_NUM}/>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
                 <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
                   name='supply' onChange={onSupplySelect} value={fields.supply}/>
               </Grid.Column>
               <Grid.Column>
+                <Form.Select clearable search label='Location' options={getOptions(filteredLocation)}
+                  placeholder="Case 2" onChange={onLocationSelect}
+                  name='supply' value={fields.location}/>
+              </Grid.Column>
+              <Grid.Column>
                 <Form.Group>
-                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
+                  <Form.Input clearable label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
-                    onChange={handleChange} value={fields.quantity} placeholder='30'/>
+                    onChange={handleChange} value={fields.quantity} placeholder='30' id={COMPONENT_IDS.DISPENSE_SUP_QUANTITY}/>
                 </Form.Group>
               </Grid.Column>
             </Grid.Row>
@@ -212,7 +234,7 @@ const DispenseSupplies = ({ ready, sites, supplys }) => {
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button' onClick={clearForm}>Clear Fields</Button>
+          <Button className='clear-button' onClick={clearForm} id={COMPONENT_IDS.DISPENSE_SUP_CLEAR}>Clear Fields</Button>
           <Button className='submit-button' floated='right' onClick={() => validateForm(fields, clearForm)}>Submit</Button>
         </div>
       </Tab.Pane>
@@ -226,6 +248,7 @@ DispenseSupplies.propTypes = {
   currentUser: PropTypes.object,
   sites: PropTypes.array.isRequired,
   supplys: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -233,11 +256,14 @@ DispenseSupplies.propTypes = {
 export default withTracker(() => {
   const supSub = Supplys.subscribeSupply();
   const siteSub = Sites.subscribeSite();
+  const locationSub = Locations.subscribeLocation();
+
   return {
     // TODO: exclude 'N/A'
     currentUser: Meteor.user(),
     sites: distinct('site', Sites),
     supplys: distinct('supply', Supplys),
-    ready: siteSub.ready() && supSub.ready(),
+    locations: distinct('location', Locations),
+    ready: siteSub.ready() && supSub.ready() && locationSub.ready(),
   };
 })(DispenseSupplies);

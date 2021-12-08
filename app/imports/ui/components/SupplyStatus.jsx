@@ -91,11 +91,10 @@ const SupplyStatus = ({ ready, supplies, locations }) => {
         </Header>
         <Grid>
           <Grid.Column width={4}>
-            <Input placeholder='Filter by supply name...' icon='search'
-              onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.SUPPLY_FILTER}/>
             <Popup
-              trigger={<Icon name='question circle' color="blue"/>}
-              content='This allows you to filter the inventory by supply name and location.'
+              trigger={<Input placeholder='Filter by supply name...' icon='search'
+                onChange={handleSearch} value={searchQuery} id={COMPONENT_IDS.SUPPLY_FILTER} />}
+              content='This allows you to filter the Inventory by supply name.'
               inverted
             />
           </Grid.Column>
