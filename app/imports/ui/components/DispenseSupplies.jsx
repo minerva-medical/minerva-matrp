@@ -60,7 +60,7 @@ const validateForm = (data, callback) => {
 
   let errorMsg = '';
   // the required String fields
-  const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity', 'donated'];
+  const requiredFields = ['dispensedTo', 'site', 'supply', 'quantity'];
 
   // check required fields
   requiredFields.forEach(field => {
@@ -136,7 +136,7 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
       setMaxQuantity(quantity);
     } else {
       // else reset specific supply info
-      setFields({ ...fields, supply, supplyType: '', stock: '', location: '', donatedBy: '' });
+      setFields({ ...fields, supply, supplyType: '', stock: '', location: '', donated: false, donatedBy: '' });
       setMaxQuantity(0);
     }
   };
@@ -147,7 +147,7 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
 
   const clearForm = () => {
     setFields({ ...fields, site: '', supply: '', supplyType: '', quantity: '',
-      dispensedTo: '', location: '', note: '' });
+      dispensedTo: '', location: '', donated: false, donatedBy: '', note: '' });
     setMaxQuantity(0);
     setFilteredLocation(newLocations);
   };
