@@ -106,4 +106,5 @@ export const COMPONENT_IDS = {
   DISPENSE_SUP_QUANTITY: 'dispense-sup-quantity',
   DISPENSE_SUP_PT_NUM: 'dispense-sup-pt-num',
   DISPENSE_SUP_CLEAR: 'dispense-sup-clear',
+  NAVBAR_MANAGE_DROPDOWN_USERS: 'navbar-manage-dropdown-users',
 };

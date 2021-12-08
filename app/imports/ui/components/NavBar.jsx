@@ -40,34 +40,23 @@ const NavBar = ({ currentUser }) => {
                   <Dropdown.Menu>
                     <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="active" exact
                       to="/about"
-                      key='list'>
-                          About us
-                    </Dropdown.Item>
+                      key='list' content="About us"/>
                     <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_INVENTORY} as={NavLink} activeClassName="active"
                       exact
                       to="/add"
-                      key='add' position="right">Add to Inventory
-                    </Dropdown.Item>
+                      key='add' position="right" content="Add to Inventory"/>
                     <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DISPENSE} as={NavLink} activeClassName="active" exact
                       to="/dispense"
-                      key='dispense'>
-                          Dispense Inventory
-                    </Dropdown.Item>
+                      key='dispense' content="Dispense Inventory"/>
                     <Dropdown.Item id={COMPONENT_IDS.NAVBAR_STATUS} as={NavLink} activeClassName="active" exact
                       to="/status"
-                      key='status'>
-                          Inventory Status
-                    </Dropdown.Item>
+                      key='status' content='Inventory Status'/>
                     <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DISPENSE_LOG} as={NavLink} activeClassName="active"
                       exact
-                      to="/dispense-log" key='dispense-log'>
-                          Dispense Log
-                    </Dropdown.Item>
+                      to="/dispense-log" key='dispense-log' content='Dispense Log'/>
                     <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWNS} as={NavLink} activeClassName="active"
                       exact
-                      to="/manage-dropdowns" key='manage-dropdowns'>
-                          Manage Dropdowns
-                    </Dropdown.Item>
+                      to="/manage-dropdowns" key='manage-dropdowns' content='Manage Dropdowns'/>
                   </Dropdown.Menu>
                 </Dropdown>
               </Menu.Item>,
@@ -75,16 +64,19 @@ const NavBar = ({ currentUser }) => {
           ) : ''
         }
         {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
-          [<Menu.Item id={COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN} as={NavLink} activeClassName="active" exact
-            to="/admin" key='admin'>Admin</Menu.Item>,
-          <Dropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} item text="Manage" key="manage-dropdown">
-            <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database"
-                as={NavLink} exact to="/manage-database" content="Database"/>
-            </Dropdown.Menu>
-          </Dropdown>]
+          [<Menu.Item key='admin' fitted>
+            <Dropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} key="manage-dropdown" icon='setting'>
+              <Dropdown.Menu>
+                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN} as={NavLink} activeClassName="active" exact
+                  to="/admin" key='admin' content='Admin'/>
+                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database"
+                  as={NavLink} exact to="/manage-database" content="Database"/>
+                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_USERS} key="user-management" as={NavLink} exact to="/user-management" content="User Management" />
+              </Dropdown.Menu>
+            </Dropdown>
+          </Menu.Item>]
         ) : ''}
-        <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS_NOTIFICATION} size='mini' >
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_STATUS_NOTIFICATION} size='tiny' fitted>
           <StatusNotification/>
         </Menu.Item>
         <Menu.Item position="right" fitted>
