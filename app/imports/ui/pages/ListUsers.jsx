@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Table, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { Users } from '../../api/user/UserCollection';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
 import UserItem from '../components/UserItem';
@@ -42,11 +41,11 @@ ListUsers.propTypes = {
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
   // Get access to admin documents.
-  const subscription = Users.subscribe();
+  const subscription = AdminProfiles.subscribe();
   // Determine if the subscription is ready
   const ready = subscription.ready();
   // Get the admin documents.
-  const admins = Users.find({}).fetch();
+  const admins = AdminProfiles.find({}).fetch();
 
   // Get access to regular user documents.
   const userSubscription = UserProfiles.subscribe();
