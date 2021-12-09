@@ -55,9 +55,6 @@ class DispensePage {
     await t.wait(2000);
     await t.typeText(`#${COMPONENT_IDS.DISPENSE_SUP_QUANTITY}`, '10');
     await t.wait(2000);
-    await t.click(`#${COMPONENT_IDS.DISPENSE_SUP_DONATED}`);
-    await t.typeText(`#${COMPONENT_IDS.DISPENSE_SUP_DONATED_INPUT}`, 'Patient');
-    await t.wait(2000);
     await t.typeText(`#${COMPONENT_IDS.DISPENSE_SUP_NOTES}`, 'Testing');
     await t.wait(2000);
     await t.click(`#${COMPONENT_IDS.DISPENSE_SUP_CLEAR}`);

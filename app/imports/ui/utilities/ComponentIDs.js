@@ -122,4 +122,6 @@ export const COMPONENT_IDS = {
   ADD_SUPPLY_NOTES: 'add-supply-notes',
   ADD_SUPPLY_CLEAR: 'add-supply-clear',
   ADD_SUPPLY_SUBMIT: 'add-supply-submit',
+  SUPPLY_LOCATION: 'add-supply-submit',
+  SUPPLY_INVENTORY: 'add-supply-inventory',
 };

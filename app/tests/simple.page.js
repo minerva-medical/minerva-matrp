@@ -18,4 +18,5 @@ class SimplePage {
 
 export const aboutUsPage = new SimplePage(PAGE_IDS.ABOUT_US);
 export const manageDatabasePage = new SimplePage(PAGE_IDS.MANAGE_DATABASE);
+export const userManagementPage = new SimplePage(PAGE_IDS.USER_MANAGEMENT);
 export const signOutPage = new SimplePage(PAGE_IDS.SIGN_OUT);

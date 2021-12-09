@@ -16,6 +16,16 @@ class StatusPage {
     this.invenStatusOption = this.invenStatus().find('span');
     this.numOfRecords = Selector(`#${COMPONENT_IDS.NUM_OF_RECORDS}`);
     this.recordsOption = this.numOfRecords().find('span');
+    this.vaccBrand = Selector(`#${COMPONENT_IDS.VACCINE_BRAND}`);
+    this.vaccBrandOption = this.vaccBrand().find('span');
+    this.vaccLocation = Selector(`#${COMPONENT_IDS.MEDICATION_LOCATION}`);
+    this.vaccLocationOption = this.vaccLocation().find('span');
+    this.vaccStatus = Selector(`#${COMPONENT_IDS.INVENTORY_STATUS}`);
+    this.vaccStatusOption = this.vaccStatus().find('span');
+    this.suppLocation = Selector(`#${COMPONENT_IDS.SUPPLY_LOCATION}`);
+    this.suppLocationOption = this.suppLocation().find('span');
+    this.suppInventory = Selector(`#${COMPONENT_IDS.SUPPLY_INVENTORY}`);
+    this.suppInventoryOption = this.suppInventory().find('span');
   }
 
   /** Asserts that this page is currently displayed. */
@@ -81,6 +91,30 @@ class StatusPage {
     await t.wait(2000);
     await t.click(this.numOfRecords).click(this.recordsOption.withText('25'));
     await t.wait(2000);
+    await t.click(`#${COMPONENT_IDS.STATUS_TAB_TWO}`);
+    await t.wait(2000);
+    await t.click(this.vaccBrand).click(this.vaccBrandOption.withText('sanofi'));
+    await t.wait(2000);
+    await t.click(this.vaccBrand).click(this.vaccBrandOption.withText('All'));
+    await t.wait(2000);
+    await t.click(this.vaccLocation).click(this.vaccLocationOption.withText('Refrigerator'));
+    await t.wait(2000);
+    await t.click(this.vaccLocation).click(this.vaccLocationOption.withText('All'));
+    await t.wait(2000);
+    await t.click(this.vaccStatus).click(this.vaccStatusOption.withText('In Stock'));
+    await t.wait(2000);
+    await t.click(this.vaccStatus).click(this.vaccStatusOption.withText('All'));
+    await t.wait(2000);
+    await t.click(`#${COMPONENT_IDS.STATUS_TAB_THREE}`);
+    await t.wait(2000);
+    await t.click(this.suppLocation).click(this.suppLocationOption.withText('Back Cabinet'));
+    await t.wait(2000);
+    await t.click(this.suppLocation).click(this.suppLocationOption.withText('All'));
+    await t.wait(2000);
+    await t.click(this.suppInventory).click(this.suppInventoryOption.withText('In Stock'));
+    await t.wait(2000);
+    await t.click(this.suppInventory).click(this.suppInventoryOption.withText('All'));
+    await t.wait(1000);
   }
 
 }

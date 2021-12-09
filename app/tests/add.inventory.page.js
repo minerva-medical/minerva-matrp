@@ -53,9 +53,6 @@ class AddInventoryPage {
     await t.click(this.vaccLot).click(this.vaccLotOption.withText('DbzPde'));
     await t.typeText(`#${COMPONENT_IDS.ADD_VACCINATION_QUANTITY}`, '100');
     await t.wait(2000);
-    await t.click(`#${COMPONENT_IDS.ADD_VACCINATION_DONATED}`);
-    await t.typeText(`#${COMPONENT_IDS.ADD_VACCINATION_DONATED_INPUT}`, 'Patient');
-    await t.wait(2000);
     await t.click(`#${COMPONENT_IDS.ADD_VACCINATION_CLEAR}`);
   }
 

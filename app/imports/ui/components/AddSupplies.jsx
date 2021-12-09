@@ -97,6 +97,12 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
     }
   };
 
+  const clearForm = () => {
+    setFields({ supply: '', supplyType: [], minQuantity: '', quantity: '', location: '', donated: false, donatedBy: '', note: '' });
+    setFilteredSupplys(filteredSupplys);
+    setNewSupplys(newSupplys);
+  };
+
   if (ready) {
     return (
       <Tab.Pane id={COMPONENT_IDS.ADD_FORM}>
@@ -173,7 +179,7 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button' id={COMPONENT_IDS.ADD_SUPPLY_CLEAR}>Clear Fields</Button>
+          <Button className='clear-button' id={COMPONENT_IDS.ADD_SUPPLY_CLEAR} onClick={clearForm}>Clear Fields</Button>
           <Button className='submit-button' floated='right' onClick={() => validateForm(fields)} id={COMPONENT_IDS.ADD_SUPPLY_SUBMIT}>Submit</Button>
         </div>
       </Tab.Pane>

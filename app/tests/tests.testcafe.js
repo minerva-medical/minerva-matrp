@@ -3,6 +3,7 @@ import {
   manageDatabasePage,
   signOutPage,
   aboutUsPage,
+  userManagementPage,
 } from './simple.page';
 import { signInPage } from './signin.page';
 import { navBar } from './navbar.component';
@@ -130,6 +131,9 @@ test('Test that admin pages display', async () => {
   // const editLinks = await Selector(`.${COMPONENT_IDS.LIST_STUFF_EDIT}`);
   // await t.click(editLinks.nth(0));
   // await editStuffPage.isDisplayed();
+  await navBar.gotoUserManagemenPage();
+  await userManagementPage.isDisplayed();
+  await t.wait(5000);
   await navBar.gotoManageDatabasePage();
   await manageDatabasePage.isDisplayed();
   await t.wait(5000);
