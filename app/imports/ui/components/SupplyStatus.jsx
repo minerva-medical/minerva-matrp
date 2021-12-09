@@ -105,12 +105,12 @@ const SupplyStatus = ({ ready, supplies, locations }) => {
             <Grid.Column>
               Supply Location: {' '}
               <Dropdown inline options={getFilters(locations)} search
-                onChange={handleLocationFilter} value={locationFilter} />
+                onChange={handleLocationFilter} value={locationFilter} id={COMPONENT_IDS.SUPPLY_LOCATION}/>
             </Grid.Column>
             <Grid.Column>
               Inventory Status: {' '}
               <Dropdown inline options={statusOptions} search
-                onChange={handleStatusFilter} value={statusFilter}/>
+                onChange={handleStatusFilter} value={statusFilter} id={COMPONENT_IDS.SUPPLY_INVENTORY}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -169,7 +169,7 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
           <Grid columns='equal' stackable>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input clearable type="datetime-local" label='Date Dispensed' name='dateDispensed'
+                <Form.Input type="datetime-local" label='Date Dispensed' name='dateDispensed'
                   onChange={handleChange} value={fields.dateDispensed}/>
               </Grid.Column>
               <Grid.Column className='filler-column' />
@@ -177,34 +177,34 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Input clearable label='Dispensed By' name='dispensedFrom' onChange={handleChange}
+                <Form.Input label='Dispensed By' name='dispensedFrom' onChange={handleChange}
                   value={'' || Meteor.user().username} readOnly/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Site' options={getOptions(sites)}
+                <Form.Select search label='Site' options={getOptions(sites)}
                   placeholder="Kaka’ako" name='site'
-                  onChange={handleChange} disabled={isDisabled}/>
+                  onChange={handleChange} disabled={isDisabled} id={COMPONENT_IDS.DISPENSE_SUP_SITE}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Input clearable label='Dispensed To' placeholder="Patient Number"
+                <Form.Input label='Dispensed To' placeholder="Patient Number"
                   disabled={isDisabled} name='dispensedTo' onChange={handleChange} value={fields.dispensedTo}
                   id={COMPONENT_IDS.DISPENSE_SUP_PT_NUM}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.Select clearable search label='Supply Name' options={getOptions(supplys)}
+                <Form.Select search label='Supply Name' options={getOptions(supplys)}
                   placeholder="Wipes & Washables/Test Strips/Brace"
-                  name='supply' onChange={onSupplySelect} value={fields.supply}/>
+                  name='supply' onChange={onSupplySelect} value={fields.supply} id={COMPONENT_IDS.DISPENSE_SUP_NAME}/>
               </Grid.Column>
               <Grid.Column>
-                <Form.Select clearable search label='Location' options={getOptions(filteredLocation)}
+                <Form.Select search label='Location' options={getOptions(filteredLocation)}
                   placeholder="Case 2" onChange={onLocationSelect}
-                  name='supply' value={fields.location}/>
+                  name='supply' value={fields.location} id={COMPONENT_IDS.DISPENSE_SUP_LOCATION}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Group>
-                  <Form.Input clearable label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
+                  <Form.Input label={maxQuantity ? `Quantity (${maxQuantity} remaining)` : 'Quantity'}
                     type='number' min={1} name='quantity' className='quantity'
                     onChange={handleChange} value={fields.quantity} placeholder='30' id={COMPONENT_IDS.DISPENSE_SUP_QUANTITY}/>
                 </Form.Group>
@@ -216,9 +216,9 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
                   <label>Donated</label>
                   <Form.Group>
                     <Form.Checkbox name='donated' className='donated-field'
-                      onChange={handleCheck} checked={fields.donated}/>
+                      onChange={handleCheck} checked={fields.donated} id={COMPONENT_IDS.DISPENSE_SUP_DONATED}/>
                     <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
-                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} />
+                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} id={COMPONENT_IDS.DISPENSE_SUP_DONATED_INPUT}/>
                   </Form.Group>
                 </Form.Field>
               </Grid.Column>
@@ -228,7 +228,8 @@ const DispenseSupplies = ({ ready, sites, supplys, locations }) => {
             <Grid.Row>
               <Grid.Column>
                 <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
-                  placeholder="Please add any additional notes, special instructions, or information that should be known here."/>
+                  placeholder="Please add any additional notes, special instructions, or information that should be known here."
+                  id={COMPONENT_IDS.DISPENSE_SUP_NOTES}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>

@@ -282,7 +282,7 @@ const AddVaccination = ({ ready, vaccines, locations, lotIds, brands }) => {
                     <Form.Checkbox name='donated' className='donated-field'
                       onChange={handleCheck} checked={fields.donated} id={COMPONENT_IDS.ADD_VACCINATION_DONATED}/>
                     <Form.Input name='donatedBy' className='donated-by-field' placeholder='Donated By'
-                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated}/>
+                      onChange={handleChange} value={fields.donatedBy} disabled={!fields.donated} id={COMPONENT_IDS.ADD_VACCINATION_DONATED_INPUT}/>
                   </Form.Group>
                 </Form.Field>
               </Grid.Column>
