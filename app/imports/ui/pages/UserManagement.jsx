@@ -27,7 +27,8 @@ const UserManagement = () => (
           <Image
             size="large"
             src="/images/list-user.png"
-            href="#"/>
+            as={NavLink}
+            exact to="/list-users"/>
         </Grid.Column>
       </Grid.Row>
     </Grid>
