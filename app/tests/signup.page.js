@@ -1,5 +1,4 @@
 import { Selector, t } from 'testcafe';
-import { navBar } from './navbar.component';
 import { PAGE_IDS } from '../imports/ui/utilities/PageIDs';
 import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
@@ -19,8 +18,6 @@ class SignupPage {
     await this.isDisplayed();
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_EMAIL}`, username);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}`, password);
-    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_SUBMIT}`);
-    await navBar.isLoggedIn(username);
   }
 }
 

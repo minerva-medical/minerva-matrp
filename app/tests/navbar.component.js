@@ -56,6 +56,12 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_ABOUT_US}`);
   }
 
+  async gotoUserManagemenPage() {
+    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
+    await t.click(`#${COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_USERS}`);
+  }
+
   /** Go to the Add inventory page. */
   async gotoAddInventoryPage() {
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();

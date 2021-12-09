@@ -28,7 +28,7 @@ const submit = (data, callback) => {
         callback(); // resets the form
       });
   } else {
-    console.log('I don\'t think it should ever get here so this can probably be deleted');
+    // console.log('I don\'t think it should ever get here so this can probably be deleted');
     const { stock } = exists;
     const updateData = { id: exists._id, stock };
     updateMethod.callPromise({ collectionName, updateData })
@@ -40,7 +40,7 @@ const submit = (data, callback) => {
   }
 };
 
-/** validates the add medication form */
+/** validates the add supply form */
 const validateForm = (data, callback) => {
   const submitData = { ...data };
   let errorMsg = '';
@@ -63,7 +63,7 @@ const validateForm = (data, callback) => {
   }
 };
 
-/** Renders the Page for Dispensing Inventory. */
+/** Renders the Page for Add Supplies. */
 const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
   const [fields, setFields] = useState({
     supply: '',
@@ -75,7 +75,7 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
     donated: false,
     donatedBy: '',
   });
-  // a copy of drugs, lotIds, and brands and their respective filters
+  // a copy of supplies and filtered supplies and their respective filters
   const [newSupplys, setNewSupplys] = useState([]);
   useEffect(() => {
     setNewSupplys(supplys);
@@ -95,6 +95,12 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
     } else {
       setFields({ ...fields, [name]: checked });
     }
+  };
+
+  const clearForm = () => {
+    setFields({ supply: '', supplyType: [], minQuantity: '', quantity: '', location: '', donated: false, donatedBy: '', note: '' });
+    setFilteredSupplys(filteredSupplys);
+    setNewSupplys(newSupplys);
   };
 
   if (ready) {
@@ -144,12 +150,12 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
                 <Form.Field>
                   <label>Quantity</label>
                   <Input
-                    type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity'/>
+                    type='number' min={1} onChange={handleChange} value={fields.quantity} name='quantity' id={COMPONENT_IDS.ADD_SUPPLY_QUANTITY} />
                 </Form.Field>
               </Grid.Column>
               <Grid.Column>
                 <Form.Select clearable search label='Location' options={getOptions(locations, 'location')}
-                  name='location' onChange={handleChange} value={fields.location}/>
+                  name='location' onChange={handleChange} value={fields.location} id={COMPONENT_IDS.ADD_SUPPLY_LOCATION}/>
               </Grid.Column>
               <Grid.Column>
                 <Form.Field>
@@ -166,14 +172,15 @@ const AddSupplies = ({ supplys, supplyTypes, locations, ready }) => {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}/>
+                <Form.TextArea label='Additional Notes' name='note' onChange={handleChange} value={fields.note}
+                  id={COMPONENT_IDS.ADD_SUPPLY_NOTES}/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Form>
         <div className='buttons-div'>
-          <Button className='clear-button'>Clear Fields</Button>
-          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)}>Submit</Button>
+          <Button className='clear-button' id={COMPONENT_IDS.ADD_SUPPLY_CLEAR} onClick={clearForm}>Clear Fields</Button>
+          <Button className='submit-button' floated='right' onClick={() => validateForm(fields)} id={COMPONENT_IDS.ADD_SUPPLY_SUBMIT}>Submit</Button>
         </div>
       </Tab.Pane>
     );
