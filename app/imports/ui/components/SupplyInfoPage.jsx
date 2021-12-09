@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { Vaccinations } from '../../api/vaccination/VaccinationCollection';
+import { Supplys } from '../../api/supply/SupplyCollection';
 import { updateMethod } from '../../api/base/BaseCollection.methods';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
-const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand }) => {
+const SupplyInfoPage = ({ info, locate, quantity, note, donatedBy }) => {
 
   // useState for note field when editing notes.
   const [noteField, setNoteField] = useState(note);
@@ -37,12 +37,12 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
   };
 
   const submit = (data) => {
-    const exists = Vaccinations.findDoc(info._id);
-    const { lotIds } = exists;
-    const target = lotIds.find(obj => obj.lotId === lotId);
+    const exists = Supplys.findDoc(info._id);
+    const { stock } = exists;
+    const target = stock.find(obj => obj.location === locate);
     target.note = data;
-    const updateData = { id: info._id, lotIds };
-    const collectionName = Vaccinations.getCollectionName();
+    const updateData = { id: info._id, stock };
+    const collectionName = Supplys.getCollectionName();
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
@@ -62,16 +62,16 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
       .then((isConfirm) => {
         // if 'yes'
         if (isConfirm) {
-          const collectionName = Vaccinations.getCollectionName();
-          const vaccine = info.vaccine;
-          const vaccinations = Vaccinations.findOne({ vaccine });
-          const { _id, lotIds } = vaccinations;
-          const targetIndex = lotIds.findIndex((obj => obj.lotId === option));
-          lotIds.splice(targetIndex, 1);
-          const updateData = { id: _id, lotIds };
+          const collectionName = Supplys.getCollectionName();
+          const supply = info.supply;
+          const supplies = Supplys.findOne({ supply });
+          const { _id, stock } = supplies;
+          const targetIndex = stock.findIndex((obj => obj.location === option));
+          stock.splice(targetIndex, 1);
+          const updateData = { id: _id, stock };
           updateMethod.callPromise({ collectionName, updateData })
             .catch(error => swal('Error', error.message, 'error'))
-            .then(() => swal('Success', `${vaccine} updated successfully`, 'success', { buttons: false, timer: 3000 }));
+            .then(() => swal('Success', `${supply} updated successfully`, 'success', { buttons: false, timer: 3000 }));
 
         }
       });
@@ -81,9 +81,9 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button size='mini' circular icon='info' color='linkedin' id={COMPONENT_IDS.VACCINE_INFO_BUTTON}/>}
+      trigger={<Button size='mini' circular icon='info' color='linkedin' id={COMPONENT_IDS.SUPPLY_INFO_BUTTON}/>}
       size='large'
-      id={COMPONENT_IDS.VACCINE_INFO}
+      id={COMPONENT_IDS.SUPPLY_INFO}
     >
       <Modal.Header>Drug Information</Modal.Header>
       <Modal.Content image>
@@ -93,15 +93,14 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
               <ItemGroup relaxed>
                 <Item>
                   <ItemContent>
-                    <Header as='h2'>{info.vaccine}</Header>
+                    <Header as='h2'>{info.supply}</Header>
                     <ItemDescription>
                       <List size='large'>
-                        <ListItem><ListHeader>Brand</ListHeader> {brand}</ListItem>
-                        <ListItem><ListHeader>Lot Number</ListHeader>{lotId}</ListItem>
-                        <ListItem><ListHeader>Expiration Date</ListHeader>{expire}</ListItem>
+                        <ListItem><ListHeader>Supply Type</ListHeader> {info.supplyType}</ListItem>
                         <ListItem><ListHeader>Minimum Quantity</ListHeader>{info.minQuantity}</ListItem>
                         <ListItem><ListHeader>Quantity in Stock</ListHeader>{quantity}</ListItem>
                         <ListItem><ListHeader>Location</ListHeader>{locate}</ListItem>
+                        <ListItem><ListHeader>Donated By</ListHeader>{donatedBy}</ListItem>
                       </List>
                     </ItemDescription>
                   </ItemContent>
@@ -126,11 +125,11 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={() => setOpen(false)} id={COMPONENT_IDS.VACCINE_INFO_CLOSE}>
+        <Button color='black' onClick={() => setOpen(false)} id={COMPONENT_IDS.SUPPLY_INFO_CLOSE}>
             Close
         </Button>
         <Button
-          id={COMPONENT_IDS.VACCINE_EDIT}
+          id={COMPONENT_IDS.SUPPLY_INFO_EDIT}
           content="Edit"
           labelPosition='right'
           icon='edit'
@@ -142,7 +141,7 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
           labelPosition='right'
           icon='trash alternate'
           color='red'
-          onClick={() => deleteOption(lotId)}
+          onClick={() => deleteOption(locate)}
         />
       </Modal.Actions>
       <Modal
@@ -153,21 +152,21 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
         <Modal.Header>Edit Notes</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Grid id={COMPONENT_IDS.VACCINE_EDIT_NOTE} container centered>
+            <Grid id={COMPONENT_IDS.SUPPLY_EDIT_NOTE} container centered>
               <Grid.Column>
-                <Header as="h3">{info.vaccine}</Header>
-                <Header as="h4" color='grey' style={{ marginTop: '10px' }}>Lot Number: {lotId}</Header>
+                <Header as="h3">{info.supply}</Header>
+                <Header as="h4" color='grey' style={{ marginTop: '10px' }}>Location: {locate}</Header>
                 <Form>
                   <Form.TextArea color='blue' label='Notes' name='note' onChange={handleNoteChange}
                     defaultValue={noteField}
-                    id={COMPONENT_IDS.ADD_VACCINATION_NOTES} style={{ minHeight: 200 }}/>
+                    id={COMPONENT_IDS.ADD_SUPPLY_INFO_NOTES} style={{ minHeight: 200 }}/>
                 </Form>
               </Grid.Column>
             </Grid>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='black' onClick={() => setSecondOpen(false)} id={COMPONENT_IDS.VACCINE_INFO_EDIT_CLOSE}>
+          <Button color='black' onClick={() => setSecondOpen(false)} id={COMPONENT_IDS.SUPPLY_INFO_EDIT_CLOSE}>
             Close
           </Button>
           <Button
@@ -185,15 +184,13 @@ const VaccineInfoPage = ({ info, lotId, expire, locate, quantity, note, brand })
 };
 
 // Require a document to be passed to this component.
-VaccineInfoPage.propTypes = {
+SupplyInfoPage.propTypes = {
   info: PropTypes.object.isRequired,
-  lotId: PropTypes.string,
-  brand: PropTypes.string,
-  expire: PropTypes.string,
   quantity: PropTypes.number,
   note: PropTypes.string,
   locate: PropTypes.string,
+  donatedBy: PropTypes.string,
 };
 
 // Wrap this component in withRouter since we use the <Link> React Router element.
-export default withRouter(VaccineInfoPage);
+export default withRouter(SupplyInfoPage);

@@ -131,4 +131,11 @@ export const COMPONENT_IDS = {
   VACCINE_EDIT_NOTE: 'vaccine-edit-note',
   VACCINE_INFO_EDIT_CLOSE: 'vaccine-edit-close',
   ADD_VACCINATION_NOTE: 'add-vaccination-note',
+  SUPPLY_INFO: 'supply-info',
+  SUPPLY_INFO_BUTTON: 'supply-info-button',
+  SUPPLY_INFO_CLOSE: 'supply-info-close',
+  SUPPLY_INFO_EDIT: 'supply-info-edit',
+  SUPPLY_INFO_EDIT_CLOSE: 'supply-info-edit-close',
+  SUPPLY_EDIT_NOTE: 'supply-edit-note',
+  ADD_SUPPLY_INFO_NOTES: 'add-supply-notes',
 };
