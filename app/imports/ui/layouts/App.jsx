@@ -25,6 +25,7 @@ import ManageDatabase from '../pages/ManageDatabase';
 import { ROLE } from '../../api/role/Role';
 import UserManagement from '../pages/UserManagement';
 import GenerateUsers from '../pages/GenerateUsers';
+import ListUsers from '../pages/ListUsers';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
         <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
         <AdminProtectedRoute path="/user-management" component={UserManagement}/>
         <AdminProtectedRoute path="/generate-new-users" component={GenerateUsers}/>
+        <AdminProtectedRoute path="/list-users" component={ListUsers}/>
         <Route component={NotFound}/>
       </Switch>
       {

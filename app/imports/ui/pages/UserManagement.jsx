@@ -1,8 +1,7 @@
 import React from 'react';
-import { Divider, Dropdown, Grid, Header, Image } from 'semantic-ui-react';
-import { PAGE_IDS } from '../utilities/PageIDs';
-import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Divider, Grid, Header, Image } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const UserManagement = () => (
   <div id='userManagement'>
@@ -27,7 +26,8 @@ const UserManagement = () => (
           <Image
             size="large"
             src="/images/list-user.png"
-            href="#"/>
+            as={NavLink}
+            exact to="/list-users"/>
         </Grid.Column>
       </Grid.Row>
     </Grid>
