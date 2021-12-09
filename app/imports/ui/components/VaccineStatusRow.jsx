@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import moment from 'moment';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import VaccineInfoPage from './VaccineInfoPage';
 
 const VaccineStatusRow = ({ vaccine }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,13 +69,13 @@ const VaccineStatusRow = ({ vaccine }) => {
             </Table.Header>
             <Table.Body>
               {
-                vaccine.lotIds.map(({ lotId, expire, location, quantity }, index) => (
+                vaccine.lotIds.map(({ lotId, expire, location, quantity, note }, index) => (
                   <Table.Row key={lotId} negative={isExpired[index]}>
                     <Table.Cell>{lotId}</Table.Cell>
                     <Table.Cell>{expire}</Table.Cell>
                     <Table.Cell>{location}</Table.Cell>
                     <Table.Cell>{quantity}</Table.Cell>
-                    <Table.Cell><Icon name='info circle' /></Table.Cell>
+                    <Table.Cell><VaccineInfoPage key={vaccine.lotIds._id} info={vaccine} lotId={lotId} brand={vaccine.brand} expire={expire} quantity={quantity} note={note} locate={location}/></Table.Cell>
                   </Table.Row>
                 ))
               }

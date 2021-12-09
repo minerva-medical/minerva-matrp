@@ -124,4 +124,11 @@ export const COMPONENT_IDS = {
   ADD_SUPPLY_SUBMIT: 'add-supply-submit',
   SUPPLY_LOCATION: 'add-supply-submit',
   SUPPLY_INVENTORY: 'add-supply-inventory',
+  VACCINE_INFO_BUTTON: 'vaccine-info-button',
+  VACCINE_INFO: 'vaccine-info',
+  VACCINE_INFO_CLOSE: 'vaccine-info-close',
+  VACCINE_EDIT: 'vaccine-edit',
+  VACCINE_EDIT_NOTE: 'vaccine-edit-note',
+  VACCINE_INFO_EDIT_CLOSE: 'vaccine-edit-close',
+  ADD_VACCINATION_NOTE: 'add-vaccination-note',
 };
