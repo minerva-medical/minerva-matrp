@@ -8,6 +8,12 @@ class DispensePage {
     this.pageSelector = Selector(this.pageId);
     this.lotType = Selector(`#${COMPONENT_IDS.DISPENSE_MED_LOT}`);
     this.lotTypeOption = this.lotType.find('span');
+    this.site = Selector(`#${COMPONENT_IDS.DISPENSE_SUP_SITE}`);
+    this.siteOption = this.site.find('span');
+    this.supplyName = Selector(`#${COMPONENT_IDS.DISPENSE_SUP_NAME}`);
+    this.supplyNameOption = this.supplyName.find('span');
+    this.supplyLocation = Selector(`#${COMPONENT_IDS.DISPENSE_SUP_LOCATION}`);
+    this.supplyLocationOption = this.supplyLocation.find('span');
   }
 
   /** Asserts that this page is currently displayed. */
@@ -39,7 +45,22 @@ class DispensePage {
 
   async dispensePatientSupplies() {
     await t.click(`#${COMPONENT_IDS.DISPENSE_TAB_THREE}`);
-    await t.wait(3000);
+    await t.click(this.site).click(this.siteOption.withText('POST'));
+    await t.wait(2000);
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_SUP_PT_NUM}`, '1234567');
+    await t.wait(2000);
+    await t.click(this.supplyName()).click(this.supplyNameOption().withText('Cold Packs'));
+    await t.wait(2000);
+    await t.click(this.supplyLocation()).click(this.supplyLocationOption().withText('Cabinet 1'));
+    await t.wait(2000);
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_SUP_QUANTITY}`, '10');
+    await t.wait(2000);
+    await t.click(`#${COMPONENT_IDS.DISPENSE_SUP_DONATED}`);
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_SUP_DONATED_INPUT}`, 'Patient');
+    await t.wait(2000);
+    await t.typeText(`#${COMPONENT_IDS.DISPENSE_SUP_NOTES}`, 'Testing');
+    await t.wait(2000);
+    await t.click(`#${COMPONENT_IDS.DISPENSE_SUP_CLEAR}`);
   }
 
   // async dispenseLabTestingSupplies() {
