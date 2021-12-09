@@ -5,7 +5,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /**
- * Signup component is similar to signin component, but we create a new user instead.
+ * Generates a new user with the credentials provided, and signs in as them.
  */
 const GenerateUsers = () => {
   const [email, setEmail] = useState('');
@@ -26,7 +26,7 @@ const GenerateUsers = () => {
     }
   };
 
-  /* Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
+  /* Handle submission. Create user account and a profile entry. */
   const submit = () => {
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
