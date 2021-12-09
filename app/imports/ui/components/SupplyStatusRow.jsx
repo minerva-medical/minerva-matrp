@@ -3,6 +3,7 @@ import { Icon, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import SupplyInfoPage from './SupplyInfoPage';
 
 const SupplyStatusRow = ({ supply }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +56,7 @@ const SupplyStatusRow = ({ supply }) => {
             </Table.Header>
             <Table.Body>
               {
-                supply.stock.map(({ location, quantity, donated }, index) => (
+                supply.stock.map(({ location, quantity, donated, donatedBy, note }, index) => (
                   <Table.Row key={index}>
                     <Table.Cell>{location}</Table.Cell>
                     <Table.Cell>{quantity}</Table.Cell>
@@ -65,7 +66,7 @@ const SupplyStatusRow = ({ supply }) => {
                         <Icon name='check' color='green'/>
                       }
                     </Table.Cell>
-                    <Table.Cell><Icon name='info circle' /></Table.Cell>
+                    <Table.Cell><SupplyInfoPage info={supply} locate={location} quantity={quantity} note={note} donatedBy={donatedBy}/></Table.Cell>
                   </Table.Row>
                 ))
               }
