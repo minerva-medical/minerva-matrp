@@ -1,6 +1,8 @@
 import React from 'react';
-import { Divider, Grid, Header, Image } from 'semantic-ui-react';
+import { Divider, Dropdown, Grid, Header, Image } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { NavLink } from 'react-router-dom';
 
 const UserManagement = () => (
   <div id='userManagement'>
@@ -12,7 +14,8 @@ const UserManagement = () => (
           <Image
             size="massive"
             src="/images/add-user.png"
-            href="/generate-new-users"/>
+            as={NavLink}
+            exact to="/generate-new-users"/>
         </Grid.Column>
         <Grid.Column computer={5} centered>
           <Image
