@@ -1,8 +1,8 @@
 import React from 'react';
-import { Divider, Dropdown, Grid, Header, Image } from 'semantic-ui-react';
-import { PAGE_IDS } from '../utilities/PageIDs';
-import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Divider, Grid, Header, Image } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+import { PAGE_IDS } from '../utilities/PageIDs';
+// import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const UserManagement = () => (
   <div id='userManagement'>
